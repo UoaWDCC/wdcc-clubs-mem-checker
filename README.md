@@ -4,7 +4,11 @@ Project initiated by WDCC in 2023.
 
 ### Overview
 
-MERN stack app with Typescript, Tailwind, and Prisma.
+FERN (Firebase, Express, React, Node) stack app with Typescript, Tailwind, and Prisma.
+
+### API Environment Variables:
+
+- PORT
 
 ## Team Leadership
 
