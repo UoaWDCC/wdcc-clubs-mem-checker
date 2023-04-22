@@ -1,4 +1,4 @@
-import { getTextColor } from "./Button";
+import { getTextColour } from "../utils/helpers";
 
 interface TextfieldProps {
   height?: string;
@@ -43,7 +43,7 @@ const Textfield = ({
           border: backgroundColor,
           borderRadius: "10px",
           padding: "10px",
-          color: getTextColor(backgroundColor),
+          color: getTextColour(backgroundColor),
           fontFamily: "Montserrat",
           fontSize,
           fontWeight,
