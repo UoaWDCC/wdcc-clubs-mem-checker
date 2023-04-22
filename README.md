@@ -14,3 +14,8 @@ FERN (Firebase, Express, React, Node) stack app with Typescript, Tailwind, and P
 
 - Serena Lau (Project Manager)
 - Alex McLeod (Tech Lead)
+
+## Project Management
+- [Ticket Backlog](https://github.com/orgs/UoaWDCC/projects/20/views/1)
+- [Current Sprint](https://github.com/orgs/UoaWDCC/projects/20/views/2)
+- [Milestones](https://github.com/UoaWDCC/wdcc-clubs-mem-checker/milestones)
