@@ -1,21 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { IndexPage } from './pages/index/page';
-import { ExamplePage } from './pages/example/page';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { IndexPage } from "./pages/index/page";
+import { ExamplePage } from "./pages/example/page";
+import CreateClub from "./components/create-club/CreateClub";
+import CreateCheckerPage from "./components/create-checker-page/CreateCheckerPage";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <IndexPage />,
   },
   {
-    path: '/example',
+    path: "/example",
     element: <ExamplePage />,
+  },
+  {
+    path: "/createClub",
+    element: <CreateClub />,
+  },
+  {
+    path: "/createCheckerPage",
+    element: <CreateCheckerPage />,
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <RouterProvider router={router} />
 );

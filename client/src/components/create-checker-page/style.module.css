@@ -1,0 +1,88 @@
+.container {
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  justify-content: space-between;
+  margin: auto;
+  padding: 50px 80px;
+  row-gap: 30px;
+  text-align: center;
+  width: 40%;
+}
+
+#progressBarContainer {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  left: 50px;
+  position: absolute;
+  row-gap: 3px;
+  top: 50px;
+}
+
+#progressBar {
+  column-gap: 4px;
+  display: flex;
+}
+
+button {
+  cursor: pointer;
+}
+
+.bar {
+  background-color: #ffd166;
+  border: none;
+  border-radius: 10px;
+  height: 8px;
+  opacity: 0.75;
+  width: 65px;
+}
+
+#backButton {
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+}
+
+#nextButton {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
+
+#customisePageContainer {
+  align-items: center;
+  column-gap: 50px;
+  display: flex;
+  width: 100%;
+  padding-top: 30px;
+}
+
+#customiseContainer {
+  align-items: center;
+  background-color: white;
+  border-radius: 0px 20px 20px 0px;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  padding: 20px 40px;
+  row-gap: 30px;
+  text-align: center;
+  width: 20%;
+}
+
+.previewContainer {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  width: 50%;
+}
+
+.preview {
+  background-color: lightgray;
+  border-radius: 20px;
+  height: 100%;
+}
