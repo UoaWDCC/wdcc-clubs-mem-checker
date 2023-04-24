@@ -7,8 +7,8 @@ config(); // Dotenv init
 
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_GOOGLE_CLIENT_SECRET;
-const REDIRECT_URI = 'http://localhost:3000/auth/google/callback';
-const SCOPES = ['profile', 'email'];
+const REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
+const SCOPES = ['profile', 'email', 'https://www.googleapis.com/auth/spreadsheets.readonly'];
 
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 
