@@ -1,7 +1,11 @@
 import { Router } from 'express';
 import { google } from 'googleapis';
+<<<<<<< HEAD
 import { sign } from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client'
+=======
+import { PrismaClient, UsersInOrganisation } from '@prisma/client'
+>>>>>>> 95c4e72 (added user to database)
 
 export const router = Router();
 const prisma = new PrismaClient();
@@ -45,6 +49,7 @@ router.get('/callback', async (req, res) => {
     if  (!data.email) {
         return res.status(503);
     }
+<<<<<<< HEAD
     const token = sign({
       firstName: data.given_name, 
       lastName: data.family_name,
@@ -52,6 +57,8 @@ router.get('/callback', async (req, res) => {
       googleToken: tokens.access_token,
     }, JWT_SECRET!)
     
+=======
+>>>>>>> 95c4e72 (added user to database)
 
     const user = await prisma.user.upsert({
       where: { email: data.email! },
