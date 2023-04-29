@@ -11,14 +11,14 @@ datasource db {
 }
 
 model User {
-  id             Int                   @id @default(autoincrement())
-  createdAt      DateTime              @default(now())
-  firstName      String
-  lastName       String?
-  email          String                @unique
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  firstName String
+  lastName String?
+  email String
   profilePicture String?
-  googleToken    String?
-  organisations  UsersInOrganisation[]
+  googleToken String?
+  organisations UsersInOrganisation[] 
 }
 
 model Organisation {
@@ -26,17 +26,18 @@ model Organisation {
   createdAt DateTime @default(now())
   name String @unique
   acronym String?
+  defaultStyleId Int?
+  defaultStyle Styles? @relation(fields: [defaultStyleId], references: [id])
   users UsersInOrganisation[]
   pages Page[]
 }
 
 model UsersInOrganisation {
-  userId         Int
-  createdAt      DateTime     @default(now())
-  user           User         @relation(fields: [userId], references: [id])
+  userId Int 
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
   organisationId Int
-  organisation   Organisation @relation(fields: [organisationId], references: [id])
-
+  organisation Organisation @relation(fields: [organisationId], references: [id])
   @@id([userId, organisationId])
 }
 
@@ -48,24 +49,32 @@ model Page {
   organisation Organisation @relation(fields: [organisationId], references: [id]) 
   sheetId String @unique
   webLink String @unique  
-  identificationColumns Column[]
-  backgroundColor String @default("#0582CA")
-  textFieldBackgroundColor String @default("#0676B6")
-  textColor String @default("#FFFFFF")
-  buttonColor String @default("#53B2E3")
-  headingColor String @default("#FFFFFF")
+  styleId Int
+  style Styles @relation(fields: [styleId], references: [id])
+  identificationColumns String[]
+}
+
+model Styles {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name String
+  backgroundColor String? @default("#0582CA")
+  textFieldBackgroundColor String? @default("#0676B6")
+  textColor String? @default("#FFFFFF")
+  buttonColor String? @default("#53B2E3")
+  headingColor String? @default("#FFFFFF")
   logoLink String?
   backgroundImageLink String?
-  fontFamily String
+  fontId Int
+  font Font @relation(fields: [fontId], references: [id])
+  pages Page[]
+  organisations Organisation[]
 }
 
-model Column {
+model Font {
   id Int @id @default(autoincrement())
-  sheetsName String
-  mappedTo String
-  pageId Int
-  page Page @relation(fields: [pageId], references: [id])
+  name String 
+  fontLink String
+  styles Styles[]
 }
-
-
 
