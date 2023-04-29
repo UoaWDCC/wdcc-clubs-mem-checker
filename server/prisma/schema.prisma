@@ -66,15 +66,10 @@ model Styles {
   logoLink String?
   backgroundImageLink String?
   fontId Int
-  font Font @relation(fields: [fontId], references: [id])
+  fontFamily String
   pages Page[]
   organisations Organisation[]
 }
 
-model Font {
-  id Int @id @default(autoincrement())
-  name String 
-  fontLink String
-  styles Styles[]
-}
+
 
