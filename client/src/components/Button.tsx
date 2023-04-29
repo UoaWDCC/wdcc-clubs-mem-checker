@@ -40,7 +40,7 @@ const Button = ({
           marginRight,
           backgroundColor,
           border: backgroundColor,
-          borderRadius: "10px",
+          borderRadius: "8px",
           padding: "10px",
           color: getTextColour(backgroundColor),
           fontFamily: "Montserrat",
