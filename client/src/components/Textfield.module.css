@@ -1,0 +1,21 @@
+.inputError {
+    border: 1px solid red;
+    border-radius: 8px;
+    padding: 10px;
+    color: red;
+}
+
+.inputError::placeholder{
+    color: red;
+}
+
+.input {
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    
+}
+
+.input::placeholder{
+    color: #000;
+}
