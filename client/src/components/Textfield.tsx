@@ -12,6 +12,9 @@ interface TextfieldProps {
   fontWeight?: string;
   placeholder?: string;
   label?: string;
+  border?: string;
+  errorText?: string;
+  isError?: boolean;
 }
 
 //reusable textfield component
@@ -27,7 +30,19 @@ const Textfield = ({
   fontWeight,
   placeholder,
   label,
+  border,
+  errorText,
+  isError,
 }: TextfieldProps) => {
+  isError = false;
+  if (isError) {
+    border = '#800000';
+    errorText = "Please fill out this field"
+    } 
+    else {
+    border = backgroundColor;
+    errorText = ""
+    }
   return (
     <div>
       <label>{label}</label>
