@@ -11,7 +11,6 @@ const REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
 const SCOPES = [
   'profile',
   'email',
-  'organization',
   'https://www.googleapis.com/auth/spreadsheets.readonly',
 ];
 
@@ -58,3 +57,5 @@ router.get('/auth/google/callback', async (req, res) => {
     res.status(500).send('Error retrieving access token');
   }
 });
+
+export default router;
