@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { google } from 'googleapis';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, UsersInOrganisation } from '@prisma/client'
 
 const router = Router();
 const prisma = new PrismaClient();
@@ -20,7 +20,7 @@ const oAuth2Client = new google.auth.OAuth2(
   REDIRECT_URI
 );
 
-router.get('/auth/google', (req, res) => {
+router.get('/', (req, res) => {
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: 'online',
     scope: SCOPES,
@@ -29,7 +29,7 @@ router.get('/auth/google', (req, res) => {
   res.redirect(authUrl);
 });
 
-router.get('/auth/google/callback', async (req, res) => {
+router.get('/callback', async (req, res) => {
   const { code } = req.query;
 
   try {
@@ -38,16 +38,20 @@ router.get('/auth/google/callback', async (req, res) => {
     const oauth2 = google.oauth2({ version: 'v2', auth: oAuth2Client });
     const { data } = await oauth2.userinfo.get();
 
+
+    if  (!data.email) {
+        return res.status(503);
+    }
+
     const user = await prisma.user.upsert({
-      where: { email: data.email },
+      where: { email: data.email! },
       update: {},
       create: {
-        firstName: data.given_name,
-        lastName: data.family_name,
-        name: data.name,
-        email: data.email,
-        profilePicture:  data.picture,
-        googleToken:  tokens.access_token
+        firstName: data.given_name!,
+        lastName: data.family_name!,
+        email: data.email!,
+        profilePicture:  data.picture!,
+        googleToken:  tokens.access_token!
       }
     });
 
