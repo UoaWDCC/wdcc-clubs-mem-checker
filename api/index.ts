@@ -17,6 +17,7 @@ app.use('/clubendpoint/clubendpoint', OrganisationRoutes);
 app.get('/protected', auth, async (req, res) => {
   return res.send(`Hello, ${req.body.user.firstName}`);
 })
+app.use('/auth/google/callback', authRoutes);
 
 app.get('/', async (req, res) => {
   return res.json({
