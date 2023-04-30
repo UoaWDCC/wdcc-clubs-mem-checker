@@ -1,13 +1,16 @@
 import { Router } from 'express';
 import { google } from 'googleapis';
-import { PrismaClient, UsersInOrganisation } from '@prisma/client'
+import { sign } from 'jsonwebtoken';
+import { PrismaClient } from '@prisma/client'
 
-const router = Router();
+export const router = Router();
 const prisma = new PrismaClient();
 
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_GOOGLE_CLIENT_SECRET;
 const REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
+const JWT_SECRET = process.env.JWT_SECRET;
+
 const SCOPES = [
   'profile',
   'email',
@@ -42,6 +45,13 @@ router.get('/callback', async (req, res) => {
     if  (!data.email) {
         return res.status(503);
     }
+    const token = sign({
+      firstName: data.given_name, 
+      lastName: data.family_name,
+      email: data.email,
+      googleToken: tokens.access_token,
+    }, JWT_SECRET!)
+    
 
     const user = await prisma.user.upsert({
       where: { email: data.email! },
@@ -54,6 +64,11 @@ router.get('/callback', async (req, res) => {
         googleToken:  tokens.access_token!
       }
     });
+
+    return res.status(200).json({
+      token,
+    });
+
 
     res.json({ user: data, tokens });
   } catch (error) {
