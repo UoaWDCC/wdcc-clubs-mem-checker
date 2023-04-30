@@ -15,7 +15,7 @@ model User {
   createdAt DateTime @default(now())
   firstName String
   lastName String?
-  email String
+  email String @unique
   profilePicture String?
   googleToken String?
   organisations UsersInOrganisation[] 
