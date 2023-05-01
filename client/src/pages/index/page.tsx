@@ -10,7 +10,6 @@ export const IndexPage = () => {
   };
   return (
     <div style={{ minWidth: "100vw", height: "100vh" }}>
-      <button onClick={() => navigate("/createClub")}>Create Club</button>
       <button onClick={() => navigate("/createCheckerPage")}>
         Create Membership Checker Page
       </button>

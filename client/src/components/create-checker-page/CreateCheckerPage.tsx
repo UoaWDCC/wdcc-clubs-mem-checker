@@ -1,6 +1,5 @@
 import { useState } from "react";
 import GoogleSheetForm from "./GoogleSheetForm";
-import CustomisePage from "./CustomiseTitle";
 import Background from "../Background";
 import ColumnSelector from "./ColumnSelector";
 import styles from "./style.module.css";
