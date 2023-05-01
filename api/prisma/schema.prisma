@@ -48,13 +48,24 @@ model Page {
   organisation Organisation @relation(fields: [organisationId], references: [id]) 
   sheetId String @unique
   webLink String @unique  
-  identificationColumns String[]
-  backgroundColor String? @default("#0582CA")
-  textFieldBackgroundColor String? @default("#0676B6")
-  textColor String? @default("#FFFFFF")
-  buttonColor String? @default("#53B2E3")
-  headingColor String? @default("#FFFFFF")
+  identificationColumns Column[]
+  backgroundColor String @default("#0582CA")
+  textFieldBackgroundColor String @default("#0676B6")
+  textColor String @default("#FFFFFF")
+  buttonColor String @default("#53B2E3")
+  headingColor String @default("#FFFFFF")
   logoLink String?
   backgroundImageLink String?
   fontFamily String
 }
+
+model Column {
+  id Int @id @default(autoincrement())
+  sheetsName String
+  mappedTo String
+  pageId Int
+  page Page @relation(fields: [pageId], references: [id])
+}
+
+
+
