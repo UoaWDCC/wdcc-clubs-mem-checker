@@ -15,7 +15,7 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetProps) => {
         </div>
         <i>
           paste the link to the google sheet with {`<club acronym>`}'s
-          membershup data
+          membership data
         </i>
       </div>
       <div>

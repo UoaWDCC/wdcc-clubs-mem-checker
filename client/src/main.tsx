@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     element: <ExamplePage />,
   },
   {
-    path: "/createCheckerPage",
+    path: "/create-page",
     element: <CreateCheckerPage />,
   },
 ]);
