@@ -1,4 +1,6 @@
 import styles from "./style.module.css";
+import GoogleSheetsLogo from "../../assets/GoogleSheetsLogo.svg";
+import BackArrow from "../../assets/BackArrow.svg";
 
 interface ColumnSelectorProps {
   onNext: () => void;
@@ -8,17 +10,20 @@ interface ColumnSelectorProps {
 const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h1>select & edit columns</h1>
+      <button id={styles.backButton} onClick={onBack}>
+        <img className={styles.backButton} src={BackArrow} />
+      </button>
+      <div>
+        <div className={styles.title}>
+          <h1>select & edit columns</h1>
+          <img src={GoogleSheetsLogo} />
+        </div>
         <i>
           please select the google sheet columns you want to use as
           identification options
         </i>
       </div>
       <div className={styles.body}>image</div>
-      <button id={styles.backButton} onClick={onBack}>
-        Back
-      </button>
       <button id={styles.nextButton} onClick={onNext}>
         Next
       </button>

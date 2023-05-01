@@ -1,15 +1,18 @@
 import styles from "./style.module.css";
+import GoogleSheetsLogo from "../../assets/GoogleSheetsLogo.svg";
 
 interface GoogleSheetProps {
   onNext: () => void;
-  onBack: () => void;
 }
 
-const GoogleSheetForm = ({ onNext, onBack }: GoogleSheetProps) => {
+const GoogleSheetForm = ({ onNext }: GoogleSheetProps) => {
   return (
     <div className={styles.container}>
       <div>
-        <h1>link your google sheet</h1>
+        <div className={styles.title}>
+          <h1>link your google sheet</h1>
+          <img src={GoogleSheetsLogo} />
+        </div>
         <i>
           paste the link to the google sheet with {`<club acronym>`}'s
           membershup data
@@ -25,9 +28,6 @@ const GoogleSheetForm = ({ onNext, onBack }: GoogleSheetProps) => {
           admin dashboard.
         </p>
       </div>
-      <button id={styles.backButton} onClick={onBack}>
-        Back
-      </button>
       <button id={styles.nextButton} onClick={onNext}>
         Next
       </button>
