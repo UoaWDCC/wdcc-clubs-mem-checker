@@ -1,5 +1,7 @@
 import styles from "./style.module.css";
 import BackArrow from "../../assets/BackArrow.svg";
+import { Dispatch, SetStateAction, useContext } from "react";
+import { PageContextProvider, Page } from "./CreateCheckerPage";
 
 interface CustomiseFontProps {
   onNext: () => void;
@@ -7,6 +9,10 @@ interface CustomiseFontProps {
 }
 
 const CustomiseFont = ({ onNext, onBack }: CustomiseFontProps) => {
+  const [page, setPage] = useContext(PageContextProvider) as [
+    Page,
+    Dispatch<SetStateAction<Page>>
+  ];
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>

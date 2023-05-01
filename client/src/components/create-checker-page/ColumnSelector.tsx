@@ -1,6 +1,8 @@
 import styles from "./style.module.css";
 import GoogleSheetsLogo from "../../assets/GoogleSheetsLogo.svg";
 import BackArrow from "../../assets/BackArrow.svg";
+import { useContext, Dispatch, SetStateAction } from "react";
+import { PageContextProvider, Page } from "./CreateCheckerPage";
 
 interface ColumnSelectorProps {
   onNext: () => void;
@@ -8,6 +10,11 @@ interface ColumnSelectorProps {
 }
 
 const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
+  const [page, setPage] = useContext(PageContextProvider) as [
+    Page,
+    Dispatch<SetStateAction<Page>>
+  ];
+
   return (
     <div className={styles.container}>
       <button id={styles.backButton} onClick={onBack}>

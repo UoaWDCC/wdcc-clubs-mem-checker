@@ -1,12 +1,18 @@
 import styles from "./style.module.css";
 import BackArrow from "../../assets/BackArrow.svg";
+import { useContext, Dispatch, SetStateAction } from "react";
+import { PageContextProvider, Page } from "./CreateCheckerPage";
 
-interface CustomiseColoursProps {
+interface CustomiseColorsProps {
   onNext: () => void;
   onBack: () => void;
 }
 
-const CustomiseColours = ({ onNext, onBack }: CustomiseColoursProps) => {
+const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
+  const [page, setPage] = useContext(PageContextProvider) as [
+    Page,
+    Dispatch<SetStateAction<Page>>
+  ];
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
@@ -32,4 +38,4 @@ const CustomiseColours = ({ onNext, onBack }: CustomiseColoursProps) => {
   );
 };
 
-export default CustomiseColours;
+export default CustomiseColors;

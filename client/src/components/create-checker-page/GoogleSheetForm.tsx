@@ -1,11 +1,17 @@
 import styles from "./style.module.css";
 import GoogleSheetsLogo from "../../assets/GoogleSheetsLogo.svg";
+import { Dispatch, SetStateAction, useContext } from "react";
+import { PageContextProvider, Page } from "./CreateCheckerPage";
 
-interface GoogleSheetProps {
+interface GoogleSheetFormProps {
   onNext: () => void;
 }
 
-const GoogleSheetForm = ({ onNext }: GoogleSheetProps) => {
+const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
+  const [page, setPage] = useContext(PageContextProvider) as [
+    Page,
+    Dispatch<SetStateAction<Page>>
+  ];
   return (
     <div className={styles.container}>
       <div>
