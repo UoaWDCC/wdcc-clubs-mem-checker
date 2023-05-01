@@ -56,6 +56,5 @@ model Page {
   headingColor String? @default("#FFFFFF")
   logoLink String?
   backgroundImageLink String?
-  fontId Int
   fontFamily String
 }
