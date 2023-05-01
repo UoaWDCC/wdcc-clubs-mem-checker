@@ -39,11 +39,10 @@ const CreateCheckerPage = () => {
           {Array.from(steps).map((keyValue) => {
             const key = keyValue[0];
             return (
-              <button
+              <div
                 className={styles.bar}
                 key={key}
                 style={key === progress ? { opacity: 1 } : {}}
-                onClick={() => setProgress(key)}
               />
             );
           })}
