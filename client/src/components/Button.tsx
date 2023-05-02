@@ -27,7 +27,7 @@ const Button = ({
   onClick,
 }: ButtonProps) => {
   return (
-    <div className={styles.container}>
+    <>
       <button
         className={icon ? styles.buttonWithIcon : styles.button}
         style={{
@@ -46,7 +46,7 @@ const Button = ({
         <img src={icon} height={iconSize} />
         {buttonText}
       </button>
-    </div>
+    </>
   );
 };
 

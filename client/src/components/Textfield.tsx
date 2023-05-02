@@ -48,7 +48,7 @@ const Textfield = forwardRef(
       : {};
 
     return (
-      <div className={styles.container}>
+      <>
         <label>{label}</label>
         <input
           ref={ref}
@@ -69,7 +69,7 @@ const Textfield = forwardRef(
             ...iconStyles,
           }}
         />
-      </div>
+      </>
     );
   }
 );
