@@ -1,17 +1,16 @@
 import styles from "./Button.module.css";
-import { getTextColour } from "../utils/helpers";
+import { getTextColor, lightenColor } from "../utils/helpers";
 
 export interface ButtonProps {
   height?: string;
   width?: string;
   buttonText: string;
-  marginTop?: string;
-  marginBottom?: string;
-  marginLeft?: string;
-  marginRight?: string;
+  margin?: string;
   backgroundColor?: string;
   fontSize?: string;
   fontWeight?: string;
+  icon?: string;
+  iconSize?: string;
   onClick: () => void;
 }
 
@@ -19,36 +18,32 @@ const Button = ({
   height,
   width = "10rem",
   buttonText,
-  marginTop,
-  marginBottom,
-  marginLeft,
-  marginRight,
+  margin,
   backgroundColor = "#087DF1",
   fontSize = "1rem",
   fontWeight = "bold",
+  icon,
+  iconSize,
   onClick,
 }: ButtonProps) => {
   return (
     <div className={styles.container}>
       <button
+        className={icon ? styles.buttonWithIcon : styles.button}
         style={{
           height,
           width,
-          marginTop,
-          marginBottom,
-          marginLeft,
-          marginRight,
+          margin,
           backgroundColor,
           border: backgroundColor,
-          borderRadius: "8px",
-          padding: "10px",
-          color: getTextColour(backgroundColor),
-          fontFamily: "Montserrat",
+          color: getTextColor(backgroundColor),
           fontSize,
           fontWeight,
+          ["--background-color" as any]: lightenColor(backgroundColor),
         }}
         onClick={onClick}
       >
+        <img src={icon} height={iconSize} />
         {buttonText}
       </button>
     </div>
