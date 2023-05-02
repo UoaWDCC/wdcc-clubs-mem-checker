@@ -1,21 +1,14 @@
-.inputError {
-    border: 1px solid red;
-    border-radius: 8px;
-    padding: 10px;
-    color: red;
-}
-
-.inputError::placeholder{
-    color: red;
-}
-
 .input {
-    border: none;
-    border-radius: 8px;
-    padding: 10px;
-    
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-family: "Montserrat", sans-serif;
 }
 
-.input::placeholder{
-    color: #000;
+.input:focus {
+  outline: solid 1px var(--focus-border-color);
+}
+
+.input::placeholder {
+  color: #000;
 }
