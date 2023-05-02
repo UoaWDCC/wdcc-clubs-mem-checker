@@ -10,5 +10,5 @@
 }
 
 .input::placeholder {
-  color: #000;
+  color: var(--placeholder-color);
 }

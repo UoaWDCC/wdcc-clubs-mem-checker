@@ -16,7 +16,7 @@ export interface ButtonProps {
 
 const Button = ({
   height,
-  width = "10rem",
+  width,
   buttonText,
   margin,
   backgroundColor = "#087DF1",

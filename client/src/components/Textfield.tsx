@@ -66,6 +66,7 @@ const Textfield = forwardRef(
             fontWeight,
             border: isError ? "1px solid red" : backgroundColor,
             ["--focus-border-color" as any]: lightenColor(backgroundColor, -75),
+            ["--placeholder-color" as any]: getTextColor(backgroundColor),
             ...iconStyles,
           }}
         />
