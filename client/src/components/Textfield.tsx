@@ -51,7 +51,7 @@ const Textfield = forwardRef(
     textColour = textColour ? textColour : getTextColor(backgroundColor);
 
     return (
-      <>
+      <div style={{ margin }}>
         <label>{label}</label>
         <input
           ref={ref}
@@ -62,7 +62,6 @@ const Textfield = forwardRef(
           style={{
             height,
             width,
-            margin,
             backgroundColor,
             color: textColour,
             fontSize,
@@ -73,7 +72,7 @@ const Textfield = forwardRef(
             ...iconStyles,
           }}
         />
-      </>
+      </div>
     );
   }
 );
