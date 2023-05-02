@@ -6,10 +6,9 @@ export const getTextColor = (hex: string) => {
   return yiq >= 128 ? "#4F4F4F" : "#ffffff";
 };
 
-export const lightenColor = (hex: string): string => {
+export const lightenColor = (hex: string, amt: number): string => {
   const color = hex.replace("#", "");
   const num = parseInt(color, 16);
-  const amt = 30; // adjust this value to change the amount of lightening
   const r = Math.min(255, (num >> 16) + amt);
   const g = Math.min(255, ((num >> 8) & 0x00ff) + amt);
   const b = Math.min(255, (num & 0x0000ff) + amt);

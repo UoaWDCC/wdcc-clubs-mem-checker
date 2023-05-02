@@ -39,7 +39,7 @@ const Button = ({
           color: getTextColor(backgroundColor),
           fontSize,
           fontWeight,
-          ["--background-color" as any]: lightenColor(backgroundColor),
+          ["--background-color" as any]: lightenColor(backgroundColor, 30),
         }}
         onClick={onClick}
       >
