@@ -7,6 +7,7 @@ interface TextfieldProps {
   width?: string;
   margin?: string;
   backgroundColor?: string;
+  textColour?: string;
   fontSize?: string;
   fontWeight?: string;
   placeholder?: string;
@@ -25,6 +26,7 @@ const Textfield = forwardRef(
       width = "12rem",
       margin,
       backgroundColor = "#e0e0e0",
+      textColour,
       fontSize,
       fontWeight,
       placeholder,
@@ -46,6 +48,7 @@ const Textfield = forwardRef(
           paddingLeft: icon ? `calc(${iconSize} + 1rem)` : "1rem",
         }
       : {};
+    textColour = textColour ? textColour : getTextColor(backgroundColor);
 
     return (
       <>
@@ -61,7 +64,7 @@ const Textfield = forwardRef(
             width,
             margin,
             backgroundColor,
-            color: getTextColor(backgroundColor),
+            color: textColour,
             fontSize,
             fontWeight,
             border: isError ? "1px solid red" : backgroundColor,
