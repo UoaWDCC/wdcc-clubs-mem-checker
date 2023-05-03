@@ -29,7 +29,7 @@ const Button = ({
   return (
     <>
       <button
-        className={icon ? styles.buttonWithIcon : styles.button}
+        className={styles.button}
         style={{
           height,
           width,
@@ -43,8 +43,16 @@ const Button = ({
         }}
         onClick={onClick}
       >
-        <img src={icon} height={iconSize} />
-        {buttonText}
+        <div
+          className={icon ? styles.buttonContent : ""}
+          style={{
+            width: "70%",
+            margin: "auto",
+          }}
+        >
+          <img src={icon} height={iconSize} />
+          {buttonText}
+        </div>
       </button>
     </>
   );

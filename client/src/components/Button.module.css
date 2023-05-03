@@ -13,22 +13,13 @@
   border-radius: 8px;
 }
 
-.buttonWithIcon {
+.buttonContent {
   display: grid;
   grid-template-columns: 1fr 5fr;
   place-items: center;
-  padding: 10px;
-  font-family: "Montserrat", sans-serif;
-  border-radius: 8px;
 }
 
-/* can probably be combined somehow but idk how to do it */
 .button:hover {
-  cursor: pointer;
-  background: var(--background-color) !important;
-}
-
-.buttonWithIcon:hover {
   cursor: pointer;
   background: var(--background-color) !important;
 }

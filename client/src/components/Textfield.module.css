@@ -11,4 +11,5 @@
 
 .input::placeholder {
   color: var(--placeholder-color);
+  font-family: "Montserrat";
 }
