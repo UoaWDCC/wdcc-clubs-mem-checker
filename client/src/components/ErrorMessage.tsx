@@ -12,7 +12,7 @@ const ErrorMessage = ({ errorText, isError }: ErrorMessageProps) => {
         display: "grid",
         gridTemplateColumns: "1fr 5fr",
         placeItems: "center start",
-        width: "100%",
+        width: "10rem",
         paddingLeft: "1rem",
       }}
     >
