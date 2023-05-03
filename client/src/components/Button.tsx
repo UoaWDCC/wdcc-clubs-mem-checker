@@ -7,6 +7,7 @@ export interface ButtonProps {
   buttonText: string;
   margin?: string;
   backgroundColor?: string;
+  border?: string;
   fontSize?: string;
   fontWeight?: string;
   icon?: string;
@@ -20,6 +21,7 @@ const Button = ({
   buttonText,
   margin,
   backgroundColor = "#087DF1",
+  border = backgroundColor,
   fontSize = "1rem",
   fontWeight = "bold",
   icon,
@@ -35,7 +37,7 @@ const Button = ({
           width,
           margin,
           backgroundColor,
-          border: backgroundColor,
+          border,
           color: getTextColor(backgroundColor),
           fontSize,
           fontWeight,
