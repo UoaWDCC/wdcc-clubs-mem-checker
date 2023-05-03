@@ -48,7 +48,7 @@ const Button = ({
         <div
           className={icon ? styles.buttonContent : ""}
           style={{
-            width: "70%",
+            width: "80%",
             margin: "auto",
           }}
         >
