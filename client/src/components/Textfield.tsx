@@ -1,5 +1,6 @@
 import { getTextColor, lightenColor } from "../utils/helpers";
 import styles from "./Textfield.module.css";
+import ErrorMessage from "./ErrorMessage";
 import { forwardRef } from "react";
 
 interface TextfieldProps {
@@ -13,6 +14,7 @@ interface TextfieldProps {
   placeholder?: string;
   label?: string;
   isError?: boolean;
+  errorText?: string;
   icon?: string;
   iconSize?: string;
   onKeyUp?: () => void;
@@ -32,6 +34,7 @@ const Textfield = forwardRef(
       placeholder,
       label,
       isError,
+      errorText,
       icon,
       iconSize = "1rem",
       onKeyUp,
@@ -51,27 +54,33 @@ const Textfield = forwardRef(
     textColour = textColour ? textColour : getTextColor(backgroundColor);
 
     return (
-      <div style={{ margin }}>
+      <div style={{ margin, width }}>
         <label>{label}</label>
-        <input
-          ref={ref}
-          onKeyUp={onKeyUp}
-          className={styles.input}
-          onChange={onChange}
-          placeholder={placeholder}
-          style={{
-            height,
-            width,
-            backgroundColor,
-            color: textColour,
-            fontSize,
-            fontWeight,
-            border: isError ? "1px solid red" : backgroundColor,
-            ["--focus-border-color" as any]: lightenColor(backgroundColor, -75),
-            ["--placeholder-color" as any]: getTextColor(backgroundColor),
-            ...iconStyles,
-          }}
-        />
+        <div>
+          <input
+            ref={ref}
+            onKeyUp={onKeyUp}
+            className={styles.input}
+            onChange={onChange}
+            placeholder={placeholder}
+            style={{
+              height,
+              width,
+              backgroundColor,
+              color: textColour,
+              fontSize,
+              fontWeight,
+              border: isError ? "1px solid red" : backgroundColor,
+              ["--focus-border-color" as any]: lightenColor(
+                backgroundColor,
+                -75
+              ),
+              ["--placeholder-color" as any]: getTextColor(backgroundColor),
+              ...iconStyles,
+            }}
+          />
+        </div>
+        <ErrorMessage isError={isError} errorText={errorText} />
       </div>
     );
   }
