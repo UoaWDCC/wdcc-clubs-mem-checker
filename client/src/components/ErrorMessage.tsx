@@ -17,7 +17,9 @@ const ErrorMessage = ({ errorText, isError }: ErrorMessageProps) => {
       }}
     >
       <img src={isError ? errorIcon : ""} height="70%"></img>
-      <span style={{ fontSize: "75%" }}>{isError ? errorText : ""}</span>
+      <span style={{ fontSize: "75%", color: "red" }}>
+        {isError ? errorText : ""}
+      </span>
     </div>
   );
 };
