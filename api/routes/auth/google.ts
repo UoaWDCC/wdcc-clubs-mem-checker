@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { google } from 'googleapis';
-import { PrismaClient, UsersInOrganisation } from '@prisma/client'
+import { PrismaClient} from '@prisma/client'
 
 const router = Router();
 const prisma = new PrismaClient();
@@ -14,7 +14,7 @@ const SCOPES = [
   'https://www.googleapis.com/auth/spreadsheets.readonly',
 ];
 
-const oAuth2Client = new google.auth.OAuth2(
+export const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
   CLIENT_SECRET,
   REDIRECT_URI
@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
   res.redirect(authUrl);
 });
 
-router.get('/callback', async (req, res) => {
+ router.get('/callback', async (req, res) => {
   const { code } = req.query;
 
   try {
