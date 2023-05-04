@@ -1,8 +1,7 @@
 /node_modules
 /dist
-<<<<<<< HEAD
-.idea/*
-.env
-=======
 /.env
->>>>>>> main
+.idea/* 
+/yarn.lock
+/pnpm-lock.yaml
+
