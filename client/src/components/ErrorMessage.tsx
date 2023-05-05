@@ -14,6 +14,7 @@ const ErrorMessage = ({ errorText, isError }: ErrorMessageProps) => {
         placeItems: "center start",
         width: "10rem",
         paddingLeft: "1rem",
+        fontFamily: "Montserrat",
       }}
     >
       <img src={isError ? errorIcon : ""} height="70%"></img>
