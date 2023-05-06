@@ -41,3 +41,10 @@ body {
     background-color: #ffffff;
   }
 }
+@font-face {
+  font-family: "Montserrat";
+  src: url("../public/Montserrat-VariableFont_wght.ttf");
+}
+.montserrat {
+  font-family: "Montserrat";
+}
