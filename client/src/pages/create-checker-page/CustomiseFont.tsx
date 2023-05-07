@@ -21,7 +21,7 @@ const CustomiseFont = ({ onNext, onBack }: CustomiseFontProps) => {
         </button>
         <div>
           <h2>customise page</h2>
-          <i>customise page for your members</i>
+          <i className={styles.subtitle}>customise page for your members</i>
         </div>
         <div>
           <p>please choose a font</p>
