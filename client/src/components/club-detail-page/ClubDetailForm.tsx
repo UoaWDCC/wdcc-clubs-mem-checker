@@ -31,6 +31,9 @@ const ClubDetailForm = ({ onNext, onBack }: ColumnSelectorProps) => {
           height="55px"
           backgroundColor="transparent"
           border="#087DF1 solid 4px"
+          hoverColor="#cceeff"
+          iconSize="auto"
+          borderRadius="15px"
         />
       </div>
       <div>

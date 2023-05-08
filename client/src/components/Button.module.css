@@ -10,7 +10,6 @@
 .button {
   padding: 10px;
   font-family: "Montserrat", sans-serif;
-  border-radius: 8px;
 }
 
 .buttonContent {
@@ -21,5 +20,5 @@
 
 .button:hover {
   cursor: pointer;
-  background: var(--background-color) !important;
+  background: var(--hover-color) !important;
 }
