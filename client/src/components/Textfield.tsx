@@ -75,7 +75,10 @@ const Textfield = forwardRef(
                 backgroundColor,
                 -75
               ),
-              ["--placeholder-color" as any]: getTextColor(backgroundColor),
+              ["--placeholder-color" as any]: lightenColor(
+                getTextColor(backgroundColor),
+                60
+              ),
               ...iconStyles,
             }}
           />
