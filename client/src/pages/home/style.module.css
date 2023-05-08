@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
-h1{
+.title{
     color: #FFFFFF;
     position: absolute;
     font-size: 3.3vw;
@@ -18,7 +18,7 @@ h1{
     font-weight: 700;
 }
 
-p{
+.paragraph{
     color: #FFFFFF;
     position: absolute;
     
@@ -44,28 +44,10 @@ body{
     ;
 }
 
-button{
+.intro_button{
     position: absolute;
-    
-    width: 15vw;
-    height: 6vw;
     left: 22vw;
     top: 69vh;
-
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 1.8vw;
-    line-height: 5vw;
-
-    text-align: center;
-
-    color: #03045E;
-    background-color: #FFD166;
-
-    border: none;
-    border-radius: 0.5vw;
-
 }
 
 .logo{

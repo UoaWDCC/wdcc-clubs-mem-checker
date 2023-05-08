@@ -11,6 +11,9 @@ export const ExamplePage = () => {
       <title>Example Page</title>
       <p>You are on example page</p>
       <button onClick={handleButtonClick}>Go to index</button>
+      <button onClick={() => navigate("/create-page")}>
+        Create Membership Checker Page
+      </button>
     </div>
   );
 };
