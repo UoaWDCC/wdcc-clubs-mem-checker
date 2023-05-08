@@ -9,7 +9,6 @@ export interface ButtonProps {
   backgroundColor?: string;
   color?: string;
   border?: string;
-  disabled?: boolean;
   fontSize?: string;
   fontWeight?: string;
   icon?: string;
@@ -27,7 +26,6 @@ const Button = ({
   color,
   backgroundColor = "#087DF1",
   border = backgroundColor,
-  disabled = false,
   fontSize = "1rem",
   fontWeight = "bold",
   icon,
@@ -41,7 +39,6 @@ const Button = ({
     <>
       <button
         className={styles.button}
-        disabled={disabled}
         style={{
           height,
           width,

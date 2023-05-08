@@ -1,10 +1,11 @@
 import styles from "./style.module.css";
 import GoogleSheetsLogo from "../../assets/GoogleSheetsLogo.svg";
 import {
-  ChangeEvent,
   Dispatch,
   SetStateAction,
+  createRef,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { PageContextProvider, Page } from "./CreateCheckerPage";
@@ -22,42 +23,40 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
     Dispatch<SetStateAction<Page>>
   ];
 
-  const [input, setInput] = useState<string>(page.googleSheetLink || "");
   const [isError, setIsError] = useState<boolean>(false);
-  const [isEmpty, setIsEmpty] = useState<boolean>(input.length == 0);
-
   const linkRegex = new RegExp(
     "^(?:https?://)?docs.google.com/spreadsheets/d/[a-zA-Z0-9-_]",
     "i"
   );
 
-  const isLinkValid = (link: string): boolean => {
-    if (link.length == 0) {
-      setIsError(false);
-      setIsEmpty(true);
-      return false;
-    }
-    if (!linkRegex.test(link)) {
-      setIsEmpty(false);
-      setIsError(true);
-      return false;
-    }
-    setIsError(false);
-    setIsEmpty(false);
-    return true;
-  };
+  const inputRef = createRef();
+  useEffect(() => {
+    (inputRef.current as HTMLInputElement).setAttribute(
+      "value",
+      page.googleSheetLink || ""
+    );
+  }, []);
 
-  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInput(event.target.value);
-    isLinkValid((event.target as HTMLInputElement).value) &&
-      setPage({
-        ...page,
-        googleSheetLink: (event.target as HTMLInputElement).value,
-      });
+  const isLinkValid = (link: string): boolean => {
+    if (linkRegex.test(link)) {
+      setIsError(false);
+      return true;
+    }
+    setIsError(true);
+    return false;
   };
 
   const handleOnNext = () => {
-    onNext();
+    const link = (inputRef.current as HTMLInputElement).value;
+    if (isLinkValid(link)) {
+      setPage({
+        ...page,
+        googleSheetLink: link,
+      });
+      onNext();
+    } else {
+      (inputRef.current as HTMLInputElement).focus();
+    }
   };
 
   return (
@@ -72,15 +71,15 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
           membership data
         </i>
       </div>
-      <div style={{ width: "100%" }}>
+      <div style={{ width: "100%", marginBottom: "-10px" }}>
         <Textfield
           errorText="enter valid link"
+          fontSize="1rem"
+          height="45px"
           icon={LinkIcon}
-          height="35px"
           isError={isError}
-          onChange={handleOnChange}
           placeholder={"paste link here"}
-          value={input}
+          ref={inputRef}
           width="100%"
         />
       </div>
@@ -93,7 +92,6 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
       </div>
       <Button
         buttonText="next"
-        disabled={isError || isEmpty}
         height="40px"
         onClick={handleOnNext}
         fontSize="14px"

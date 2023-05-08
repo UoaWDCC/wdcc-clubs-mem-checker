@@ -1,7 +1,7 @@
 import { getTextColor, lightenColor } from "../utils/helpers";
 import styles from "./Textfield.module.css";
 import ErrorMessage from "./ErrorMessage";
-import { ChangeEvent, forwardRef } from "react";
+import { forwardRef } from "react";
 
 interface TextfieldProps {
   height?: string;
@@ -17,9 +17,8 @@ interface TextfieldProps {
   errorText?: string;
   icon?: string;
   iconSize?: string;
-  value?: string;
   onKeyUp?: () => void;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: () => void;
 }
 
 const Textfield = forwardRef(
@@ -38,7 +37,6 @@ const Textfield = forwardRef(
       errorText,
       icon,
       iconSize = "1rem",
-      value,
       onKeyUp,
       onChange,
     }: TextfieldProps,
@@ -65,7 +63,6 @@ const Textfield = forwardRef(
             className={styles.input}
             onChange={onChange}
             placeholder={placeholder}
-            value={value}
             style={{
               height,
               width,
@@ -86,9 +83,7 @@ const Textfield = forwardRef(
             }}
           />
         </div>
-        <div style={{ position: "absolute" }}>
-          <ErrorMessage isError={isError} errorText={errorText} />
-        </div>
+        <ErrorMessage isError={isError} errorText={errorText} />
       </div>
     );
   }
