@@ -10,7 +10,7 @@ export default function auth(req: Request, res: Response, next: Function){
     const JWT_SECRET = process.env.JWT_SECRET!;
 
     try {
-        verify(token, JWT_SECRET, (err, decoded) => {
+        verify(token, JWT_SECRET, (err: any, decoded: any) => {
             if (err) return res.status(400);
             req.body.user = decoded;
         });
