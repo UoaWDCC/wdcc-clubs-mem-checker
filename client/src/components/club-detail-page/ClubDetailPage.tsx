@@ -1,6 +1,7 @@
 import { SetStateAction, useState } from "react";
 import Background from "../Background";
 import ClubDetailForm from "./ClubDetailForm";
+import NewClubAdded from "./NewClubAdded";
 
 import { createContext } from "react";
 import Button from "../Button";
@@ -25,7 +26,6 @@ export const PageContextProvider = createContext([{}, () => {}]);
 const CreateCheckerPage = () => {
   const [progress, setProgress] = useState(1);
   const onNext = () => setProgress(progress + 1);
-  const onBack = () => setProgress(progress - 1);
 
   const [showConfirm, setShowConfirm] = useState(false);
   const onConfirm = () => {
@@ -38,10 +38,15 @@ const CreateCheckerPage = () => {
     console.log("confirmed");
   };
 
+  const steps: Map<number, JSX.Element> = new Map([
+    [1, <ClubDetailForm onNext={onNext} />],
+    [2, <NewClubAdded onNext={onNext} />],
+  ]);
+
   return (
     <Background>
       <PageContextProvider.Provider value={[page, setPage]}>
-        <ClubDetailForm onNext={onNext} onBack={onBack} />
+        {steps.get(progress)}
       </PageContextProvider.Provider>
     </Background>
   );
