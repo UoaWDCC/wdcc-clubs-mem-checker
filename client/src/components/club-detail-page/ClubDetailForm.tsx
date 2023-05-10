@@ -1,7 +1,7 @@
 import styles from "./style.module.css";
 import GoogleSheetsLogo from "../../assets/GoogleSheetsLogo.svg";
 import BackArrow from "../../assets/BackArrow.svg";
-import { useContext, Dispatch, SetStateAction } from "react";
+import { useContext, Dispatch, SetStateAction, useRef, useState } from "react";
 import { PageContextProvider, Page } from "./ClubDetailPage";
 import Textfield from "../Textfield";
 import Button from "../Button";
@@ -11,14 +11,26 @@ interface ColumnSelectorProps {
   onBack: () => void;
 }
 
-const handleOnClick = () => {};
-const handleOnBack = () => {};
-
 const ClubDetailForm = ({ onNext, onBack }: ColumnSelectorProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
     Page,
     Dispatch<SetStateAction<Page>>
   ];
+  const clubNameRef = useRef<HTMLInputElement>(null);
+  const clubAcronymRef = useRef<HTMLInputElement>(null);
+  const [clubNameError, setClubNameError] = useState(false);
+  const [clubAcronymError, setClubAcronymError] = useState(false);
+
+  const handleOnClick = () => {
+    console.log("test");
+    if (clubNameRef.current?.value === null) {
+      setClubNameError(true);
+    }
+    if (clubAcronymRef.current?.value === null) {
+      setClubAcronymError(true);
+    }
+  };
+  const handleOnBack = () => {};
 
   return (
     <div className={styles.container}>
@@ -67,6 +79,8 @@ const ClubDetailForm = ({ onNext, onBack }: ColumnSelectorProps) => {
           height="4rem"
           fontSize="1.5rem"
           placeholder="club name"
+          ref={clubNameRef}
+          isError={clubNameError}
         />
         <Textfield
           margin="2rem"
@@ -74,6 +88,8 @@ const ClubDetailForm = ({ onNext, onBack }: ColumnSelectorProps) => {
           height="4rem"
           fontSize="1.5rem"
           placeholder="club acronym"
+          ref={clubAcronymRef}
+          isError={clubAcronymError}
         />
       </div>
       <Button
