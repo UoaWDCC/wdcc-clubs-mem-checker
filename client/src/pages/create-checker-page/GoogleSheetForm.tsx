@@ -17,6 +17,13 @@ interface GoogleSheetFormProps {
   onNext: () => void;
 }
 
+const getSheetId = (link: string): string => {
+  const linkArray = link.split("/");
+  const idIndex =
+    linkArray.findIndex((value) => value.toLowerCase() == "d") + 1;
+  return linkArray[idIndex];
+};
+
 const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
     Page,
