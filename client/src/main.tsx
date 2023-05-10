@@ -6,6 +6,7 @@ import { HomePage } from "./pages/home/home";
 import { ExamplePage } from "./pages/example/page";
 import CreateCheckerPage from "./components/create-checker-page/CreateCheckerPage";
 import ClubDetailFormPage from "./components/club-detail-page/ClubDetailPage";
+import ClubDetailPage from "./components/club-detail-page/ClubDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/club-detail-page",
-    element: <ClubDetailFormPage />,
+    element: <ClubDetailPage />,
   },
 ]);
 

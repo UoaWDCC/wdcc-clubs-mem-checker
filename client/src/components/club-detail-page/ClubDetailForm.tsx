@@ -2,19 +2,14 @@ import styles from "./style.module.css";
 import GoogleSheetsLogo from "../../assets/GoogleSheetsLogo.svg";
 import BackArrow from "../../assets/BackArrow.svg";
 import { useContext, Dispatch, SetStateAction, useRef, useState } from "react";
-import { PageContextProvider, Page } from "./ClubDetailPage";
 import Textfield from "../Textfield";
 import Button from "../Button";
 
 interface ClubDetailFormProps {
-  onNext: () => void;
+  onNext: (clubName: string) => void;
 }
 
 const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
-  const [page, setPage] = useContext(PageContextProvider) as [
-    Page,
-    Dispatch<SetStateAction<Page>>
-  ];
   const clubNameRef = useRef<HTMLInputElement>(null);
   const clubAcronymRef = useRef<HTMLInputElement>(null);
   const [clubNameError, setClubNameError] = useState(false);
@@ -32,7 +27,7 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
       clubNameRef.current?.value !== "" &&
       clubAcronymRef.current?.value !== ""
     ) {
-      onNext();
+      onNext(clubNameRef.current?.value!);
     }
   };
   const handleOnBack = () => {};
