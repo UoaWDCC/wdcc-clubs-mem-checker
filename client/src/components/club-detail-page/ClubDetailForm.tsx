@@ -6,12 +6,11 @@ import { PageContextProvider, Page } from "./ClubDetailPage";
 import Textfield from "../Textfield";
 import Button from "../Button";
 
-interface ColumnSelectorProps {
+interface ClubDetailFormProps {
   onNext: () => void;
-  onBack: () => void;
 }
 
-const ClubDetailForm = ({ onNext, onBack }: ColumnSelectorProps) => {
+const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
     Page,
     Dispatch<SetStateAction<Page>>
@@ -22,12 +21,18 @@ const ClubDetailForm = ({ onNext, onBack }: ColumnSelectorProps) => {
   const [clubAcronymError, setClubAcronymError] = useState(false);
 
   const handleOnClick = () => {
-    console.log("test");
-    if (clubNameRef.current?.value === null) {
+    console.log(clubNameRef.current?.value);
+    if (clubNameRef.current?.value === "") {
       setClubNameError(true);
     }
-    if (clubAcronymRef.current?.value === null) {
+    if (clubAcronymRef.current?.value === "") {
       setClubAcronymError(true);
+    }
+    if (
+      clubNameRef.current?.value !== "" &&
+      clubAcronymRef.current?.value !== ""
+    ) {
+      onNext();
     }
   };
   const handleOnBack = () => {};
@@ -80,7 +85,9 @@ const ClubDetailForm = ({ onNext, onBack }: ColumnSelectorProps) => {
           fontSize="1.5rem"
           placeholder="club name"
           ref={clubNameRef}
+          onChange={() => setClubNameError(false)}
           isError={clubNameError}
+          errorText="enter club name"
         />
         <Textfield
           margin="2rem"
@@ -89,7 +96,9 @@ const ClubDetailForm = ({ onNext, onBack }: ColumnSelectorProps) => {
           fontSize="1.5rem"
           placeholder="club acronym"
           ref={clubAcronymRef}
+          onChange={() => setClubAcronymError(false)}
           isError={clubAcronymError}
+          errorText="enter club acronym"
         />
       </div>
       <Button
