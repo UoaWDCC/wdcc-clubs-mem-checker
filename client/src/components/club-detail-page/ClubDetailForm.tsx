@@ -1,12 +1,12 @@
 import styles from "./style.module.css";
-import GoogleSheetsLogo from "../../assets/GoogleSheetsLogo.svg";
 import BackArrow from "../../assets/BackArrow.svg";
-import { useContext, Dispatch, SetStateAction, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Textfield from "../Textfield";
 import Button from "../Button";
+import { ClubDetails } from "./ClubDetailPage";
 
 interface ClubDetailFormProps {
-  onNext: (clubName: string) => void;
+  onNext: (clubDetails: ClubDetails) => void;
 }
 
 const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
@@ -27,7 +27,10 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
       clubNameRef.current?.value !== "" &&
       clubAcronymRef.current?.value !== ""
     ) {
-      onNext(clubNameRef.current?.value!);
+      onNext({
+        clubName: clubNameRef.current?.value!,
+        clubAcronym: clubAcronymRef.current?.value!,
+      });
     }
   };
   const handleOnBack = () => {};

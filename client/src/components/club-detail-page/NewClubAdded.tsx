@@ -1,11 +1,12 @@
 import Button from "../Button";
 import styles from "./style.module.css";
+import { ClubDetails } from "./ClubDetailPage";
 
 interface NewClubAddedProps {
-  clubName?: string;
+  clubDetails: ClubDetails;
 }
 
-const NewClubAdded = ({ clubName }: NewClubAddedProps) => {
+const NewClubAdded = ({ clubDetails }: NewClubAddedProps) => {
   const handleOnClick = () => {
     console.log("done");
   };
@@ -15,8 +16,6 @@ const NewClubAdded = ({ clubName }: NewClubAddedProps) => {
       <div>
         <h1
           style={{
-            color: "#087DF1",
-            fontFamily: "Montserrat",
             fontSize: "3rem",
             fontWeight: "550",
           }}
@@ -26,23 +25,35 @@ const NewClubAdded = ({ clubName }: NewClubAddedProps) => {
       </div>
       <div
         style={{
-          color: "#087DF1",
-          fontFamily: "Montserrat",
           fontStyle: "bold",
+          fontSize: "1.5rem",
           width: "20rem",
         }}
       >
-        your club <span style={{ fontWeight: "bold" }}>'{clubName}'</span> has
+        your club{" "}
+        <span style={{ fontWeight: "bold" }}>'{clubDetails.clubName}'</span> has
         been successfully created and added to your user account.
       </div>
       <div className={styles.body} style={{ alignItems: "center" }}></div>
-      <Button
-        buttonText="confirm"
-        onClick={handleOnClick}
-        width="10rem"
-        height="4rem"
-        fontSize="1.5rem"
-      />
+      <div>
+        <div
+          style={{
+            width: "70%",
+            margin: "auto",
+          }}
+        >
+          please proceed to creating a membership checker page for{" "}
+          {clubDetails.clubAcronym}
+        </div>
+        <Button
+          buttonText="next"
+          onClick={handleOnClick}
+          width="10rem"
+          height="4rem"
+          fontSize="1.5rem"
+          margin="2rem 0 0 0"
+        />
+      </div>
     </div>
   );
 };

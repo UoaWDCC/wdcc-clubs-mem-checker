@@ -3,18 +3,26 @@ import Background from "../Background";
 import ClubDetailForm from "./ClubDetailForm";
 import NewClubAdded from "./NewClubAdded";
 
+export interface ClubDetails {
+  clubName: string;
+  clubAcronym: string;
+}
+
 const ClubDetailPage = () => {
   const [progress, setProgress] = useState(1);
-  const onNext = (clubName: string) => {
-    setProgress(progress + 1);
-    setClubName(clubName);
-  };
+  const [clubDetails, setClubDetails] = useState<ClubDetails>({
+    clubName: "",
+    clubAcronym: "",
+  });
 
-  const [clubName, setClubName] = useState("");
+  const onNext = (clubDetails: ClubDetails) => {
+    setProgress(progress + 1);
+    setClubDetails(clubDetails);
+  };
 
   const steps: Map<number, JSX.Element> = new Map([
     [1, <ClubDetailForm onNext={onNext} />],
-    [2, <NewClubAdded clubName={clubName} />],
+    [2, <NewClubAdded clubDetails={clubDetails} />],
   ]);
 
   return <Background>{steps.get(progress)}</Background>;

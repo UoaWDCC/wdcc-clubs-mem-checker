@@ -12,6 +12,8 @@
   row-gap: 10px;
   text-align: center;
   width: 40%;
+  font-family: "Montserrat", sans-serif;
+  color: #087df1;
 }
 
 #progressBarContainer {
