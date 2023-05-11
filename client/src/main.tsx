@@ -5,6 +5,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { HomePage } from "./pages/home/home";
 import { ExamplePage } from "./pages/example/page";
 import CreateCheckerPage from "./components/create-checker-page/CreateCheckerPage";
+import InviteCodePage from "./pages/invite-code/InviteCodePage";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/create-page",
     element: <CreateCheckerPage />,
+  },
+  {
+    path: "/invite-code",
+    element: <InviteCodePage />,
   },
 ]);
 
