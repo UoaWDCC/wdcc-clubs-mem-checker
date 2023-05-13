@@ -1,33 +1,50 @@
 import { Router } from 'express';
-import { PrismaClient} from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
 import auth from '../../middleware/auth';
 
 const router = Router();
 const prisma = new PrismaClient();
 
 router.post('/create', auth, async (req, res) => {
+    const { clubName, clubAcronym } = req.body;
+    const userId = req.body.user.id;
 
-console.log(req.body.user.id);
-const {clubName, clubAcronym} = req.body;
-const user = req.body.user.id;
-
-if (!clubName || !clubAcronym) {
-    return res.status(400).send("clubName and clubAcronymn are required body fields");
-}
-
-const organisation = await prisma.organisation.create({
-    data: {
-        name: clubName,
-        acronym: clubAcronym
+    if (!clubName || !clubAcronym) {
+        return res
+            .status(400)
+            .send('clubName and clubAcronymn are required body fields');
     }
-})
-await prisma.usersInOrganisation.create({
-    data: {
-        userId: user,
-        organisationId: organisation.id
+    try {
+        const existingOrganisation = await prisma.organisation.findUnique({where: {name: clubName}});
+        if (existingOrganisation) {
+          throw new Error('Organisation already exists');
+        };
+        const organisation = await prisma.organisation.create({
+            data: {
+                name: clubName,
+                acronym: clubAcronym,
+            },
+        });
+        // console.log(`Created organisation ${organisation}`);
+        const userInOrganisation = await prisma.usersInOrganisation.create({
+            data: {
+                userId,
+                organisationId: organisation.id,
+            },
+        });
+
+        if (clubName)
+        // console.log(`userInOrganisation ${userInOrganisation}`);
+        return res
+            .status(200)
+            .send(
+                `created club ${clubName} with acronym ${clubAcronym} and added user`
+            );
+
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send(`Error creating club ${clubName}, please try a unique name`);
     }
- })
-    return res.status(200).send();
 });
 
 export default router;
