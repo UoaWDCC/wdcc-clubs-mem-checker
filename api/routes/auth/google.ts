@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { google } from 'googleapis';
 import { sign } from 'jsonwebtoken';
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
 
 export const router = Router();
 const prisma = new PrismaClient();
@@ -41,36 +41,37 @@ router.get('/callback', async (req, res) => {
     const oauth2 = google.oauth2({ version: 'v2', auth: oAuth2Client });
     const { data } = await oauth2.userinfo.get();
 
-
-    if  (!data.email) {
-        return res.status(503);
+    if (!data.email) {
+      return res.status(503);
     }
-    const token = sign({
-      firstName: data.given_name, 
-      lastName: data.family_name,
-      email: data.email,
-      googleToken: tokens.access_token,
-    }, JWT_SECRET!)
-    
 
-    const user = await prisma.user.upsert({
+    const user: any = await prisma.user.upsert({
       where: { email: data.email! },
       update: {},
       create: {
         firstName: data.given_name!,
         lastName: data.family_name!,
         email: data.email!,
-        profilePicture:  data.picture!,
-        googleToken:  tokens.access_token!
-      }
+        profilePicture: data.picture!,
+        googleToken: tokens.access_token!,
+      },
     });
+
+    const token: any = sign(
+      {
+        id: user.id,
+        createdAt: user.createdAt,
+        firstName: user.given_name,
+        lastName: user.family_name,
+        email: user.email,
+        googleToken: tokens.access_token,
+      },
+      JWT_SECRET!
+    );
 
     return res.status(200).json({
       token,
     });
-
-
-    res.json({ user: data, tokens });
   } catch (error) {
     console.error('Error retrieving access token', error);
     res.status(500).send('Error retrieving access token');
