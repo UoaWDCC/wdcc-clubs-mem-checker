@@ -5,16 +5,17 @@ import auth from '../../middleware/auth';
 const router = Router();
 const prisma = new PrismaClient();
 
-router.get('/:clubName/:clubAcronym', auth, async (req, res) => {
+router.post('/create', auth, async (req, res) => {
 
-const user = req.body.user.id; 
+const {clubName, clubAcronym} = req.body;
+const user = req.body.user.id;
 
-const {clubName, clubAcronym} = req.params;
-const organisation = await prisma.organisation.upsert({
+if (!clubName || !clubAcronym) {
+    return res.status(400).send("clubName and clubAcronymn are required body fields");
+}
 
-    where: { name: clubName},
-    update: {},
-    create: {
+const organisation = await prisma.organisation.create({
+    data: {
         name: clubName,
         acronym: clubAcronym
     }
@@ -25,8 +26,7 @@ await prisma.usersInOrganisation.create({
         organisationId: organisation.id
     }
     })
+    return res.status(200);
 });
-
-
 
 export default router;

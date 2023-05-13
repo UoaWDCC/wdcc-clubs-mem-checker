@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(json());
 app.use('/auth/google', authRoutes);
-app.use('/clubendpoint/clubendpoint', OrganisationRoutes);
+app.use('/club', OrganisationRoutes);
 
 app.get('/protected', auth, async (req, res) => {
   return res.send(`Hello, ${req.body.user.firstName}`);
