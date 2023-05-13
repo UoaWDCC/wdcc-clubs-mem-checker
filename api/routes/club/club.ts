@@ -25,16 +25,14 @@ router.post('/create', auth, async (req, res) => {
                 acronym: clubAcronym,
             },
         });
-        // console.log(`Created organisation ${organisation}`);
+        
         const userInOrganisation = await prisma.usersInOrganisation.create({
             data: {
                 userId,
                 organisationId: organisation.id,
             },
         });
-
-        if (clubName)
-        // console.log(`userInOrganisation ${userInOrganisation}`);
+            
         return res
             .status(200)
             .send(
