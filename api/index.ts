@@ -2,7 +2,7 @@ import express, { json } from 'express';
 import cors from 'cors';
 import { config } from 'dotenv';
 import authRoutes from './routes/auth/google';
-import OrganisationRoutes from './routes/clubendpoint/clubendpoint';
+import OrganisationRoutes from './routes/club/club';
 import auth from './middleware/auth';
 
 const app = express();
@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(json());
 app.use('/auth/google', authRoutes);
-app.use('/clubendpoint/clubendpoint', OrganisationRoutes);
+app.use('/club', OrganisationRoutes);
 
 app.get('/protected', auth, async (req, res) => {
   return res.send(`Hello, ${req.body.user.firstName}`);
