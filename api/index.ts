@@ -2,7 +2,7 @@ import express, { json } from 'express';
 import cors from 'cors';
 import { config } from 'dotenv';
 import authRoutes from './routes/auth/google';
-import OrganisationRoutes from './routes/clubendpoint/clubendpoint';
+import OrganisationRoutes from './routes/club/club';
 import auth from './middleware/auth';
 
 const app = express();
