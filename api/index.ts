@@ -1,6 +1,8 @@
 import express, { json } from 'express';
 import cors from 'cors';
 import { config } from 'dotenv';
+import cookieParser from 'cookie-parser';
+import sessions from 'express-session';
 import authRoutes from './routes/auth/google';
 import auth from './middleware/auth';
 
@@ -8,8 +10,29 @@ config(); // Dotenv init
 const app = express();
 
 const port = process.env.PORT || 3000;
+const cookieSecret = process.env.COOKIE_SECRET!;
+const sixMonths = 1000 * 60 * 60 * 24 * 182;
+
+declare module 'express-session' {
+  interface SessionData {
+    token?: string;
+  }
+}
+
 app.use(cors());
 app.use(json());
+app.use(cookieParser(cookieSecret));
+app.use(
+  sessions({
+    secret: cookieSecret,
+    cookie: {
+      maxAge: sixMonths,
+    },
+    resave: true,
+    saveUninitialized: false,
+  })
+);
+
 app.use('/auth/google', authRoutes);
 
 app.get('/protected', auth, async (req, res) => {
