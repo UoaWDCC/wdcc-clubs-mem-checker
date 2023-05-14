@@ -16,37 +16,28 @@
   color: #087df1;
 }
 
-#progressBarContainer {
-  color: white;
-  display: flex;
-  flex-direction: column;
-  left: 50px;
-  position: absolute;
-  row-gap: 3px;
-  top: 50px;
-}
-
-#progressBar {
-  column-gap: 4px;
-  display: flex;
-}
-
-.bar {
-  background-color: #ffd166;
-  border: none;
-  border-radius: 10px;
-  height: 8px;
-  opacity: 0.75;
-  width: 65px;
-}
-
-.title {
-  display: flex;
-  text-align: left;
-}
-
 button {
   cursor: pointer;
+}
+
+#title {
+  color: #087df1;
+  font-family: "Montserrat", sans-serif;
+  font-size: 3rem;
+  font-weight: 550;
+}
+#description {
+  color: #087df1;
+  font-family: "Montserrat", sans-serif;
+  width: 20rem;
+  font-style: italic;
+}
+
+#message {
+  color: #087df1;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5rem;
+  width: 20rem;
 }
 
 #backButton {
@@ -55,49 +46,8 @@ button {
   top: 20px;
 }
 
-#customisePageContainer {
-  align-items: center;
-  column-gap: 50px;
-  display: flex;
-  width: 100%;
-  padding-top: 30px;
-}
-
-#customiseContainer {
-  align-items: center;
-  background-color: white;
-  border-radius: 0px 20px 20px 0px;
-  display: flex;
-  flex-direction: column;
-  height: 65%;
-  padding: 40px 20px;
-  position: relative;
-  row-gap: 30px;
-  text-align: center;
-  width: 25%;
-}
-
 #CustomisePageBackButton {
   left: 15px;
   position: absolute;
   top: 15px;
-}
-
-#CustomisePageNextButton {
-  bottom: 20px;
-  position: absolute;
-  right: 20px;
-}
-
-.previewContainer {
-  display: flex;
-  flex-direction: column;
-  height: 80%;
-  width: 50%;
-}
-
-.preview {
-  background-color: lightgray;
-  border-radius: 20px;
-  height: 100%;
 }

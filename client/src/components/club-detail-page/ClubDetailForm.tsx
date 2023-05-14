@@ -53,29 +53,13 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
       </div>
       <div>
         <div>
-          <h1
-            style={{
-              color: "#087DF1",
-              fontFamily: "Montserrat",
-              fontSize: "3rem",
-              fontWeight: "550",
-            }}
-          >
-            club details
-          </h1>
+          <h1 id={styles.title}>club details</h1>
         </div>
-        <div
-          style={{
-            color: "#087DF1",
-            fontFamily: "Montserrat",
-            fontStyle: "bold",
-            width: "20rem",
-          }}
-        >
+        <div id={styles.description}>
           please fill out your club details to enter you club into our system
         </div>
       </div>
-      <div className={styles.body} style={{ alignItems: "center" }}>
+      <div>
         <Textfield
           margin="2rem 2rem 2rem 2rem"
           width="20rem"

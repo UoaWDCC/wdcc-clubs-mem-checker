@@ -14,22 +14,9 @@ const NewClubAdded = ({ clubDetails }: NewClubAddedProps) => {
     <div className={styles.container}>
       <div id={styles.backButton}></div>
       <div>
-        <h1
-          style={{
-            fontSize: "3rem",
-            fontWeight: "550",
-          }}
-        >
-          new club added!
-        </h1>
+        <h1 id={styles.title}>new club added!</h1>
       </div>
-      <div
-        style={{
-          fontStyle: "bold",
-          fontSize: "1.5rem",
-          width: "20rem",
-        }}
-      >
+      <div id={styles.message}>
         your club{" "}
         <span style={{ fontWeight: "bold" }}>'{clubDetails.clubName}'</span> has
         been successfully created and added to your user account.
