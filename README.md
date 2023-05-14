@@ -4,7 +4,7 @@ Project initiated by WDCC in 2023.
 
 ### Overview
 
-FERN (Firebase, Express, React, Node) stack app with Typescript, Tailwind, and Prisma.
+React app for students to check their membership for university clubs. Uses express backend with prisma.
 
 ### API Environment Variables:
 
