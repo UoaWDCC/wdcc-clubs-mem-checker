@@ -57,14 +57,16 @@ router.get('/:spreadsheetId', auth, async (req, res) => {
 
                 return columnData;
             } catch (err) {
-                return res.status(400).send(JSON.stringify(`Error retrieving data from sheet ${sheetName}:` + err));
+                console.error(err)
+                return res.status(400).send(JSON.stringify(`Error retrieving data from sheet ${sheetName}:`));
             }
         }));
 
         return res.status(200).send(JSON.stringify(sheetData));
 
     } catch (err) {
-        return res.status(400).send(JSON.stringify('Error retrieving spreadsheet metadata:' + err));
+        console.error(err)
+        return res.status(400).send(JSON.stringify('Error retrieving spreadsheet metadata:'));
     }
 });
 
