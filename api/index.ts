@@ -14,7 +14,7 @@ app.use('/auth/google', authRoutes);
 
 app.get('/protected', auth, async (req, res) => {
   return res.send(`Hello, ${req.body.user.firstName}`);
-})
+});
 
 app.get('/', async (req, res) => {
   return res.json({
