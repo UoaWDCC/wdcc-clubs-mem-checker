@@ -1,8 +1,13 @@
 import {google} from "googleapis";
-import router, {oAuth2Client} from "../auth/google";
+import { Router } from 'express';
+import auth from '../../middleware/auth';
+import {oAuth2Client} from "../auth/google";
 
-router.get('/:spreadsheetId', async (req, res) => {
+export const router = Router();
 
+router.get('/:spreadsheetId', auth, async (req, res) => {
+
+    oAuth2Client.setCredentials({access_token: req.body.user.googleToken})
     const {  spreadsheetId } = req.params;
     const sheets = google.sheets({version: 'v4', auth: oAuth2Client});
 
