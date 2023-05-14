@@ -1,13 +1,16 @@
 import { Router } from 'express';
 import { google } from 'googleapis';
+import { sign } from 'jsonwebtoken';
 import { PrismaClient} from '@prisma/client'
 
-const router = Router();
+export const router = Router();
 const prisma = new PrismaClient();
 
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_GOOGLE_CLIENT_SECRET;
 const REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
+const JWT_SECRET = process.env.JWT_SECRET;
+
 const SCOPES = [
   'profile',
   'email',
@@ -38,10 +41,13 @@ router.get('/', (req, res) => {
     const oauth2 = google.oauth2({ version: 'v2', auth: oAuth2Client });
     const { data } = await oauth2.userinfo.get();
 
+    const token = sign({
+      firstName: data.given_name,
+      lastName: data.family_name,
+      email: data.email,
+      googleToken: tokens.access_token,
+    }, JWT_SECRET!)
 
-    if  (!data.email) {
-        return res.status(503);
-    }
 
     const user = await prisma.user.upsert({
       where: { email: data.email! },
@@ -54,6 +60,11 @@ router.get('/', (req, res) => {
         googleToken:  tokens.access_token!
       }
     });
+
+    return res.status(200).json({
+      token,
+    });
+
 
     res.json({ user: data, tokens });
   } catch (error) {
