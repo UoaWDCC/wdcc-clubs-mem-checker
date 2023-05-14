@@ -1,12 +1,34 @@
 import Background from "../../components/Background";
 import styles from "./InviteCodePage.module.css";
 import Textfield from "../../components/Textfield";
+import Button from "../../components/Button";
+import WhiteBackArrow from "../../assets/BackArrow.svg";
+import WhiteBackButton from "../../components/WhiteBackButton";
 
 const InviteCodePage = () => {
+  const handleOnClick = () => {};
   return (
     <Background>
       <div className={styles.container}>
         <div>
+          {/* <Button
+            buttonText=""
+            onClick={handleOnClick}
+            icon={WhiteBackArrow}
+            iconSize="20px"
+            backgroundColor="white"
+            width="50px"
+            height="50px"
+            margin="0 500px 0 0"
+          /> */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "left",
+            }}
+          >
+            <WhiteBackButton onClick={handleOnClick} />
+          </div>
           <div className={styles.title}>
             <h1>enter invite code</h1>
           </div>
