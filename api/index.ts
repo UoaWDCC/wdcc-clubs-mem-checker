@@ -4,7 +4,7 @@ import { config } from 'dotenv';
 import cookieParser from 'cookie-parser';
 import sessions from 'express-session';
 import authRoutes from './routes/auth/google';
-import auth from './middleware/auth';
+import auth, { maybeAuth } from './middleware/auth';
 
 config(); // Dotenv init
 const app = express();
@@ -39,9 +39,10 @@ app.get('/protected', auth, async (req, res) => {
   return res.send(`Hello, ${req.body.user.firstName}`);
 });
 
-app.get('/', async (req, res) => {
+app.get('/', maybeAuth, async (req, res) => {
+  const name = req.body.user?.firstName || 'World';
   return res.json({
-    message: 'Hello, World!',
+    message: `Hello, ${name}!`,
   });
 });
 const server = app.listen(port, () => {
