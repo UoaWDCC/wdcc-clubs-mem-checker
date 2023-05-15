@@ -44,7 +44,7 @@ const InviteCodePage = () => {
           invite code with you.
         </p>
         <Button
-          buttonText="Next"
+          buttonText="enter"
           onClick={() => {}}
           backgroundColor="#03045E"
           width="100px"
