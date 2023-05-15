@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import sessions from 'express-session';
 import authRoutes from './routes/auth/google';
 import auth, { maybeAuth } from './middleware/auth';
+import { router } from './routes/verify/clubs'
 
 config(); // Dotenv init
 const app = express();
@@ -34,6 +35,7 @@ app.use(
 );
 
 app.use('/auth/google', authRoutes);
+app.use('/club', router);
 
 app.get('/protected', auth, async (req, res) => {
   return res.send(`Hello, ${req.body.user.firstName}`);
