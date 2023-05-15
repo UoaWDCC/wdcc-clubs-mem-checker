@@ -9,6 +9,12 @@ React app for students to check their membership for university clubs. Uses expr
 ### API Environment Variables:
 
 - PORT
+- DATABASE_URL
+- REACT_APP_GOOGLE_CLIENT_ID
+- REACT_APP_GOOGLE_CLIENT_SECRET
+- REACT_APP_GOOGLE_REDIRECT_URI
+- JWT_SECRET
+- COOKIE_SECRET
 
 ## Team Leadership
 
@@ -16,9 +22,11 @@ React app for students to check their membership for university clubs. Uses expr
 - Alex McLeod (Tech Lead)
 
 ## Project Management
+
 - [Ticket Backlog](https://github.com/orgs/UoaWDCC/projects/20/views/1)
 - [Current Sprint](https://github.com/orgs/UoaWDCC/projects/20/views/2)
 - [Milestones](https://github.com/UoaWDCC/wdcc-clubs-mem-checker/milestones)
 
 ## Other Links
+
 - [Git Cheat Sheet](https://github.com/UoaWDCC/wdcc-clubs-mem-checker/wiki/Workshops-and-Trainings#git-cheat-sheet)

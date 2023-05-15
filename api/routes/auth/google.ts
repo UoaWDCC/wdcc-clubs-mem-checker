@@ -17,7 +17,7 @@ const SCOPES = [
   'https://www.googleapis.com/auth/spreadsheets.readonly',
 ];
 
-const oAuth2Client = new google.auth.OAuth2(
+export const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
   CLIENT_SECRET,
   REDIRECT_URI
@@ -71,7 +71,9 @@ router.get('/callback', async (req, res) => {
 
     req.session.token = token;
 
-    return res.status(200).send(`successfully signed in ${data.email}`);
+    return res
+      .status(200)
+      .send(`successfully signed in ${data.email}. Your token is ${token}`);
   } catch (error) {
     console.error('Error retrieving access token', error);
     res.status(500).send('Error retrieving access token');
