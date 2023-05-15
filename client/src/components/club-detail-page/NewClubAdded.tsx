@@ -1,14 +1,16 @@
 import Button from "../Button";
 import styles from "./style.module.css";
 import { ClubDetails } from "./ClubDetailPage";
+import { useNavigate } from "react-router";
 
 interface NewClubAddedProps {
   clubDetails: ClubDetails;
 }
 
 const NewClubAdded = ({ clubDetails }: NewClubAddedProps) => {
+  const navigate = useNavigate();
   const handleOnClick = () => {
-    console.log("done");
+    navigate("/create-page");
   };
   return (
     <div className={styles.container}>
