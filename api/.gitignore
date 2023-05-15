@@ -1,4 +1,7 @@
 /node_modules
 /dist
-.idea/*
-.env
+/.env
+.idea/* 
+/yarn.lock
+/pnpm-lock.yaml
+/yarn-error.log

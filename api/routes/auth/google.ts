@@ -45,7 +45,7 @@ router.get('/callback', async (req, res) => {
       return res.status(503);
     }
 
-    const user: any = await prisma.user.upsert({
+    const user = await prisma.user.upsert({
       where: { email: data.email! },
       update: {},
       create: {
@@ -57,21 +57,23 @@ router.get('/callback', async (req, res) => {
       },
     });
 
-    const token: any = sign(
+
+
+    const token = sign(
       {
-        id: user.id,
-        createdAt: user.createdAt,
-        firstName: user.given_name,
-        lastName: user.family_name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         googleToken: tokens.access_token,
+        id: user.id,
+        createdAt: user.createdAt,
       },
       JWT_SECRET!
     );
 
-    return res.status(200).json({
-      token,
-    });
+    req.session.token = token;
+
+    return res.status(200).send(`successfully signed in ${data.email}`);
   } catch (error) {
     console.error('Error retrieving access token', error);
     res.status(500).send('Error retrieving access token');
