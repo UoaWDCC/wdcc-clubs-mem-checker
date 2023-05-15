@@ -32,11 +32,11 @@ const InviteCodePage = () => {
           </i>
         </div>
         <Textfield
-          backgroundColor="white"
+          backgroundColor="#ffffff"
           height="40px"
           placeholder="enter code here"
-          textColour="#666666"
           width="95%"
+          placeholderTextAlign="center"
         />
         <p className={styles.body}>
           if you don’t know what this is, please contact one of your club’s

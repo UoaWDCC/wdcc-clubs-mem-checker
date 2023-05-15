@@ -17,6 +17,7 @@ interface TextfieldProps {
   errorText?: string;
   icon?: string;
   iconSize?: string;
+  placeholderTextAlign?: string;
   onKeyUp?: () => void;
   onChange?: () => void;
 }
@@ -39,6 +40,7 @@ const Textfield = forwardRef(
       iconSize = "1rem",
       onKeyUp,
       onChange,
+      placeholderTextAlign = "left",
     }: TextfieldProps,
     ref: any
   ) => {
@@ -76,6 +78,7 @@ const Textfield = forwardRef(
                 -75
               ),
               ["--placeholder-color" as any]: getTextColor(backgroundColor),
+              ["--placeholder-text-align" as any]: placeholderTextAlign,
               ...iconStyles,
             }}
           />
