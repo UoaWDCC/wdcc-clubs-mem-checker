@@ -9,6 +9,12 @@ React app for students to check their membership for university clubs. Uses expr
 ### API Environment Variables:
 
 - PORT
+- DATABASE_URL
+- JWT_SECRET
+- COOKIE_SECRET
+- REACT_APP_GOOGLE_CLIENT_ID
+- REACT_APP_GOOGLE_CLIENT_SECRET
+- REACT_APP_GOOGLE_REDIRECT_URI
 
 ## Team Leadership
 
