@@ -5,3 +5,7 @@
   width: auto;
   height: auto;
 }
+
+.button:hover {
+  cursor: pointer;
+}

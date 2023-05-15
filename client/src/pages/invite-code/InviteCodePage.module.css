@@ -13,8 +13,9 @@
   display: flex;
   flex-direction: column;
   height: 50%;
-  row-gap: 15%;
+  justify-content: space-between;
   margin: auto;
+  position: relative;
   text-align: center;
   width: 30%;
 }
@@ -32,8 +33,4 @@
   font: 0.9rem "Montserrat Light";
   margin-top: -9%;
   width: 95%;
-}
-
-button {
-  cursor: pointer;
 }

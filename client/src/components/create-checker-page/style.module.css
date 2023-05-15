@@ -43,10 +43,6 @@
   text-align: left;
 }
 
-button {
-  cursor: pointer;
-}
-
 #backButton {
   left: 20px;
   position: absolute;

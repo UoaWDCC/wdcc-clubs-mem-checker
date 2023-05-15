@@ -21,13 +21,8 @@ const InviteCodePage = () => {
             height="50px"
             margin="0 500px 0 0"
           /> */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "left",
-            }}
-          >
-            <WhiteBackButton onClick={handleOnClick} />
+          <div style={{ position: "absolute", top: "-10%", left: "-20%" }}>
+            <WhiteBackButton onClick={() => console.log("test")} />
           </div>
           <div className={styles.title}>
             <h1>enter invite code</h1>
@@ -48,7 +43,12 @@ const InviteCodePage = () => {
           admins with an existing account in our system and ask them to share an
           invite code with you.
         </p>
-        <button>Next</button>
+        <Button
+          buttonText="Next"
+          onClick={() => {}}
+          backgroundColor="#03045E"
+          width="100px"
+        />
       </div>
     </Background>
   );
