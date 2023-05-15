@@ -4,10 +4,11 @@ import { config } from 'dotenv';
 import cookieParser from 'cookie-parser';
 import sessions from 'express-session';
 import authRoutes from './routes/auth/google';
+import OrganisationRoutes from './routes/club/club';
 import auth, { maybeAuth } from './middleware/auth';
 
-config(); // Dotenv init
 const app = express();
+config(); // Dotenv init
 
 const port = process.env.PORT || 3000;
 const cookieSecret = process.env.COOKIE_SECRET!;
@@ -34,10 +35,11 @@ app.use(
 );
 
 app.use('/auth/google', authRoutes);
+app.use('/club', OrganisationRoutes);
 
 app.get('/protected', auth, async (req, res) => {
   return res.send(`Hello, ${req.body.user.firstName}`);
-});
+})
 
 app.get('/', maybeAuth, async (req, res) => {
   const name = req.body.user?.firstName || 'World';
@@ -45,6 +47,7 @@ app.get('/', maybeAuth, async (req, res) => {
     message: `Hello, ${name}!`,
   });
 });
+
 const server = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });

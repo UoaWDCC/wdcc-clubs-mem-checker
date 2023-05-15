@@ -57,6 +57,8 @@ router.get('/callback', async (req, res) => {
       },
     });
 
+
+
     const token = sign(
       {
         firstName: user.firstName,
