@@ -37,10 +37,10 @@ router.get("/verify-invite-code/:token", auth, async (req: Request, res: Respons
           organisationId: organisationId!
         }
       });
-      return res.status(200).send(`it works`);
+      return res.status(200).send(`successfully added user to organisation`);
     }
     catch (err) {
-      return res.status(400).send(`it does not work`);
+      return res.status(500).send(`invalid token`);
     }
     
   }
