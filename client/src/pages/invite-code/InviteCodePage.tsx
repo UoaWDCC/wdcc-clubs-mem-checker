@@ -22,7 +22,7 @@ const InviteCodePage = () => {
             margin="0 500px 0 0"
           /> */}
           <div style={{ position: "absolute", top: "-10%", left: "-20%" }}>
-            <WhiteBackButton onClick={() => console.log("test")} />
+            <WhiteBackButton onClick={handleOnClick} />
           </div>
           <div className={styles.title}>
             <h1>enter invite code</h1>
