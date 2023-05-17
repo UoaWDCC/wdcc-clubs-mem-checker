@@ -6,6 +6,7 @@ import {oAuth2Client} from "../auth/google";
 export const router = Router();
 
 router.get('/:spreadsheetId/:sheettabid', auth, async (req, res) => {
+    // intialise credentials
     oAuth2Client.setCredentials({access_token: req.body.user.googleToken});
     const {spreadsheetId, sheettabid} = req.params;
     const sheets = google.sheets({version: 'v4', auth: oAuth2Client});
