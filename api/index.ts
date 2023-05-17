@@ -3,6 +3,7 @@ import cors from 'cors';
 import { config } from 'dotenv';
 import authRoutes from './routes/auth/google';
 import sheetroutes from './routes/sheets/columns';
+import organisationRoutes from './routes/club/club';
 import auth, { maybeAuth } from './middleware/auth';
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(json());
 
 app.use('/auth/google', authRoutes);
 app.use('/sheet/columns', sheetroutes);
+app.use('/club', organisationRoutes);
 
 app.get('/protected', auth, async (req, res) => {
   return res.send(`Hello, ${req.body.user.firstName}`);

@@ -2,14 +2,14 @@ import { Router } from 'express';
 import { google } from 'googleapis';
 import { sign } from 'jsonwebtoken';
 import { PrismaClient, User } from '@prisma/client';
-import auth, { maybeAuth } from '../../middleware/auth';
+import auth from '../../middleware/auth';
 
 export const router = Router();
 const prisma = new PrismaClient();
 
-const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-const CLIENT_SECRET = process.env.REACT_APP_GOOGLE_CLIENT_SECRET;
-const REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
+const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI;
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const SCOPES = [

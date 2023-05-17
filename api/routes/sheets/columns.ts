@@ -8,15 +8,16 @@ export const router = Router();
 const prisma = new PrismaClient();
 
 router.get('/:spreadsheetId/:sheettabid', auth, async (req, res) => {
+  // Get the user so you can access the Google auth token
   const user = await prisma.user.findFirst({
     where: {
       id: req.body.user.id,
     },
   });
 
-  if (!user) return res.status(400).send('could not find user');
+  if (!user) return res.status(500).send('could not find user');
 
-  const { googleToken } = user;
+  const { googleToken } = user; // Get the google auth token from the user
 
   // intialise credentials
   oAuth2Client.setCredentials({ access_token: googleToken });
