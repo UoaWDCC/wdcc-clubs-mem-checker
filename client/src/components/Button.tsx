@@ -1,5 +1,6 @@
 import styles from './Button.module.css';
 import { getTextColor, lightenColor } from '../utils/helpers';
+import React from 'react';
 
 export interface ButtonProps {
   height?: string;
@@ -12,6 +13,7 @@ export interface ButtonProps {
   fontSize?: string;
   fontWeight?: string;
   icon?: string;
+  iconFromIconsax?: React.ReactNode;
   iconSize?: string;
   borderRadius?: string;
   hoverColor?: string;
@@ -30,6 +32,7 @@ const Button = ({
   fontWeight = 'bold',
   icon,
   iconSize,
+  iconFromIconsax,
   borderRadius = '8px',
   hoverColor = '',
   onClick,
@@ -60,11 +63,23 @@ const Button = ({
             margin: 'auto',
           }}
         >
-          <img
-            src={icon}
-            height={iconSize}
-          />
-          {buttonText}
+          {!iconFromIconsax && (
+            <>
+              <img
+                src={icon}
+                height={iconSize}
+              /> 
+              {buttonText}
+            </>
+          )}
+        </div>
+        <div className={iconFromIconsax ? styles.buttonContent : ''} style={{ width: '100%', margin: 'auto' }}>
+          {iconFromIconsax && (
+            <>
+              {iconFromIconsax && React.isValidElement(iconFromIconsax) && React.cloneElement(iconFromIconsax as React.ReactElement, { size: `${parseFloat(height || '0') * 0.5}px`, color: color, style: { strokeWidth: '5'}, })}
+              {buttonText}
+            </>
+          )}
         </div>
       </button>
     </>

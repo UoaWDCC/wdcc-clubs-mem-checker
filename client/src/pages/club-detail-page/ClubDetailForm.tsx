@@ -1,5 +1,5 @@
 import styles from './style.module.css';
-import BackArrow from '../../assets/BackArrow.svg';
+import { Back } from 'iconsax-react';
 import { useRef, useState } from 'react';
 import Textfield from '../../components/Textfield';
 import Button from '../../components/Button';
@@ -60,14 +60,15 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
       <div id={styles.backButton}>
         <Button
           buttonText=""
-          icon={BackArrow}
+          iconFromIconsax={<Back />}
           onClick={handleOnBack}
           width="55px"
           height="55px"
           backgroundColor="transparent"
           border="#087DF1 solid 4px"
+          color="#087DF1"
           hoverColor="#cceeff"
-          iconSize="auto"
+          iconSize="27px"
           borderRadius="15px"
         />
       </div>
