@@ -1,15 +1,15 @@
 import { Router } from 'express';
 import { google } from 'googleapis';
 import { sign } from 'jsonwebtoken';
-import { PrismaClient } from '@prisma/client';
-import auth, { maybeAuth } from '../../middleware/auth';
+import { PrismaClient, User } from '@prisma/client';
+import auth from '../../middleware/auth';
 
 export const router = Router();
 const prisma = new PrismaClient();
 
-const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-const CLIENT_SECRET = process.env.REACT_APP_GOOGLE_CLIENT_SECRET;
-const REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
+const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI;
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const SCOPES = [
@@ -18,7 +18,7 @@ const SCOPES = [
   'https://www.googleapis.com/auth/spreadsheets.readonly',
 ];
 
-const oAuth2Client = new google.auth.OAuth2(
+export const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
   CLIENT_SECRET,
   REDIRECT_URI
@@ -47,7 +47,7 @@ router.post('/callback', async (req, res) => {
       return res.status(503);
     }
 
-    const user = await prisma.user.upsert({
+    const user: User = await prisma.user.upsert({
       where: { email: data.email! },
       update: {},
       create: {
@@ -55,6 +55,7 @@ router.post('/callback', async (req, res) => {
         lastName: data.family_name!,
         email: data.email!,
         profilePicture: data.picture!,
+        googleToken: tokens.access_token,
       },
     });
 
