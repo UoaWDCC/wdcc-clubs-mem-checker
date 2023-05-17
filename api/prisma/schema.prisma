@@ -11,63 +11,60 @@ datasource db {
 }
 
 model User {
-  id             Int                   @id @default(autoincrement())
-  createdAt      DateTime              @default(now())
-  firstName      String
-  lastName       String?
-  email          String                @unique
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  firstName String
+  lastName String?
+  email String @unique
   profilePicture String?
-  googleToken    String?
-  organisations  UsersInOrganisation[]
+  googleToken String?
+  organisations UsersInOrganisation[] 
 }
 
 model Organisation {
-  id             Int                   @id @default(autoincrement())
-  createdAt      DateTime              @default(now())
-  name           String                @unique
-  acronym        String?
-  defaultStyleId Int?
-  defaultStyle   Styles?               @relation(fields: [defaultStyleId], references: [id])
-  users          UsersInOrganisation[]
-  pages          Page[]
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name String @unique
+  acronym String?
+  users UsersInOrganisation[]
+  pages Page[]
 }
 
 model UsersInOrganisation {
-  userId         Int
-  createdAt      DateTime     @default(now())
-  user           User         @relation(fields: [userId], references: [id])
+  userId Int 
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
   organisationId Int
-  organisation   Organisation @relation(fields: [organisationId], references: [id])
-
+  organisation Organisation @relation(fields: [organisationId], references: [id])
   @@id([userId, organisationId])
 }
 
 model Page {
-  id                    Int          @id @default(autoincrement())
-  createdAt             DateTime     @default(now())
-  name                  String
-  organisationId        Int
-  organisation          Organisation @relation(fields: [organisationId], references: [id])
-  sheetId               String       @unique
-  webLink               String       @unique
-  styleId               Int
-  style                 Styles       @relation(fields: [styleId], references: [id])
-  identificationColumns String[]
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name String
+  organisationId Int
+  organisation Organisation @relation(fields: [organisationId], references: [id]) 
+  sheetId String @unique
+  webLink String @unique  
+  identificationColumns Column[]
+  backgroundColor String @default("#0582CA")
+  textFieldBackgroundColor String @default("#0676B6")
+  textColor String @default("#FFFFFF")
+  buttonColor String @default("#53B2E3")
+  headingColor String @default("#FFFFFF")
+  logoLink String?
+  backgroundImageLink String?
+  fontFamily String
 }
 
-model Styles {
-  id                       Int            @id @default(autoincrement())
-  createdAt                DateTime       @default(now())
-  name                     String
-  backgroundColor          String?        @default("#0582CA")
-  textFieldBackgroundColor String?        @default("#0676B6")
-  textColor                String?        @default("#FFFFFF")
-  buttonColor              String?        @default("#53B2E3")
-  headingColor             String?        @default("#FFFFFF")
-  logoLink                 String?
-  backgroundImageLink      String?
-  fontId                   Int
-  fontFamily               String
-  pages                    Page[]
-  organisations            Organisation[]
+model Column {
+  id Int @id @default(autoincrement())
+  sheetsName String
+  mappedTo String
+  pageId Int
+  page Page @relation(fields: [pageId], references: [id])
 }
+
+
+

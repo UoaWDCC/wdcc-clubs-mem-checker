@@ -12,7 +12,7 @@ router.post('/create', auth, async (req, res) => {
     if (!clubName || !clubAcronym) {
         return res
             .status(400)
-            .send('clubName and clubAcronymn are required body fields');
+            .send('The club name and acronym are required body fields');
     }
     try {
         const existingOrganisation = await prisma.organisation.findUnique({where: {name: clubName}});
@@ -32,7 +32,7 @@ router.post('/create', auth, async (req, res) => {
                 organisationId: organisation.id,
             },
         });
-            
+
         return res
             .status(200)
             .send(

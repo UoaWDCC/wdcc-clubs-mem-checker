@@ -1,17 +1,29 @@
 import express, { json } from 'express';
 import cors from 'cors';
 import { config } from 'dotenv';
+import cookieParser from 'cookie-parser';
+import sessions from 'express-session';
 import authRoutes from './routes/auth/google';
 import sheetroutes from './routes/get_cols/getsheetcols';
 import OrganisationRoutes from './routes/club/club';
-import auth from './middleware/auth';
+import auth, { maybeAuth } from './middleware/auth';
 
 const app = express();
 config(); // Dotenv init
 
 const port = process.env.PORT || 3000;
-app.use(cors());
+const cookieSecret = process.env.COOKIE_SECRET!;
+const sixMonths = 1000 * 60 * 60 * 24 * 182;
+
+app.use(
+  cors({
+    optionsSuccessStatus: 200,
+    credentials: true,
+    origin: 'http://localhost:5173',
+  })
+);
 app.use(json());
+
 app.use('/auth/google', authRoutes);
 app.use('/sheet', sheetroutes);
 app.use('/club', OrganisationRoutes);
@@ -19,11 +31,15 @@ app.use('/club', OrganisationRoutes);
 app.get('/protected', auth, async (req, res) => {
   return res.send(`Hello, ${req.body.user.firstName}`);
 });
-app.use('/auth/google/callback', authRoutes);
 
-app.get('/', async (req, res) => {
+app.get('/firstname', auth, async (req, res) => {
+  return res.status(200).json({ firstName: req.body.user.firstName });
+});
+
+app.get('/', maybeAuth, async (req, res) => {
+  const name = req.body.user?.firstName || 'World';
   return res.json({
-    message: 'Hello, World!',
+    message: `Hello, ${name}!`,
   });
 });
 
