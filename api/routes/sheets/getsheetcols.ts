@@ -12,7 +12,7 @@ router.get('/:spreadsheetId/:sheettabid', auth, async (req, res) => {
     const columnData: { [key: string]: { id: string, name: string, unique: boolean} } = {};
 
     try {
-        // Retrieve the metadata for the spreadsheet to get the names and IDs of all sheets
+        // Retrieve the metadata for the spreadsheet to get the names and IDs of all sheet
         const metadataResponse = await sheets.spreadsheets.get({
             spreadsheetId,
         });
