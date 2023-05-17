@@ -1,13 +1,9 @@
 import SignInDoor from '../../assets/sign-in-through-door.svg';
 import GoogleLogo from '../../assets/google-white-background.svg';
 import styles from './style.module.css';
-import Button from '../../components/Button';
-import { useNavigate } from 'react-router';
 import Link from '../../components/Link';
 
 export function GoogleSignIn() {
-  const navigate = useNavigate();
-
   return (
     <div className={styles.container}>
       <img
@@ -29,7 +25,7 @@ export function GoogleSignIn() {
           backgroundColor="#03045E"
           iconSize="40"
           fontSize="1.5rem"
-          href="/api/auth/google"
+          href="http://localhost:3000/auth/google"
         />
       </div>
     </div>
