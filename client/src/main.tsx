@@ -6,6 +6,7 @@ import { HomePage } from "./pages/home/home";
 import { ExamplePage } from "./pages/example/page";
 import CreateCheckerPage from "./components/create-checker-page/CreateCheckerPage";
 import InviteCodePage from "./pages/invite-code/InviteCodePage";
+import DashboardPage from "./pages/dashboard/DashboardPage";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/invite-code",
     element: <InviteCodePage />,
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardPage />,
   },
 ]);
 
