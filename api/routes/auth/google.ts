@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { google } from 'googleapis';
 import { sign } from 'jsonwebtoken';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import auth, { maybeAuth } from '../../middleware/auth';
 
 export const router = Router();
@@ -47,7 +47,7 @@ router.post('/callback', async (req, res) => {
       return res.status(503);
     }
 
-    const user = await prisma.user.upsert({
+    const user: User = await prisma.user.upsert({
       where: { email: data.email! },
       update: {},
       create: {
@@ -55,6 +55,7 @@ router.post('/callback', async (req, res) => {
         lastName: data.family_name!,
         email: data.email!,
         profilePicture: data.picture!,
+        googleToken: tokens.access_token,
       },
     });
 

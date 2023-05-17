@@ -1,11 +1,8 @@
 import express, { json } from 'express';
 import cors from 'cors';
 import { config } from 'dotenv';
-import cookieParser from 'cookie-parser';
-import sessions from 'express-session';
 import authRoutes from './routes/auth/google';
-import sheetroutes from './routes/get_cols/getsheetcols';
-import OrganisationRoutes from './routes/club/club';
+import sheetroutes from './routes/sheets/columns';
 import auth, { maybeAuth } from './middleware/auth';
 
 const app = express();
@@ -25,8 +22,7 @@ app.use(
 app.use(json());
 
 app.use('/auth/google', authRoutes);
-app.use('/sheet', sheetroutes);
-app.use('/club', OrganisationRoutes);
+app.use('/sheet/columns', sheetroutes);
 
 app.get('/protected', auth, async (req, res) => {
   return res.send(`Hello, ${req.body.user.firstName}`);
