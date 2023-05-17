@@ -6,7 +6,7 @@ import Button from "../Button";
 import { ClubDetails } from "./ClubDetailPage";
 import axios from "axios";
 
-const url = "localhost:3000/club/create"; //temp url
+const url = "http://localhost:3000/club/create"; //temp url
 const bearerToken = import.meta.env.VITE_BEARER_TOKEN as string; //Create a .env file in the root directory of client and add VITE_BEARER_TOKEN=your_token_here
 axios.defaults.headers.post["Authorization"] = `Bearer ${bearerToken}`;
 
@@ -20,9 +20,12 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
   const [clubNameError, setClubNameError] = useState(false);
   const [clubAcronymError, setClubAcronymError] = useState(false);
 
+  const [clubNameErrorMessage, setClubNameErrorMessage] =
+    useState("enter club name");
+
   const handleOnClick = () => {
-    console.log(clubNameRef.current?.value);
     if (clubNameRef.current?.value === "") {
+      setClubNameErrorMessage("enter club name");
       setClubNameError(true);
     }
     if (clubAcronymRef.current?.value === "") {
@@ -47,7 +50,8 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
           }
         })
         .catch(function (error) {
-          console.log(error);
+          setClubNameErrorMessage("the club you want to create already exists");
+          setClubNameError(true);
         });
     }
   };
@@ -87,7 +91,7 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
           ref={clubNameRef}
           onChange={() => setClubNameError(false)}
           isError={clubNameError}
-          errorText="enter club name"
+          errorText={clubNameErrorMessage}
         />
         <Textfield
           margin="2rem"
