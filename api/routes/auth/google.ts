@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { google } from 'googleapis';
 import { sign } from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
+import auth, { maybeAuth } from '../../middleware/auth';
 
 export const router = Router();
 const prisma = new PrismaClient();
@@ -32,8 +33,9 @@ router.get('/', (req, res) => {
   res.redirect(authUrl);
 });
 
-router.get('/callback', async (req, res) => {
-  const { code } = req.query;
+router.post('/callback', async (req, res) => {
+  const code = req.body.code || req.query.code;
+  if (!code) return res.status(400).send('missing code field');
 
   try {
     const { tokens } = await oAuth2Client.getToken(code as string);
@@ -53,31 +55,42 @@ router.get('/callback', async (req, res) => {
         lastName: data.family_name!,
         email: data.email!,
         profilePicture: data.picture!,
-        googleToken: tokens.access_token!,
       },
     });
-
-
 
     const token = sign(
       {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        googleToken: tokens.access_token,
         id: user.id,
         createdAt: user.createdAt,
       },
       JWT_SECRET!
     );
 
-    req.session.token = token;
+    // Check if the user has any existing organisations
+    const firstOrganisation = await prisma.usersInOrganisation.findFirst({
+      where: {
+        userId: user.id,
+      },
+    });
 
-    return res.status(200).send(`successfully signed in ${data.email}`);
+    return res
+      .status(200)
+      .json({
+        isInClub: firstOrganisation != null,
+        token,
+      })
+      .send();
   } catch (error) {
     console.error('Error retrieving access token', error);
     res.status(500).send('Error retrieving access token');
   }
+});
+
+router.get('/user-info', auth, async (req, res) => {
+  return res.status(200).json(req.body.user);
 });
 
 export default router;

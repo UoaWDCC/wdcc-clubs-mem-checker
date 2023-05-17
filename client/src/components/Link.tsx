@@ -1,54 +1,53 @@
-import styles from './Button.module.css';
+import styles from './Link.module.css';
 import { getTextColor, lightenColor } from '../utils/helpers';
+import { Link as RouterLink } from 'react-router-dom';
 
-export interface ButtonProps {
+export interface LinkProps {
   height?: string;
   width?: string;
-  buttonText: string;
+  linkText: string;
   margin?: string;
   backgroundColor?: string;
-  color?: string;
   border?: string;
   fontSize?: string;
   fontWeight?: string;
   icon?: string;
   iconSize?: string;
-  onClick: () => void;
+  href: string;
 }
 
-const Button = ({
+const Link = ({
   height,
   width,
-  buttonText,
+  linkText,
   margin,
-  color,
   backgroundColor = '#087DF1',
   border = backgroundColor,
   fontSize = '1rem',
   fontWeight = 'bold',
   icon,
   iconSize,
-  onClick,
-}: ButtonProps) => {
+  href,
+}: LinkProps) => {
   return (
     <>
-      <button
-        className={styles.button}
+      <RouterLink
+        className={styles.link}
         style={{
           height,
           width,
           margin,
           backgroundColor,
           border,
-          color: color || getTextColor(backgroundColor),
+          color: getTextColor(backgroundColor),
           fontSize,
           fontWeight,
           ['--background-color' as any]: lightenColor(backgroundColor, 30),
         }}
-        onClick={onClick}
+        to={href}
       >
         <div
-          className={icon ? styles.buttonContent : ''}
+          className={icon ? styles.linkContent : ''}
           style={{
             width: '80%',
             margin: 'auto',
@@ -58,11 +57,11 @@ const Button = ({
             src={icon}
             height={iconSize}
           />
-          {buttonText}
+          {linkText}
         </div>
-      </button>
+      </RouterLink>
     </>
   );
 };
 
-export default Button;
+export default Link;
