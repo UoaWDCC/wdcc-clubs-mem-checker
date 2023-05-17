@@ -2,9 +2,11 @@ import { Router } from 'express';
 import { google } from 'googleapis';
 import { sign } from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
+import { config } from 'dotenv';
 
 export const router = Router();
 const prisma = new PrismaClient();
+config();
 
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_GOOGLE_CLIENT_SECRET;
@@ -28,7 +30,6 @@ router.get('/', (req, res) => {
     access_type: 'online',
     scope: SCOPES,
   });
-
   res.redirect(authUrl);
 });
 
@@ -73,7 +74,7 @@ router.get('/callback', async (req, res) => {
 
     req.session.token = token;
 
-    return res.status(200).send(`successfully signed in ${data.email}`);
+    return res.status(200).json({ token }).send();
   } catch (error) {
     console.error('Error retrieving access token', error);
     res.status(500).send('Error retrieving access token');

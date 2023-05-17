@@ -4,6 +4,11 @@ import { useRef, useState } from "react";
 import Textfield from "../Textfield";
 import Button from "../Button";
 import { ClubDetails } from "./ClubDetailPage";
+import axios from "axios";
+
+const url = "localhost:3000/club/create"; //temp url
+const bearerToken = import.meta.env.VITE_BEARER_TOKEN as string; //Create a .env file in the root directory of client and add VITE_BEARER_TOKEN=your_token_here
+axios.defaults.headers.post["Authorization"] = `Bearer ${bearerToken}`;
 
 interface ClubDetailFormProps {
   onNext: (clubDetails: ClubDetails) => void;
@@ -27,10 +32,23 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
       clubNameRef.current?.value !== "" &&
       clubAcronymRef.current?.value !== ""
     ) {
-      onNext({
-        clubName: clubNameRef.current?.value!,
-        clubAcronym: clubAcronymRef.current?.value!,
-      });
+      axios
+        .post(url, {
+          clubName: clubNameRef.current?.value,
+          clubAcronym: clubAcronymRef.current?.value,
+        })
+        .then(function (response) {
+          if (response.status === 200) {
+            console.log(response.data);
+            onNext({
+              clubName: clubNameRef.current?.value!,
+              clubAcronym: clubAcronymRef.current?.value!,
+            });
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   };
   const handleOnBack = () => {};
