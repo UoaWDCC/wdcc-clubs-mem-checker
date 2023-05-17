@@ -18,7 +18,9 @@ export default function auth(req: Request, res: Response, next: Function) {
 }
 
 export function maybeAuth(req: Request, res: Response, next: Function) {
-  const { token } = req.cookies;
+  const authHeader: string | undefined = req.header('Authorization');
+
+  const token: string | undefined = authHeader?.slice(7);
   if (!token) return next();
 
   const JWT_SECRET = process.env.JWT_SECRET!;
