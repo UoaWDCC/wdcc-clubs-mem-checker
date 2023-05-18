@@ -52,7 +52,7 @@ axios.defaults.baseURL = 'http://localhost:3000';
 
 // Find the auth token in local storage if it exists
 const token: string | undefined = Cookies.get('token');
-if (token) {
+if (token != undefined) {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
 
