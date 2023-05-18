@@ -4,7 +4,8 @@ import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { HomePage } from './pages/home/home';
 import { ExamplePage } from './pages/example/page';
-import CreateCheckerPage from './components/create-checker-page/CreateCheckerPage';
+import CreateCheckerPage from './pages/create-checker-page/CreateCheckerPage';
+import ClubDetailPage from './pages/club-detail-page/ClubDetailPage';
 import { GoogleSignIn } from './pages/google-sign-in/GoogleSignInPage';
 import NoClubs from './pages/no-clubs/NoClubs';
 import Dashboard from './pages/dashboard/Dashboard';
@@ -41,7 +42,13 @@ const router = createBrowserRouter([
     path: '/auth/google/callback',
     element: <GoogleCallback />,
   },
+  {
+    path: '/club-details',
+    element: <ClubDetailPage />,
+  },
 ]);
+
+axios.defaults.baseURL = 'http://localhost:3000';
 
 // Find the auth token in local storage if it exists
 const token: string | undefined = Cookies.get('token');

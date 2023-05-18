@@ -13,7 +13,7 @@ export default function NoClubs() {
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios({
-        url: 'http://localhost:3000/firstname',
+        url: '/firstname',
       });
       setFirstName(res.data.firstName);
     };
@@ -34,7 +34,7 @@ export default function NoClubs() {
         <Button
           buttonText="create club"
           backgroundColor="#03045E"
-          onClick={() => navigate('/create-page')}
+          onClick={() => navigate('/club-details')}
         />
         <Button
           buttonText="join as club admin"

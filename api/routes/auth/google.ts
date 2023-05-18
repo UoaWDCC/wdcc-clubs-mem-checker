@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import { google } from 'googleapis';
 import { sign } from 'jsonwebtoken';
+import { config } from 'dotenv';
 import { PrismaClient, User } from '@prisma/client';
 import auth from '../../middleware/auth';
 
 export const router = Router();
 const prisma = new PrismaClient();
+config();
 
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
@@ -29,7 +31,6 @@ router.get('/', (req, res) => {
     access_type: 'online',
     scope: SCOPES,
   });
-
   res.redirect(authUrl);
 });
 

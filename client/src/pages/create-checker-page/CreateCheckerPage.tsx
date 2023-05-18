@@ -1,15 +1,15 @@
-import { SetStateAction, useState } from "react";
-import GoogleSheetForm from "./GoogleSheetForm";
-import Background from "../Background";
-import ColumnSelector from "./ColumnSelector";
-import styles from "./style.module.css";
-import CustomiseTitle from "./CustomiseTitle";
-import CustomiseFont from "./CustomiseFont";
-import CustomiseColors from "./CustomiseColors";
-import CustomiseLogo from "./CustomiseLogo";
-import CustomiseBackground from "./CustomiseBackground";
-import CustomiseConfirm from "./CustomiseConfirm";
-import { createContext } from "react";
+import { SetStateAction, useState } from 'react';
+import GoogleSheetForm from './GoogleSheetForm';
+import Background from '../../components/Background';
+import ColumnSelector from './ColumnSelector';
+import styles from './style.module.css';
+import CustomiseTitle from './CustomiseTitle';
+import CustomiseFont from './CustomiseFont';
+import CustomiseColors from './CustomiseColors';
+import CustomiseLogo from './CustomiseLogo';
+import CustomiseBackground from './CustomiseBackground';
+import CustomiseConfirm from './CustomiseConfirm';
+import { createContext } from 'react';
 
 export interface Page {
   googleSheetLink?: String;
@@ -35,16 +35,46 @@ const CreateCheckerPage = () => {
 
   const [showConfirm, setShowConfirm] = useState(false);
   const onConfirm = () => {
-    console.log("confirmed");
+    console.log('confirmed');
   };
 
   const steps: Map<number, JSX.Element> = new Map([
     [1, <GoogleSheetForm onNext={onNext} />],
-    [2, <ColumnSelector onNext={onNext} onBack={onBack} />],
-    [3, <CustomiseTitle onNext={onNext} onBack={onBack} />],
-    [4, <CustomiseFont onNext={onNext} onBack={onBack} />],
-    [5, <CustomiseColors onNext={onNext} onBack={onBack} />],
-    [6, <CustomiseLogo onNext={onNext} onBack={onBack} />],
+    [
+      2,
+      <ColumnSelector
+        onNext={onNext}
+        onBack={onBack}
+      />,
+    ],
+    [
+      3,
+      <CustomiseTitle
+        onNext={onNext}
+        onBack={onBack}
+      />,
+    ],
+    [
+      4,
+      <CustomiseFont
+        onNext={onNext}
+        onBack={onBack}
+      />,
+    ],
+    [
+      5,
+      <CustomiseColors
+        onNext={onNext}
+        onBack={onBack}
+      />,
+    ],
+    [
+      6,
+      <CustomiseLogo
+        onNext={onNext}
+        onBack={onBack}
+      />,
+    ],
     [
       7,
       <CustomiseBackground
@@ -71,7 +101,7 @@ const CreateCheckerPage = () => {
             );
           })}
         </div>
-        <p style={{ marginLeft: "10px" }}>
+        <p style={{ marginLeft: '10px' }}>
           {progress} of {steps.size}
         </p>
       </div>

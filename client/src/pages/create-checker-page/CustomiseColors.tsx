@@ -1,7 +1,7 @@
-import styles from "./style.module.css";
-import BackArrow from "../../assets/BackArrow.svg";
-import { useContext, Dispatch, SetStateAction } from "react";
-import { PageContextProvider, Page } from "./CreateCheckerPage";
+import styles from './style.module.css';
+import BackArrow from '../../assets/BackArrow.svg';
+import { useContext, Dispatch, SetStateAction } from 'react';
+import { PageContextProvider, Page } from './CreateCheckerPage';
 
 interface CustomiseColorsProps {
   onNext: () => void;
@@ -16,7 +16,10 @@ const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
-        <button id={styles.CustomisePageBackButton} onClick={onBack}>
+        <button
+          id={styles.CustomisePageBackButton}
+          onClick={onBack}
+        >
           <img src={BackArrow} />
         </button>
         <div>
@@ -26,7 +29,10 @@ const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
         <div>
           <p>choose your theme colours</p>
         </div>
-        <button id={styles.CustomisePageNextButton} onClick={onNext}>
+        <button
+          id={styles.CustomisePageNextButton}
+          onClick={onNext}
+        >
           next
         </button>
       </div>

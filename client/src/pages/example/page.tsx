@@ -1,10 +1,10 @@
-import styles from './style.module.css';
-import { useNavigate } from 'react-router';
+import styles from "./style.module.css";
+import { useNavigate } from "react-router";
 
 export const ExamplePage = () => {
   const navigate = useNavigate();
   const handleButtonClick = () => {
-    navigate('/');
+    navigate("/");
   };
   return (
     <div>
@@ -13,6 +13,9 @@ export const ExamplePage = () => {
       <button onClick={handleButtonClick}>Go to index</button>
       <button onClick={() => navigate("/create-page")}>
         Create Membership Checker Page
+      </button>
+      <button onClick={() => navigate("/club-detail-page")}>
+        Club Detail Page
       </button>
     </div>
   );

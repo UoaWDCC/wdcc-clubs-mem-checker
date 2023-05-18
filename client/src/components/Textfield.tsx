@@ -70,17 +70,22 @@ const Textfield = forwardRef(
               color: textColour,
               fontSize,
               fontWeight,
-              border: isError ? "1px solid red" : backgroundColor,
+              border: isError ? "2px solid red" : backgroundColor,
               ["--focus-border-color" as any]: lightenColor(
                 backgroundColor,
                 -75
               ),
-              ["--placeholder-color" as any]: getTextColor(backgroundColor),
+              ["--placeholder-color" as any]: lightenColor(
+                getTextColor(backgroundColor),
+                60
+              ),
               ...iconStyles,
             }}
           />
         </div>
-        <ErrorMessage isError={isError} errorText={errorText} />
+        <div style={{ position: "absolute" }}>
+          <ErrorMessage isError={isError} errorText={errorText} />
+        </div>
       </div>
     );
   }
