@@ -17,11 +17,21 @@ interface GoogleSheetFormProps {
   onNext: () => void;
 }
 
-const getSheetId = (link: string): string => {
+const getSpreadsheetId = (link: string): string => {
   const linkArray = link.split("/");
   const idIndex =
     linkArray.findIndex((value) => value.toLowerCase() == "d") + 1;
   return linkArray[idIndex];
+};
+
+const getSheetTabId = (link: string): string | null => {
+  const linkArray = link.split("/");
+  const gidIndex = linkArray.findIndex((value) =>
+    value.toLowerCase().startsWith("edit#gid=", 0)
+  );
+  const regex = /edit#gid=(\w+)/;
+  const match = linkArray[gidIndex].match(regex);
+  return match ? match[1] : null;
 };
 
 const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
