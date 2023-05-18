@@ -1,16 +1,17 @@
-import styles from "../style.module.css";
-import { useState } from "react";
-import Counter from "../../components/example/Counter";
-import { useNavigate } from "react-router";
+import styles from '../style.module.css';
+import { useState } from 'react';
+import Counter from '../../components/example/Counter';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export const IndexPage = () => {
   const navigate = useNavigate();
   const handleButtonClick = () => {
-    navigate("/example");
+    navigate('/example');
   };
   return (
-    <div style={{ minWidth: "100vw", height: "100vh" }}>
-      <button onClick={() => navigate("/create-page")}>
+    <div style={{ minWidth: '100vw', height: '100vh' }}>
+      <button onClick={() => navigate('/create-page')}>
         Create Membership Checker Page
       </button>
       <div>
