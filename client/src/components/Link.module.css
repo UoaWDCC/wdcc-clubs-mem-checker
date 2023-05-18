@@ -7,18 +7,19 @@
   height: 100%;
 }
 
-.button {
+.link {
   padding: 10px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 8px;
 }
 
-.buttonContent {
+.linkContent {
   display: grid;
   grid-template-columns: 1fr 5fr;
   place-items: center;
 }
 
-.button:hover {
+.link:hover {
   cursor: pointer;
-  background: var(--hover-color) !important;
+  background: var(--background-color) !important;
 }

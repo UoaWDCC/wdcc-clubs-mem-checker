@@ -72,7 +72,7 @@ const Textfield = forwardRef(
               color: textColour,
               fontSize,
               fontWeight,
-              border: isError ? "1px solid red" : backgroundColor,
+              border: isError ? "2px solid red" : backgroundColor,
               ["--focus-border-color" as any]: lightenColor(
                 backgroundColor,
                 -75
@@ -83,7 +83,9 @@ const Textfield = forwardRef(
             }}
           />
         </div>
-        <ErrorMessage isError={isError} errorText={errorText} />
+        <div style={{ position: "absolute" }}>
+          <ErrorMessage isError={isError} errorText={errorText} />
+        </div>
       </div>
     );
   }

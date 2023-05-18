@@ -15,6 +15,9 @@ export const ExamplePage = () => {
         Create Membership Checker Page
       </button>
       <button onClick={() => navigate("/invite-code")}>Invite code page</button>
+      <button onClick={() => navigate("/club-detail-page")}>
+        Club Detail Page
+      </button>
     </div>
   );
 };

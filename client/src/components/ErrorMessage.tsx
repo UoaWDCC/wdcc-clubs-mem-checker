@@ -9,16 +9,23 @@ const ErrorMessage = ({ errorText, isError }: ErrorMessageProps) => {
   return (
     <div
       style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 5fr",
-        placeItems: "center start",
-        width: "10rem",
+        width: "100%",
         paddingLeft: "1rem",
         fontFamily: "Montserrat",
+        marginTop: "4px",
       }}
     >
-      <img src={isError ? errorIcon : ""} height="70%"></img>
-      <span style={{ fontSize: "75%", color: "red" }}>
+      <img
+        src={isError ? errorIcon : ""}
+        style={{ float: "left", marginRight: "8px" }}
+      ></img>
+      <span
+        style={{
+          fontSize: "75%",
+          color: "red",
+          float: "left",
+        }}
+      >
         {isError ? errorText : ""}
       </span>
     </div>
