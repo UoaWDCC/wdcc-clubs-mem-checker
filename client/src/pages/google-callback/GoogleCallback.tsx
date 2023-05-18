@@ -14,7 +14,7 @@ export default function GoogleCallback() {
       const code = searchParams.get('code');
       if (!code) setLoadingText('Error: Could not sign in with Google.');
       const res = await axios({
-        url: 'http://localhost:3000/auth/google/callback',
+        url: '/auth/google/callback',
         method: 'POST',
         data: {
           code,

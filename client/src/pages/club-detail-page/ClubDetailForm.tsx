@@ -1,14 +1,12 @@
-import styles from "./style.module.css";
-import BackArrow from "../../assets/BackArrow.svg";
-import { useRef, useState } from "react";
-import Textfield from "../Textfield";
-import Button from "../Button";
-import { ClubDetails } from "./ClubDetailPage";
-import axios from "axios";
+import styles from './style.module.css';
+import BackArrow from '../../assets/BackArrow.svg';
+import { useRef, useState } from 'react';
+import Textfield from '../../components/Textfield';
+import Button from '../../components/Button';
+import { ClubDetails } from './ClubDetailPage';
+import axios from 'axios';
 
-const url = "http://localhost:3000/club/create"; //temp url
-const bearerToken = import.meta.env.VITE_BEARER_TOKEN as string; //Create a .env file in the root directory of client and add VITE_BEARER_TOKEN=your_token_here
-axios.defaults.headers.post["Authorization"] = `Bearer ${bearerToken}`;
+const url = '/club/create'; //temp url
 
 interface ClubDetailFormProps {
   onNext: (clubDetails: ClubDetails) => void;
@@ -21,19 +19,19 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
   const [clubAcronymError, setClubAcronymError] = useState(false);
 
   const [clubNameErrorMessage, setClubNameErrorMessage] =
-    useState("enter club name");
+    useState('enter club name');
 
   const handleOnClick = () => {
-    if (clubNameRef.current?.value === "") {
-      setClubNameErrorMessage("enter club name");
+    if (clubNameRef.current?.value === '') {
+      setClubNameErrorMessage('enter club name');
       setClubNameError(true);
     }
-    if (clubAcronymRef.current?.value === "") {
+    if (clubAcronymRef.current?.value === '') {
       setClubAcronymError(true);
     }
     if (
-      clubNameRef.current?.value !== "" &&
-      clubAcronymRef.current?.value !== ""
+      clubNameRef.current?.value !== '' &&
+      clubAcronymRef.current?.value !== ''
     ) {
       axios
         .post(url, {
@@ -50,7 +48,7 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
           }
         })
         .catch(function (error) {
-          setClubNameErrorMessage("the club you want to create already exists");
+          setClubNameErrorMessage('the club you want to create already exists');
           setClubNameError(true);
         });
     }
