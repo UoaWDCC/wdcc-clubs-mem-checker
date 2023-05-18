@@ -12,12 +12,13 @@ import { PageContextProvider, Page } from "./CreateCheckerPage";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
 import LinkIcon from "../../assets/LinkIcon.svg";
+import axios from "axios";
 
 interface GoogleSheetFormProps {
   onNext: () => void;
 }
 
-const getSpreadsheetId = (link: string): string => {
+const getSpreadsheetId = (link: string): string | null => {
   const linkArray = link.split("/");
   const idIndex =
     linkArray.findIndex((value) => value.toLowerCase() == "d") + 1;
@@ -25,11 +26,12 @@ const getSpreadsheetId = (link: string): string => {
 };
 
 const getSheetTabId = (link: string): string | null => {
+  const regex = /edit#gid=(\w+)/;
   const linkArray = link.split("/");
   const gidIndex = linkArray.findIndex((value) =>
     value.toLowerCase().startsWith("edit#gid=", 0)
   );
-  const regex = /edit#gid=(\w+)/;
+  if (gidIndex === -1) return null;
   const match = linkArray[gidIndex].match(regex);
   return match ? match[1] : null;
 };
@@ -63,14 +65,32 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
     return false;
   };
 
-  const handleOnNext = () => {
+  const handleOnNext = async () => {
     const link = (inputRef.current as HTMLInputElement).value;
     if (isLinkValid(link)) {
       setPage({
         ...page,
         googleSheetLink: link,
       });
-      onNext();
+      // get spreadsheetId and sheetTabId
+      const spreadsheetId = getSpreadsheetId(link);
+      const sheetTabId = getSheetTabId(link);
+      if (!spreadsheetId || !sheetTabId) {
+        setIsError(true);
+        return;
+      }
+      // try fetch spreadsheet columns
+      try {
+        const response = await axios.get(
+          `/sheet/columns/${spreadsheetId}/${sheetTabId}`
+        );
+        const data = response.data;
+        console.log(data);
+        onNext();
+      } catch (error) {
+        console.log(error);
+        setIsError(true);
+      }
     } else {
       (inputRef.current as HTMLInputElement).focus();
     }
