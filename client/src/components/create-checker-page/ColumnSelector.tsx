@@ -3,6 +3,7 @@ import GoogleSheetsLogo from "../../assets/GoogleSheetsLogo.svg";
 import BackArrow from "../../assets/BackArrow.svg";
 import { useContext, Dispatch, SetStateAction } from "react";
 import { PageContextProvider, Page } from "./CreateCheckerPage";
+import DropDown from '../Dropdown';
 
 interface ColumnSelectorProps {
   onNext: () => void;
@@ -15,6 +16,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
     Dispatch<SetStateAction<Page>>
   ];
 
+
   return (
     <div className={styles.container}>
       <button id={styles.backButton} onClick={onBack}>
@@ -25,12 +27,24 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
           <h1>select & edit columns</h1>
           <img src={GoogleSheetsLogo} />
         </div>
+        <div>
+          <DropDown columns={['column1', 'column2', 'column3']}
+          onColumnClick={(column) => {console.log(column)} }
+          />
+        </div>
         <i>
           please select the google sheet columns you want to use as
           identification options
         </i>
       </div>
-      <div className={styles.body}>image</div>
+
+      
+      
+
+      <div className={styles.columnContainer}>
+        
+      </div>
+
       <button id={styles.nextButton} onClick={onNext}>
         Next
       </button>

@@ -1,0 +1,17 @@
+
+.dropdownButton{
+  background: #097df1;
+  border-radius: 10px;
+  color: white;
+  border: none;
+  padding: 5px;
+}
+
+.dropdownList{
+  list-style-type: none;
+}
+
+.selectColumns{
+  border: none;
+  background-color: white;
+}
