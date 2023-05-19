@@ -125,6 +125,7 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
 					placeholder={'paste link here'}
 					ref={inputRef}
 					width="100%"
+					onChange={() => setIsError(false)}
 				/>
 			</div>
 			<div>
