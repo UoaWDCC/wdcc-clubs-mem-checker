@@ -65,7 +65,7 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
     return false;
   };
 
-  const handleOnNext = async () => {
+  const handleOnNext = () => {
     const link = (inputRef.current as HTMLInputElement).value;
     if (isLinkValid(link)) {
       setPage({
@@ -77,20 +77,25 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
       const sheetTabId = getSheetTabId(link);
       if (!spreadsheetId || !sheetTabId) {
         setIsError(true);
+        (inputRef.current as HTMLInputElement).focus();
         return;
       }
       // try fetch spreadsheet columns
-      try {
-        const response = await axios.get(
-          `/sheet/columns/${spreadsheetId}/${sheetTabId}`
-        );
-        const data = response.data;
-        console.log(data);
-        onNext();
-      } catch (error) {
-        console.log(error);
-        setIsError(true);
-      }
+      axios
+        .get(`/sheet/columns/${spreadsheetId}/${sheetTabId}`)
+        .then((response) => {
+          console.log(response.data);
+          setPage({
+            ...page,
+            googleSheetLink: link,
+            identificationColumns: response.data,
+          });
+          onNext();
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsError(true);
+        });
     } else {
       (inputRef.current as HTMLInputElement).focus();
     }
