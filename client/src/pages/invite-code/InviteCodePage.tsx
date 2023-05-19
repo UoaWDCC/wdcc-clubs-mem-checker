@@ -2,7 +2,6 @@ import Background from "../../components/Background";
 import styles from "./InviteCodePage.module.css";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
-import WhiteBackButton from "../../components/WhiteBackButton";
 import { Back } from "iconsax-react"; 
 import axios from "axios";
 import { useNavigate } from "react-router";
