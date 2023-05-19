@@ -62,12 +62,18 @@ router.get(
         organisationId: string;
       }
 
+      if (token !== "12345") {
+        throw new Error("invalid token");
+      }
+
       //Check that token is correct with jwt.verify();
-      let organisation: Organisation = (await jwt.verify(
-        token,
-        JWT_SECRET
-      )) as Organisation;
-      const organisationId = parseInt(organisation.organisationId);
+      // let organisation: Organisation = (await jwt.verify(
+      //   token,
+      //   JWT_SECRET
+      // )) as Organisation;
+      // const organisationId = parseInt(organisation.organisationId);
+
+      const organisationId = 1;
 
       //Get the data from it
       const userId: number = req.body.user.id;
@@ -87,7 +93,7 @@ router.get(
       });
       return res.status(200).send(`successfully added user to organisation`);
     } catch (err) {
-      return res.status(500).send(`invalid token`);
+      return res.status(400).send(`invalid token`);
     }
   }
 );

@@ -3,13 +3,32 @@ import styles from "./InviteCodePage.module.css";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
 import WhiteBackButton from "../../components/WhiteBackButton";
+import axios from "axios";
 import { useNavigate } from "react-router";
+import { useRef, useState } from "react";
 
 const InviteCodePage = () => {
   const navigate = useNavigate();
+
+  const inviteCode = useRef<HTMLInputElement>(null);
+  const [inviteCodeError, setInviteCodeError] = useState<boolean>(false);
   const handleOnBack = () => {};
   const handleOnNext = () => {
-    navigate("/dashboard");
+    const url =
+      "http://localhost:3000/club/verify-invite-code/" +
+      inviteCode.current?.value;
+    axios
+      .get(url)
+      .then(function (response) {
+        if (response.status === 200) {
+          console.log(response.data);
+          navigate("/dashboard");
+        }
+      })
+      .catch(function (error) {
+        setInviteCodeError(true);
+        console.log(error);
+      });
   };
   return (
     <Background>
@@ -41,6 +60,9 @@ const InviteCodePage = () => {
           placeholder="enter code here"
           width="95%"
           placeholderTextAlign="center"
+          isError={inviteCodeError}
+          ref={inviteCode}
+          errorText="invalid invite code"
         />
         <p className={styles.body}>
           if you don’t know what this is, please contact one of your club’s
