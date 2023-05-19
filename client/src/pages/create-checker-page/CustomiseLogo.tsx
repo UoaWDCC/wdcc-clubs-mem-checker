@@ -1,5 +1,6 @@
 import styles from "./style.module.css";
-import { BackSquare } from 'iconsax-react';
+import { Back } from 'iconsax-react';
+import Button from "../../components/Button";
 import { useContext, Dispatch, SetStateAction } from "react";
 import { PageContextProvider, Page } from "./CreateCheckerPage";
 
@@ -16,9 +17,21 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
-        <button id={styles.CustomisePageBackButton} onClick={onBack}>
-          <BackSquare size={24}/>
-        </button>
+        <div id = {styles.CustomisePageBackButton}>
+          <Button
+            buttonText=""
+            iconFromIconsax={<Back />}
+            onClick={onBack}
+            width="24px"
+            height="24px"
+            backgroundColor="transparent"
+            border="#087DF1 solid 2px"
+            color="#087DF1"
+            hoverColor="#cceeff"
+            borderRadius="8px"
+            padding="4px"
+          />
+        </div>
         <div>
           <h2>customise page</h2>
           <i>customise page for your members</i>

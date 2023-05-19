@@ -17,6 +17,7 @@ export interface ButtonProps {
   iconSize?: string;
   borderRadius?: string;
   hoverColor?: string;
+  padding?: string;
   onClick: () => void;
 }
 
@@ -35,6 +36,7 @@ const Button = ({
   iconFromIconsax,
   borderRadius = '8px',
   hoverColor = '',
+  padding = "5px",
   onClick,
 }: ButtonProps) => {
   if (hoverColor == '') hoverColor = lightenColor(backgroundColor, 20);
@@ -52,6 +54,7 @@ const Button = ({
           fontSize,
           fontWeight,
           borderRadius: borderRadius,
+          padding: padding,
           ['--hover-color' as any]: hoverColor,
         }}
         onClick={onClick}

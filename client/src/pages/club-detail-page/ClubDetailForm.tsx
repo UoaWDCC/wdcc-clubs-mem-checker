@@ -68,8 +68,8 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
           border="#087DF1 solid 4px"
           color="#087DF1"
           hoverColor="#cceeff"
-          iconSize="27px"
           borderRadius="15px"
+          padding='10px'
         />
       </div>
       <div>
