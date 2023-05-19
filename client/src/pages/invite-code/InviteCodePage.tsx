@@ -12,7 +12,9 @@ const InviteCodePage = () => {
 
   const inviteCode = useRef<HTMLInputElement>(null);
   const [inviteCodeError, setInviteCodeError] = useState<boolean>(false);
-  const handleOnBack = () => {};
+  const handleOnBack = () => {
+    navigate("/no-clubs");
+  };
   const handleOnNext = () => {
     const url =
       "http://localhost:3000/club/verify-invite-code/" +
