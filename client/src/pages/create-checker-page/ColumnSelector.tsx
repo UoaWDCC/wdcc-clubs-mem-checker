@@ -38,7 +38,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
           <h1>select & edit columns</h1>
           <img src={GoogleSheetsLogo} />
         </div>
-        <i>
+        <i className={styles.subtitle}>
           please select the google sheet columns you want to use as
           identification options
         </i>

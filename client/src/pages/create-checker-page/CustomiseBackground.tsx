@@ -34,7 +34,7 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
         </div>
         <div>
           <h2>customise page</h2>
-          <i>customise page for your members</i>
+          <i className={styles.subtitle}>customise page for your members</i>
         </div>
         <div>
           <p>upload a background image (optional)</p>

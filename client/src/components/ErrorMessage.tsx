@@ -12,7 +12,8 @@ const ErrorMessage = ({ errorText, isError }: ErrorMessageProps) => {
         width: "100%",
         paddingLeft: "1rem",
         fontFamily: "Montserrat",
-        marginTop: "4px",
+        height: "18px",
+        marginTop: "5px",
       }}
     >
       <img

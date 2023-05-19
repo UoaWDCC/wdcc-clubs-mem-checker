@@ -27,10 +27,10 @@ const Button = ({
   buttonText,
   margin,
   color,
-  backgroundColor = '#087DF1',
+  backgroundColor = "#087DF1",
   border = backgroundColor,
-  fontSize = '1rem',
-  fontWeight = 'bold',
+  fontSize = "1rem",
+  fontWeight = "bold",
   icon,
   iconSize,
   iconFromIconsax,
@@ -39,7 +39,7 @@ const Button = ({
   padding = "5px",
   onClick,
 }: ButtonProps) => {
-  if (hoverColor == '') hoverColor = lightenColor(backgroundColor, 20);
+  if (hoverColor == "") hoverColor = lightenColor(backgroundColor, 20);
   return (
     <>
       <button
@@ -60,10 +60,10 @@ const Button = ({
         onClick={onClick}
       >
         <div
-          className={icon ? styles.buttonContent : ''}
+          className={icon ? styles.buttonContent : ""}
           style={{
-            width: '80%',
-            margin: 'auto',
+            width: "80%",
+            margin: "auto",
           }}
         >
           {!iconFromIconsax && (
