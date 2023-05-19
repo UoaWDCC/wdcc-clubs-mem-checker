@@ -3,6 +3,7 @@ import styles from "./InviteCodePage.module.css";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
 import WhiteBackButton from "../../components/WhiteBackButton";
+import { Back } from "iconsax-react"; 
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { useRef, useState } from "react";
@@ -36,19 +37,23 @@ const InviteCodePage = () => {
     <Background>
       <div className={styles.container}>
         <div>
-          {/* <Button
+          <Button
             buttonText=""
-            onClick={handleOnClick}
-            icon={WhiteBackArrow}
+            onClick={handleOnBack}
+            iconFromIconsax={<Back/>}
             iconSize="20px"
-            backgroundColor="white"
+            backgroundColor="#087DF1"
             width="50px"
             height="50px"
             margin="0 500px 0 0"
-          /> */}
-          <div style={{ position: "absolute", top: "-10%", left: "-20%" }}>
+            border="#FFFFFF solid 4px"
+            color="#FFFFFF"
+            borderRadius="15px"
+            padding='9px'
+          />
+          {/*<div style={{ position: "absolute", top: "-10%", left: "-20%" }}>
             <WhiteBackButton onClick={handleOnBack} />
-          </div>
+          </div>*/}
           <div className={styles.title}>
             <h1>enter invite code</h1>
           </div>

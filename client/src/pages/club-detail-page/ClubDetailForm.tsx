@@ -5,6 +5,7 @@ import Textfield from '../../components/Textfield';
 import Button from '../../components/Button';
 import { ClubDetails } from './ClubDetailPage';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 const url = '/club/create'; //temp url
 
@@ -13,6 +14,7 @@ interface ClubDetailFormProps {
 }
 
 const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
+  const navigate = useNavigate();
   const clubNameRef = useRef<HTMLInputElement>(null);
   const clubAcronymRef = useRef<HTMLInputElement>(null);
   const [clubNameError, setClubNameError] = useState(false);
@@ -53,7 +55,9 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
         });
     }
   };
-  const handleOnBack = () => {};
+  const handleOnBack = () => {
+    navigate("/no-clubs");
+  };
 
   return (
     <div className={styles.container}>
