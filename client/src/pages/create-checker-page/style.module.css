@@ -57,10 +57,6 @@
   color: #087df1;
 }
 
-button {
-  cursor: pointer;
-}
-
 #backButton {
   left: 20px;
   position: absolute;

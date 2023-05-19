@@ -1,0 +1,36 @@
+@font-face {
+  font-family: "Montserrat Italic";
+  src: url("../../../public/Montserrat-Italic-VariableFont_wght.ttf");
+}
+@font-face {
+  font-family: "Montserrat Light";
+  src: url("../../../public/Montserrat-Light.ttf");
+}
+
+.container {
+  align-items: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  justify-content: space-between;
+  margin: auto;
+  position: relative;
+  text-align: center;
+  width: 30%;
+}
+
+.title {
+  font: 1rem "Montserrat";
+  margin-bottom: 2%;
+}
+
+.subtitle {
+  font: 1.1rem "Montserrat Italic";
+}
+
+.body {
+  font: 0.9rem "Montserrat Light";
+  margin-top: -9%;
+  width: 95%;
+}
