@@ -105,21 +105,20 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
 
 	return (
 		<div className={styles.container}>
-			<div>
-				<div className={styles.title}>
-					<h1>link your google sheet</h1>
-					<img src={GoogleSheetsLogo} />
-				</div>
-				<i className={styles.subtitle}>
-					paste the link to the google sheet with {state.acronym}'s membership
-					data
-				</i>
+			<div className={styles.title}>
+				<div>link your google sheet</div>
+				<img src={GoogleSheetsLogo} />
 			</div>
+			<i className={styles.subtitle}>
+				paste the link to the google sheet with {state.acronym}'s membership
+				data
+			</i>
 			<div style={{ width: '100%', marginBottom: '-10px' }}>
 				<Textfield
+					margin="3rem 0 1rem 0"
 					errorText="enter valid link"
-					fontSize="1rem"
-					height="45px"
+					fontSize="1.2rem"
+					height="55px"
 					icon={LinkIcon}
 					isError={isError}
 					placeholder={'paste link here'}
@@ -129,19 +128,21 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
 				/>
 			</div>
 			<div>
-				<p style={{ fontSize: '14px', color: '#707070' }}>
+				<p style={{ fontSize: '0.9rem', color: '#707070' }}>
 					If you have more than one google sheet (e.g. for different years), you
 					can create more membership checker pages for your club later in the
 					admin dashboard.
 				</p>
 			</div>
-			<Button
-				buttonText="next"
-				height="40px"
-				onClick={handleOnNext}
-				fontSize="14px"
-				width="80px"
-			/>
+			<div className={styles['btn-container']}>
+				<Button
+					buttonText="next"
+					height="40px"
+					onClick={handleOnNext}
+					fontSize="14px"
+					width="100px"
+				/>
+			</div>
 		</div>
 	);
 };
