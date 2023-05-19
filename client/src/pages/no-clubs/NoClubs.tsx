@@ -40,7 +40,7 @@ export default function NoClubs() {
           buttonText="join as club admin"
           backgroundColor="#087DF1"
           color="#03045E"
-          border="0.2rem solid #03045E"
+          border="#03045E 0.2rem solid"
           onClick={() => navigate("/invite-code")}
         />
       </div>

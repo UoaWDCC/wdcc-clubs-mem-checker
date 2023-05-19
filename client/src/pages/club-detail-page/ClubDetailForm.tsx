@@ -86,7 +86,7 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
       </div>
       <div>
         <Textfield
-          margin="2rem 2rem 2rem 2rem"
+          margin="1rem 0rem -2rem 2rem"
           width="20rem"
           height="4rem"
           fontSize="1.5rem"
@@ -97,7 +97,7 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
           errorText={clubNameErrorMessage}
         />
         <Textfield
-          margin="2rem"
+          margin="2rem 2rem 0rem 2rem"
           width="20rem"
           height="4rem"
           fontSize="1.5rem"
