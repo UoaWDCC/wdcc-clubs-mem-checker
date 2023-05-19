@@ -32,16 +32,20 @@ export default function NoClubs() {
 			</div>
 			<div className={styles['button-div']}>
 				<Button
-					width="220px"
-					height="50px"
+					width="240px"
+					height="55px"
 					buttonText="create club"
+					fontSize="1.1rem"
+					fontWeight="500"
 					backgroundColor="#03045E"
 					onClick={() => navigate('/club-details')}
 				/>
 				<Button
-					width="220px"
-					height="50px"
+					width="240px"
+					height="55px"
 					buttonText="join as club admin"
+					fontSize="1.1rem"
+					fontWeight="500"
 					backgroundColor="#087DF1"
 					color="#03045E"
 					border="0.2rem solid #03045E"

@@ -1,5 +1,4 @@
 import styles from './style.module.css';
-import WDCCLogo from '../../assets/WdccLogo.svg';
 import femaleProgrammer from '../../assets/femaleProgrammer.svg';
 import { useNavigate } from 'react-router';
 import Button from '../../components/Button';
@@ -12,7 +11,6 @@ export const HomePage = () => {
 	return (
 		<div className={styles['home-container']}>
 			<title>Club Membership Checker</title>
-			<img className={styles.logo} src={WDCCLogo} alt="WDCC Logo" />
 			<div className={styles['content-container']}>
 				<div className={styles['col-1']}>
 					<h1 className={styles.title}>Club Membership Checker</h1>
