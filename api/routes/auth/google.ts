@@ -50,7 +50,7 @@ router.post('/callback', async (req, res) => {
 
     const user: User = await prisma.user.upsert({
       where: { email: data.email! },
-      update: {},
+      update: {googleToken: tokens.access_token},
       create: {
         firstName: data.given_name!,
         lastName: data.family_name!,
