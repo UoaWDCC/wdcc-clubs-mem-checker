@@ -94,7 +94,7 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
 			<Button
 				buttonText="confirm"
 				onClick={handleOnClick}
-				width="10rem"
+				width="9rem"
 				height="3rem"
 				fontSize="1.2rem"
 			/>

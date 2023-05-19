@@ -1,10 +1,10 @@
 .container {
-	align-items: center;
 	background-color: #ffffff;
 	border-radius: 20px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 	height: 70%;
 	margin: auto;
 	padding: 60px 140px;
@@ -13,6 +13,10 @@
 	width: 40%;
 	font-family: 'Montserrat', sans-serif;
 	color: #087df1;
+}
+
+.container.new-club {
+	padding: 60px 70px;
 }
 
 button {
@@ -38,7 +42,13 @@ button {
 	color: #087df1;
 	font-family: 'Montserrat', sans-serif;
 	font-size: 1.5rem;
-	width: 20rem;
+	margin: 3.5rem 0;
+}
+
+#instruction {
+	padding: 0 10%;
+	line-height: 1.4rem;
+	font-style: italic;
 }
 
 #backButton {
