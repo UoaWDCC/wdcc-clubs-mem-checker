@@ -60,7 +60,7 @@
 	height: var(--error-box-height);
 	width: 8rem;
 	background-color: #fbd6d1;
-	border: 2.5px solid red;
+	border: 2px solid red;
 	border-radius: 8px;
 	font: 0.85rem 'Montserrat';
 	font-weight: 500;

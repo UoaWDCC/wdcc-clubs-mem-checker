@@ -46,7 +46,7 @@ const router = createBrowserRouter([
 		element: <GoogleCallback />,
 	},
 	{
-		path: '/club-details',
+		path: '/create-club',
 		element: <ClubDetailPage />,
 	},
 	{

@@ -38,7 +38,7 @@ export default function NoClubs() {
 					fontSize="1.1rem"
 					fontWeight="500"
 					backgroundColor="#03045E"
-					onClick={() => navigate('/club-details')}
+					onClick={() => navigate('/create-club')}
 				/>
 				<Button
 					width="240px"
