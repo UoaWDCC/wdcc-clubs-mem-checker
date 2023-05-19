@@ -1,5 +1,5 @@
-import styles from './Button.module.css';
-import { getTextColor, lightenColor } from '../utils/helpers';
+import styles from "./Button.module.css";
+import { getTextColor, lightenColor } from "../utils/helpers";
 
 export interface ButtonProps {
   height?: string;
@@ -24,17 +24,17 @@ const Button = ({
   buttonText,
   margin,
   color,
-  backgroundColor = '#087DF1',
+  backgroundColor = "#087DF1",
   border = backgroundColor,
-  fontSize = '1rem',
-  fontWeight = 'bold',
+  fontSize = "1rem",
+  fontWeight = "bold",
   icon,
   iconSize,
-  borderRadius = '8px',
-  hoverColor = '',
+  borderRadius = "8px",
+  hoverColor = "",
   onClick,
 }: ButtonProps) => {
-  if (hoverColor == '') hoverColor = lightenColor(backgroundColor, 20);
+  if (hoverColor == "") hoverColor = lightenColor(backgroundColor, 20);
   return (
     <>
       <button
@@ -49,21 +49,18 @@ const Button = ({
           fontSize,
           fontWeight,
           borderRadius: borderRadius,
-          ['--hover-color' as any]: hoverColor,
+          ["--hover-color" as any]: hoverColor,
         }}
         onClick={onClick}
       >
         <div
-          className={icon ? styles.buttonContent : ''}
+          className={icon ? styles.buttonContent : ""}
           style={{
-            width: '80%',
-            margin: 'auto',
+            width: "80%",
+            margin: "auto",
           }}
         >
-          <img
-            src={icon}
-            height={iconSize}
-          />
+          <img src={icon} height={iconSize} />
           {buttonText}
         </div>
       </button>
