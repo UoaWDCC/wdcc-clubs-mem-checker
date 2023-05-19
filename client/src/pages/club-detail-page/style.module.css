@@ -4,12 +4,11 @@
 	border-radius: 20px;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	height: 70%;
-	justify-content: space-evenly;
 	margin: auto;
-	padding: 50px 20px;
+	padding: 60px 140px;
 	position: relative;
-	row-gap: 10px;
 	text-align: center;
 	width: 40%;
 	font-family: 'Montserrat', sans-serif;
@@ -23,14 +22,16 @@ button {
 #title {
 	color: #087df1;
 	font-family: 'Montserrat', sans-serif;
-	font-size: 3rem;
-	font-weight: 550;
+	font-size: 2.6rem;
+	font-weight: 600;
 }
+
 #description {
 	color: #087df1;
 	font-family: 'Montserrat', sans-serif;
-	width: 20rem;
 	font-style: italic;
+	line-height: 1.3rem;
+	margin-bottom: 3.5rem;
 }
 
 #message {

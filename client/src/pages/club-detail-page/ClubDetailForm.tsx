@@ -66,44 +66,37 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
 			<div id={styles.backButton}>
 				<WhiteBackButton color="blue" onClick={handleOnBack} />
 			</div>
-			<div>
-				<div>
-					<h1 id={styles.title}>club details</h1>
-				</div>
-				<div id={styles.description}>
-					please fill out your club details to enter you club into our system
-				</div>
+			<h1 id={styles.title}>club details</h1>
+			<div id={styles.description}>
+				please fill out your club details to enter you club into our system
 			</div>
-			<div>
-				<Textfield
-					margin="2rem 2rem 2rem 2rem"
-					width="20rem"
-					height="4rem"
-					fontSize="1.5rem"
-					placeholder="club name"
-					ref={clubNameRef}
-					onChange={() => setClubNameError(false)}
-					isError={clubNameError}
-					errorText={clubNameErrorMessage}
-				/>
-				<Textfield
-					margin="2rem"
-					width="20rem"
-					height="4rem"
-					fontSize="1.5rem"
-					placeholder="club acronym"
-					ref={clubAcronymRef}
-					onChange={() => setClubAcronymError(false)}
-					isError={clubAcronymError}
-					errorText="enter club acronym"
-				/>
-			</div>
+			<Textfield
+				width="100%"
+				height="4rem"
+				fontSize="1.3rem"
+				placeholder="club name"
+				ref={clubNameRef}
+				onChange={() => setClubNameError(false)}
+				isError={clubNameError}
+				errorText={clubNameErrorMessage}
+			/>
+			<Textfield
+				margin="0.5rem 0 2rem 0"
+				width="100%"
+				height="4rem"
+				fontSize="1.3rem"
+				placeholder="club acronym"
+				ref={clubAcronymRef}
+				onChange={() => setClubAcronymError(false)}
+				isError={clubAcronymError}
+				errorText="enter club acronym"
+			/>
 			<Button
 				buttonText="confirm"
 				onClick={handleOnClick}
 				width="10rem"
-				height="4rem"
-				fontSize="1.3rem"
+				height="3rem"
+				fontSize="1.2rem"
 			/>
 		</div>
 	);
