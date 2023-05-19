@@ -1,36 +1,80 @@
-@font-face {
-  font-family: "Montserrat Italic";
-  src: url("../../../public/Montserrat-Italic-VariableFont_wght.ttf");
-}
-@font-face {
-  font-family: "Montserrat Light";
-  src: url("../../../public/Montserrat-Light.ttf");
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,500;1,300;1,400&display=swap');
 
 .container {
-  align-items: center;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  height: 50%;
-  justify-content: space-between;
-  margin: auto;
-  position: relative;
-  text-align: center;
-  width: 30%;
+	align-items: center;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	height: 50%;
+	margin: auto;
+	position: relative;
+	text-align: center;
+	width: 30%;
+}
+
+.back-btn {
+	position: absolute;
+	top: -10%;
+	left: -20%;
 }
 
 .title {
-  font: 1rem "Montserrat";
-  margin-bottom: 2%;
+	font: 1.3rem 'Montserrat';
+	margin-bottom: 2%;
 }
 
 .subtitle {
-  font: 1.1rem "Montserrat Italic";
+	font: 1.3rem 'Montserrat';
+	font-style: italic;
+	margin-bottom: 3.3rem;
+}
+
+.textfield {
+	position: relative;
+	width: 95%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.error-arrow {
+	position: absolute;
+	left: 100%;
+	margin-top: -2.5px;
+	width: 0;
+	height: 0;
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	border-right: 10px solid red;
+}
+
+.error-box {
+	--error-box-height: 3.2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: absolute;
+	top: calc((3.6rem - var(--error-box-height)) / 2);
+	left: calc(100% + 10px);
+	height: var(--error-box-height);
+	width: 8rem;
+	background-color: #fbd6d1;
+	border: 2.5px solid red;
+	border-radius: 8px;
+	font: 0.85rem 'Montserrat';
+	font-weight: 500;
+	color: red;
+}
+
+input {
+	&.error {
+		border: 2px solid red;
+	}
 }
 
 .body {
-  font: 0.9rem "Montserrat Light";
-  margin-top: -9%;
-  width: 95%;
+	font: 0.9rem 'Montserrat';
+	font-weight: 300;
+	margin-bottom: 2rem;
 }
