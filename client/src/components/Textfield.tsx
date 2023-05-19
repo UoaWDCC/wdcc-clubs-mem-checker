@@ -83,9 +83,7 @@ const Textfield = forwardRef(
             }}
           />
         </div>
-        <div style={{ position: "absolute" }}>
-          <ErrorMessage isError={isError} errorText={errorText} />
-        </div>
+        <ErrorMessage isError={isError} errorText={errorText} />
       </div>
     );
   }
