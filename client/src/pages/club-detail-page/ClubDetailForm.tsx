@@ -6,6 +6,7 @@ import Button from '../../components/Button';
 import { ClubDetails } from './ClubDetailPage';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import WhiteBackButton from '../../components/WhiteBackButton';
 
 const url = '/club/create'; //temp url
 
@@ -63,18 +64,7 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
 	return (
 		<div className={styles.container}>
 			<div id={styles.backButton}>
-				<Button
-					buttonText=""
-					icon={BackArrow}
-					onClick={handleOnBack}
-					width="55px"
-					height="55px"
-					backgroundColor="transparent"
-					border="#087DF1 solid 4px"
-					hoverColor="#cceeff"
-					iconSize="auto"
-					borderRadius="15px"
-				/>
+				<WhiteBackButton color="blue" onClick={handleOnBack} />
 			</div>
 			<div>
 				<div>

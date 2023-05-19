@@ -1,53 +1,53 @@
 .container {
-  align-items: center;
-  background-color: #ffffff;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  height: 70%;
-  justify-content: space-evenly;
-  margin: auto;
-  padding: 50px 20px;
-  position: relative;
-  row-gap: 10px;
-  text-align: center;
-  width: 40%;
-  font-family: "Montserrat", sans-serif;
-  color: #087df1;
+	align-items: center;
+	background-color: #ffffff;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	height: 70%;
+	justify-content: space-evenly;
+	margin: auto;
+	padding: 50px 20px;
+	position: relative;
+	row-gap: 10px;
+	text-align: center;
+	width: 40%;
+	font-family: 'Montserrat', sans-serif;
+	color: #087df1;
 }
 
 button {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 #title {
-  color: #087df1;
-  font-family: "Montserrat", sans-serif;
-  font-size: 3rem;
-  font-weight: 550;
+	color: #087df1;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 3rem;
+	font-weight: 550;
 }
 #description {
-  color: #087df1;
-  font-family: "Montserrat", sans-serif;
-  width: 20rem;
-  font-style: italic;
+	color: #087df1;
+	font-family: 'Montserrat', sans-serif;
+	width: 20rem;
+	font-style: italic;
 }
 
 #message {
-  color: #087df1;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.5rem;
-  width: 20rem;
+	color: #087df1;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.5rem;
+	width: 20rem;
 }
 
 #backButton {
-  left: 20px;
-  position: absolute;
-  top: 20px;
+	left: 20px;
+	position: absolute;
+	top: 20px;
 }
 
 #CustomisePageBackButton {
-  left: 15px;
-  position: absolute;
-  top: 15px;
+	left: 15px;
+	position: absolute;
+	top: 15px;
 }

@@ -36,7 +36,7 @@ const InviteCodePage = () => {
 		<Background>
 			<div className={styles.container}>
 				<div className={styles['back-btn']}>
-					<WhiteBackButton onClick={handleOnBack} />
+					<WhiteBackButton color="white" onClick={handleOnBack} />
 				</div>
 				<div className={styles.title}>
 					<h1>enter invite code</h1>
