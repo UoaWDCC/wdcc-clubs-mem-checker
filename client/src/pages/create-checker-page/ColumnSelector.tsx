@@ -1,6 +1,6 @@
 import styles from "./style.module.css";
 import GoogleSheetsLogo from "../../assets/GoogleSheetsLogo.svg";
-import { Back } from 'iconsax-react';
+import { BackSquare } from 'iconsax-react';
 import Button from "../../components/Button";
 import { useContext, Dispatch, SetStateAction } from "react";
 import { PageContextProvider, Page } from "./CreateCheckerPage";
@@ -21,16 +21,18 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
       <div id = {styles.backButton}>
         <Button
           buttonText=""
-          iconFromIconsax={<Back />}
           onClick={onBack}
-          width="32px"
-          height="32px"
+          iconFromIconsax={<BackSquare/>}
+          iconSize="50px"
+          height="45px"
+          width="45px"
           backgroundColor="transparent"
-          border="#087DF1 solid 2px"
+          margin="0 500px 0 0"
           color="#087DF1"
           hoverColor="#cceeff"
-          borderRadius="11px"
-          padding="6px"
+          padding="0px"
+          translateX="-2.5px"
+          translateY="-2.5px"
         />
       </div>
       <div>

@@ -1,5 +1,5 @@
 import styles from "./style.module.css";
-import { Back } from 'iconsax-react';
+import { BackSquare } from 'iconsax-react';
 import Button from "../../components/Button";
 import { Page, PageContextProvider } from "./CreateCheckerPage";
 import { useContext, Dispatch, SetStateAction } from "react";
@@ -20,16 +20,18 @@ const CustomiseConfirm = ({ onNext, onBack }: CustomiseConfirmProps) => {
         <div id = {styles.CustomisePageBackButton}>
           <Button
             buttonText=""
-            iconFromIconsax={<Back />}
             onClick={onBack}
-            width="24px"
-            height="24px"
+            iconFromIconsax={<BackSquare/>}
+            iconSize="32px"
+            height="27px"
+            width="27px"
             backgroundColor="transparent"
-            border="#087DF1 solid 2px"
+            margin="0 500px 0 0"
             color="#087DF1"
             hoverColor="#cceeff"
-            borderRadius="8px"
-            padding="4px"
+            padding="0px"
+            translateX="-2.5px"
+            translateY="-2.5px"
           />
         </div>
         <div>

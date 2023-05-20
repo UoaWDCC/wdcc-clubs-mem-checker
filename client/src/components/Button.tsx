@@ -18,6 +18,8 @@ export interface ButtonProps {
   borderRadius?: string;
   hoverColor?: string;
   padding?: string;
+  translateX?: string;
+  translateY?: string;
   onClick: () => void;
 }
 
@@ -38,6 +40,8 @@ const Button = ({
   hoverColor = '',
   padding = "5px",
   onClick,
+  translateX,
+  translateY,
 }: ButtonProps) => {
   if (hoverColor == "") hoverColor = lightenColor(backgroundColor, 20);
   return (
@@ -76,10 +80,10 @@ const Button = ({
             </>
           )}
         </div>
-        <div className={iconFromIconsax ? styles.buttonContent : ''} style={{ width: '100%', margin: 'auto' }}>
+        <div className={iconFromIconsax ? styles.buttonContent : ''} style={{ width: '100%', margin: "auto"}}>
           {iconFromIconsax && (
             <>
-              {iconFromIconsax && React.isValidElement(iconFromIconsax) && React.cloneElement(iconFromIconsax as React.ReactElement, { size: `${parseFloat(height || '0') * 0.5}px`, color: color, style: { strokeWidth: '5'}, })}
+              {iconFromIconsax && React.isValidElement(iconFromIconsax) && React.cloneElement(iconFromIconsax as React.ReactElement, { size: iconSize, color: color, style: {transform: `translate(${translateX}, ${translateY})`}})}
               {buttonText}
             </>
           )}

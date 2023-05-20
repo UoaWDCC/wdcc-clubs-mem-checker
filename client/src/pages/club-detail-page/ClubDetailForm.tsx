@@ -1,5 +1,5 @@
 import styles from './style.module.css';
-import { Back } from 'iconsax-react';
+import { BackSquare } from 'iconsax-react';
 import { useRef, useState } from 'react';
 import Textfield from '../../components/Textfield';
 import Button from '../../components/Button';
@@ -63,18 +63,21 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
     <div className={styles.container}>
       <div id={styles.backButton}>
         <Button
-          buttonText=""
-          iconFromIconsax={<Back />}
-          onClick={handleOnBack}
-          width="55px"
-          height="55px"
-          backgroundColor="transparent"
-          border="#087DF1 solid 4px"
-          color="#087DF1"
-          hoverColor="#cceeff"
-          borderRadius="15px"
-          padding='10px'
-        />
+            buttonText=""
+            onClick={handleOnBack}
+            iconFromIconsax={<BackSquare/>}
+            iconSize="50px"
+            height="45px"
+            width="45px"
+            backgroundColor="transparent"
+            margin="0 500px 0 0"
+            color="#087DF1"
+            hoverColor="#cceeff"
+            padding="0px"
+            borderRadius="20px"
+            translateX="-2.5px"
+            translateY="-2.5px"
+          />
       </div>
       <div>
         <div>

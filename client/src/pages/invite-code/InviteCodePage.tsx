@@ -2,7 +2,7 @@ import Background from "../../components/Background";
 import styles from "./InviteCodePage.module.css";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
-import { Back } from "iconsax-react"; 
+import { BackSquare } from "iconsax-react"; 
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { useRef, useState } from "react";
@@ -39,16 +39,17 @@ const InviteCodePage = () => {
           <Button
             buttonText=""
             onClick={handleOnBack}
-            iconFromIconsax={<Back/>}
-            iconSize="20px"
+            iconFromIconsax={<BackSquare/>}
+            iconSize="50px"
+            height="45px"
+            width="45px"
             backgroundColor="#087DF1"
-            width="50px"
-            height="50px"
             margin="0 500px 0 0"
-            border="#FFFFFF solid 4px"
             color="#FFFFFF"
-            borderRadius="15px"
-            padding='9px'
+            padding="0px"
+            borderRadius="20px"
+            translateX="-2.5px"
+            translateY="-2.5px"
           />
           {/*<div style={{ position: "absolute", top: "-10%", left: "-20%" }}>
             <WhiteBackButton onClick={handleOnBack} />
