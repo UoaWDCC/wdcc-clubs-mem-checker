@@ -28,11 +28,18 @@ router.post('/create-page', async (req: Request, res: Response) => {
 
         const page = await prisma.page.create({
             data: {
-                name,
-                organisationId,
-                sheetId,
-                webLink,
-                ...rest,
+                name: name,
+                organisationId: organisationId,
+                sheetId: sheetId,
+                webLink: webLink,
+                backgroundColor: rest.backgroundColor,
+                textFieldBackgroundColor: rest.textFieldBackgroundColor,
+                textColor: rest.textColor,
+                buttonColor: rest.buttonColor,
+                headingColor: rest.headingColor,
+                logoLink: rest.logoLink,
+                backgroundImageLink: rest.backgroundImageLink,
+                fontFamily: rest.fontFamily,
             },
         });
 
