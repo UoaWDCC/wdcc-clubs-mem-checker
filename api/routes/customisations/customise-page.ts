@@ -31,6 +31,14 @@ router.post('/create-page', async (req: Request, res: Response) => {
 
         const pathId = nanoid(); // Generate random path ID
 
+        const existingSheetID = await prisma.page.findUnique({
+            where: { sheetId: sheetId },
+          });
+
+        if (existingSheetID) {
+            return res.status(400).json({ error: 'Sheet ID already exists' });
+        }
+
         const page = await prisma.page.create({
             data: {
               name: name, // or simply name, as they have the same name
@@ -47,7 +55,7 @@ router.post('/create-page', async (req: Request, res: Response) => {
               fontFamily: rest.fontFamily!,
             },
           });
-          
+
         res.status(200).json({ pathId });
     } catch (error) {
         console.error('Error creating page:', error);
