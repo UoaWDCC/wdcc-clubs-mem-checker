@@ -32,6 +32,7 @@ router.post('/create-page', async (req: Request, res: Response) => {
                 organisationId,
                 sheetId,
                 webLink,
+                ...rest,
             },
         });
 
@@ -40,7 +41,7 @@ router.post('/create-page', async (req: Request, res: Response) => {
         // Store the path ID in the database for the created page
         await prisma.page.update({
             where: { id: page.id },
-            data: { pathId },
+            data: { webLink: pathId},
         });
 
         res.status(200).json({ pathId });
