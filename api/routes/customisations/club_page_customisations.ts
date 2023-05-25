@@ -39,7 +39,7 @@ router.post('/create-page', async (req: Request, res: Response) => {
                 headingColor: rest.headingColor,
                 logoLink: rest.logoLink,
                 backgroundImageLink: rest.backgroundImageLink,
-                fontFamily: rest.fontFamily,
+                fontFamily: rest.fontFamily!,
             },
         });
 
