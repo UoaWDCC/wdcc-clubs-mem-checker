@@ -26,7 +26,7 @@ app.use(json());
 app.use('/auth/google', authRoutes);
 app.use('/sheet/columns', sheetroutes);
 app.use('/club', organisationRoutes);
-app.use('/customisations/customise-page', customisations);
+app.use('/customise-page', customisations);
 
 app.get('/protected', auth, async (req, res) => {
   return res.send(`Hello, ${req.body.user.firstName}`);
