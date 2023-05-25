@@ -54,7 +54,7 @@ router.post('/create-page', async (req: Request, res: Response) => {
         res.status(200).json({ pathId });
     } catch (error) {
         console.error('Error creating page:', error);
-        res.status(500).json({ error: 'Error creating page' });
+        res.status(400).json({ error: 'Error creating page' });
     }
 });
 
