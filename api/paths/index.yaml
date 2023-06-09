@@ -1,0 +1,17 @@
+get:
+  security:
+    - jwt_token:
+        - 'read:users'
+  operationId: index
+  description: |
+    Respond with "Hello, {firstName}!" if the user is signed in and Hello, World! if the user is not signed in with
+  tags:
+    - User
+  summary: Respond with "Hello, {firstName}!" if the user is signed in and Hello, World! if the user is not signed in
+  servers:
+    - url: about:blank
+  responses:
+    '200':
+      description: 'Success'
+    '400':
+      description: 'Failure'

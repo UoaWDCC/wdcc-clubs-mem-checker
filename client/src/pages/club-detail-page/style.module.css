@@ -1,53 +1,64 @@
 .container {
-  align-items: center;
-  background-color: #ffffff;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  height: 70%;
-  justify-content: space-evenly;
-  margin: auto;
-  padding: 50px 20px;
-  position: relative;
-  row-gap: 10px;
-  text-align: center;
-  width: 40%;
-  font-family: "Montserrat", sans-serif;
-  color: #087df1;
+	background-color: #ffffff;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 70%;
+	margin: auto;
+	padding: 60px 140px;
+	position: relative;
+	text-align: center;
+	width: 40%;
+	font-family: 'Montserrat', sans-serif;
+	color: #087df1;
+}
+
+.container.new-club {
+	padding: 60px 70px;
 }
 
 button {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 #title {
-  color: #087df1;
-  font-family: "Montserrat", sans-serif;
-  font-size: 3rem;
-  font-weight: 550;
+	color: #087df1;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 2.6rem;
+	font-weight: 600;
 }
+
 #description {
-  color: #087df1;
-  font-family: "Montserrat", sans-serif;
-  width: 20rem;
-  font-style: italic;
+	color: #087df1;
+	font-family: 'Montserrat', sans-serif;
+	font-style: italic;
+	line-height: 1.3rem;
+	margin-bottom: 3.5rem;
 }
 
 #message {
-  color: #087df1;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.5rem;
-  width: 20rem;
+	color: #087df1;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.5rem;
+	margin: 3.5rem 0;
+}
+
+#instruction {
+	padding: 0 10%;
+	line-height: 1.4rem;
+	font-style: italic;
 }
 
 #backButton {
-  left: 20px;
-  position: absolute;
-  top: 20px;
+	left: 20px;
+	position: absolute;
+	top: 20px;
 }
 
 #CustomisePageBackButton {
-  left: 15px;
-  position: absolute;
-  top: 15px;
+	left: 15px;
+	position: absolute;
+	top: 15px;
 }

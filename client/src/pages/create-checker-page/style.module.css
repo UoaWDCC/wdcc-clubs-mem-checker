@@ -1,111 +1,116 @@
-@font-face {
-  font-family: "Montserrat Italic";
-  src: url("../../../public/Montserrat-Italic-VariableFont_wght.ttf");
-}
-
 .container {
-  align-items: center;
-  background-color: #ffffff;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  font-family: "Montserrat", sans-serif;
-  height: 75%;
-  justify-content: space-between;
-  margin: 100px auto;
-  padding: 4% 6%;
-  position: relative;
-  row-gap: 6%;
-  text-align: center;
-  width: 45%;
+	align-items: center;
+	background-color: #ffffff;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	font-family: 'Montserrat', sans-serif;
+	height: 75%;
+	margin: 100px auto;
+	padding: 4% 7%;
+	position: relative;
+	text-align: center;
+	width: 45%;
 }
 
 #progressBarContainer {
-  color: white;
-  display: flex;
-  flex-direction: column;
-  left: 50px;
-  position: absolute;
-  row-gap: 3px;
-  top: 50px;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	left: 50px;
+	position: absolute;
+	row-gap: 3px;
+	top: 50px;
 }
 
 #progressBar {
-  column-gap: 4px;
-  display: flex;
+	column-gap: 7px;
+	display: flex;
 }
 
 .bar {
-  background-color: #ffd166;
-  border: none;
-  border-radius: 10px;
-  height: 8px;
-  opacity: 0.75;
-  width: 65px;
+	background-color: #ffd166;
+	border: none;
+	border-radius: 10px;
+	height: 8px;
+	opacity: 0.75;
+	width: 55px;
 }
 
 .title {
-  display: flex;
-  font-size: 1.3rem;
-  text-align: left;
-  color: #087df1;
+	display: flex;
+	font-size: 3rem;
+	line-height: 3.6rem;
+	font-weight: 500;
+	text-align: left;
+	color: #087df1;
 }
 
 .subtitle {
-  font-size: 0.9rem;
-  font-family: "Montserrat Italic";
-  color: #087df1;
+	font-size: 1rem;
+	font-family: 'Montserrat';
+	font-style: italic;
+	color: #087df1;
+	width: 100%;
+	margin-top: 1rem;
+}
+
+.btn-container {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
 }
 
 #backButton {
-  left: 20px;
-  position: absolute;
-  top: 20px;
+	left: 20px;
+	position: absolute;
+	top: 20px;
 }
 
 #customisePageContainer {
-  align-items: center;
-  column-gap: 50px;
-  display: flex;
-  width: 100%;
-  padding-top: 30px;
+	align-items: center;
+	column-gap: 50px;
+	display: flex;
+	width: 100%;
+	padding-top: 30px;
 }
 
 #customiseContainer {
-  align-items: center;
-  background-color: white;
-  border-radius: 0px 20px 20px 0px;
-  display: flex;
-  flex-direction: column;
-  height: 65%;
-  padding: 40px 20px;
-  position: relative;
-  row-gap: 10px;
-  text-align: center;
-  width: 25%;
+	align-items: center;
+	background-color: white;
+	border-radius: 0px 20px 20px 0px;
+	display: flex;
+	flex-direction: column;
+	height: 65%;
+	padding: 40px 20px;
+	position: relative;
+	row-gap: 10px;
+	text-align: center;
+	width: 25%;
 }
 
 #CustomisePageBackButton {
-  left: 15px;
-  position: absolute;
-  top: 15px;
+	left: 15px;
+	position: absolute;
+	top: 15px;
 }
 
 #CustomisePageNextButton {
-  bottom: 20px;
-  position: absolute;
-  right: 20px;
+	bottom: 20px;
+	position: absolute;
+	right: 20px;
 }
 
 .previewContainer {
-  display: flex;
-  flex-direction: column;
-  height: 80%;
-  width: 50%;
+	display: flex;
+	flex-direction: column;
+	height: 80%;
+	width: 50%;
 }
 
 .preview {
-  background-color: lightgray;
-  border-radius: 20px;
-  height: 100%;
+	background-color: lightgray;
+	border-radius: 20px;
+	height: 100%;
 }
