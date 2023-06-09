@@ -4,7 +4,6 @@ import CopyIcon from "../../assets/CopyIcon2.svg";
 import femaleStanding from "../../assets/femaleStanding.svg";
 import { useLocation, useNavigate } from "react-router";
 import Button from "../../components/Button";
-import Textfield from "../../components/Textfield";
 
 export const ConfimationPage = () => {
   const navigate = useNavigate();
@@ -57,7 +56,9 @@ export const ConfimationPage = () => {
                 textOverflow: "ellipsis",
               }}
             >
-              {link}
+              <a href={link} target="_blank" style={{ color: "#707070" }}>
+                {link}
+              </a>
             </div>
             <img
               src={CopyIcon}
