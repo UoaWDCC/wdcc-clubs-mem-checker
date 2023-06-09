@@ -29,3 +29,4 @@ React app for students to check their membership for university clubs. Uses expr
 ## Other Links
 
 - [Git Cheat Sheet](https://github.com/UoaWDCC/wdcc-clubs-mem-checker/wiki/Workshops-and-Trainings#git-cheat-sheet)
+- [API Documentation](https://uoawdcc.github.io/wdcc-clubs-mem-checker/redoc-static.html)
