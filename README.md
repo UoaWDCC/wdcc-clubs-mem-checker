@@ -11,9 +11,9 @@ React app for students to check their membership for university clubs. Uses expr
 - PORT
 - DATABASE_URL
 - JWT_SECRET
-- REACT_APP_GOOGLE_CLIENT_ID
-- REACT_APP_GOOGLE_CLIENT_SECRET
-- REACT_APP_GOOGLE_REDIRECT_URI
+- GOOGLE_CLIENT_ID
+- GOOGLE_CLIENT_SECRET
+- GOOGLE_REDIRECT_URI
 
 ## Team Leadership
 
