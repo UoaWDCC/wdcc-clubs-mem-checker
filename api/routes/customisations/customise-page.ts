@@ -1,8 +1,6 @@
 import express, { Request, Response } from 'express';
 import {PrismaClient, User} from '@prisma/client';
 import { nanoid } from 'nanoid';
-//import page from '../../../client/src/pages/create-checker-page/CreateCheckerPage';
-import { create } from 'ts-node';
 
 const prisma = new PrismaClient();
 const router = express.Router();
@@ -12,7 +10,6 @@ interface PageCustomization {
     name: string;
     organisationId: number;
     sheetId: string;
-    webLink: string;
     backgroundColor?: string;
     textFieldBackgroundColor?: string;
     textColor?: string;
@@ -27,7 +24,7 @@ router.post('/create-page', async (req: Request, res: Response) => {
     try {
         const customization: PageCustomization = req.body;
 
-        const { name, organisationId, sheetId, webLink, ...rest } = customization;
+        const { name, organisationId, sheetId, ...rest } = customization;
 
         const pathId = nanoid(); // Generate random path ID
 
