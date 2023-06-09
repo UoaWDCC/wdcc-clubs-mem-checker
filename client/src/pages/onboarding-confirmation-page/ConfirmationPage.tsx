@@ -1,15 +1,25 @@
 import styles from "./style.module.css";
 import WDCCLogo from "../../assets/WdccLogo.svg";
+import CopyIcon from "../../assets/CopyIcon2.svg";
 import femaleStanding from "../../assets/femaleStanding.svg";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Button from "../../components/Button";
 import Textfield from "../../components/Textfield";
 
 export const ConfimationPage = () => {
   const navigate = useNavigate();
-  const handleButtonClick = () => {
-    navigate("/sign-in");
+  const handleDashboardButtonClick = () => {
+    navigate("/dashboard");
   };
+
+  const handleCreateAnotherButtonClick = () => {
+    navigate("/create-page");
+  };
+
+  const location = useLocation();
+  // const link = location.state.link;
+  const link = "https://www.wdcc.com/laurhliapoiueroij";
+
   return (
     <div>
       <title>Onboarding Confirmation Page</title>
@@ -25,12 +35,43 @@ export const ConfimationPage = () => {
       <div>
         <p className={styles.paragraph}>
           click on the link below to see your fresh new page:
-          <Textfield
-            width="50vh"
-            height="8vh"
-            margin="5vh 0 2vh 0"
-            fontSize="3vh"
-          />
+          <div
+            style={{
+              background: "#E0E0E0",
+              height: "10vh",
+              color: "#707070",
+              display: "flex",
+              alignItems: "center",
+              marginTop: "2vh",
+              marginBottom: "2vh",
+              borderRadius: "8px",
+              paddingLeft: "1vw",
+            }}
+          >
+            <div
+              style={{
+                fontWeight: "900",
+                fontStyle: "italic",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {link}
+            </div>
+            <img
+              src={CopyIcon}
+              alt="copy icon"
+              style={{
+                marginLeft: "auto",
+                marginRight: "2vw",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                navigator.clipboard.writeText(link);
+              }}
+            />
+          </div>
           you can update the configs for your page of create a new page from you
           club's admin dashboard
         </p>
@@ -55,7 +96,7 @@ export const ConfimationPage = () => {
           fontWeight="600"
           fontSize="1.4vw"
           margin="5vh 5vh 0 0"
-          onClick={handleButtonClick}
+          onClick={handleDashboardButtonClick}
         />
         <Button
           buttonText="create another page"
@@ -66,7 +107,7 @@ export const ConfimationPage = () => {
           fontWeight="600"
           fontSize="1.4vw"
           margin="5vh 0 0 "
-          onClick={handleButtonClick}
+          onClick={handleCreateAnotherButtonClick}
         />
       </div>
     </div>
