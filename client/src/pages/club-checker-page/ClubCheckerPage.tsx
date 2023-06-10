@@ -12,7 +12,9 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
 import Button from "../../components/Button";
 import Textfield from "../../components/Textfield";
 import WdccLogo from "../../assets/WdccLogo.svg";
+import EmptyClubLogo from "../../assets/EmptyClubLogo.svg";
 import styles from "./ClubCheckerPage.module.css";
+import { useState } from "react";
 
 interface ClubCheckerPageProps {
   clubId: number;
@@ -26,7 +28,7 @@ interface ClubCheckerPageProps {
   dropDownBackgroundColor: string;
 
   // images
-  clubLogoUrl: string;
+  clubLogoUrl?: string;
   backgroundImageUrl: string;
   optionsList: string[]; // correct type???
   // defaultOption: string;
@@ -48,9 +50,15 @@ const ClubCheckerPage = ({
   optionsList,
   isOnboarding,
 }: ClubCheckerPageProps) => {
+  const [selectedIdentifier, setSelectedIdentifier] = useState<string>();
+
   return (
     <div className={styles.container} style={{ backgroundColor }}>
-      <img style={{}} className={styles.logo} src={WdccLogo} />
+      <img
+        style={{}}
+        className={styles.logo}
+        src={clubLogoUrl || EmptyClubLogo}
+      />
       <h1
         style={{ color: titleTextColor }}
       >{`${clubName} Membership Checker`}</h1>
@@ -62,7 +70,8 @@ const ClubCheckerPage = ({
           width: "180px",
           color: "#ECECEC",
         }}
-        defaultValue={""}
+        value={""}
+        onChange={(event) => setSelectedIdentifier(event.target.value)}
       >
         <option value="" disabled hidden>
           Select identifier
@@ -74,7 +83,7 @@ const ClubCheckerPage = ({
         ))}
       </select>
       <Textfield
-        placeholder="upi e.g. vraj752"
+        placeholder={selectedIdentifier || "no identifier selected yet"}
         backgroundColor={textFieldBackgroundColor}
         height="45px"
         textColour={textFieldTextColor}
