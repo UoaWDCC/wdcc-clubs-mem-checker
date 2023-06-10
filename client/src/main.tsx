@@ -14,6 +14,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import InviteCodePage from "./pages/invite-code/InviteCodePage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
+import ClubCheckerPage from "./pages/club-checker-page/ClubCheckerPage";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,26 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardPage />,
+  },
+  {
+    path: "/checker-page",
+    element: (
+      // example props
+      <ClubCheckerPage
+        clubId={1}
+        clubName="UAWB"
+        backgroundColor="#ECECEC"
+        titleTextColor="black"
+        textFieldBackgroundColor="#E0E0E0"
+        textFieldTextColor="black"
+        buttonBackgroundColor="#C1C1C2"
+        dropDownBackgroundColor="#4F4F4F"
+        clubLogoUrl="test" // temp value
+        backgroundImageUrl="testBackground" // temp value
+        optionsList={["option 1", "option 2", "option 3", "option 4"]}
+        isOnboarding={true}
+      />
+    ),
   },
 ]);
 
