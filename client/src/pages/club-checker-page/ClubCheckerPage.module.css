@@ -1,0 +1,19 @@
+.container {
+  align-items: center;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 100px 50px;
+  position: relative;
+  row-gap: 50px;
+  width: 600px;
+}
+
+.logo {
+  float: right;
+  max-height: 100px;
+  max-width: 100px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
