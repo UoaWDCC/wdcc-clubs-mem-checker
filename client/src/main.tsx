@@ -70,9 +70,9 @@ const router = createBrowserRouter([
         textFieldTextColor="black"
         buttonBackgroundColor="#C1C1C2"
         dropDownBackgroundColor="#4F4F4F"
-        clubLogoUrl="test" // temp value
+        // clubLogoUrl="test" // temp value
         backgroundImageUrl="testBackground" // temp value
-        optionsList={["option 1", "option 2", "option 3", "option 4"]}
+        optionsList={["upi", "first name", "last name", "student id"]}
         isOnboarding={true}
       />
     ),
