@@ -1,6 +1,5 @@
 import styles from './Button.module.css';
 import { getTextColor, lightenColor } from '../utils/helpers';
-import React from 'react';
 
 export interface ButtonProps {
   height?: string;
@@ -13,13 +12,10 @@ export interface ButtonProps {
   fontSize?: string;
   fontWeight?: string;
   icon?: string;
-  iconFromIconsax?: React.ReactNode;
   iconSize?: string;
   borderRadius?: string;
   hoverColor?: string;
   padding?: string;
-  translateX?: string;
-  translateY?: string;
   onClick: () => void;
 }
 
@@ -35,13 +31,10 @@ const Button = ({
   fontWeight = "bold",
   icon,
   iconSize,
-  iconFromIconsax,
   borderRadius = '8px',
   hoverColor = '',
   padding = "5px",
   onClick,
-  translateX,
-  translateY,
 }: ButtonProps) => {
   if (hoverColor == "") hoverColor = lightenColor(backgroundColor, 20);
   return (
@@ -52,7 +45,7 @@ const Button = ({
           height,
           width,
           margin,
-          backgroundColor,
+          backgroundColor, 
           border,
           color: color || getTextColor(backgroundColor),
           fontSize,
@@ -70,23 +63,11 @@ const Button = ({
             margin: "auto",
           }}
         >
-          {!iconFromIconsax && (
-            <>
-              <img
-                src={icon}
-                height={iconSize}
-              /> 
-              {buttonText}
-            </>
-          )}
-        </div>
-        <div className={iconFromIconsax ? styles.buttonContent : ''} style={{ width: '100%', margin: "auto"}}>
-          {iconFromIconsax && (
-            <>
-              {iconFromIconsax && React.isValidElement(iconFromIconsax) && React.cloneElement(iconFromIconsax as React.ReactElement, { size: iconSize, color: color, style: {transform: `translate(${translateX}, ${translateY})`}})}
-              {buttonText}
-            </>
-          )}
+          <img
+            src={icon}
+            height={iconSize}
+          /> 
+          {buttonText}
         </div>
       </button>
     </>

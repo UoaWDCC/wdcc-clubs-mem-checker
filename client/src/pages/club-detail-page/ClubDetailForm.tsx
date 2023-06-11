@@ -1,13 +1,14 @@
-import styles from './style.module.css';
-import { BackSquare } from 'iconsax-react';
-import { useRef, useState } from 'react';
-import Textfield from '../../components/Textfield';
-import Button from '../../components/Button';
-import { ClubDetails } from './ClubDetailPage';
-import axios from 'axios';
-import { useNavigate } from 'react-router';
+import styles from "./style.module.css";
+import { BackSquare } from "iconsax-react";
+import { useRef, useState } from "react";
+import Textfield from "../../components/Textfield";
+import Button from "../../components/Button";
+import BackButton from "../../components/BackButton";
+import { ClubDetails } from "./ClubDetailPage";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
-const url = '/club/create'; //temp url
+const url = "/club/create"; //temp url
 
 interface ClubDetailFormProps {
   onNext: (clubDetails: ClubDetails) => void;
@@ -21,19 +22,19 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
   const [clubAcronymError, setClubAcronymError] = useState(false);
 
   const [clubNameErrorMessage, setClubNameErrorMessage] =
-    useState('enter club name');
+    useState("enter club name");
 
   const handleOnClick = () => {
-    if (clubNameRef.current?.value === '') {
-      setClubNameErrorMessage('enter club name');
+    if (clubNameRef.current?.value === "") {
+      setClubNameErrorMessage("enter club name");
       setClubNameError(true);
     }
-    if (clubAcronymRef.current?.value === '') {
+    if (clubAcronymRef.current?.value === "") {
       setClubAcronymError(true);
     }
     if (
-      clubNameRef.current?.value !== '' &&
-      clubAcronymRef.current?.value !== ''
+      clubNameRef.current?.value !== "" &&
+      clubAcronymRef.current?.value !== ""
     ) {
       axios
         .post(url, {
@@ -50,7 +51,7 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
           }
         })
         .catch(function (error) {
-          setClubNameErrorMessage('the club you want to create already exists');
+          setClubNameErrorMessage("the club you want to create already exists");
           setClubNameError(true);
         });
     }
@@ -62,22 +63,15 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
   return (
     <div className={styles.container}>
       <div id={styles.backButton}>
-        <Button
-            buttonText=""
-            onClick={handleOnBack}
-            iconFromIconsax={<BackSquare/>}
-            iconSize="50px"
-            height="45px"
-            width="45px"
-            backgroundColor="transparent"
-            margin="0 500px 0 0"
-            color="#087DF1"
-            hoverColor="#cceeff"
-            padding="0px"
-            borderRadius="20px"
-            translateX="-2.5px"
-            translateY="-2.5px"
-          />
+        {/* <Button buttonText="" onClick={handleOnBack} iconFromIconsax={<BackSquare/>} iconSize="50px" height="45px" width="45px" backgroundColor="transparent" margin="0 500px 0 0" color="#087DF1" hoverColor="#cceeff" padding="0px" borderRadius="20px" translateX="-2.5px" translateY="-2.5px"
+          /> */}
+        <BackButton
+          onClick={handleOnBack}
+          size="42px"
+          backgroundColor="transparent"
+          color="#087DF1"
+          hoverColor="#cceeff"
+        />
       </div>
       <div>
         <div>
