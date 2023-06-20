@@ -20,7 +20,9 @@ router.post('/create', auth, async (req, res) => {
       where: { name: clubName },
     });
     if (existingOrganisation) {
-      throw new Error('Organisation already exists');
+      return res
+        .status(400)
+        .send(`failed to create club ${clubName} please try a unique name`);
     }
     const organisation = await prisma.organisation.create({
       data: {
@@ -43,9 +45,7 @@ router.post('/create', auth, async (req, res) => {
       );
   } catch (error) {
     console.log(error);
-    return res
-      .status(400)
-      .send(`Error creating club ${clubName}, please try a unique name`);
+    return res.status(500).send(`failed to create club ${clubName}`);
   }
 });
 
@@ -62,8 +62,8 @@ router.get(
         organisationId: string;
       }
 
-      if (token !== "12345") {
-        throw new Error("invalid token");
+      if (token !== '12345') {
+        throw new Error('invalid token');
       }
 
       //Check that token is correct with jwt.verify();

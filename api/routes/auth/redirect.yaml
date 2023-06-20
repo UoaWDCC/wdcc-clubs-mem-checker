@@ -1,0 +1,18 @@
+get:
+  security: []
+  description: |
+    Redirect to Google Authentication with profile, email, and read spreadsheets permissions
+  operationId: googleAuthRedirect
+  tags:
+    - Google
+    - Authentication
+  summary: Redirect to Google Auth page
+  servers:
+    - url: about:blank
+  responses:
+    '200':
+      description: 'OK'
+    '400':
+      description: 'BAD REQUEST'
+    '500':
+      description: 'INTERNAL SERVER ERROR'

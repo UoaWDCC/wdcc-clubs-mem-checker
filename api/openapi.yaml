@@ -8,9 +8,31 @@ info:
   contact:
     email: projects@wdcc.co.nz
     url: wdcc.co.nz
+
 paths:
   '/':
-    $ref: './paths/index.yaml'
+    get:
+      security:
+        - jwt_token:
+            - 'read:users'
+      operationId: index
+      description: |
+        Respond with "Hello, {firstName}!" if the user is signed in and Hello, World! if the user is not signed in with
+      tags:
+        - User
+      summary: Respond with "Hello, {firstName}!" if the user is signed in and Hello, World! if the user is not signed in
+      servers: []
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'BAD REQUEST'
+  '/auth/google':
+    $ref: './routes/auth/redirect.yaml'
+  '/auth/google/callback':
+    $ref: './routes/auth/callback.yaml'
+  '/club/create':
+    $ref: './routes/club/create.yaml'
 servers:
   - url: about:blank
 components:
