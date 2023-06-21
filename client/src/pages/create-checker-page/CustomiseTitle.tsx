@@ -48,7 +48,7 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
             height="5vh"
             fontSize="2.5vh"
             ref={titleRef}
-            errorText="title cannot be empty"
+            errorText="please enter a title to continue"
             isError={error}
             onChange={() => {
               setError(false);
