@@ -1,4 +1,5 @@
 .container {
+  margin: auto;
   align-items: center;
   border-radius: 20px;
   display: flex;
@@ -6,7 +7,8 @@
   padding: 110px 50px;
   position: relative;
   row-gap: 50px;
-  width: 700px;
+  width: 100vw;
+  height: 100vh;
 }
 
 .logo {
@@ -16,4 +18,8 @@
   position: absolute;
   top: 15px;
   right: 15px;
+}
+
+body {
+  background-color: white;
 }

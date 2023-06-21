@@ -7,6 +7,7 @@ interface TextfieldProps {
   height?: string;
   width?: string;
   margin?: string;
+  padding?: string;
   backgroundColor?: string;
   textColour?: string;
   fontSize?: string;
@@ -28,6 +29,7 @@ const Textfield = forwardRef(
       height,
       width = "12rem",
       margin,
+      padding,
       backgroundColor = "#e0e0e0",
       textColour,
       fontSize,
@@ -68,6 +70,7 @@ const Textfield = forwardRef(
             style={{
               height,
               width,
+              padding,
               backgroundColor,
               color: textColour,
               fontSize,

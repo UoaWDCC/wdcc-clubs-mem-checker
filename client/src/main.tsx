@@ -64,6 +64,7 @@ const router = createBrowserRouter([
       <ClubCheckerPage
         clubId={1}
         clubName="UAWB"
+        title="UAWB membership checker"
         backgroundColor="#ECECEC"
         titleTextColor="black"
         textFieldBackgroundColor="#E0E0E0"
