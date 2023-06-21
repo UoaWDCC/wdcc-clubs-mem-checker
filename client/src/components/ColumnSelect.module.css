@@ -1,0 +1,51 @@
+.columnContainer{
+    display: flex;
+    padding: 5px 10px;
+    border-radius: 5px;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.editName{
+    background-color: #e0e0e000;
+    border: None;
+    color: #aeaeae;
+    font-weight: 525;
+}
+
+.editName:focus{
+    outline: none;
+}
+
+.editable{
+    background-color: white;
+    border: None;
+    
+}
+
+.checkbox{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    background: white;
+    border-radius: 4px;
+    margin-right: 4px;
+}
+
+.checkbox:hover{
+    cursor: pointer;
+}
+
+
+.checkbox.checkboxActive{
+    background-color: purple; 
+}
+
+.editColumnButton:hover{
+    cursor: pointer;
+}
+
+.editColumnButton{
+    color: grey;
+}

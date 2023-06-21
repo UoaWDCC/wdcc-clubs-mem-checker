@@ -1,17 +1,119 @@
-
 .dropdownButton{
   background: #097df1;
   border-radius: 10px;
   color: white;
   border: none;
-  padding: 5px;
+  padding: 7px 15px;
+  width: 175px;
+}
+
+.dropdownContainer{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  
 }
 
 .dropdownList{
+  position: absolute;
   list-style-type: none;
+  background-color: #479ef4;
+  width: 175px;
+  padding: 10px 10px;
+  max-height: 100px;
+  overflow-y: scroll;
+  border-radius: 10px;
+}
+
+.infoHover{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+  color: #0472de;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  margin-left: 200px;
+}
+.infoHover:hover{
+  cursor: pointer;
+}
+
+.infoHover:hover~.dropdownInfo{
+  display: block;
+}
+
+.dropdownListItem{
+  background-color: #479ef4;
 }
 
 .selectColumns{
   border: none;
-  background-color: white;
+  background-color: #479ef4;
+  color: white;
+
+}
+
+.dropdownRowContainer{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.dropdownCheck{
+  width: 15px;
+  height: 15px;
+  margin: 10px;
+  background-color: #aad3f7;
+  border-radius: 50%;
+
+}
+
+.dropdownCheck:hover{
+  cursor: pointer;
+}
+
+.dropdownClicked{
+  width: 15px;
+  height: 15px;
+  margin: 10px;
+  background-color: #aad3f7;
+  border-radius: 50%;
+  border: 2px solid #aad3f7;
+  background-color: #0472de;
+}
+
+.dropdownInfo{
+  position: absolute;
+  width: 150px;
+  height: 75px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  margin-left: 380px;
+  color: #0472de;
+  font-size: 10px;
+  padding: 20px;
+  display: None;
+}
+
+.buttonAndInfo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.triangle:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 7px solid #e0e0e0;
+  border-right: 7px solid transparent;
+  border-top: 7px solid #e0e0e0;
+  border-bottom: 7px solid transparent;
+  right: 140px;
+  top: 30px;
+  transform: rotate(-45deg);
 }

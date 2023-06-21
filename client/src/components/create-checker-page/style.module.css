@@ -99,3 +99,13 @@ button {
   border-radius: 20px;
   height: 100%;
 }
+
+.columnContainer{
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  height: 100%;
+  width: 80%;
+  padding: 10px 20px;
+  overflow-y: scroll;
+}
+
