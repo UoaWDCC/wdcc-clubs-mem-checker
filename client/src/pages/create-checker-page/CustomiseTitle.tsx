@@ -2,6 +2,9 @@ import styles from "./style.module.css";
 import BackArrow from "../../assets/BackArrow.svg";
 import { useContext, Dispatch, SetStateAction } from "react";
 import { PageContextProvider, Page } from "./CreateCheckerPage";
+import Textfield from "../../components/Textfield";
+import Button from "../../components/Button";
+import WhiteBackButton from "../../components/WhiteBackButton";
 
 interface CustomiseTitleProps {
   onNext: () => void;
@@ -19,17 +22,21 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
         <button id={styles.CustomisePageBackButton} onClick={onBack}>
           <img src={BackArrow} />
         </button>
-        <div>
-          <h2>customise page</h2>
-          <i className={styles.subtitle}>customise page for your members</i>
+        <div className={styles.title}>
+          <h1>customise page</h1>
         </div>
-        <div>
-          <p>please edit your title</p>
-          <input type="text" placeholder="title" />
+        <i className={styles.subtitle} style={{ fontWeight: 500 }}>
+          customise page for your members
+        </i>
+        <div style={{ marginTop: "10vh" }}>
+          <p style={{ color: "#AAAAAA", fontStyle: "italic", float: "left" }}>
+            please edit your title
+          </p>
+          <Textfield width="20vw" height="5vh" fontSize="2.5vh" />
         </div>
-        <button id={styles.CustomisePageNextButton} onClick={onNext}>
-          next
-        </button>
+        <div id={styles.CustomisePageNextButton}>
+          <Button onClick={onNext} buttonText="next" width="5vw" />
+        </div>
       </div>
       <div className={styles.previewContainer}>
         <div className={styles.preview}></div>

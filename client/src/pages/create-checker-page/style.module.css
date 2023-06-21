@@ -49,6 +49,7 @@
   font-size: 1.3rem;
   text-align: left;
   color: #087df1;
+  font-family: "Montserrat";
 }
 
 .subtitle {
@@ -92,7 +93,7 @@
 }
 
 #CustomisePageNextButton {
-  bottom: 20px;
+  bottom: 5vh;
   position: absolute;
   right: 20px;
 }
