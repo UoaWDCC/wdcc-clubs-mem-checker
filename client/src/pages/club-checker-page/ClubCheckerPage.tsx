@@ -14,11 +14,12 @@ import Textfield from "../../components/Textfield";
 import WdccLogo from "../../assets/WdccLogo.svg";
 import EmptyClubLogo from "../../assets/EmptyClubLogo.svg";
 import styles from "./ClubCheckerPage.module.css";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 interface ClubCheckerPageProps {
   clubId: number;
   clubName: string;
+  title: string;
   // colors
   backgroundColor: string;
   titleTextColor: string;
@@ -38,6 +39,7 @@ interface ClubCheckerPageProps {
 const ClubCheckerPage = ({
   clubId,
   clubName,
+  title,
   // colors
   backgroundColor,
   titleTextColor,
@@ -50,23 +52,34 @@ const ClubCheckerPage = ({
   optionsList,
   isOnboarding,
 }: ClubCheckerPageProps) => {
-  const [selectedIdentifier, setSelectedIdentifier] = useState<string>();
+  const textFieldLabelRef = useRef<HTMLInputElement>(null);
+
+  const [selectedIdentifier, setSelectedIdentifier] = useState<string>(
+    optionsList[0]
+  );
+
+  const [width, setWidth] = useState(0);
+
+  useLayoutEffect(() => {
+    setWidth(textFieldLabelRef.current?.offsetWidth || 0);
+  });
 
   return (
-    <div className={styles.container} style={{ backgroundColor }}>
-      <img
-        style={{}}
-        className={styles.logo}
-        src={clubLogoUrl || EmptyClubLogo}
-      />
-      <h1
-        style={{ color: titleTextColor }}
-      >{`${clubName} Membership Checker`}</h1>
+    <div
+      className={styles.container}
+      style={{
+        backgroundImage: `url(${backgroundImageUrl})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <img className={styles.logo} src={clubLogoUrl || EmptyClubLogo} />
+      <h1 style={{ color: titleTextColor, textAlign: "center" }}>{title}</h1>
       <select
         style={{
           backgroundColor: dropDownBackgroundColor,
           borderRadius: "8px",
-          height: "25px",
+          height: "30px",
           width: "180px",
           color: "#ECECEC",
         }}
@@ -82,13 +95,37 @@ const ClubCheckerPage = ({
           </option>
         ))}
       </select>
-      <Textfield
-        placeholder={selectedIdentifier || "no identifier selected yet"}
-        backgroundColor={textFieldBackgroundColor}
-        height="45px"
-        textColour={textFieldTextColor}
-        width="220px"
-      />
+      <div
+        style={{
+          display: "flex",
+          height: "45px",
+          margin: "-30px 0px 0px 0px",
+          position: "relative",
+        }}
+      >
+        <p
+          style={{
+            alignSelf: "center",
+            color: "black",
+            display: "flex",
+            fontWeight: "bold",
+            left: "10px",
+            position: "absolute",
+            zIndex: "1",
+          }}
+          ref={textFieldLabelRef}
+        >
+          {selectedIdentifier}
+        </p>
+        <Textfield
+          placeholder={selectedIdentifier || "no identifier selected yet"}
+          backgroundColor={textFieldBackgroundColor}
+          height="45px"
+          textColour={textFieldTextColor}
+          width="330px"
+          padding={`0px 0px 0px ${width + 18}px`}
+        />
+      </div>
       <Button
         buttonText="check"
         backgroundColor={buttonBackgroundColor}
