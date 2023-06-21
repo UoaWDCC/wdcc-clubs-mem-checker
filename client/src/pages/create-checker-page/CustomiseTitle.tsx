@@ -4,7 +4,7 @@ import { useContext, Dispatch, SetStateAction } from "react";
 import { PageContextProvider, Page } from "./CreateCheckerPage";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
-import WhiteBackButton from "../../components/WhiteBackButton";
+import BlueBackButton from "../../components/BlueBackButton";
 
 interface CustomiseTitleProps {
   onNext: () => void;
@@ -19,9 +19,9 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
-        <button id={styles.CustomisePageBackButton} onClick={onBack}>
-          <img src={BackArrow} />
-        </button>
+        <div id={styles.CustomisePageBackButton}>
+          <BlueBackButton onClick={onBack} />
+        </div>
         <div className={styles.title}>
           <h1>customise page</h1>
         </div>
