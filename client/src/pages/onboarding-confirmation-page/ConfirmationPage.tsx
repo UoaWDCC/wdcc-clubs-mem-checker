@@ -1,8 +1,10 @@
 import styles from "./style.module.css";
 import WDCCLogo from "../../assets/WdccLogo.svg";
 import CopyIcon from "../../assets/CopyIcon2.svg";
+import CopyTickIcon from "../../assets/CopyTickIcon.svg";
 import femaleStanding from "../../assets/femaleStanding.svg";
 import { useLocation, useNavigate } from "react-router";
+import { useState } from "react";
 import Button from "../../components/Button";
 
 export const ConfimationPage = () => {
@@ -14,6 +16,8 @@ export const ConfimationPage = () => {
   const handleCreateAnotherButtonClick = () => {
     navigate("/create-page");
   };
+
+  const [icon, setIcon] = useState(CopyIcon);
 
   const location = useLocation();
   // const link = location.state.link;
@@ -61,7 +65,7 @@ export const ConfimationPage = () => {
               </a>
             </div>
             <img
-              src={CopyIcon}
+              src={icon}
               alt="copy icon"
               style={{
                 marginLeft: "auto",
@@ -69,6 +73,7 @@ export const ConfimationPage = () => {
                 cursor: "pointer",
               }}
               onClick={() => {
+                setIcon(CopyTickIcon);
                 navigator.clipboard.writeText(link);
               }}
             />
