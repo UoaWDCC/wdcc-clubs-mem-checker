@@ -1,6 +1,14 @@
 import styles from "./style.module.css";
 import BackArrow from "../../assets/BackArrow.svg";
-import { useContext, Dispatch, SetStateAction, useState, useRef } from "react";
+import {
+  useContext,
+  Dispatch,
+  SetStateAction,
+  useState,
+  useRef,
+  createRef,
+  useEffect,
+} from "react";
 import { PageContextProvider, Page } from "./CreateCheckerPage";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
@@ -13,14 +21,21 @@ interface CustomiseTitleProps {
 
 const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
   const [error, setError] = useState<boolean>(false);
-  const titleRef = useRef<HTMLInputElement>(null);
+  const titleRef = createRef();
   const [page, setPage] = useContext(PageContextProvider) as [
     Page,
     Dispatch<SetStateAction<Page>>
   ];
+  useEffect(() => {
+    (titleRef.current as HTMLInputElement).setAttribute(
+      "value",
+      page.title || ""
+    );
+  }, []);
 
   const handleNext = () => {
-    if (titleRef.current?.value === "") {
+    const title = (titleRef.current as HTMLInputElement).value;
+    if (title === "") {
       setError(true);
     } else {
       onNext();
@@ -52,7 +67,10 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
             isError={error}
             onChange={() => {
               setError(false);
-              setPage({ ...page, title: titleRef.current?.value });
+              setPage({
+                ...page,
+                title: (titleRef.current as HTMLInputElement).value,
+              });
             }}
           />
         </div>
