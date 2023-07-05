@@ -11,10 +11,9 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
 
 import Button from "../../components/Button";
 import Textfield from "../../components/Textfield";
-import WdccLogo from "../../assets/WdccLogo.svg";
 import EmptyClubLogo from "../../assets/EmptyClubLogo.svg";
 import styles from "./ClubCheckerPage.module.css";
-import { useLayoutEffect, useRef, useState } from "react";
+import { createRef, useLayoutEffect, useRef, useState } from "react";
 
 interface ClubCheckerPageProps {
   clubId: number;
@@ -52,24 +51,39 @@ const ClubCheckerPage = ({
   optionsList,
   isOnboarding,
 }: ClubCheckerPageProps) => {
+  document.body.style.backgroundColor = backgroundColor || "white";
+
   const textFieldLabelRef = useRef<HTMLInputElement>(null);
 
   const [selectedIdentifier, setSelectedIdentifier] = useState<string>(
     optionsList[0]
   );
 
-  const [width, setWidth] = useState(0);
+  const [textFieldWidth, setTextFieldWidth] = useState(0);
+  const textFieldRef = createRef();
 
   useLayoutEffect(() => {
-    setWidth(textFieldLabelRef.current?.offsetWidth || 0);
+    setTextFieldWidth(textFieldLabelRef.current?.offsetWidth || 0);
   });
+
+  const [isError, setIsError] = useState<boolean>(false);
+  const onCheck = () => {
+    const input = (textFieldRef.current as HTMLInputElement).value;
+    // check if input is empty
+    if (!input || input.trim().length == 0) {
+      setIsError(true);
+      return;
+    }
+    setIsError(false);
+  };
 
   return (
     <div
       className={styles.container}
       style={{
         backgroundImage: `url(${backgroundImageUrl})`,
-        backgroundSize: "cover",
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
       }}
     >
@@ -110,6 +124,7 @@ const ClubCheckerPage = ({
             display: "flex",
             fontWeight: "bold",
             left: "10px",
+            top: "9px",
             position: "absolute",
             zIndex: "1",
           }}
@@ -118,18 +133,21 @@ const ClubCheckerPage = ({
           {selectedIdentifier}
         </p>
         <Textfield
-          placeholder={selectedIdentifier || "no identifier selected yet"}
           backgroundColor={textFieldBackgroundColor}
+          isError={isError}
+          errorText={`Please enter a ${selectedIdentifier}`}
           height="45px"
+          padding={`0px 0px 0px ${textFieldWidth + 18}px`}
+          placeholder={selectedIdentifier || "no identifier selected yet"}
           textColour={textFieldTextColor}
+          ref={textFieldRef}
           width="330px"
-          padding={`0px 0px 0px ${width + 18}px`}
         />
       </div>
       <Button
         buttonText="check"
         backgroundColor={buttonBackgroundColor}
-        onClick={() => !isOnboarding && console.log("checking")}
+        onClick={() => !isOnboarding && onCheck()}
         width="160px"
       />
     </div>

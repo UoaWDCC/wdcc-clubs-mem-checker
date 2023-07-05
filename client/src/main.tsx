@@ -79,7 +79,7 @@ const router = createBrowserRouter([
         // clubLogoUrl="test" // temp value
         backgroundImageUrl="testBackground" // temp value
         optionsList={["upi", "first name", "last name", "student id"]}
-        isOnboarding={true}
+        isOnboarding={false}
       />
     ),
   },
