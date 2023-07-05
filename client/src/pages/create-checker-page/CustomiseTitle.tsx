@@ -1,4 +1,5 @@
 import styles from "./style.module.css";
+
 import BackArrow from "../../assets/BackArrow.svg";
 import {
   useContext,
@@ -9,6 +10,7 @@ import {
   createRef,
   useEffect,
 } from "react";
+
 import { PageContextProvider, Page } from "./CreateCheckerPage";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
@@ -20,9 +22,11 @@ interface CustomiseTitleProps {
 }
 
 const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
+
   const [error, setError] = useState<boolean>(false);
   const titleRef = createRef();
   const [page, setPage] = useContext(PageContextProvider) as [
+
     Page,
     Dispatch<SetStateAction<Page>>
   ];
@@ -73,6 +77,7 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
               });
             }}
           />
+
         </div>
         <div id={styles.CustomisePageNextButton}>
           <Button onClick={handleNext} buttonText="next" width="5vw" />
