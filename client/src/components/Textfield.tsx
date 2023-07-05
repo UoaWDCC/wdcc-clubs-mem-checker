@@ -75,7 +75,9 @@ const Textfield = forwardRef(
               color: textColour,
               fontSize,
               fontWeight,
-              border: isError ? "2px solid red" : backgroundColor,
+              border: isError
+                ? "2px solid red"
+                : `2px solid ${backgroundColor}`,
               ["--focus-border-color" as any]: lightenColor(
                 backgroundColor,
                 -75

@@ -19,19 +19,22 @@ import { getTextColor } from "../../utils/helpers";
 interface ClubCheckerPageProps {
   clubId: number;
   clubName: string;
-  title: string;
+  title?: string;
   // colors
-  backgroundColor: string;
-  titleTextColor: string;
-  textFieldBackgroundColor: string;
-  textFieldTextColor: string;
-  buttonBackgroundColor: string;
-  dropDownBackgroundColor: string;
+  backgroundColor?: string;
+  titleTextColor?: string;
+  textFieldBackgroundColor?: string;
+  textFieldTextColor?: string;
+  buttonBackgroundColor?: string;
+  dropDownBackgroundColor?: string;
+
+  font?: string; // just for title
+  // bodyfont?
 
   // images
   clubLogoUrl?: string;
-  backgroundImageUrl: string;
-  optionsList: string[]; // correct type???
+  backgroundImageUrl?: string;
+  optionsList: string[]; // correct type??? try column[]
   // defaultOption: string;
   isOnboarding: boolean;
 }
@@ -39,14 +42,15 @@ interface ClubCheckerPageProps {
 const ClubCheckerPage = ({
   clubId,
   clubName,
-  title,
+  title = "No title selected",
   // colors
-  backgroundColor,
-  titleTextColor,
-  textFieldBackgroundColor,
-  textFieldTextColor,
-  buttonBackgroundColor,
-  dropDownBackgroundColor,
+  backgroundColor = "#ECECEC",
+  titleTextColor = "#000000",
+  textFieldBackgroundColor = "#E0E0E0",
+  textFieldTextColor = "#000000",
+  buttonBackgroundColor = "#C1C1C2",
+  dropDownBackgroundColor = "#4F4F4F",
+  font = "Montserrat",
   clubLogoUrl,
   backgroundImageUrl,
   optionsList,
@@ -89,7 +93,15 @@ const ClubCheckerPage = ({
       }}
     >
       <img className={styles.logo} src={clubLogoUrl || EmptyClubLogo} />
-      <h1 style={{ color: titleTextColor, textAlign: "center" }}>{title}</h1>
+      <h1
+        style={{
+          color: titleTextColor,
+          font: `bold 36px "${font}"`,
+          textAlign: "center",
+        }}
+      >
+        {title}
+      </h1>
       <select
         style={{
           backgroundColor: dropDownBackgroundColor,
@@ -121,7 +133,7 @@ const ClubCheckerPage = ({
         <p
           style={{
             alignSelf: "center",
-            color: getTextColor(textFieldBackgroundColor),
+            color: textFieldTextColor,
             display: "flex",
             fontWeight: "bold",
             left: "10px",
@@ -139,7 +151,10 @@ const ClubCheckerPage = ({
           errorText={`Please enter a ${selectedIdentifier}`}
           height="45px"
           padding={`0px 0px 0px ${textFieldWidth + 18}px`}
-          placeholder={selectedIdentifier || "no identifier selected yet"}
+          placeholder={
+            `please enter your ${selectedIdentifier}` ||
+            "no identifier selected yet"
+          }
           textColour={textFieldTextColor}
           ref={textFieldRef}
           width="330px"
