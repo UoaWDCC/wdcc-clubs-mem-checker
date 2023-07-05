@@ -25,6 +25,16 @@ paths:
       responses:
         200:
           description: 'OK'
+          content:
+            application/text:
+              schema:
+                type: string
+              examples:
+                example1:
+                  value: 'Hello, Alex!'
+                example2:
+                  value: 'Hello, World!'
+
         400:
           description: 'BAD REQUEST'
   '/auth/google':
