@@ -14,6 +14,7 @@ import Textfield from "../../components/Textfield";
 import EmptyClubLogo from "../../assets/EmptyClubLogo.svg";
 import styles from "./ClubCheckerPage.module.css";
 import { createRef, useLayoutEffect, useRef, useState } from "react";
+import { getTextColor } from "../../utils/helpers";
 
 interface ClubCheckerPageProps {
   clubId: number;
@@ -95,7 +96,7 @@ const ClubCheckerPage = ({
           borderRadius: "8px",
           height: "30px",
           width: "180px",
-          color: "#ECECEC",
+          color: getTextColor(dropDownBackgroundColor),
         }}
         value={""}
         onChange={(event) => setSelectedIdentifier(event.target.value)}
@@ -120,7 +121,7 @@ const ClubCheckerPage = ({
         <p
           style={{
             alignSelf: "center",
-            color: "black",
+            color: getTextColor(textFieldBackgroundColor),
             display: "flex",
             fontWeight: "bold",
             left: "10px",
