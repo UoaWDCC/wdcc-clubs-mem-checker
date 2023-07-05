@@ -31,14 +31,14 @@ const CustomiseConfirm = ({ onNext, onBack }: CustomiseConfirmProps) => {
       <i className={styles.subtitle} style={{ fontWeight: 500 }}>
         customise page for your members
       </i>
-      <div style={{ marginTop: "10vh" }}>
-        <p style={{ color: "#AAAAAA", fontStyle: "italic", float: "left" }}>
+      <div style={{ marginTop: "7.5vh", marginLeft: "4.75vw", marginRight: "4.75vw" }}>
+        <p style={{ color: "#707070", float: "left", fontFamily: "Montserrat", fontWeight: "450",fontSize: "1.5rem", lineHeight:"1.25" }}>
         please ensure that you are happy with how your page preview looks and click confirm to create the page
         </p>
     
       </div>
       <div id={styles.CustomisePageNextButton}>
-        <Button onClick={handleNext} buttonText="next" width="5vw" />
+        <Button onClick={handleNext} buttonText="confirm" width="6vw" height="5vh" fontWeight="500" />
       </div>
     </div>
     <div className={styles.previewContainer}>
