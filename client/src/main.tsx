@@ -65,14 +65,6 @@ const router = createBrowserRouter([
         clubId={1}
         clubName="UAWB"
         title="UAWB membership checker"
-        backgroundColor="#ECECEC"
-        titleTextColor="black"
-        textFieldBackgroundColor="#E0E0E0"
-        textFieldTextColor="#000000"
-        buttonBackgroundColor="#C1C1C2"
-        dropDownBackgroundColor="#4F4F4F"
-        // clubLogoUrl="test" // temp value
-        backgroundImageUrl="testBackground" // temp value
         optionsList={["upi", "first name", "last name", "student id"]}
         isOnboarding={false}
       />
