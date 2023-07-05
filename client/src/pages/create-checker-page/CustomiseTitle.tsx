@@ -1,8 +1,20 @@
 import styles from "./style.module.css";
-import Button from "../../components/Button";
-import BackButton from "../../components/BackButton";
-import { useContext, Dispatch, SetStateAction } from "react";
+
+import BackArrow from "../../assets/BackArrow.svg";
+import {
+  useContext,
+  Dispatch,
+  SetStateAction,
+  useState,
+  useRef,
+  createRef,
+  useEffect,
+} from "react";
+
 import { PageContextProvider, Page } from "./CreateCheckerPage";
+import Textfield from "../../components/Textfield";
+import Button from "../../components/Button";
+import BlueBackButton from "../../components/BlueBackButton";
 
 interface CustomiseTitleProps {
   onNext: () => void;
@@ -10,34 +22,66 @@ interface CustomiseTitleProps {
 }
 
 const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
-  const [page, setPage] = useContext(PageContextProvider)  as [
+
+  const [error, setError] = useState<boolean>(false);
+  const titleRef = createRef();
+  const [page, setPage] = useContext(PageContextProvider) as [
+
     Page,
     Dispatch<SetStateAction<Page>>
   ];
+  useEffect(() => {
+    (titleRef.current as HTMLInputElement).setAttribute(
+      "value",
+      page.title || ""
+    );
+  }, []);
+
+  const handleNext = () => {
+    const title = (titleRef.current as HTMLInputElement).value;
+    if (title === "") {
+      setError(true);
+    } else {
+      onNext();
+    }
+  };
+
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
-        <div id = {styles.CustomisePageBackButton}>
-          <BackButton
-            onClick={onBack}
-            color="#087DF1"
-            size="27px"
-            hoverColor="#cceeff"
-            backgroundColor="transparent"
-            margin="0 500px 0 0"
+        <div id={styles.CustomisePageBackButton}>
+          <BlueBackButton onClick={onBack} />
+        </div>
+        <div className={styles.title}>
+          <h1>customise page</h1>
+        </div>
+        <i className={styles.subtitle} style={{ fontWeight: 500 }}>
+          customise page for your members
+        </i>
+        <div style={{ marginTop: "10vh" }}>
+          <p style={{ color: "#AAAAAA", fontStyle: "italic", float: "left" }}>
+            please edit your title
+          </p>
+          <Textfield
+            width="20vw"
+            height="5vh"
+            fontSize="2.5vh"
+            ref={titleRef}
+            errorText="please enter a title to continue"
+            isError={error}
+            onChange={() => {
+              setError(false);
+              setPage({
+                ...page,
+                title: (titleRef.current as HTMLInputElement).value,
+              });
+            }}
           />
+
         </div>
-        <div>
-          <h2>customise page</h2>
-          <i className={styles.subtitle}>customise page for your members</i>
+        <div id={styles.CustomisePageNextButton}>
+          <Button onClick={handleNext} buttonText="next" width="5vw" />
         </div>
-        <div>
-          <p>please edit your title</p>
-          <input type="text" placeholder="title" />
-        </div>
-        <button id={styles.CustomisePageNextButton} onClick={onNext}>
-          next
-        </button>
       </div>
       <div className={styles.previewContainer}>
         <div className={styles.preview}></div>
