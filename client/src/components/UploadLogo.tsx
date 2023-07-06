@@ -1,41 +1,59 @@
 import React, { useState } from 'react';
+import { FaTrash } from 'react-icons/fa';
 
-interface ImageUploadComponentProps {
-    logo: boolean;
-}
+const UploadLogo: React.FC = () => {
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-const ImageUploadComponent: React.FC<ImageUploadComponentProps> = ({ logo }) => {
-    const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-
-    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            setUploadedFile(file);
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            setSelectedFile(event.target.files[0]);
         }
     };
 
-    const handleFileDelete = () => {
-        setUploadedFile(null);
+    const handleDelete = () => {
+        setSelectedFile(null);
     };
+
 
     return (
         <div>
-            <h2>Upload {logo ? 'Logo' : 'Background'}</h2>
-            {uploadedFile ? (
-                <div>
-                    <img src={URL.createObjectURL(uploadedFile)} alt="Uploaded" />
-                    <button onClick={handleFileDelete}>Delete</button>
+            {selectedFile ? (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <img
+                        src="/path/to/image-icon.png"
+                        alt="File Icon"
+                        style={{ width: '20px', marginRight: '10px' }}
+                    />
+                    <span>{selectedFile.name}</span>
+                    <button onClick={handleDelete}>
+                        <FaTrash />
+                    </button>
                 </div>
             ) : (
-                <div>
-                    <div>Placeholder Box</div>
+                <div
+                    style={{
+                        width: '200px',
+                        height: '200px',
+                        backgroundColor: '#e0e0e0',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    No image uploaded
                 </div>
             )}
-            <input type="file" accept="image/*" onChange={handleFileUpload} />
-            <div>{uploadedFile ? uploadedFile.name : 'No file uploaded'}</div>
-            <button>Replace {logo ? 'logo' : 'background'} with another image</button>
+            <label htmlFor="image-upload">
+                Replace logo (or background) with another image
+            </label>
+            <input
+                id="image-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+            />
         </div>
     );
 };
 
-export default ImageUploadComponent;
+export default UploadLogo;
