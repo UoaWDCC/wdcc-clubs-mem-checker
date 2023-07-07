@@ -4,6 +4,7 @@ import { Page, PageContextProvider } from "./CreateCheckerPage";
 import { useContext, Dispatch, SetStateAction } from "react";
 import BlueBackButton from "../../components/BlueBackButton";
 import Button from "../../components/Button";
+import axios from "axios";
 
 interface CustomiseConfirmProps {
   onNext: () => void;
@@ -16,8 +17,9 @@ const CustomiseConfirm = ({ onNext, onBack }: CustomiseConfirmProps) => {
     Dispatch<SetStateAction<Page>>
   ];
   function handleNext(): void {
-    throw new Error("Function not implemented.");
-  }
+    axios.post ("/customise-page/create-page", page).then((res) => {;
+  });
+}
 
   return (
     <div id={styles.customisePageContainer}>
