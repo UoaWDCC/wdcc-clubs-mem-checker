@@ -4,8 +4,8 @@ import BackButton from "../../components/BackButton";
 import { Page, PageContextProvider } from "./CreateCheckerPage";
 import { useContext, Dispatch, SetStateAction } from "react";
 import BlueBackButton from "../../components/BlueBackButton";
-import Button from "../../components/Button";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 interface CustomiseConfirmProps {
   onNext: () => void;
@@ -17,9 +17,14 @@ const CustomiseConfirm = ({ onNext, onBack }: CustomiseConfirmProps) => {
     Page,
     Dispatch<SetStateAction<Page>>
   ];
+  const navigate = useNavigate();
   function handleNext(): void {
-    axios.post ("/customise-page/create-page", page).then((res) => {;
+    axios.post ("/customise-page/create-page", page).then((res) => {
+      navigate("/confirmation", { state: res.data});
+  }).catch((err) => {
+    console.log(err); // handle error
   });
+
 }
 
   return (
