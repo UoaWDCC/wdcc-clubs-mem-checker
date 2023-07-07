@@ -30,17 +30,18 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
           <h1>select & edit columns</h1>
           <img src={GoogleSheetsLogo} />
         </div>
+        <div>
+          <DropDown columns={['column1', 'column2', 'column3']} setDropdownText={setDropdownText} dropdownText={dropdownText}
+          onColumnClick={(column) => {console.log(column)} }
+          />
+        </div>
         <i>
           please select the google sheet columns you want to use as
           identification options
         </i>
       </div>
 
-      <div>
-        <DropDown columns={['column1', 'column2', 'column3']} setDropdownText={setDropdownText} dropdownText={dropdownText}
-        onColumnClick={(column) => {console.log(column)} }
-        />
-      </div>
+      
 
       <div className={styles.columnContainer}>
         <SelectColumns columns={['column1', 'column2', 'column3', 'column4', 'column5', 'column6']} dropdownText={dropdownText}></SelectColumns>

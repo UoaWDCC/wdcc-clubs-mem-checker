@@ -25,7 +25,7 @@ const DropDown = ({ columns, onColumnClick, dropdownText, setDropdownText }: { c
           {!isExpanded && <ArrowDown2 size="18" color="white"/>}
         </button>
         <div className={styles.infoHover}>i</div>
-        <div className={ `${styles.dropdownInfo} ${styles.triangle}`}>Select which columns user will see first.</div>
+        <div className={ `${styles.dropdownInfo} ${styles.triangle}`}>This will be the default identification option displayed to users. Users can then select another option if they wish to do so.</div>
       </div>
       
       {isExpanded &&

@@ -2,7 +2,7 @@
     display: flex;
     padding: 5px 10px;
     border-radius: 5px;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     margin: 10px 0;
 }
@@ -12,6 +12,9 @@
     border: None;
     color: #aeaeae;
     font-weight: 525;
+    padding: 3px;
+    margin-right: 10px;
+    width: 70px;
 }
 
 .editName:focus{
@@ -19,7 +22,7 @@
 }
 
 .editable{
-    background-color: white;
+    
     border: None;
     
 }
@@ -39,7 +42,18 @@
 
 
 .checkbox.checkboxActive{
-    background-color: purple; 
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.editColumn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 10px;
 }
 
 .editColumnButton:hover{
@@ -48,4 +62,61 @@
 
 .editColumnButton{
     color: grey;
+}
+
+.tickActive{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.tickNotActive{
+    display: None;
+}
+
+.editing{
+    background: white;
+    border-radius: 4px;
+}
+
+
+.dropdownInfo{
+    position: absolute;
+    width: 70px;
+    height: 35px;
+    background-color: #AAD3F7;
+    border-radius: 6px;
+    margin-left: 235px;
+    margin-top: -5px;
+    color: #0472de;
+    font-size: 5px;
+    padding: 6px;
+    display: None;
+}
+
+.triangle:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 4px solid #AAD3F7;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #AAD3F7;
+    border-bottom: 4px solid transparent;
+    right: 65px;
+    top: 13px;
+    transform: rotate(-45deg);
+}
+
+.infoHover:hover{
+    cursor: pointer;
+  }
+  
+.infoHover:hover~.dropdownInfo{
+    display: block;
+}
+
+.infoHover{
+    position: relative;
 }

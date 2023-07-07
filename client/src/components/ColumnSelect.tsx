@@ -1,22 +1,30 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./ColumnSelect.module.css"
-import { Edit } from 'iconsax-react';
+import { Edit, TickSquare, Warning2 } from 'iconsax-react';
 
 
 function SelectColumns ( { columns, dropdownText } : { columns: string[], dropdownText: string } ) {
     const[isChecked, setIsChecked] = useState({});
+    const[isEditing, setIsEditing] = useState({});
     const parentRef = useRef<HTMLDivElement | null>(null);
     const [selectedCols, setSelectedCols] = useState(new Map());
+    const[newName, setNewName] = useState(new Map());
     
     const setFocus = (i) => {
       if (!parentRef.current){
         return 
       }
+      
       (parentRef.current!.querySelectorAll('input')[i] as HTMLInputElement).focus()
+      setIsEditing((prevState) => ({
+        ...isEditing,
+        [i]: !prevState[i]
+      }));
+
     };
 
 
-    const checkedColumns = (column, input) => {
+    const checkedColumns = (column) => {
       const updatedSelectedCols = new Map(selectedCols);
       
       if (selectedCols.has(column)){
@@ -24,11 +32,23 @@ function SelectColumns ( { columns, dropdownText } : { columns: string[], dropdo
       }
 
       else {
-        updatedSelectedCols.set(column, input ? input : column);  
+        updatedSelectedCols.set(column, newName.has(column) ? newName.get(column) : column);  
       }
 
       setSelectedCols(updatedSelectedCols);
       console.log(selectedCols);
+      
+    }
+
+    const newColumnName=(column, i) =>{
+      var newColName = (parentRef.current!.querySelectorAll('input')[i] as HTMLInputElement).value;
+      const updatedColName = new Map(newName);
+      updatedColName.set(column, newColName); 
+      setNewName(updatedColName);
+
+      const updatedSelectedCols = new Map(selectedCols);
+      updatedSelectedCols.set(column, newName.has(column) ? newName.get(column) : column); 
+      setSelectedCols(updatedSelectedCols);
       
     }
       
@@ -39,8 +59,8 @@ function SelectColumns ( { columns, dropdownText } : { columns: string[], dropdo
         ...isChecked,
         [id]: !prevState[id]
       }));
-      const input = null;
-      checkedColumns(column, input)
+      
+      checkedColumns(column);
 
     };
 
@@ -51,9 +71,13 @@ function SelectColumns ( { columns, dropdownText } : { columns: string[], dropdo
       <>
       <div ref={parentRef}> {columns.map( (column, i) => (
       <div key={ column } className = { `${styles.columnContainer} ${ isChecked[`${i}`] ? styles.editable : '' } ${ dropdownText == column ? styles.editable : '' }` }>
-        <span className={ `${ styles.checkbox } ${ isChecked[`${i}`] ? styles.checkboxActive : ''} ${ dropdownText == column ? styles.checkboxActive : ''}`} onClick={() => handleColumnClick(i, column)}/>
-        <input className={ styles.editName } type="text" placeholder={ column }  name="customName"></input>
-        <div className={ isChecked[`${i}`] ? styles.editColumnButton : ''} onClick={() => {isChecked[`${i}`] ? setFocus(i) : null }} ><Edit size="18" color="#aeaeae" /></div>
+        <span className={ `${ styles.checkbox } ${ isChecked[`${i}`] ? styles.checkboxActive : ''} ${ dropdownText == column ? styles.checkboxActive : ''}`} onClick={() => handleColumnClick(i, column)}>
+        <div className={ `${ isChecked[`${i}`] || dropdownText == column ? styles.tickActive : styles.tickNotActive} `}><TickSquare size="23" color="#848484"/></div>
+        </span>
+        <div className={ `${styles.editColumn} ${ isChecked[`${i}`] ? styles.editColumnButton : ''}`} onClick={() => {isChecked[`${i}`] || dropdownText == column ? setFocus(i) : null }} ><Edit size="14" color="#aeaeae" /></div>
+        <input className={ `${ styles.editName } ${ isEditing[`${i}`] && isChecked[`${i}`] ? styles.editing : ''}` } type="text" placeholder={ column }  name="customName" onChange={() => newColumnName(column, i)}></input>
+        <div className={styles.infoHover}><Warning2 size="18" color="#087DF1"/></div>
+        <div className={ `${styles.dropdownInfo} ${styles.triangle}`}>Warning: This column contains duplicate values.</div>
       </div>
       ))}
       </div>
