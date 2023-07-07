@@ -1,5 +1,5 @@
 import BackArrow from "../assets/bluebacksquare.svg";
-import styles from "./WhiteBackButton.module.css";
+import styles from "./BackButton.module.css";
 
 interface BackArrow {
   onClick: () => void;
