@@ -62,6 +62,9 @@
   left: 20px;
   position: absolute;
   top: 20px;
+  background-color: transparent;
+  border: none;
+  color: #087DF1;
 }
 
 #customisePageContainer {
@@ -90,6 +93,9 @@
   left: 15px;
   position: absolute;
   top: 15px;
+  background-color: transparent;
+  border: none;
+  color: #087DF1;
 }
 
 #CustomisePageNextButton {
