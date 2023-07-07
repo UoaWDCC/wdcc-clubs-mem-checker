@@ -43,6 +43,8 @@ paths:
     $ref: './routes/auth/callback.yaml'
   '/club/create':
     $ref: './routes/club/create.yaml'
+  '/sheets/columns':
+    $ref: './routes/sheets/columns.yaml'
 servers:
   - url: about:blank
 components:
