@@ -60,7 +60,7 @@ const router = createBrowserRouter([
   {
     path: "/confirmation",
     element: <ConfimationPage />,
-  },
+  }
 ]);
 
 axios.defaults.baseURL = "http://localhost:3000";
