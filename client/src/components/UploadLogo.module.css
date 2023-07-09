@@ -3,20 +3,29 @@
     src: url("../../public/Montserrat-SemiBold.ttf");
 }
 
-.buttonLabel {
-    display: inline-block;
-    width: 263px;
-    height: 248px;
-    background-color: #ddd;
-    text-align: center;
-    line-height: 30px;
-    cursor: pointer;
-    border-radius: 10px;
-    font-family: "Montserrat SemiBold";
-    color: #707070;
-    padding-top: 40px;
-}
-
 #upload-button {
     display: none;
 }
+
+.uploadButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 263px;
+    height: 248px;
+    background-color: #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: "Montserrat SemiBold";
+    color: #707070;
+    text-align: center;
+    padding-top: 40px;
+    border-color: transparent;
+}
+
+.uploadIcon {
+    width: 110px;
+    height: 110px;
+    margin-top: 30px;
+}
+
