@@ -1,0 +1,22 @@
+@font-face {
+    font-family: "Montserrat SemiBold";
+    src: url("../../public/Montserrat-SemiBold.ttf");
+}
+
+.buttonLabel {
+    display: inline-block;
+    width: 263px;
+    height: 248px;
+    background-color: #ddd;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-family: "Montserrat SemiBold";
+    color: #707070;
+    padding-top: 40px;
+}
+
+#upload-button {
+    display: none;
+}

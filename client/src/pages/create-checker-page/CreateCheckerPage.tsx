@@ -10,7 +10,6 @@ import CustomiseLogo from "./CustomiseLogo";
 import CustomiseBackground from "./CustomiseBackground";
 import CustomiseConfirm from "./CustomiseConfirm";
 import { createContext } from "react";
-import UploadLogo from "../../components/UploadLogo";
 
 export interface Page {
   googleSheetLink?: string;

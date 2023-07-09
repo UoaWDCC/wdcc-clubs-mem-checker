@@ -1,5 +1,5 @@
 import React from 'react';
-import UploadLogo from "../../components/UploadLogo";
+import UploadLogo from "../../components/UploadButton";
 
 const logo_comp: React.FC = () => {
     return (
