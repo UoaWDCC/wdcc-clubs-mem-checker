@@ -20,11 +20,9 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
           <img src={BackArrow} />
         </button>
         <div>
-          <h2>customise page</h2>
+          <h2 className={styles.customisePageTitle}>customise page</h2>
           <i className={styles.subtitle}>customise page for your members</i>
-        </div>
-        <div>
-          <p>please upload your club's logo</p>
+          <p className={styles.optionalText}>please upload your club's logo (optional)</p>
         </div>
         <button id={styles.CustomisePageNextButton} onClick={onNext}>
           next
