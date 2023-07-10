@@ -29,3 +29,12 @@
     margin-top: 30px;
 }
 
+.deleteButton {
+    width: 20px;
+    height: 20px;
+}
+
+.deleteButton:hover {
+    color: #f00;
+}
+
