@@ -22,7 +22,7 @@ export const ConfimationPage = () => {
   const location = useLocation();
 
   // uncomment this line when we have te link from the other page and comment the line below
-  // const link = location.state.link;
+  // const link = location.state.pageId;
   const link = "https://www.wdcc.com/laurhliapoiueroij";
 
   return (
