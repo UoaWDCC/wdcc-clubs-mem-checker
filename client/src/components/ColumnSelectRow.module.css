@@ -5,7 +5,7 @@
     align-items: center;
     height: 20px;
     width: 20px;
-    background: blue;
+    background: white;
     border-radius: 7px;
     margin: 0 5px;  
 }
@@ -32,7 +32,7 @@
     align-items: center;
 }
 
-.editNameButton:hover{
+.editNameButtonHover:hover{
     cursor: pointer;
 }
 
@@ -46,6 +46,17 @@
     padding: 3px;
     width: 70px;
 }
+
+.custNameInput:focus{
+    outline: none;
+}
+
+.custNameEditable:focus{
+    background-color: white;
+    outline: none;
+    border-radius: 4px;
+}
+    
 
 /* Duplicate field warning tooltip */
 .duplicateFieldWarningIcon{

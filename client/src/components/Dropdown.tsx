@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import styles from "./Dropdown.module.css"
 import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
+import InfoToolTip from './Tooltip';
+import styles from './Dropdown.module.css'
 
-const DropDown = ({ columns, onColumnClick, dropdownText, setDropdownText }: { columns: string[], onColumnClick: (option: string) => void, dropdownText: string, setDropdownText: Function}) => {
+
+const DropDown = ({ columns, onColumnClick, defaultColumn, setDefaultColumn }: { columns: string[], onColumnClick: (option: string) => void, defaultColumn: string, setDefaultColumn: Function}) => {
   const[isExpanded, setIsExpanded] = useState(false);
+  // const[defaultOption, setDefaultOption] = useState('')
   const[isChecked, setIsChecked] = useState({})
 
-  const handleChecked = (id) => {
+  const handleChecked = (id :number) => {
     setIsChecked((prevState) => ({
       
       [id]: !prevState[id]
@@ -17,15 +20,20 @@ const DropDown = ({ columns, onColumnClick, dropdownText, setDropdownText }: { c
 
   return (
     <>
+    {/* <select value={defaultOption} onChange={(event) => setDefaultOption(event.target.value)}>
+      <option value="" disabled hidden>
+        select default option
+      </option>
+      {columns.map((option) => <option key={option} value={option}>{option}</option>) }
+    </select> */}
     <div>
       <div className={styles.buttonAndInfo}>
-        <button className={styles.dropdownButton} onClick={() => setIsExpanded(!isExpanded)}>
-          {dropdownText}
+        <button className={styles.dropdownButton} onClick={() => setIsExpanded(!isExpanded)}><i className = {styles.dropdownButtonText}>
+        select default column</i>
           {isExpanded && <ArrowUp2 size="18" color="white"/>} 
           {!isExpanded && <ArrowDown2 size="18" color="white"/>}
         </button>
-        <div className={styles.infoHover}>i</div>
-        <div className={ `${styles.dropdownInfo} ${styles.triangle}`}>This will be the default identification option displayed to users. Users can then select another option if they wish to do so.</div>
+        <InfoToolTip backgroundColor="#E0E0E0" color="#087DF1" infoDescription="This will be the default identification option displayed to users. Users can then select another option if they wish to do so." descBackgroundColor="#E0E0E0" descColor="#087DF1"/>
       </div>
       
       {isExpanded &&
@@ -35,13 +43,12 @@ const DropDown = ({ columns, onColumnClick, dropdownText, setDropdownText }: { c
             <div className={styles.dropdownRowContainer} onClick={() => {
               setIsExpanded(false); 
               onColumnClick(column); 
-              setDropdownText(column)
+              setDefaultColumn(column)
               handleChecked(i)
-            }}>
-            <div className={` ${ isChecked[`${i}`] ? styles.dropdownClicked : styles.dropdownCheck}`}></div>
-            <li className={styles.dropdownListItem}><button id={ column } 
-                  className={styles.selectColumns} 
-                  >
+            }} key={column}>
+            <div className={` ${ isChecked[`${i}`] || defaultColumn == column? styles.dropdownClicked : styles.dropdownCheck}`}></div>
+            <li className={styles.dropdownListItem}><button 
+                  className={styles.selectColumns}>
                     { column }
                 </button>
               </li>

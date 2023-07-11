@@ -12,6 +12,7 @@
   row-gap: 30px;
   text-align: center;
   width: 40%;
+  
 }
 
 #progressBarContainer {
@@ -100,6 +101,22 @@ button {
   height: 100%;
 }
 
+.columnsContainer{
+  position: relative;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  height: 150px;
+  padding: 10px 110px;
+  overflow-y: scroll;
+}
 
+.pickColumnsDescription{
+  color: #087DF1;
+  margin-top: 20px;
+}
+
+.dropdownButtonContainer{
+  padding: 20px;
+}
   
 
