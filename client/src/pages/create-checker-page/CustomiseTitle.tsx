@@ -1,12 +1,10 @@
 import styles from "./style.module.css";
-
-import BackArrow from "../../assets/BackArrow.svg";
+import BackButton from "../../components/BackButton";
 import {
   useContext,
   Dispatch,
   SetStateAction,
   useState,
-  useRef,
   createRef,
   useEffect,
 } from "react";
@@ -14,7 +12,6 @@ import {
 import { PageContextProvider, Page } from "./CreateCheckerPage";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
-import BlueBackButton from "../../components/BlueBackButton";
 
 interface CustomiseTitleProps {
   onNext: () => void;
@@ -22,11 +19,9 @@ interface CustomiseTitleProps {
 }
 
 const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
-
   const [error, setError] = useState<boolean>(false);
   const titleRef = createRef();
   const [page, setPage] = useContext(PageContextProvider) as [
-
     Page,
     Dispatch<SetStateAction<Page>>
   ];
@@ -50,7 +45,14 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
         <div id={styles.CustomisePageBackButton}>
-          <BlueBackButton onClick={onBack} />
+          <BackButton
+            onClick={onBack}
+            color="#087DF1"
+            size="27px"
+            hoverColor="#cceeff"
+            backgroundColor="transparent"
+            margin="0 500px 0 0"
+          />
         </div>
         <div className={styles.title}>
           <h1>customise page</h1>
@@ -77,7 +79,6 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
               });
             }}
           />
-
         </div>
         <div id={styles.CustomisePageNextButton}>
           <Button onClick={handleNext} buttonText="next" width="5vw" />
