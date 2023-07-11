@@ -14,7 +14,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import InviteCodePage from "./pages/invite-code/InviteCodePage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
-import Logo_comp from "./pages/logo_comp/logo_comp";
 
 const router = createBrowserRouter([
   {
@@ -56,11 +55,7 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardPage />,
-  },
-  {
-    path: "/logo-comp",
-    element: <Logo_comp />,
-  },
+  }
 ]);
 
 axios.defaults.baseURL = "http://localhost:3000";
