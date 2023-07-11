@@ -14,6 +14,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import InviteCodePage from "./pages/invite-code/InviteCodePage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
+import { ConfimationPage } from "./pages/onboarding-confirmation-page/ConfirmationPage";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardPage />,
+  },
+  {
+    path: "/confirmation",
+    element: <ConfimationPage />,
   }
 ]);
 
