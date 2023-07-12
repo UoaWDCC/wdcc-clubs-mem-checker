@@ -1,4 +1,3 @@
-import { ChromePicker } from "react-color";
 import ColorPickerItem from "./ColorPickerItem";
 import { useContext, Dispatch, SetStateAction } from "react";
 import { PageContextProvider, Page } from "../CreateCheckerPage";
@@ -12,11 +11,16 @@ export const ColorPicker = () => {
     <>
       <div
         style={{
+          display: "flex",
           background: "#E0E0E0",
           borderRadius: "10px",
           color: "black",
           fontStyle: "italic",
           fontSize: "0.9rem",
+          width: "12vw",
+          height: "4vh",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         choose your theme colours

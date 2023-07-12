@@ -37,7 +37,13 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
 
   return (
     <>
-      <div style={{ borderBottom: "solid black 1px" }}>
+      <div
+        style={{
+          borderBottom: "solid #4f4f4f55 2px",
+          paddingBottom: "1vh",
+          paddingTop: "0.5vh",
+        }}
+      >
         <div
           style={{
             height: "20px",
@@ -68,7 +74,8 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
             height: "20px",
             alignItems: "center",
             display: "flex",
-            paddingLeft: "10px",
+            paddingLeft: "2vw",
+            paddingTop: "0.5vh",
           }}
         >
           <div
@@ -79,7 +86,14 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
               background: color,
             }}
           ></div>
-          <div style={{ color: "black", float: "left", fontSize: "10px" }}>
+          <div
+            style={{
+              color: "black",
+              float: "left",
+              fontSize: "10px",
+              paddingLeft: "0.5vw",
+            }}
+          >
             {color ? color.substring(1, color.length - 2) : ""}
           </div>
         </div>
