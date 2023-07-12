@@ -1,9 +1,13 @@
 import { Dispatch, SetStateAction, useContext, useState } from "react";
 import ColorPickerIcon from "../../../assets/ColorPickerIcon.svg";
 import { Page, PageContextProvider } from "../CreateCheckerPage";
-import { ChromePicker, ColorResult, RGBColor, SketchPicker } from "react-color";
+import { ChromePicker, ColorResult, RGBColor } from "react-color";
 
-interface ColorPickerItemProps {}
+interface ColorPickerItemProps {
+  color: string;
+  title: string;
+  setColor: (color: string) => void;
+}
 
 const rgbaToHex = (rgba: RGBColor): string => {
   const { r, g, b, a } = rgba;
@@ -19,14 +23,7 @@ const rgbaToHex = (rgba: RGBColor): string => {
   return `#${red}${green}${blue}${alpha}`;
 };
 
-const ColorPickerItem = (props: ColorPickerItemProps) => {
-  const [page, setPage] = useContext(PageContextProvider) as [
-    Page,
-    Dispatch<SetStateAction<Page>>
-  ];
-
-  const [color, setColor] = useState<string>("#E0E0E0");
-
+const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
   const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
 
   // TODO - add type to event
@@ -34,15 +31,13 @@ const ColorPickerItem = (props: ColorPickerItemProps) => {
     setShowColorPicker(!showColorPicker);
   }
 
-  const test = "#E0E0E0";
-
   function handleOnChange(color: ColorResult): void {
     throw new Error("Function not implemented.");
   }
 
   return (
     <>
-      <div>
+      <div style={{ borderBottom: "solid black 1px" }}>
         <div
           style={{
             height: "20px",
@@ -65,7 +60,7 @@ const ColorPickerItem = (props: ColorPickerItemProps) => {
               marginLeft: "10px",
             }}
           >
-            background color
+            {title}
           </div>
         </div>
         <div
@@ -81,11 +76,11 @@ const ColorPickerItem = (props: ColorPickerItemProps) => {
               height: "15px",
               width: "15px",
               float: "left",
-              background: page.backgroundColor,
+              background: color,
             }}
           ></div>
           <div style={{ color: "black", float: "left", fontSize: "10px" }}>
-            {page.backgroundColor}
+            {color ? color.substring(1, color.length - 2) : ""}
           </div>
         </div>
       </div>
@@ -98,10 +93,10 @@ const ColorPickerItem = (props: ColorPickerItemProps) => {
           }}
         >
           <ChromePicker
-            color={page.backgroundColor}
+            color={color}
             onChange={(newColor) => {
               const newColorHex = rgbaToHex(newColor.rgb);
-              setPage({ ...page, backgroundColor: newColorHex });
+              setColor(newColorHex);
             }}
           />
         </div>
