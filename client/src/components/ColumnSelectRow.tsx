@@ -7,12 +7,13 @@ interface ColumnSelectRowProps {
     onCheckChange : (originalName: string, newCheckedValue : boolean) => void
     originalName : string
     customName : (originalName: string, newCustName : string) => void
-    isDefaultColumn : boolean
-
+    isDefaultColumn : (column: string) => boolean;
+    defaultColumn: string;
+    isCheckedPersisted : boolean
 }
 
 
-const ColumnSelectRow = ({onCheckChange, originalName, isDefaultColumn, customName} : ColumnSelectRowProps) => {
+const ColumnSelectRow = ({onCheckChange, originalName, defaultColumn, isDefaultColumn, customName, isCheckedPersisted} : ColumnSelectRowProps) => {
 
     // const [isChecked, setIsChecked] = useState(() => {
     //     const storedColumn = localStorage.getItem('isChecked');
@@ -21,7 +22,11 @@ const ColumnSelectRow = ({onCheckChange, originalName, isDefaultColumn, customNa
     //   });
     
 
-    const [isChecked, setIsChecked] = useState<boolean>(false);
+    const [isChecked, setIsChecked] = useState<boolean>(isDefaultColumn(originalName) || isCheckedPersisted);
+
+    useEffect(() => {
+        setIsChecked(isDefaultColumn(originalName) || isCheckedPersisted);
+    }, [defaultColumn])
 
 
     const [custName, setCustName] = useState<string>('');
@@ -34,7 +39,7 @@ const ColumnSelectRow = ({onCheckChange, originalName, isDefaultColumn, customNa
 
     return <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: 'space-evenly', margin: '20px 0'}}>
         <div onClick={() => {
-            if (!isDefaultColumn) {
+            if (!isDefaultColumn(originalName)) {
                 const newCheckedValue = !isChecked
                 setIsChecked(newCheckedValue)
                 onCheckChange(originalName, newCheckedValue)
@@ -42,13 +47,13 @@ const ColumnSelectRow = ({onCheckChange, originalName, isDefaultColumn, customNa
             }
 
         }} className={styles.tickBox}>
-            <div className={`${isChecked || isDefaultColumn? styles.tickSquareActive : styles.tickSquare}`}><TickSquare size="23" color="#848484"/></div>
+            <div className={`${isChecked? styles.tickSquareActive : styles.tickSquare}`}><TickSquare size="23" color="#848484"/></div>
         </div>
     
 
-        <div className={ `${styles.editNameButton} ${isChecked || isDefaultColumn? styles.editNameButtonHover : ''}`} onClick={() => {isChecked || isDefaultColumn? setFocus() : null}}><Edit size="14" color="#aeaeae" /></div>
+        <div className={ `${styles.editNameButton} ${isChecked? styles.editNameButtonHover : ''}`} onClick={() => {isChecked? setFocus() : null}}><Edit size="14" color="#aeaeae" /></div>
 
-        <input value={custName} readOnly={!isDefaultColumn ? !isChecked : false} ref={ref} className={ `${styles.custNameInput} ${isChecked || isDefaultColumn? styles.custNameEditable : ''}` } type="text" placeholder={originalName} onChange={(event) => {
+        <input value={custName} readOnly={!isDefaultColumn ? !isChecked : false} ref={ref} className={ `${styles.custNameInput} ${isChecked? styles.custNameEditable : ''}` } type="text" placeholder={originalName} onChange={(event) => {
             const newCustName = event.target.value
             setCustName(newCustName)
             customName(originalName, newCustName)

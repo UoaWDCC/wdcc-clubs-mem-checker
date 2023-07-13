@@ -120,3 +120,22 @@
 .infoHover{
     position: relative;
 }
+  
+  .pickColumnsDescription{
+    color: #087DF1;
+  }
+  
+  .dropdownButtonContainer{
+    padding: 20px 0;
+  }
+
+  .columnContainer{
+    position: relative;
+    z-index: 0;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    height: 100%;
+    width: 80%;
+    padding: 10px 20px;
+    overflow-y: scroll;
+  }

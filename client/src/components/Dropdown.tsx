@@ -46,7 +46,7 @@ const DropDown = ({ columns, onColumnClick, defaultColumn, setDefaultColumn }: {
               setDefaultColumn(column)
               handleChecked(i)
             }} key={column}>
-            <div className={` ${ isChecked[`${i}`] || defaultColumn == column? styles.dropdownClicked : styles.dropdownCheck}`}></div>
+            <div className={` ${ (isChecked[`${i}`] || defaultColumn == column)? styles.dropdownClicked : styles.dropdownCheck}`}></div>
             <li className={styles.dropdownListItem}><button 
                   className={styles.selectColumns}>
                     { column }

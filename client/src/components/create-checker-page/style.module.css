@@ -119,4 +119,15 @@ button {
   padding: 20px;
 }
   
+.errorMessage{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FF0000;
+  font-size: 14px;
+}
+
+.errorText{
+  padding: 0 5px;
+}
 

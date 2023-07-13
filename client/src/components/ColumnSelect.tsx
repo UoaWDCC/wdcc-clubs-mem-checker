@@ -1,6 +1,68 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./ColumnSelect.module.css"
 import { Edit, TickSquare, Warning2 } from 'iconsax-react';
+import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
+import InfoToolTip from './Tooltip';
+
+interface Column {
+  key: String
+  displayName: String
+}
+
+// const DropDown = ({ columns, onColumnClick, dropdownText, setDropdownText }: { columns: string[], onColumnClick: (option: string) => void, dropdownText: string, setDropdownText: Function}) => {
+  
+//   // const[isChecked, setIsChecked] = useState({})
+
+//   // const handleChecked = (id :number) => {
+//   //   setIsChecked((prevState) => ({
+      
+//   //     [id]: !prevState[id]
+
+//   //   }));
+//   // };
+
+//   console.log(defaultOption);
+
+//   return (
+//     <>
+    
+//     {/* <div>
+//       <div className={styles.buttonAndInfo}>
+//         <button className={styles.dropdownButton} onClick={() => setIsExpanded(!isExpanded)}><i className = {styles.dropdownButtonText}>
+//         select default column</i>
+//           {isExpanded && <ArrowUp2 size="18" color="white"/>} 
+//           {!isExpanded && <ArrowDown2 size="18" color="white"/>}
+//         </button>
+//         <InfoToolTip/>
+//       </div>
+      
+//       {isExpanded &&
+//       <div className={styles.dropdownContainer}>
+//         <ul className={styles.dropdownList}>
+//           <div>{columns.map( (column, i) => (
+//             <div className={styles.dropdownRowContainer} onClick={() => {
+//               setIsExpanded(false); 
+//               onColumnClick(column); 
+//               setDropdownText(column)
+//               handleChecked(i)
+//             }}>
+//             <div className={` ${ isChecked[`${i}`] ? styles.dropdownClicked : styles.dropdownCheck}`}></div>
+//             <li className={styles.dropdownListItem}><button id={ column } 
+//                   className={styles.selectColumns} 
+//                   >
+//                     { column }
+//                 </button>
+//               </li>
+//               </div>
+//           ))}</div>
+//         </ul>
+//       </div>
+//       }
+//     </div> */}
+//     </>
+//   );
+// };
+
 
 
 function SelectColumns ( { columns, dropdownText } : { columns: string[], dropdownText: string } ) {
@@ -9,6 +71,18 @@ function SelectColumns ( { columns, dropdownText } : { columns: string[], dropdo
     const parentRef = useRef<HTMLDivElement | null>(null);
     const [selectedCols, setSelectedCols] = useState(new Map());
     const[newName, setNewName] = useState(new Map());
+    const[isExpanded, setIsExpanded] = useState(false);
+    const[defaultOption, setDefaultOption] = useState('')
+
+    const selectedColumns : Column[] = []
+
+    const selectDefaultOption = () => {
+
+    }
+
+    const editDisplayName = (key : String, displayName : String) => {
+
+    }
     
     const setFocus = (i) => {
       if (!parentRef.current){
@@ -69,6 +143,19 @@ function SelectColumns ( { columns, dropdownText } : { columns: string[], dropdo
 
     return (
       <>
+      <select value={defaultOption} onChange={(event) => setDefaultOption(event.target.value)}>
+      <option value="" disabled hidden>
+        select default option
+      </option>
+      {columns.map((option) => <option key={option} value={option}>{option}</option>) }
+     </select>
+
+     <i className={styles.pickColumnsDescription}>
+          please select the google sheet columns you want to use as
+          identification options
+        </i>
+
+      <div className={styles.columnContainer}>
       <div ref={parentRef}> {columns.map( (column, i) => (
       <div key={ column } className = { `${styles.columnContainer} ${ isChecked[`${i}`] ? styles.editable : '' } ${ dropdownText == column ? styles.editable : '' }` }>
         <span className={ `${ styles.checkbox } ${ isChecked[`${i}`] ? styles.checkboxActive : ''} ${ dropdownText == column ? styles.checkboxActive : ''}`} onClick={() => handleColumnClick(i, column)}>
@@ -80,6 +167,7 @@ function SelectColumns ( { columns, dropdownText } : { columns: string[], dropdo
         <div className={ `${styles.dropdownInfo} ${styles.triangle}`}>Warning: This column contains duplicate values.</div>
       </div>
       ))}
+      </div>
       </div>
 
       </>
