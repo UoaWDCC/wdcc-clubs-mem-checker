@@ -1,7 +1,6 @@
-import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ColorPickerIcon from "../../../assets/ColorPickerIcon.svg";
-import { Page, PageContextProvider } from "../CreateCheckerPage";
-import { ChromePicker, ColorResult, RGBColor } from "react-color";
+import { ChromePicker, RGBColor } from "react-color";
 
 interface ColorPickerItemProps {
   color: string;
@@ -25,15 +24,25 @@ const rgbaToHex = (rgba: RGBColor): string => {
 
 const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
   const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
+  const refOne = useRef<HTMLDivElement>(null);
 
-  // TODO - add type to event
-  function handleOnClick(event: any): void {
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
+  }, []);
+
+  const handleClickOutside = (event: any) => {
+    if (!refOne.current?.contains(event.target)) {
+      setShowColorPicker(false);
+    }
+  };
+
+  const handleOnClick = (event: any): void => {
     setShowColorPicker(!showColorPicker);
-  }
+  };
 
-  function handleOnChange(color: ColorResult): void {
-    throw new Error("Function not implemented.");
-  }
+  // function handleOnChange(color: ColorResult): void {
+  //   throw new Error("Function not implemented.");
+  // }
 
   return (
     <>
@@ -102,9 +111,10 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
         <div
           style={{
             position: "absolute",
-            left: "25vw",
-            top: "10vh",
+            left: "21.5vw",
+            top: "5vh",
           }}
+          ref={refOne}
         >
           <ChromePicker
             color={color}
