@@ -1,0 +1,9 @@
+.button {
+  font-family: "Montserrat", sans-serif;
+}
+
+.button:hover {
+  cursor: pointer;
+  background: var(--hover-color) !important;
+}
+

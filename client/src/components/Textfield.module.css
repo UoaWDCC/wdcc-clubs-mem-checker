@@ -11,6 +11,8 @@
 
 .input::placeholder {
   color: var(--placeholder-color);
+  font-family: "Montserrat";
+  text-align: var(--placeholder-text-align);
 }
 
 .errorText {

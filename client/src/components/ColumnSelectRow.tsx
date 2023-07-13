@@ -31,10 +31,12 @@ const ColumnSelectRow = ({onCheckChange, originalName, defaultColumn, isDefaultC
 
     const [custName, setCustName] = useState<string>('');
 
-    const ref = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const setFocus = () => {
-        ref.current.focus();
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
     }
 
     return <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: 'space-evenly', margin: '20px 0'}}>
@@ -53,11 +55,11 @@ const ColumnSelectRow = ({onCheckChange, originalName, defaultColumn, isDefaultC
 
         <div className={ `${styles.editNameButton} ${isChecked? styles.editNameButtonHover : ''}`} onClick={() => {isChecked? setFocus() : null}}><Edit size="14" color="#aeaeae" /></div>
 
-        <input value={custName} readOnly={!isDefaultColumn ? !isChecked : false} ref={ref} className={ `${styles.custNameInput} ${isChecked? styles.custNameEditable : ''}` } type="text" placeholder={originalName} onChange={(event) => {
+        <input value={custName} readOnly={!isDefaultColumn ? !isChecked : false} ref={inputRef} className={ `${styles.custNameInput} ${isChecked? styles.custNameEditable : ''}` } type="text" placeholder={originalName} onChange={(event) => {
             const newCustName = event.target.value
             setCustName(newCustName)
             customName(originalName, newCustName)
-            }}></input>
+            }} name='input'></input>
 
         <div className={ styles.duplicateFieldWarningIcon }><Warning2 size="18" color="#087DF1"/></div>
         <div className={ `${styles.duplicateFieldWarningDescription} ${ styles.speechTriangle }` }>Warning: This column contains duplicate values.</div>
