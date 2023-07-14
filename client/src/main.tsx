@@ -15,6 +15,7 @@ import Cookies from "js-cookie";
 import InviteCodePage from "./pages/invite-code/InviteCodePage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import ClubCheckerPage from "./pages/club-checker-page/ClubCheckerPage";
+import EmptyClubLogo from "./assets/EmptyClubLogo.svg";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,7 @@ const router = createBrowserRouter([
         clubId={1}
         clubName="UAWB"
         title="UAWB membership checker"
+        clubLogoUrl={EmptyClubLogo}
         optionsList={[
           { originalName: "column1", displayName: "upi" },
           { originalName: "column2", displayName: "first name" },
