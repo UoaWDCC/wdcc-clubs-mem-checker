@@ -97,7 +97,7 @@ const ClubCheckerPage = ({
         backgroundPosition: "center",
       }}
     >
-      <img className={styles.logo} src={clubLogoUrl || EmptyClubLogo} />
+      {clubLogoUrl && <img className={styles.logo} src={clubLogoUrl} />}
       <h1
         style={{
           color: titleTextColor,
