@@ -16,6 +16,11 @@ import styles from "./ClubCheckerPage.module.css";
 import { createRef, useLayoutEffect, useRef, useState } from "react";
 import { getTextColor } from "../../utils/helpers";
 
+interface Column {
+  originalName: string;
+  displayName: string;
+}
+
 interface ClubCheckerPageProps {
   clubId: number;
   clubName: string;
@@ -34,7 +39,7 @@ interface ClubCheckerPageProps {
   // images
   clubLogoUrl?: string;
   backgroundImageUrl?: string;
-  optionsList: string[]; // correct type??? try column[]
+  optionsList: Column[]; // correct type??? try column[]
   // defaultOption: string;
   isOnboarding: boolean;
 }
@@ -60,7 +65,7 @@ const ClubCheckerPage = ({
 
   const textFieldLabelRef = useRef<HTMLInputElement>(null);
 
-  const [selectedIdentifier, setSelectedIdentifier] = useState<string>(
+  const [selectedIdentifier, setSelectedIdentifier] = useState<Column>(
     optionsList[0]
   );
 
@@ -111,14 +116,21 @@ const ClubCheckerPage = ({
           color: getTextColor(dropDownBackgroundColor),
         }}
         value={""}
-        onChange={(event) => setSelectedIdentifier(event.target.value)}
+        onChange={(event) => {
+          const originalName = event.target.value;
+          const columnObject = optionsList.find(
+            (column) => column.originalName === originalName
+          );
+          if (!columnObject) return;
+          setSelectedIdentifier(columnObject);
+        }}
       >
         <option value="" disabled hidden>
           Select identifier
         </option>
         {optionsList.map((option) => (
-          <option key={option} value={option}>
-            {option}
+          <option key={option.originalName} value={option.originalName}>
+            {option.displayName}
           </option>
         ))}
       </select>
@@ -143,16 +155,16 @@ const ClubCheckerPage = ({
           }}
           ref={textFieldLabelRef}
         >
-          {selectedIdentifier}
+          {selectedIdentifier.displayName}
         </p>
         <Textfield
           backgroundColor={textFieldBackgroundColor}
           isError={isError}
-          errorText={`Please enter a ${selectedIdentifier}`}
+          errorText={`Please enter a ${selectedIdentifier.displayName}`}
           height="45px"
           padding={`0px 0px 0px ${textFieldWidth + 18}px`}
           placeholder={
-            `please enter your ${selectedIdentifier}` ||
+            `please enter your ${selectedIdentifier.displayName}` ||
             "no identifier selected yet"
           }
           textColour={textFieldTextColor}

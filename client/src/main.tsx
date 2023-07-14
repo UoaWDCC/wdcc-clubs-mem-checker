@@ -70,7 +70,11 @@ const router = createBrowserRouter([
         clubId={1}
         clubName="UAWB"
         title="UAWB membership checker"
-        optionsList={["upi", "first name", "last name", "student id"]}
+        optionsList={[
+          { originalName: "column1", displayName: "upi" },
+          { originalName: "column2", displayName: "first name" },
+          { originalName: "column3", displayName: "last name" },
+        ]}
         isOnboarding={false}
       />
     ),
