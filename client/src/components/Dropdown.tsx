@@ -20,12 +20,6 @@ const DropDown = ({ columns, onColumnClick, defaultColumn, setDefaultColumn }: {
 
   return (
     <>
-    {/* <select value={defaultOption} onChange={(event) => setDefaultOption(event.target.value)}>
-      <option value="" disabled hidden>
-        select default option
-      </option>
-      {columns.map((option) => <option key={option} value={option}>{option}</option>) }
-    </select> */}
     <div>
       <div className={styles.buttonAndInfo}>
         <button className={styles.dropdownButton} onClick={() => setIsExpanded(!isExpanded)}><i className = {styles.dropdownButtonText}>
@@ -33,7 +27,15 @@ const DropDown = ({ columns, onColumnClick, defaultColumn, setDefaultColumn }: {
           {isExpanded && <ArrowUp2 size="18" color="white"/>} 
           {!isExpanded && <ArrowDown2 size="18" color="white"/>}
         </button>
-        <InfoToolTip backgroundColor="#E0E0E0" color="#087DF1" infoDescription="This will be the default identification option displayed to users. Users can then select another option if they wish to do so." descBackgroundColor="#E0E0E0" descColor="#087DF1"/>
+        <InfoToolTip 
+          descriptionLeft="60%"
+          triangleRight="150px" 
+          width="160px" 
+          backgroundColor="#E0E0E0" 
+          color="#087DF1" 
+          infoDescription="This will be the default identification option displayed to users. Users can then select another option if they wish to do so." 
+          descBackgroundColor="#E0E0E0" 
+          descColor="#087DF1"/>
       </div>
       
       {isExpanded &&
