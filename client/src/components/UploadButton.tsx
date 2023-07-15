@@ -1,15 +1,21 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styles from './UploadLogo.module.css';
 import UploadIcon from '../assets/upload_logo.svg';
 import FileItem from './FileItem';
 
 interface UploadButtonProps {
     onFileSelect: (file: File) => void;
+    currentFile?: File | null;
 }
 
-const UploadButton: React.FC<UploadButtonProps> = () => {
+const UploadButton = ({ onFileSelect, currentFile }: UploadButtonProps)=> {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+    // Update the state when the `currentFile` prop changes
+    useEffect(() => {
+        setSelectedFile(currentFile || null);
+    }, [currentFile]);
 
     const handleButtonClick = () => {
         if (!selectedFile && fileInputRef.current) {
@@ -21,6 +27,7 @@ const UploadButton: React.FC<UploadButtonProps> = () => {
         const file = event.target.files && event.target.files[0];
         if (file && file.type.startsWith('image/')) {
             setSelectedFile(file);
+            onFileSelect(file);
         }
     };
 
