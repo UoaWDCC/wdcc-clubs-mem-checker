@@ -143,5 +143,6 @@
 }
 
 .errorText{
+  color: #FF0000;
   padding: 0 5px;
 }

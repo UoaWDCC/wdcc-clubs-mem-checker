@@ -4,7 +4,7 @@ import InfoToolTip from './Tooltip';
 import styles from './Dropdown.module.css'
 
 
-const DropDown = ({ columns, onColumnClick, defaultColumn, setDefaultColumn }: { columns: string[], onColumnClick: (option: string) => void, defaultColumn: string, setDefaultColumn: Function}) => {
+const DropDown = ({ columns, onColumnClick, defaultColumn, setDefaultColumn }: { columns: (string | boolean)[][], onColumnClick: (option: string) => void, defaultColumn: string, setDefaultColumn: Function}) => {
   const[isExpanded, setIsExpanded] = useState(false);
   // const[defaultOption, setDefaultOption] = useState('')
   const[isChecked, setIsChecked] = useState({})
@@ -42,14 +42,14 @@ const DropDown = ({ columns, onColumnClick, defaultColumn, setDefaultColumn }: {
           <div>{columns.map( (column, i) => (
             <div className={styles.dropdownRowContainer} onClick={() => {
               setIsExpanded(false); 
-              onColumnClick(column); 
-              setDefaultColumn(column)
+              onColumnClick(column[0]); 
+              setDefaultColumn(column[0])
               handleChecked(i)
-            }} key={column}>
-            <div className={` ${ (isChecked[`${i}`] || defaultColumn == column)? styles.dropdownClicked : styles.dropdownCheck}`}></div>
+            }} key={column[0]}>
+            <div className={` ${ (isChecked[`${i}`] || defaultColumn == column[0])? styles.dropdownClicked : styles.dropdownCheck}`}></div>
             <li className={styles.dropdownListItem}><button 
                   className={styles.selectColumns}>
-                    { column }
+                    { column[0] }
                 </button>
               </li>
               </div>

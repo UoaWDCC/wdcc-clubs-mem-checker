@@ -41,7 +41,7 @@
     margin: 0 5px;
     background-color: #e0e0e000;
     border: None;
-    color: #aeaeae;
+    color: #848484;
     font-weight: 525;
     padding: 3px;
     width: 70px;
@@ -98,6 +98,10 @@
 
 .duplicateFieldWarningIcon:hover~.duplicateFieldWarningDescription{
     display: block;
+}
+
+.warningHidden{
+    visibility: hidden;
 }
 
 

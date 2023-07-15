@@ -7,6 +7,7 @@ import { PageContextProvider, Page } from "./CreateCheckerPage";
 import { Warning2 } from "iconsax-react";
 import DropDown from '../../components/Dropdown';
 import ColumnSelectRow from "../../components/ColumnSelectRow";
+import { spreadsheetColumns } from "./GoogleSheetForm";
 
 interface ColumnSelectorProps {
   onNext: () => void;
@@ -14,8 +15,8 @@ interface ColumnSelectorProps {
 }
 
 interface Column {
-  originalName?: string
-  displayName?: string
+  originalName?: string | boolean;
+  displayName?: string | boolean;
 }
 
 const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
@@ -24,7 +25,11 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
     Dispatch<SetStateAction<Page>>
   ];
 
-  const googleSheetColumns = ['column1', 'column2', 'column3', 'column4', 'column5'];
+  const testColumns = {'Awesome_A': {"id": "A", "name": "Awesome", "unique": true}, 'Bwesome_B':{"id": "B", "name": "Bwesome", "unique": false}, 'Cwesome_C':{"id": "C", "name": "Cwesome", "unique": false}}
+
+  const [googleSheetColumns, setgoogleSheetColumns] = useState<Array<[string, boolean]>>(
+    Object.entries(testColumns).map(([key, value]) => [value.name, value.unique])
+  );
 
   // Setting default column and storing this using client local storage
   const [defaultColumn, setDefaultColumn] = useState(() => {
@@ -72,10 +77,15 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
     return selectedColumnsList.some((obj: Column) => obj.originalName === name);
   }
 
+  function findDisplayName(name : string) {
+    const foundColumn = selectedColumnsList.find((column : Column) => column.originalName === name);
+    return foundColumn ? foundColumn.displayName : name;
+  }
+
   // Error handling if next button is clicked but default column hasn't been selected
   const [showError, setShowError] = useState(false);
   const handleNext = () => {
-    if (defaultColumn !== '') {
+    if (defaultColumn != '') {
       onNext();
     } else {
       setShowError(true)
@@ -139,10 +149,11 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
       <div className={styles.columnsContainer}>
         {googleSheetColumns.map((column) => 
           <ColumnSelectRow 
-            key={column}
+            key={column[0]}
             defaultColumn={defaultColumn}  
-            originalName={column} 
-
+            originalName={column[0]} 
+            isUnique={column[1]}
+            
             customName={(originalName, newCustName) => {
               const index = selectedColumnsList.findIndex((obj : Column) => {
                 return obj.originalName === originalName;
@@ -163,13 +174,13 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
               }
               console.log(selectedColumnsList)
             }} 
-            
-            isDefaultColumn={(column : string) => column == defaultColumn} 
-            isCheckedPersisted={isObjectChecked(column)}></ColumnSelectRow>)}
+            displayName={findDisplayName(column[0])}
+            isDefaultColumn={(column : string | boolean) => column == defaultColumn} 
+            isCheckedPersisted={isObjectChecked(column[0])}></ColumnSelectRow>)}
         </div>
       
-      <div className={styles.body}>image</div>
-      <button id={styles.nextButton} onClick={onNext}>
+      {/* <div className={styles.body}>image</div> */}
+      <button id={styles.nextButton} onClick={handleNext}>
         Next
       </button>
     </div>
