@@ -9,12 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.4.0",
     "@types/js-cookie": "^3.0.3",
-    "js-cookie": "^3.0.5",
+    "axios": "^1.4.0",
     "iconsax-react": "^0.0.8",
+    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-fontpicker-ts": "^0.3.0",
     "react-router": "^6.10.0",
     "react-router-dom": "^6.10.0"
   },
