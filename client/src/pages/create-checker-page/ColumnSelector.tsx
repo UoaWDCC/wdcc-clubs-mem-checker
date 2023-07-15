@@ -25,10 +25,10 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
     Dispatch<SetStateAction<Page>>
   ];
 
-  const testColumns = {'Awesome_A': {"id": "A", "name": "Awesome", "unique": true}, 'Bwesome_B':{"id": "B", "name": "Bwesome", "unique": false}, 'Cwesome_C':{"id": "C", "name": "Cwesome", "unique": false}}
+  // const testColumns = {'Awesome_A': {"id": "A", "name": "Awesome", "unique": true}, 'Bwesome_B':{"id": "B", "name": "Bwesome", "unique": false}, 'Cwesome_C':{"id": "C", "name": "Cwesome", "unique": false}}
 
   const [googleSheetColumns, setgoogleSheetColumns] = useState<Array<[string, boolean]>>(
-    Object.entries(testColumns).map(([key, value]) => [value.name, value.unique])
+    Object.entries(spreadsheetColumns).map(([key, value]) => [value.name, value.unique])
   );
 
   // Setting default column and storing this using client local storage
@@ -84,7 +84,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
 
   // Error handling if next button is clicked but default column hasn't been selected
   const [showError, setShowError] = useState(false);
-  const handleNext = () => {
+  const handleOnNext = () => {
     if (defaultColumn != '') {
       onNext();
     } else {
@@ -179,10 +179,14 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
             isCheckedPersisted={isObjectChecked(column[0])}></ColumnSelectRow>)}
         </div>
       
-      {/* <div className={styles.body}>image</div> */}
-      <button id={styles.nextButton} onClick={handleNext}>
-        Next
-      </button>
+      <Button
+        buttonText="next"
+        height="57px"
+        onClick={handleOnNext}
+        fontSize="14px"
+        width="80px"
+      />
+      
     </div>
   );
 };
