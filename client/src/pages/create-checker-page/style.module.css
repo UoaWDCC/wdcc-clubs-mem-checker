@@ -139,3 +139,34 @@
   border-radius: 20px;
   height: 100%;
 }
+
+.columnsContainer{
+  position: relative;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  height: 200px;
+  padding: 10px 120px;
+  overflow-y: scroll;
+}
+
+/* .pickColumnsDescription{
+  color: #087DF1;
+  margin-top: 20px;
+} */
+
+.dropdownButtonContainer{
+  padding: 20px;
+}
+  
+.errorMessage{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FF0000;
+  font-size: 14px;
+}
+
+.errorText{
+  color: #FF0000;
+  padding: 0 5px;
+}

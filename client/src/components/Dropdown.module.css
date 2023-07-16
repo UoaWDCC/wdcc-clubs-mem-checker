@@ -1,0 +1,85 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;1,500;1,600;1,700&display=swap');
+.dropdownButton{
+  background: #097df1;
+  border-radius: 10px;
+  color: white;
+  border: none;
+  padding: 7px 13px;
+  width: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  
+}
+
+.dropdownButtonText{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  padding: 0px 2px;
+}
+
+.dropdownContainer{
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  
+}
+
+.dropdownList{
+  position: absolute;
+  list-style-type: none;
+  background-color: #479ef4;
+  width: 190px;
+  padding: 10px 10px;
+  max-height: 100px;
+  overflow-y: scroll;
+  border-radius: 10px;
+}
+
+.dropdownListItem{
+  background-color: #479ef4;
+}
+
+.selectColumns{
+  border: none;
+  background-color: #479ef4;
+  color: white;
+
+}
+
+.dropdownRowContainer{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.dropdownCheck{
+  width: 15px;
+  height: 15px;
+  margin: 10px;
+  background-color: #aad3f7;
+  border-radius: 50%;
+
+}
+
+.dropdownCheck:hover{
+  cursor: pointer;
+}
+
+.dropdownClicked{
+  width: 15px;
+  height: 15px;
+  margin: 10px;
+  background-color: #aad3f7;
+  border-radius: 50%;
+  border: 2px solid #aad3f7;
+  background-color: #0472de;
+}
+
+.buttonAndInfo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

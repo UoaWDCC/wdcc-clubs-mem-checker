@@ -5,6 +5,7 @@ import styles from "./style.module.css";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import InfoToolTip from "../../components/Tooltip";
 
 export default function NoClubs() {
   const navigate = useNavigate();
@@ -36,13 +37,25 @@ export default function NoClubs() {
           backgroundColor="#03045E"
           onClick={() => navigate("/club-details")}
         />
+        <div className={styles.adminAndToolTip}>
         <Button
           buttonText="join as club admin"
           backgroundColor="#087DF1"
           color="#03045E"
           border="#03045E 0.2rem solid"
           onClick={() => navigate("/invite-code")}
-        />
+        ></Button>
+        <InfoToolTip
+          backgroundColor="#03045E" 
+          color="#ffffff" 
+          infoDescription="Manage an existing club in the system" 
+          descBackgroundColor="#AAD3F7" 
+          descColor="#087DF1"
+          width="120px"
+          descriptionLeft="24%" 
+          triangleRight="90%"
+        ></InfoToolTip>
+        </div>
       </div>
     </div>
   );
