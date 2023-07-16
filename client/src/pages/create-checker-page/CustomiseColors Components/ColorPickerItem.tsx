@@ -24,6 +24,7 @@ const rgbaToHex = (rgba: RGBColor): string => {
 
 const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
   const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
+  const [alpha, setAlpha] = useState<number>(100);
   const refOne = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -51,6 +52,7 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
           borderBottom: "solid #4f4f4f55 2px",
           paddingBottom: "1vh",
           paddingTop: "0.5vh",
+          width: "14vw",
         }}
       >
         <div
@@ -101,9 +103,21 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
               float: "left",
               fontSize: "10px",
               paddingLeft: "0.5vw",
+              paddingRight: "1vw",
+              width: "3vw",
             }}
           >
-            {color ? color.substring(1, color.length - 2) : ""}
+            {color ? color.substring(1, color.length - 2).toUpperCase() : ""}
+          </div>
+          <div
+            style={{
+              color: "black",
+              float: "left",
+              fontSize: "10px",
+              paddingLeft: "0.5vw",
+            }}
+          >
+            {Math.trunc(alpha) + "%"}
           </div>
         </div>
       </div>
@@ -121,6 +135,7 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
             onChange={(newColor) => {
               const newColorHex = rgbaToHex(newColor.rgb);
               setColor(newColorHex);
+              setAlpha(newColor.rgb.a ? newColor.rgb.a * 100 : 100);
             }}
           />
         </div>

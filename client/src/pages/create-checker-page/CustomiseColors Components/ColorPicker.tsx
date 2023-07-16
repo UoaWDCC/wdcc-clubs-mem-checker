@@ -17,8 +17,8 @@ export const ColorPicker = () => {
           color: "black",
           fontStyle: "italic",
           fontSize: "0.9rem",
-          width: "12vw",
-          height: "4vh",
+          width: "11vw",
+          height: "3vh",
           alignItems: "center",
           justifyContent: "center",
         }}
