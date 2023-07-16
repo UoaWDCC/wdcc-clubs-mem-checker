@@ -1,0 +1,41 @@
+post:
+  security:
+    - jwt_token:
+        - 'read:users'
+        - 'read:clubs'
+  operationId: createNewClub
+  summary: |
+    'Create a new club'
+  servers: []
+  description: 'Create a new club with a unique name and an acronym associated to the user.'
+  responses:
+    200:
+      description: 'OK'
+      content:
+        application/text:
+          schema:
+            type: string
+          examples:
+            example1:
+              value: 'created club Web Development Consulting Club with acronym WDCC and added user'
+    400:
+      description: 'BAD REQUEST. DUPLICATE CLUB NAME'
+      content:
+        application/text:
+          schema:
+            type: string
+          examples:
+            example1:
+              value: 'failed to create club Web Development Consulting Club please try a unique name'
+            example2:
+              value: 'The club name and acronym are required body fields'
+
+    500:
+      description: 'INTERNAL SERVER ERROR'
+      content:
+        application/text:
+          schema:
+            type: string
+          examples:
+            example1:
+              value: 'failed to create club Web Development Consulting Club'
