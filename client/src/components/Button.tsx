@@ -1,5 +1,5 @@
-import styles from "./Button.module.css";
-import { getTextColor, lightenColor } from "../utils/helpers";
+import styles from './Button.module.css';
+import { getTextColor, lightenColor } from '../utils/helpers';
 
 export interface ButtonProps {
   height?: string;
@@ -15,6 +15,7 @@ export interface ButtonProps {
   iconSize?: string;
   borderRadius?: string;
   hoverColor?: string;
+  padding?: string;
   onClick: () => void;
 }
 
@@ -30,8 +31,9 @@ const Button = ({
   fontWeight = "bold",
   icon,
   iconSize,
-  borderRadius = "8px",
-  hoverColor = "",
+  borderRadius = '8px',
+  hoverColor = '',
+  padding = "5px",
   onClick,
 }: ButtonProps) => {
   if (hoverColor == "") hoverColor = lightenColor(backgroundColor, 20);
@@ -43,13 +45,14 @@ const Button = ({
           height,
           width,
           margin,
-          backgroundColor,
+          backgroundColor, 
           border,
           color: color || getTextColor(backgroundColor),
           fontSize,
           fontWeight,
           borderRadius: borderRadius,
-          ["--hover-color" as any]: hoverColor,
+          padding: padding,
+          ['--hover-color' as any]: hoverColor,
         }}
         onClick={onClick}
       >
@@ -60,7 +63,10 @@ const Button = ({
             margin: "auto",
           }}
         >
-          <img src={icon} height={iconSize} />
+          <img
+            src={icon}
+            height={iconSize}
+          /> 
           {buttonText}
         </div>
       </button>

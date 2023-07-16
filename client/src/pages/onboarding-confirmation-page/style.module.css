@@ -1,19 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
 
 .title {
   color: #ffffff;
   position: absolute;
   font-size: 3.3vw;
-  letter-spacing: 0.11vw;
+  letter-spacing: 0.08vw;
 
   width: 50vw;
 
-  top: 17vh;
+  top: 10vh;
   left: 10.3vw;
 
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 700;
 }
@@ -22,17 +22,17 @@
   color: #ffffff;
   position: absolute;
 
-  font-size: 2.05vw;
+  font-size: 1.8vw;
   line-height: 4.3vh;
   letter-spacing: 0.05vw;
 
   height: auto;
-  width: 36vw;
+  width: 45vw;
 
-  top: 28vh;
+  top: 40vh;
   left: 10.4vw;
 
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 300;
 }
@@ -43,7 +43,7 @@ body {
 
 .intro_button {
   position: absolute;
-  left: 22vw;
+  left: 10.4vw;
   top: 69vh;
 }
 

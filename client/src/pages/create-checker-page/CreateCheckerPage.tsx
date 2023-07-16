@@ -75,6 +75,8 @@ const CreateCheckerPage = () => {
           {progress} of {steps.size}
         </p>
       </div>
+
+
       <PageContextProvider.Provider value={[page, setPage]}>
         {showConfirm ? (
           <CustomiseConfirm

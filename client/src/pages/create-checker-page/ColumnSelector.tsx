@@ -1,8 +1,9 @@
-import styles from './style.module.css';
-import GoogleSheetsLogo from '../../assets/GoogleSheetsLogo.svg';
-import BackArrow from '../../assets/BackArrow.svg';
-import { useContext, Dispatch, SetStateAction } from 'react';
-import { PageContextProvider, Page } from './CreateCheckerPage';
+import styles from "./style.module.css";
+import GoogleSheetsLogo from "../../assets/GoogleSheetsLogo.svg";
+import BackButton from "../../components/BackButton";
+import Button from "../../components/Button";
+import { useContext, Dispatch, SetStateAction } from "react";
+import { PageContextProvider, Page } from "./CreateCheckerPage";
 
 interface ColumnSelectorProps {
   onNext: () => void;
@@ -17,12 +18,19 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
 
   return (
     <div className={styles.container}>
-      <button id={styles.backButton} onClick={onBack}>
-        <img className={styles.backButton} src={BackArrow} />
-      </button>
+      <div id = {styles.backButton}>
+          <BackButton
+            onClick={onBack}
+            color="#087DF1"
+            size="45px"
+            hoverColor="#cceeff"
+            backgroundColor="transparent"
+            margin="0 500px 0 0"
+          />
+      </div>
       <div>
         <div className={styles.title}>
-          <div>select & edit columns</div>
+          <h1>select & edit columns</h1>
           <img src={GoogleSheetsLogo} />
         </div>
         <i className={styles.subtitle}>
