@@ -28,6 +28,8 @@ model Organisation {
   acronym String?
   users UsersInOrganisation[]
   pages Page[]
+  membershipCheckUsage MembershipCheckUsage[] 
+  inviteCode OrganisationInviteCode[]
 }
 
 model UsersInOrganisation {
@@ -66,5 +68,21 @@ model Column {
   page Page @relation(fields: [pageId], references: [id])
 }
 
+model OrganisationInviteCode {
+  id Int @id @default(autoincrement())
+  code String @unique
+  organisationId Int
+  organisation Organisation @relation(fields: [organisationId], references: [id])
+  createdAt  DateTime @default(now())
+}
 
+model MembershipCheckUsage {
+  id Int @id @default(autoincrement())
+  organisationId Int
+  organisation Organisation @relation(fields: [organisationId], references: [id])
+  isDuplicate Boolean
+  userInput String
+  columnName String
+  createdAt DateTime @default(now())
+}
 
