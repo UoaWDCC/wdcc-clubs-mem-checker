@@ -16,7 +16,7 @@ export const ColorPicker = () => {
           borderRadius: "10px",
           color: "black",
           fontStyle: "italic",
-          fontSize: "0.9rem",
+          fontSize: "0.75vw",
           width: "11vw",
           height: "3vh",
           alignItems: "center",

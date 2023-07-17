@@ -57,7 +57,7 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
       >
         <div
           style={{
-            height: "20px",
+            height: "100%",
             display: "flex",
             alignItems: "center",
             paddingLeft: "5px",
@@ -66,7 +66,7 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
           <img
             src={ColorPickerIcon}
             onClick={handleOnClick}
-            height="15vh"
+            height="100%"
             style={{ cursor: "pointer", float: "left" }}
           ></img>
           <div
