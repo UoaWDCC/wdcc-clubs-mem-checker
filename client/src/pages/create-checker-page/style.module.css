@@ -82,6 +82,20 @@
   margin-bottom: 60px;
 }
 
+.styling_subtext{
+  font-size: 0.9rem;
+  font-family: "Montserrat Italic";
+  color: #AAAAAA;
+}
+
+.styling_container {
+  height: 80%;
+  width: 100%;
+  text-align: left;
+  position: relative;
+  top: 20%;
+}
+
 #backButton {
   left: 20px;
   position: absolute;

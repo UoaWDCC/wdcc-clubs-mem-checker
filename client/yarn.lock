@@ -260,6 +260,11 @@ react-icons@^4.10.1:
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.10.1.tgz#3f3b5eec1f63c1796f6a26174a1091ca6437a500"
   integrity sha512-/ngzDP/77tlCfqthiiGNZeYFACw85fUjZtLbedmJ5DTlNDIwETxhwBzdOJ21zj4iJdvc0J3y7yOsX3PpxAJzrw==
 
+react-fontpicker-ts@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-fontpicker-ts/-/react-fontpicker-ts-0.3.0.tgz#271b863c6ff27272e69404913022f4dedb4d67af"
+  integrity sha512-gejYTMy/HwCUwE7s62gZ9t92DNQgPfKRAxXcZvQl6bm31AMgFEnqAi6ors2HRlQQjIyZ0CbJRlZos6Nvv+SGFQ==
+
 react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
