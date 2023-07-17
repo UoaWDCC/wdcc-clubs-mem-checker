@@ -36,6 +36,8 @@ const getSheetTabId = (link: string): string | null => {
   return match ? match[1] : null;
 };
 
+export var spreadsheetColumns = {}
+
 const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
     Page,
@@ -72,7 +74,7 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
         ...page,
         googleSheetLink: link,
       });
-      // get spreadsheetId and sheetTabId
+      // --------------get spreadsheetId and sheetTabId
       const spreadsheetId = getSpreadsheetId(link);
       const sheetTabId = getSheetTabId(link);
       if (!spreadsheetId || !sheetTabId) {
@@ -80,10 +82,11 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
         (inputRef.current as HTMLInputElement).focus();
         return;
       }
-      // try fetch spreadsheet columns
+      // --------------try fetch spreadsheet columns
       axios
         .get(`/sheet/columns/${spreadsheetId}/${sheetTabId}`)
         .then((response) => {
+           spreadsheetColumns = response.data
           console.log(response.data);
           setPage({
             ...page,

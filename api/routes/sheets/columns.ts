@@ -7,6 +7,7 @@ import { PrismaClient } from '@prisma/client';
 export const router = Router();
 const prisma = new PrismaClient();
 
+// Get the columns from the spreadsheet
 router.get('/:spreadsheetId/:sheettabid', auth, async (req, res) => {
   // Get the user so you can access the Google auth token
   const user = await prisma.user.findFirst({
@@ -15,7 +16,8 @@ router.get('/:spreadsheetId/:sheettabid', auth, async (req, res) => {
     },
   });
 
-  if (!user) return res.status(500).send('could not find user');
+  // Return 400 if the user does not exist
+  if (!user) return res.status(400).send('could not find user');
 
   const { googleToken } = user; // Get the google auth token from the user
 
@@ -35,7 +37,7 @@ router.get('/:spreadsheetId/:sheettabid', auth, async (req, res) => {
 
     // If there are no sheets in the spreadsheet, return an empty object
     if (!metadataResponse.data.sheets) {
-      return res.status(400).send(JSON.stringify('Spreadsheet has no sheets.'));
+      return res.status(400).send(JSON.stringify('spreadsheet has no sheets'));
     }
 
     // Find the sheet ID that matches the given gid
@@ -45,7 +47,7 @@ router.get('/:spreadsheetId/:sheettabid', auth, async (req, res) => {
 
     // If the sheet ID is not found, return an error
     if (!sheet) {
-      return res.status(400).send(JSON.stringify('Sheet not found.'));
+      return res.status(400).send(JSON.stringify('sheet not found'));
     }
 
     // Get the name of the sheet
@@ -91,7 +93,7 @@ router.get('/:spreadsheetId/:sheettabid', auth, async (req, res) => {
     return res.status(200).send(JSON.stringify(columnData));
   } catch (err) {
     console.error(err);
-    return res.status(400).send(JSON.stringify('Error retrieving data.'));
+    return res.status(500).send(JSON.stringify('error retrieving data'));
   }
 });
 

@@ -3,6 +3,11 @@
   src: url("../../../public/Montserrat-Italic-VariableFont_wght.ttf");
 }
 
+@font-face {
+  font-family: "Montserrat SemiBold";
+  src: url("../../../public/Montserrat-SemiBold.ttf");
+}
+
 .container {
   align-items: center;
   background-color: #ffffff;
@@ -56,6 +61,25 @@
   font-size: 0.9rem;
   font-family: "Montserrat Italic";
   color: #087df1;
+}
+
+.customisePageTitle {
+  display: flex;
+  font-size: 33px;
+  text-align: center;
+  font-family: "Montserrat SemiBold";
+  color: #087df1;
+}
+
+.optionalText {
+  display: flex;
+  padding-left: 12px;
+  font-size: 14px;
+  text-align: center;
+  font-family: "Open Sans";
+  font-style: italic;
+  color: #AAAAAA;
+  margin-bottom: 60px;
 }
 
 .styling_subtext{
@@ -130,3 +154,33 @@
   height: 100%;
 }
 
+.columnsContainer{
+  position: relative;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  height: 200px;
+  padding: 10px 120px;
+  overflow-y: scroll;
+}
+
+/* .pickColumnsDescription{
+  color: #087DF1;
+  margin-top: 20px;
+} */
+
+.dropdownButtonContainer{
+  padding: 20px;
+}
+  
+.errorMessage{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FF0000;
+  font-size: 14px;
+}
+
+.errorText{
+  color: #FF0000;
+  padding: 0 5px;
+}

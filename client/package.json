@@ -11,10 +11,13 @@
   "dependencies": {
     "@types/js-cookie": "^3.0.3",
     "axios": "^1.4.0",
+    "@types/react-color": "^3.0.6",
     "iconsax-react": "^0.0.8",
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
     "react-fontpicker-ts": "^0.3.0",
     "react-router": "^6.10.0",
     "react-router-dom": "^6.10.0"
@@ -24,6 +27,6 @@
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react-swc": "^3.0.0",
     "typescript": "^4.9.3",
-    "vite": "^4.2.0"
+    "vite": "^4.2.1"
   }
 }
