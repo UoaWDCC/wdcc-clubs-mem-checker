@@ -127,6 +127,7 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
             position: "absolute",
             left: "21.5vw",
             top: "5vh",
+            zIndex: "10",
           }}
           ref={refOne}
         >

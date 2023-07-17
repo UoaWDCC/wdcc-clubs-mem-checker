@@ -10,10 +10,11 @@ import CustomiseLogo from "./CustomiseLogo";
 import CustomiseBackground from "./CustomiseBackground";
 import CustomiseConfirm from "./CustomiseConfirm";
 import { createContext } from "react";
+import Column from "../../types/Column";
 
 export interface Page {
   googleSheetLink?: string;
-  identificationColumns?: Object; // temporary type, needs to be changed when implementing column selector e.g. Column[]
+  identificationColumns?: Column[];
   title?: string;
   font?: string;
   backgroundColor?: string;
@@ -22,14 +23,14 @@ export interface Page {
   textFieldtextColor?: string;
   buttonColor?: string;
   dropDownBackgroundColor?: string;
-  logoLink?: string;
-  backgroundImageLink?: string;
+  logoLink?: File;
+  backgroundImageLink?: File;
 }
 
 export const PageContextProvider = createContext([{}, () => {}]);
 
 const CreateCheckerPage = () => {
-  const [progress, setProgress] = useState(1);
+  const [progress, setProgress] = useState(2);
   const onNext = () => setProgress(progress + 1);
   const onBack = () => setProgress(progress - 1);
 
@@ -75,7 +76,6 @@ const CreateCheckerPage = () => {
           {progress} of {steps.size}
         </p>
       </div>
-
 
       <PageContextProvider.Provider value={[page, setPage]}>
         {showConfirm ? (

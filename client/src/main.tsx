@@ -67,18 +67,19 @@ const router = createBrowserRouter([
     path: "/checker-page",
     element: (
       // example props
-      <ClubCheckerPage
-        clubId={1}
-        clubName="UAWB"
-        title="UAWB membership checker"
-        clubLogoUrl={EmptyClubLogo}
-        optionsList={[
-          { originalName: "column1", displayName: "upi" },
-          { originalName: "column2", displayName: "first name" },
-          { originalName: "column3", displayName: "last name" },
-        ]}
-        isOnboarding={false}
-      />
+      <div style={{ width: "100vw", height: "100%" }}>
+        <ClubCheckerPage
+          clubId={1}
+          clubName="UAWB"
+          title="UAWB membership checker"
+          optionsList={[
+            { originalName: "column1", displayName: "upi" },
+            { originalName: "column2", displayName: "first name" },
+            { originalName: "column3", displayName: "last name" },
+          ]}
+          isOnboarding={false}
+        />
+      </div>
     ),
   },
 ]);

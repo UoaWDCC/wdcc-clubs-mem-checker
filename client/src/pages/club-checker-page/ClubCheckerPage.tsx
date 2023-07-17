@@ -11,15 +11,10 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
 
 import Button from "../../components/Button";
 import Textfield from "../../components/Textfield";
-import EmptyClubLogo from "../../assets/EmptyClubLogo.svg";
 import styles from "./ClubCheckerPage.module.css";
 import { createRef, useLayoutEffect, useRef, useState } from "react";
 import { getTextColor } from "../../utils/helpers";
-
-interface Column {
-  originalName: string;
-  displayName: string;
-}
+import Column from "../../types/Column";
 
 interface ClubCheckerPageProps {
   clubId: number;
@@ -37,9 +32,9 @@ interface ClubCheckerPageProps {
   // bodyfont?
 
   // images
-  clubLogoUrl?: string;
-  backgroundImageUrl?: string;
-  optionsList: Column[]; // correct type??? try column[]
+  clubLogoUrl?: File;
+  backgroundImageUrl?: File;
+  optionsList: Column[]; // first column object is the default option
   // defaultOption: string;
   isOnboarding: boolean;
 }
@@ -91,18 +86,27 @@ const ClubCheckerPage = ({
     <div
       className={styles.container}
       style={{
-        backgroundImage: `url(${backgroundImageUrl})`,
+        backgroundImage: backgroundImageUrl
+          ? `url(${URL.createObjectURL(backgroundImageUrl)})`
+          : "",
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
+        backgroundColor: backgroundColor,
+        borderRadius: "20px",
       }}
     >
-      {clubLogoUrl && <img className={styles.logo} src={clubLogoUrl} />}
+      {clubLogoUrl && (
+        <img className={styles.logo} src={URL.createObjectURL(clubLogoUrl)} />
+      )}
       <h1
         style={{
           color: titleTextColor,
           font: `bold 36px "${font}"`,
           textAlign: "center",
+          minHeight: "45px",
+          maxWidth: "100%",
+          overflowWrap: "break-word",
         }}
       >
         {title}
@@ -177,6 +181,7 @@ const ClubCheckerPage = ({
         backgroundColor={buttonBackgroundColor}
         onClick={() => !isOnboarding && onCheck()}
         width="160px"
+        padding="12px 0px"
       />
     </div>
   );
