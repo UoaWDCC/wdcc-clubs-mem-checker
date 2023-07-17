@@ -3,9 +3,9 @@ get:
     jwt_token:
       - 'read:users'
       - 'read:clubs'
-  operationId: verifyInviteCode
-  summary: 'Verify the club invite code shared'
-  description: 'Verify invite code containing users organisation ID signed by a JWT Token. If JWT token signature is valid, it will add the signed in user to the club with that name'
+  operationId: createInviteCode
+  summary: 'Create the invite code for new members to join the club'
+  description: 'Create the invite code for new members to join the club. Creates 6 digit code that expires in 2 hours.'
   responses:
     200:
       - description: 'successfully added user to organisation'
