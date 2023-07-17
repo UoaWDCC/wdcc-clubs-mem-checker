@@ -27,16 +27,16 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
     Dispatch<SetStateAction<Page>>
   ];
 
-  const testColumns = {
-    Awesome_A: { id: "A", name: "Awesome", unique: true },
-    Bwesome_B: { id: "B", name: "Bwesome", unique: false },
-    Cwesome_C: { id: "C", name: "Cwesome", unique: false },
-  };
+  // const testColumns = {
+  //   Awesome_A: { id: "A", name: "Awesome", unique: true },
+  //   Bwesome_B: { id: "B", name: "Bwesome", unique: false },
+  //   Cwesome_C: { id: "C", name: "Cwesome", unique: false },
+  // };
 
   const [googleSheetColumns, setgoogleSheetColumns] = useState<
     Array<[string, boolean]>
   >(
-    Object.entries(testColumns).map(([key, value]) => [
+    Object.entries(spreadsheetColumns).map(([key, value]) => [
       value.name,
       value.unique,
     ])
