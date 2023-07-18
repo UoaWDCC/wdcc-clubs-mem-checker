@@ -1,0 +1,49 @@
+.dashboardContainer{
+    width: 100vw;
+    height: 100vh;
+    padding: 2em 5em 5em 5em;
+    display: grid;
+    grid-template-rows: 1fr 8fr;
+    row-gap: 1.2em;
+
+}
+
+.gridContainer{
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    column-gap: 1.2em;
+}
+
+.logo{
+    justify-self: end;
+}
+
+.columnOne{
+    display: grid;
+    grid-template-rows: 1fr 1fr 2fr;
+    row-gap: 1.2em;
+}
+
+.columnTwo{
+    display: grid;
+    grid-template-rows: 1fr 4fr;
+    row-gap: 1.2em;
+}
+
+.columnTwoRowTwoContainer{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    column-gap: 1.2em;
+
+}
+
+.columnTwoRowTwoColumnTwoContainer{
+    display: grid;
+    grid-template-rows: 3fr 1fr;
+    row-gap: 1.2em;
+}
+
+.dashboardItemContainer{
+    background-color: white;
+    border-radius: 29px;
+}
