@@ -33,6 +33,7 @@ const UploadButton = ({ onFileSelect, currentFile }: UploadButtonProps)=> {
 
     const handleDelete = () => {
         setSelectedFile(null);
+        onFileSelect(null);
     };
 
     const getFileNameDisplay = () => {
