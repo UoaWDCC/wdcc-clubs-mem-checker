@@ -86,6 +86,10 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   const [showError, setShowError] = useState(false);
   const handleOnNext = () => {
     if (defaultColumn != '') {
+      setPage({
+        ...page,
+        identificationColumns: selectedColumnsList,
+      });
       onNext();
     } else {
       setShowError(true)
