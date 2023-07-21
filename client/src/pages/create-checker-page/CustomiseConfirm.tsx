@@ -6,6 +6,7 @@ import { useContext, Dispatch, SetStateAction } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
+import { getSpreadsheetId } from "./GoogleSheetForm";
 
 interface CustomiseConfirmProps {
   onNext: () => void;
@@ -20,7 +21,18 @@ const CustomiseConfirm = ({ onNext, onBack }: CustomiseConfirmProps) => {
   const navigate = useNavigate();
   function handleNext(): void {
     axios
-      .post("/customise-page/create-page", page)
+      .post("/customise-page/create-page", {
+        name: page.title,
+        organisationId: 1,
+        sheetId: getSpreadsheetId(page.googleSheetLink!),
+        textFieldBackgroundColor: page.textFieldBackgroundColor,
+        textColor: page.textFieldtextColor,
+        buttonColor: page.buttonColor,
+        headingColor: page.titleTextColor,
+        logoLink: page.logoLink,
+        backgroundImageLink: page.backgroundImageLink,
+        fontFamily: page.font,
+      })
       .then((res) => {
         navigate("/confirmation", { state: res.data });
       })
