@@ -19,18 +19,19 @@
 
 .text {
   color: #03045e;
+  font-family: "Montserrat", sans-serif;
   font-weight: bold;
-  width: 200px;
   max-height: 50px;
   overflow: hidden;
+  width: 200px;
 }
 
 .dropdownContainer {
-  position: fixed;
-  border-radius: 0px 0px 10px 10px;
   background-color: #d9edf1;
+  border-radius: 0px 0px 10px 10px;
   overflow-x: hidden;
   overflow-y: auto;
+  position: fixed;
   width: inherit;
 }
 
