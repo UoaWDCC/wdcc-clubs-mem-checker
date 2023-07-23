@@ -1,0 +1,56 @@
+.clubCard {
+  align-items: center;
+  column-gap: 10px;
+  cursor: pointer;
+  display: flex;
+  padding: 5px 10px;
+  /*disable highlighting of text*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.logo {
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+}
+
+.text {
+  color: #03045e;
+  font-weight: bold;
+  width: 200px;
+  max-height: 50px;
+  overflow: hidden;
+}
+
+.dropdownContainer {
+  position: fixed;
+  border-radius: 0px 0px 10px 10px;
+  background-color: #d9edf1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: inherit;
+}
+
+/* width */
+.dropdownContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+.dropdownContainer::-webkit-scrollbar-track {
+  background: #d9edf1;
+}
+
+/* Handle */
+.dropdownContainer::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+.dropdownContainer::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
