@@ -9,7 +9,7 @@ interface SelectClubDropdownProps {
 interface Club {
   id: number;
   name: string;
-  logo?: string;
+  logo?: File;
 }
 
 const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
@@ -43,7 +43,11 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
         <img
           className={styles.logo}
           style={{ border: "3px solid #E0E0E0" }}
-          src={selectedClub.logo || EmptyClubLogo}
+          src={
+            selectedClub.logo
+              ? URL.createObjectURL(selectedClub.logo)
+              : EmptyClubLogo
+          }
         />
         <p className={styles.text}>{selectedClub.name}</p>
       </div>
@@ -60,7 +64,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
             >
               <img
                 className={styles.logo}
-                src={selectedClub.logo || EmptyClubLogo}
+                src={club.logo ? URL.createObjectURL(club.logo) : EmptyClubLogo}
               />
               <p className={styles.text}>{club.name}</p>
             </div>
