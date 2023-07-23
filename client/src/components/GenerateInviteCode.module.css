@@ -1,0 +1,36 @@
+.container{
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 100%;
+  width: 100%;
+}
+
+.subcontainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 1vw;
+}
+
+.text{
+  height: 3vh;
+  width: 6vw;
+  border-radius: 10px;
+  background: #F0F0F0;
+}
+
+.header{
+  color: #03045E;
+  font-size: 1.5rem;
+}
+
+.subheader{
+  color: #03045E;
+  opacity: 48%;
+  font-size: 1rem;
+  font-style: italic;
+}
