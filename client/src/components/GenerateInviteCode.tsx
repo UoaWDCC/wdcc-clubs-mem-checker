@@ -3,12 +3,12 @@ import Button from './Button';
 import axios from 'axios';
 
 export interface GenerateInviteCodeProps {
-
+  text?: string;
   onClick: () => void;
 }
 
 const GenerateInviteCode = ({
-  onClick,
+  onClick, text
 }: GenerateInviteCodeProps) => {
   return (
     <>
@@ -19,6 +19,7 @@ const GenerateInviteCode = ({
         </div>
         <div className={styles.subcontainer}>
           <div className={styles.text}>
+            { text }
           </div>
           <Button
             width="6vw"
