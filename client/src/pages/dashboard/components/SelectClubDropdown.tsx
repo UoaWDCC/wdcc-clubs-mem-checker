@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Page } from "../../create-checker-page/CreateCheckerPage";
 import EmptyClubLogo from "../../../assets/EmptyClubLogo.svg";
 import styles from "./SelectClubDropdown.module.css";
 
