@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import GoogleSheetForm from "./GoogleSheetForm";
 import Background from "../../components/Background";
 import ColumnSelector from "./ColumnSelector";
@@ -11,6 +11,8 @@ import CustomiseBackground from "./CustomiseBackground";
 import CustomiseConfirm from "./CustomiseConfirm";
 import { createContext } from "react";
 import Column from "../../types/Column";
+import { useLocation } from "react-router";
+import { ClubDetails } from "../club-detail-page/ClubDetailPage";
 
 export interface Page {
   googleSheetLink?: string;
@@ -30,9 +32,18 @@ export interface Page {
 export const PageContextProvider = createContext([{}, () => {}]);
 
 const CreateCheckerPage = () => {
-  const [progress, setProgress] = useState(2);
+  const [progress, setProgress] = useState(1);
   const onNext = () => setProgress(progress + 1);
   const onBack = () => setProgress(progress - 1);
+
+  const clubDetails = useLocation().state as ClubDetails;
+
+  useEffect(() => {
+    setPage({
+      ...page,
+      title: clubDetails.clubAcronym + " Membership Checker",
+    });
+  }, []);
 
   const [showConfirm, setShowConfirm] = useState(false);
   const onConfirm = () => {
