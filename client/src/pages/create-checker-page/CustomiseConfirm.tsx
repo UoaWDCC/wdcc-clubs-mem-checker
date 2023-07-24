@@ -7,38 +7,48 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
 import { getSpreadsheetId } from "./GoogleSheetForm";
+import { ClubDetails } from "../club-detail-page/ClubDetailPage";
 
 interface CustomiseConfirmProps {
   onNext: () => void;
   onBack: () => void;
+  clubDetails: ClubDetails;
 }
 
-const CustomiseConfirm = ({ onNext, onBack }: CustomiseConfirmProps) => {
+const CustomiseConfirm = ({
+  onNext,
+  onBack,
+  clubDetails,
+}: CustomiseConfirmProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
     Page,
     Dispatch<SetStateAction<Page>>
   ];
   const navigate = useNavigate();
   function handleNext(): void {
-    axios
-      .post("/customise-page/create-page", {
-        name: page.title,
-        organisationId: 1,
-        sheetId: getSpreadsheetId(page.googleSheetLink!),
-        textFieldBackgroundColor: page.textFieldBackgroundColor,
-        textColor: page.textFieldtextColor,
-        buttonColor: page.buttonColor,
-        headingColor: page.titleTextColor,
-        logoLink: page.logoLink,
-        backgroundImageLink: page.backgroundImageLink,
-        fontFamily: page.font,
-      })
-      .then((res) => {
-        navigate("/confirmation", { state: res.data });
-      })
-      .catch((err) => {
-        console.log(err); // handle error
-      });
+    const url = "/club/get-organisationId/" + clubDetails.clubName;
+    axios.get(url).then((res) => {
+      const id = res.data.organisationId;
+      axios
+        .post("/customise-page/create-page", {
+          name: page.title,
+          organisationId: id,
+          sheetId: getSpreadsheetId(page.googleSheetLink!),
+          textFieldBackgroundColor: page.textFieldBackgroundColor,
+          textColor: page.textFieldtextColor,
+          buttonColor: page.buttonColor,
+          headingColor: page.titleTextColor,
+          logoLink: page.logoLink,
+          backgroundImageLink: page.backgroundImageLink,
+          fontFamily: page.font,
+        })
+        .then((res) => {
+          navigate("/confirmation", { state: res.data });
+        })
+        .catch((err) => {
+          console.log(err); // handle error
+        });
+    });
   }
 
   return (

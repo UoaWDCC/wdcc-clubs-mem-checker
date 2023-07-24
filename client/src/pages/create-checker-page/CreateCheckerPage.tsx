@@ -91,6 +91,7 @@ const CreateCheckerPage = () => {
       <PageContextProvider.Provider value={[page, setPage]}>
         {showConfirm ? (
           <CustomiseConfirm
+            clubDetails={clubDetails}
             onNext={onConfirm}
             onBack={() => setShowConfirm(false)}
           />
