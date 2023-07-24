@@ -1,5 +1,5 @@
 import ColorPickerItem from "./ColorPickerItem";
-import { useContext, Dispatch, SetStateAction } from "react";
+import { useContext, Dispatch, SetStateAction, useEffect } from "react";
 import { PageContextProvider, Page } from "../CreateCheckerPage";
 
 export const ColorPicker = () => {
@@ -7,6 +7,16 @@ export const ColorPicker = () => {
     Page,
     Dispatch<SetStateAction<Page>>
   ];
+  useEffect(() => {
+    setPage({
+      ...page,
+      backgroundColor: "#ECECECEE",
+      titleTextColor: "#000000EE",
+      textFieldBackgroundColor: "#E0E0E0EE",
+      textFieldtextColor: "#000000EE",
+      dropDownBackgroundColor: "#4F4F4FEE",
+    });
+  }, []);
   return (
     <>
       <div
