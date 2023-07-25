@@ -43,12 +43,14 @@ paths:
     $ref: './routes/auth/callback.yaml'
   '/club/create':
     $ref: './routes/club/create.yaml'
-  '/sheets/columns':
+  '/sheets/columns/:spreadSheetId/:sheetTabId':
     $ref: './routes/sheets/columns.yaml'
-  '/sheets/create-invite-code':
+  '/sheets/create-invite-code/:organisationId':
     $ref: routes\club\create-invite.yaml
-  '/sheets/verify-invite-code':
+  '/sheets/verify-invite-code/:inviteCode':
     $ref: routes\club\verify-invite.yaml
+  '/sheets/columns/verify-membership-status/:webLink/:columnName/:value':
+    $ref: routes\sheets\verify-membership.yaml
 servers:
   - url: about:blank
 components:
