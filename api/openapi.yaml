@@ -45,6 +45,10 @@ paths:
     $ref: './routes/club/create.yaml'
   '/sheets/columns':
     $ref: './routes/sheets/columns.yaml'
+  '/sheets/create-invite-code':
+    $ref: routes\club\create-invite.yaml
+  '/sheets/verify-invite-code':
+    $ref: routes\club\verify-invite.yaml
 servers:
   - url: about:blank
 components:
