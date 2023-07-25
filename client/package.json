@@ -18,6 +18,7 @@
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
+    "react-fontpicker-ts": "^0.3.0",
     "react-router": "^6.10.0",
     "react-router-dom": "^6.10.0"
   },

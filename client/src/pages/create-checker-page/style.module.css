@@ -51,7 +51,7 @@
 
 .title {
   display: flex;
-  font-size: 1.3rem;
+  font-size: 1rem;
   text-align: left;
   color: #087df1;
   font-family: "Montserrat";
@@ -78,8 +78,22 @@
   text-align: center;
   font-family: "Open Sans";
   font-style: italic;
-  color: #AAAAAA;
+  color: #aaaaaa;
   margin-bottom: 60px;
+}
+
+.styling_subtext {
+  font-size: 0.9rem;
+  font-family: "Montserrat Italic";
+  color: #aaaaaa;
+}
+
+.styling_container {
+  height: 80%;
+  width: 100%;
+  text-align: left;
+  position: relative;
+  top: 20%;
 }
 
 #backButton {
@@ -88,7 +102,7 @@
   top: 20px;
   background-color: transparent;
   border: none;
-  color: #087DF1;
+  color: #087df1;
 }
 
 #customisePageContainer {
@@ -119,7 +133,7 @@
   top: 15px;
   background-color: transparent;
   border: none;
-  color: #087DF1;
+  color: #087df1;
 }
 
 #CustomisePageNextButton {
@@ -137,14 +151,13 @@
 .preview {
   background-color: lightgray;
   border-radius: 20px;
-  height: 100%;
 }
 
-.columnsContainer{
+.columnsContainer {
   position: relative;
   background-color: #e0e0e0;
   border-radius: 10px;
-  height: 200px;
+  min-height: 90px;
   padding: 10px 120px;
   overflow-y: scroll;
 }
@@ -154,19 +167,19 @@
   margin-top: 20px;
 } */
 
-.dropdownButtonContainer{
+.dropdownButtonContainer {
   padding: 20px;
 }
-  
-.errorMessage{
+
+.errorMessage {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #FF0000;
+  color: #ff0000;
   font-size: 14px;
 }
 
-.errorText{
-  color: #FF0000;
+.errorText {
+  color: #ff0000;
   padding: 0 5px;
 }

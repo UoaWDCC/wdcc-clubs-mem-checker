@@ -5,6 +5,7 @@ import { useContext, Dispatch, SetStateAction } from "react";
 import { PageContextProvider, Page } from "./CreateCheckerPage";
 import { ColorPicker } from "./CustomiseColors Components/ColorPicker";
 import { ChromePicker } from "react-color";
+import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
 
 interface CustomiseColorsProps {
   onNext: () => void;
@@ -47,7 +48,24 @@ const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
         </div>
       </div>
       <div className={styles.previewContainer}>
-        <div className={styles.preview}></div>
+        <div className={styles.preview}>
+          <ClubCheckerPage
+            clubId={0}
+            clubName={""}
+            title={page.title}
+            backgroundColor={page.backgroundColor}
+            titleTextColor={page.titleTextColor}
+            textFieldBackgroundColor={page.textFieldBackgroundColor}
+            textFieldTextColor={page.textFieldtextColor}
+            buttonBackgroundColor={page.buttonColor}
+            dropDownBackgroundColor={page.dropDownBackgroundColor}
+            font={page.font}
+            clubLogoUrl={page.logoLink}
+            backgroundImageUrl={page.backgroundImageLink}
+            optionsList={page.identificationColumns || []}
+            isOnboarding={true}
+          />
+        </div>
         <i>page preview</i>
       </div>
     </div>
