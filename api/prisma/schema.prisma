@@ -48,6 +48,7 @@ model Page {
   organisationId Int
   organisation Organisation @relation(fields: [organisationId], references: [id]) 
   sheetId String @unique
+  sheetTabId String @default("0")
   webLink String @unique  
   identificationColumns Column[]
   backgroundColor String @default("#0582CA")
