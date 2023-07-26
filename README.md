@@ -15,6 +15,9 @@ React app for students to check their membership for university clubs. Uses expr
 - GOOGLE_CLIENT_SECRET
 - GOOGLE_REDIRECT_URI
 
+### Service Account
+You must have the service account to run the backend. Contact Alex for the credentials.
+
 ## Team Leadership
 
 - Serena Lau (Project Manager)
