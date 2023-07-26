@@ -1,5 +1,5 @@
 import styles from './style.module.css';
-import WDCCLogo from '../../assets/WdccLogo.svg';
+import WDCCLogoBlue from '../../assets/wdcc_blue_logo.svg';
 import React, { createContext, useContext, useState } from 'react';
 
 export interface Dashboard {
@@ -22,26 +22,27 @@ const CreateDashboard = () => {
 
           <img
               className={styles.logo}
-              src={WDCCLogo}
+              src={WDCCLogoBlue}
               alt="WDCC Logo"
             />
         </div>
         
         <div className={ styles.gridContainer }>
-          <div className={ styles.columnOne }>
+          <div className={ styles.rowOne }>
             <div className={ `${styles.clubsContainer} ${styles.dashboardItemContainer}` }></div>
             <div className={ `${styles.adminShareContainer} ${styles.dashboardItemContainer}` }></div>
+            <div className={ `${styles.clubAdminContainer} ${styles.dashboardItemContainer}` }></div>
           </div>
 
-          <div className={ styles.columnTwo }>
-            <div className={ `${styles.clubDetailsContainer} ${styles.dashboardItemContainer}` }></div>
-            <div className={ `${styles.usersContainer} ${styles.dashboardItemContainer}` }></div>
-          </div>
-
-          <div className={ styles.columnThree }>
+          <div className={ styles.rowTwo }>
             <div className={`${styles.pagePreviewContainer} ${styles.dashboardItemContainer}`}></div>
-            <div className={ `${styles.apiKeysContainer} ${styles.dashboardItemContainer}` }></div>
+
+            <div className={ styles.colTwoRowTwo }>
+              <div className={ `${styles.clubMembersContainer} ${styles.dashboardItemContainer}` }></div>
+              <div className={ `${styles.usersContainer} ${styles.dashboardItemContainer}` }></div>
+            </div>
           </div>
+
         </div>
       </div>
     </DashboardContextProvider.Provider>
