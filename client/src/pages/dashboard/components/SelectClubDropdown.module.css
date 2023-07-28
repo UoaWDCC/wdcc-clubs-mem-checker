@@ -1,7 +1,11 @@
+.outerContainer {
+  border-radius: 8px 8px 0px 0px;
+  width: 250px;
+}
+
 .clubCard {
   align-items: center;
   column-gap: 10px;
-  cursor: pointer;
   display: flex;
   padding: 5px 10px;
   /*disable highlighting of text*/
@@ -27,7 +31,7 @@
 }
 
 .dropdownContainer {
-  background-color: #d9edf1;
+  background-color: #d6ebf0;
   border-radius: 0px 0px 10px 10px;
   overflow-x: hidden;
   overflow-y: auto;

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EmptyClubLogo from "../../../assets/EmptyClubLogo.svg";
 import styles from "./SelectClubDropdown.module.css";
+import { ArrowDown2 } from "iconsax-react";
 
 interface SelectClubDropdownProps {
   clubs: Club[];
@@ -29,16 +30,16 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
   const clubCardHeight = 60;
   return (
     <div
-      style={{
-        width: "250px",
-        backgroundColor: "#EAF7FA",
-        borderRadius: "8px",
-      }}
+      className={styles.outerContainer}
+      style={isOpen ? { backgroundColor: "#d6ebf0" } : {}}
     >
       <div
         className={styles.clubCard}
-        style={{ height: clubCardHeight }}
-        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          height: clubCardHeight,
+          backgroundColor: "#e8f7fb",
+          borderRadius: "8px",
+        }}
       >
         <img
           className={styles.logo}
@@ -50,16 +51,23 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
           }
         />
         <p className={styles.text}>{selectedClub.name}</p>
+        <ArrowDown2
+          color="#000000"
+          size={28}
+          variant="Bold"
+          style={{ cursor: "pointer" }}
+          onClick={() => setIsOpen(!isOpen)}
+        />
       </div>
       {isOpen && (
         <div
           className={styles.dropdownContainer}
-          style={{ maxHeight: 3 * clubCardHeight }}
+          style={{ maxHeight: `${3 * clubCardHeight}px` }}
         >
           {clubs.map((club) => (
             <div
               className={styles.clubCard}
-              style={{ height: clubCardHeight }}
+              style={{ height: clubCardHeight, cursor: "pointer" }}
               onClick={() => handleSelectClub(club)}
             >
               <img
