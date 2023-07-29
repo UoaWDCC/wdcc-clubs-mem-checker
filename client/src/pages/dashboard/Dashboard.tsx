@@ -4,7 +4,7 @@ import GenerateInviteCode from '../../components/GenerateInviteCode'
 import axios from 'axios';
 
 export default function Dashboard() {
-  const [code, setCode] = useState()
+  const [code, setCode] = useState("click generate")
   const placeholder = () => {
     axios
       .get('/club/create-invite-code/63')

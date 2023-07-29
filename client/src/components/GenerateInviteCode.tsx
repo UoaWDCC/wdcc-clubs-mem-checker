@@ -14,8 +14,8 @@ const GenerateInviteCode = ({
     <>
       <div className={styles.container}>
         <div>
-          <h1 className={styles.header}>generate invite code</h1>
-          <h2 className={styles.subheader}>add text here</h2>
+          <h1 className={styles.header}>invite new admin</h1>
+          <h2 className={styles.subheader}>click to generate a new invite code</h2>
         </div>
         <div className={styles.subcontainer}>
           <div className={styles.text}>
@@ -24,7 +24,7 @@ const GenerateInviteCode = ({
           <Button
             width="6vw"
             height="5vh"
-            buttonText='Generate'
+            buttonText='generate!'
             onClick={onClick}
           />
         </div>
