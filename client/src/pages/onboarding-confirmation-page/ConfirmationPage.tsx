@@ -14,7 +14,7 @@ export const ConfimationPage = () => {
   };
 
   const handleCreateAnotherButtonClick = () => {
-    navigate("/create-page");
+    navigate("/create-page", { state: location.state.clubDetails });
   };
 
   const [icon, setIcon] = useState(CopyIcon);

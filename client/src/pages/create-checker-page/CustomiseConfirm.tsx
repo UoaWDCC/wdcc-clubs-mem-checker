@@ -43,7 +43,9 @@ const CustomiseConfirm = ({
           fontFamily: page.font,
         })
         .then((res) => {
-          navigate("/confirmation", { state: res.data });
+          navigate("/confirmation", {
+            state: { pathId: res.data.pathId, clubDetails: clubDetails },
+          });
         })
         .catch((err) => {
           console.log(err); // handle error
