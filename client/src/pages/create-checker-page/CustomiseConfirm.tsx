@@ -38,8 +38,8 @@ const CustomiseConfirm = ({
           textColor: page.textFieldtextColor,
           buttonColor: page.buttonColor,
           headingColor: page.titleTextColor,
-          logoLink: page.logoLink,
-          backgroundImageLink: page.backgroundImageLink,
+          logoLink: page.logoLink?.text,
+          backgroundImageLink: page.backgroundImageLink?.text,
           fontFamily: page.font,
         })
         .then((res) => {
