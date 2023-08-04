@@ -1,6 +1,7 @@
 import styles from './style.module.css';
 import WDCCLogoBlue from '../../assets/wdcc_blue_logo.svg';
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import DashboardPage from './DashboardPage';
 
 export interface Dashboard {
   checkerPage ?: string;  
@@ -12,7 +13,12 @@ export const DashboardContextProvider = React.createContext([{}, () => {}]);
 
 const CreateDashboard = () => {
 
-  const [dashboard, setDashboard] = useState<Dashboard>({}); // Need to set default here
+  const [dashboard, setDashboard] = useState<Dashboard>(() => {
+    const storedSelectedClub = localStorage.getItem('selectedClub');
+    return storedSelectedClub ? {checkerPage: JSON.parse(storedSelectedClub)} : {};
+  }) 
+
+  console.log(dashboard)
 
   return (
     <DashboardContextProvider.Provider value={[dashboard, setDashboard]}>
@@ -29,7 +35,7 @@ const CreateDashboard = () => {
         
         <div className={ styles.gridContainer }>
           <div className={ styles.rowOne }>
-            <div className={ `${styles.clubsContainer} ${styles.dashboardItemContainer}` }></div>
+            <div className={ `${styles.clubsContainer} ${styles.dashboardItemContainer}` }><DashboardPage/></div>
             <div className={ `${styles.adminShareContainer} ${styles.dashboardItemContainer}` }></div>
             <div className={ `${styles.clubAdminContainer} ${styles.dashboardItemContainer}` }></div>
           </div>
