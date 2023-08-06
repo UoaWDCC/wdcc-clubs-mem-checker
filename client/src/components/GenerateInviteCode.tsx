@@ -15,13 +15,28 @@ const GenerateInviteCode = ({
   
 }: GenerateInviteCodeProps) => {
   const [copied, setIsCopied] = useState(false);
+  const [generateDisabled, setGenerateDisabled] = useState(false);
   const [showCopyIcon, setShowCopyIcon] = useState(false);
+  const [generateButtonColor, setGenerateButtonColor] = useState('#087DF1');
+  const [generateButtonText, setGenerateButtonText] = useState('generate!');
+  const [fontsize, setFontsize] = useState("1rem");
 
+  const handleClick = () => {
+    
+    if (!generateDisabled) {
+      setGenerateDisabled(true);
+      setGenerateButtonColor('#838383');
+      setGenerateButtonText('code expires in 2 hours');
+      setFontsize("0.75rem");
+      onClick();
+      
+    }
+  };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(text);
     setIsCopied(true);
-  }
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -40,10 +55,15 @@ const buttonStyle = {
   outline: 'none',
   cursor: 'pointer',
   marginLeft: '7.75vw',
-  marginTop: '-2.6vh',
+  marginTop: '-2.75vh',
   opacity: showCopyIcon ? 1 : 0,
   transition: 'opacity 0.3s ease-in-out',
 };
+
+const iconStyle = {
+  color: '#03045E',
+  size: 20,
+}
 
 setTimeout(() => setIsCopied(false), 7500);
   return (
@@ -59,17 +79,22 @@ setTimeout(() => setIsCopied(false), 7500);
             {text !== "click generate" && (
             <button onClick={handleCopy} style = {buttonStyle} > 
             {copied ? (
-              <TickCircle color = "#03045E" size = {20}/>
+              <TickCircle style={iconStyle}/>
               ) : (
-                <Copy color='#03045E' size = {20}/>
+                <Copy style={iconStyle}/>
               )}</button>
             )}
           </div>
           <Button
             width="6vw"
             height="5vh"
-            buttonText='generate!'
-            onClick={onClick}
+            backgroundColor={generateButtonColor}
+            buttonText={generateButtonText}
+            onClick={handleClick}
+            disabled={generateDisabled}
+            color="#FFFFFF"
+            fontSize={fontsize}
+            fontWeight='400'
           />
         </div>
       </div>
