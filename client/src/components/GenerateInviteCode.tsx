@@ -1,33 +1,51 @@
 import styles from './GenerateInviteCode.module.css';
 import Button from './Button';
 import axios from 'axios';
-// import CopyIcon from "../assets/CopyIcon2.svg";
-// import CopyTickIcon from "../assets/CopyTickIcon.svg";
-import { useState } from 'react';
-import { Copy, CopySuccess } from 'iconsax-react';
+import { useEffect, useState } from 'react';
+import { Copy, TickCircle } from 'iconsax-react';
 
 export interface GenerateInviteCodeProps {
   text: string;
   onClick: () => void;
+  disabled: boolean;
 }
 
 const GenerateInviteCode = ({
-  onClick, text
+  onClick, text, disabled
   
 }: GenerateInviteCodeProps) => {
-  const [copied, setCopy] = useState(false);
-  const handleClick = () => {
+  const [copied, setIsCopied] = useState(false);
+  const [showCopyIcon, setShowCopyIcon] = useState(false);
+
+
+  const handleCopy = () => {
     navigator.clipboard.writeText(text);
-    setCopy(true);
+    setIsCopied(true);
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowCopyIcon(true);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [copied]);
+
 const buttonStyle = {
-  background: "transparent", 
-  border: "none", 
-  outline: "none", 
-  cursor: "pointer",
-  marginTop: "0.25vh",
-  marginLeft: "0.5vw"
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: 'transparent',
+  border: 'none',
+  outline: 'none',
+  cursor: 'pointer',
+  marginLeft: '7.75vw',
+  marginTop: '-2.6vh',
+  opacity: showCopyIcon ? 1 : 0,
+  transition: 'opacity 0.3s ease-in-out',
 };
+
+setTimeout(() => setIsCopied(false), 7500);
   return (
     <>
       <div className={styles.container}>
@@ -39,9 +57,9 @@ const buttonStyle = {
           <div className={styles.text}>
             { text }
             {text !== "click generate" && (
-            <button onClick={handleClick} style = {buttonStyle} > 
+            <button onClick={handleCopy} style = {buttonStyle} > 
             {copied ? (
-              <CopySuccess color = "#03045E" size = {20}/>
+              <TickCircle color = "#03045E" size = {20}/>
               ) : (
                 <Copy color='#03045E' size = {20}/>
               )}</button>

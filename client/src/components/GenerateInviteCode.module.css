@@ -18,7 +18,7 @@
 }
 
 .text{
-  height: 3vh;
+  height: 4vh;
   width: 11vw;
   border-radius: 10px;
   background: #C1C1C2;
@@ -27,6 +27,7 @@
   font-style: italic;
   text-align: center;
   font-size: 1.2rem;
+  padding-top: 0.6vh;
 }
 
 .header{
