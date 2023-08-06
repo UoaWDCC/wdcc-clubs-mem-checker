@@ -35,7 +35,7 @@ const CreateDashboard = () => {
         
         <div className={ styles.gridContainer }>
           <div className={ styles.rowOne }>
-            <div className={ `${styles.clubsContainer} ${styles.dashboardItemContainer}` }><DashboardPage/></div>
+            <div className={ `${styles.clubsContainer} ${styles.dashboardItemContainer}` }></div>
             <div className={ `${styles.adminShareContainer} ${styles.dashboardItemContainer}` }></div>
             <div className={ `${styles.clubAdminContainer} ${styles.dashboardItemContainer}` }></div>
           </div>
