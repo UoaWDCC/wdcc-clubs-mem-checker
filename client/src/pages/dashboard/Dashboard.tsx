@@ -5,9 +5,10 @@ import axios from 'axios';
 
 export default function Dashboard() {
   const [code, setCode] = useState("click generate")
+  const [isClicked, setClicked] = useState(false)
   const placeholder = () => {
     axios
-      .get('/club/create-invite-code/63')
+      .get('/club/create-invite-code/25')
       .then(function(response) {
         if (response.status === 200) {
           console.log(response.data);
@@ -24,6 +25,7 @@ export default function Dashboard() {
       <GenerateInviteCode
         text = {code}
         onClick={placeholder}
+        disabled = {isClicked}
       />
     </div>
   );
