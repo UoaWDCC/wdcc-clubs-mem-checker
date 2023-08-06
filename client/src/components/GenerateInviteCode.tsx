@@ -3,7 +3,7 @@ import Button from './Button';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Copy, TickCircle } from 'iconsax-react';
-
+import { CircularProgress } from '@mui/material';
 export interface GenerateInviteCodeProps {
   text: string;
   onClick: () => void;
@@ -16,21 +16,26 @@ const GenerateInviteCode = ({
 }: GenerateInviteCodeProps) => {
   const [copied, setIsCopied] = useState(false);
   const [generateDisabled, setGenerateDisabled] = useState(false);
+  const [loadingState, setLoadingState] = useState(false);
   const [generateButtonColor, setGenerateButtonColor] = useState('#087DF1');
   const [generateButtonText, setGenerateButtonText] = useState('generate!');
   const [fontsize, setFontsize] = useState("1rem");
 
   const handleClick = () => {
-    
     if (!generateDisabled) {
       setGenerateDisabled(true);
-      setGenerateButtonColor('#838383');
-      setGenerateButtonText('code expires in 2 hours');
-      setFontsize("0.75rem");
+      setGenerateButtonText("");
+      setLoadingState(true);
       onClick();
-      
     }
   };
+
+  const handleLoading = () => {
+    setLoadingState(false);
+    setGenerateButtonColor('#838383');
+    setGenerateButtonText('code expires in 2 hours');
+    setFontsize("0.75rem");
+  }
 
   const handleCopy = () => {
     navigator.clipboard.writeText(text);
@@ -54,6 +59,12 @@ const iconStyle = {
   size: 20,
 }
 
+useEffect(() => {
+  if(text !== "click generate") {
+    handleLoading();
+  }
+}, [text]);
+
 setTimeout(() => setIsCopied(false), 7500);
   return (
     <>
@@ -74,6 +85,21 @@ setTimeout(() => setIsCopied(false), 7500);
               )}</button>
             )}
           </div>
+          <div className={styles.divider}>
+            { loadingState ? 
+              <div style={{width: "100%", transform: "translate(calc(50% - 20px), 5px)"}}>
+                <CircularProgress 
+                  className={styles.loadingSign}
+                  style={{
+                    position: 'absolute', 
+                  }}
+                  sx={{
+                    color: '#FFFFFF',
+                  }}
+                />
+              </div> : ""
+            }
+            
           <Button
             width="6vw"
             height="5vh"
@@ -85,6 +111,7 @@ setTimeout(() => setIsCopied(false), 7500);
             fontSize={fontsize}
             fontWeight='400'
           />
+          </div>
         </div>
       </div>
     </>
