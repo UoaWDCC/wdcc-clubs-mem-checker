@@ -1,121 +1,132 @@
-import { drive_v3, google } from 'googleapis';
-import { Router, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
+import { PrismaClient, User } from '@prisma/client';
+import { nanoid } from 'nanoid';
 import auth from '../../middleware/auth';
-import { PrismaClient } from '@prisma/client';
 import { JWT } from 'google-auth-library';
+import { drive_v3, google } from 'googleapis';
 
-export const router = Router();
 const prisma = new PrismaClient();
+const router = express.Router();
 
 const serviceClient = new google.auth.GoogleAuth({
   keyFile: 'membership-checker-e5457b93d746.json',
   scopes: [
-    'https://www.googleapis.com/auth/spreadsheets',
-    'https://www.googleapis.com/auth/drive',
+    'https://www.googleapis.com/auth/spreadsheets.readonly',
+    'https://www.googleapis.com/auth/drive.readonly',
   ],
 });
 
-// Get the columns from the spreadsheet
-router.get('/:spreadsheetId/:sheettabid', auth, async (req, res) => {
-  const { spreadsheetId, sheettabid } = req.params;
-  // User must be the shared with the sheet
-  const user = await prisma.user.findFirst({
-    where: {
-      id: req.body.user.id,
-    },
-  });
+interface PageCustomization {
+  name: string;
+  organisationId: number;
+  sheetId: string;
+  sheetTabId: string;
+  backgroundColor?: string;
+  textFieldBackgroundColor?: string;
+  textColor?: string;
+  buttonColor?: string;
+  headingColor?: string;
+  logoLink?: string;
+  backgroundImageLink?: string;
+  fontFamily?: string;
+  columns: {
+    originalName: string;
+    mappedToName?: string;
+  }[];
+}
 
-  // Return 400 if the user does not exist
-  if (!user) return res.status(400).send('could not find user');
-
-  const sheets = google.sheets({
-    version: 'v4',
-    auth: serviceClient,
-  });
-  const columnData: {
-    [key: string]: { id: string; name: string; unique: boolean };
-  } = {};
-
+router.post('/create', auth, async (req: Request, res: Response) => {
   try {
-    // Retrieve the metadata for the spreadsheet to get the names and IDs of all sheet
-    const metadataResponse = await sheets.spreadsheets.get({
-      spreadsheetId,
+    const customization: PageCustomization = req.body;
+
+    const { name, organisationId, sheetId, sheetTabId, columns, ...rest } =
+      customization;
+
+    if (!name || !organisationId || !sheetId || !sheetTabId)
+      return res
+        .status(400)
+        .send(
+          '`name`, `organisationId`, `sheetId`, and `sheetTabId` are required fields'
+        );
+
+    const pathId = nanoid(); // Generate random path ID
+
+    const existingSheetID = await prisma.page.findUnique({
+      where: { sheetId: sheetId },
     });
 
-    // If there are no sheets in the spreadsheet, return an empty object
-    if (!metadataResponse.data.sheets) {
-      return res.status(400).send(JSON.stringify('spreadsheet has no sheets'));
+    if (existingSheetID) {
+      return res.status(400).json({ error: 'Sheet ID already exists' });
     }
 
-    // Find the sheet ID that matches the given gid
-    const sheet = metadataResponse.data.sheets.find(
-      (sheet) => sheet.properties?.sheetId === Number(sheettabid)
-    );
+    const user = req.body.user;
+    // intialise credentials
+    const userEmailAddress = user.email;
 
-    // If the sheet ID is not found, return an error
-    if (!sheet) {
-      return res.status(400).send(JSON.stringify('sheet not found'));
-    }
+    // try {
+    //   const drive = google.drive({
+    //     version: 'v3',
+    //     auth: serviceClient,
+    //   });
+    //   console.log(await drive.files.list());
+    //   const permissions = await drive.permissions.list({
+    //     fileId: sheetId,
+    //     fields: 'permissions(emailAddress)',
+    //   });
+    //   const isSharedWithEmail = permissions.data.permissions!.some(
+    //     (permission: drive_v3.Schema$Permission) =>
+    //       permission.emailAddress === userEmailAddress
+    //   );
+    //   if (!isSharedWithEmail)
+    //     return res.status(401).send('unauthorised to access this spreadsheet');
+    // } catch (err) {
+    //   console.error(err);
+    //   return res
+    //     .status(500)
+    //     .send(
+    //       'failed to check if sheet is shared with user. make sure this spreadsheet is shared with the service account.'
+    //     );
+    // }
 
-    // Get the name of the sheet
-    const sheetName = sheet.properties?.title;
-
-    // Create an object to store the column data for each sheet
-    const columnData: {
-      [key: string]: { id: string; name: string; unique: boolean };
-    } = {};
-
-    // Retrieve the data from the sheet
-    const range = `${sheetName}!A1:Z`;
-    const {
-      data: { values },
-    } = await sheets.spreadsheets.values.get({
-      spreadsheetId,
-      range,
+    const page = await prisma.page.create({
+      data: {
+        name: name, // or simply name, as they have the same name
+        organisationId: organisationId,
+        sheetId: sheetId,
+        sheetTabId: sheetTabId,
+        webLink: pathId,
+        backgroundColor: rest.backgroundColor,
+        textFieldBackgroundColor: rest.textFieldBackgroundColor,
+        textColor: rest.textColor,
+        buttonColor: rest.buttonColor,
+        headingColor: rest.headingColor,
+        logoLink: rest.logoLink,
+        backgroundImageLink: rest.backgroundImageLink,
+        fontFamily: rest.fontFamily!,
+      },
     });
 
-    // Extract column headers. We assume the first row contains the column headers.
-    if (values) {
-      const headers = values[0];
+    columns.forEach(async ({ originalName, mappedToName }) => {
+      await prisma.column.create({
+        data: {
+          pageId: page.id,
+          sheetsName: originalName,
+          mappedTo: mappedToName || originalName,
+        },
+      });
+    });
 
-      // Iterate through each column
-      for (let i = 0; i < headers.length; i++) {
-        const column = values.slice(1).map((row) => row[i]);
-        const columnLetter = String.fromCharCode((i % 26) + 65); // A, B, C, ..., Z
-        const columnName = headers[i];
-        const uniqueColumName = `${columnName}_${columnLetter}`; // generate a unique column name for instances with duplicate column names
-        const nonEmptyValues = column.filter(
-          (value) => value !== '' && value !== undefined
-        ); // removing empty rows
-        const uniqueValues = new Set(nonEmptyValues); // identifying if the rows are unique
-        const isUnique = nonEmptyValues.length === uniqueValues.size;
-        columnData[uniqueColumName] = {
-          id: columnLetter,
-          name: headers[i],
-          unique: isUnique,
-        };
-      }
-    }
-
-    return res.status(200).send(JSON.stringify(columnData));
-  } catch (err) {
-    console.error(err);
-    return res.status(500).send(JSON.stringify('error retrieving data'));
+    res.status(200).json({ pathId });
+  } catch (error) {
+    console.error('Error creating page:', error);
+    res.status(400).json({ error: 'Error creating page' });
   }
 });
 
 router.get(
-  '/verify-membership-status/:webLink/:columnName/:value',
+  '/verify/:webLink/:columnName/:value',
   async (req: Request, res: Response) => {
     const { webLink, columnName, value } = req.params;
-
-    let numberPageId;
-    try {
-      numberPageId = Number.parseInt(webLink);
-    } catch {
-      return res.status(400).send(`pageId must be a number`);
-    }
-
     if (!webLink || !columnName || !value)
       return res
         .status(400)

@@ -30,7 +30,7 @@ export interface Page {
 export const PageContextProvider = createContext([{}, () => {}]);
 
 const CreateCheckerPage = () => {
-  const [progress, setProgress] = useState(2);
+  const [progress, setProgress] = useState(1);
   const onNext = () => setProgress(progress + 1);
   const onBack = () => setProgress(progress - 1);
 
