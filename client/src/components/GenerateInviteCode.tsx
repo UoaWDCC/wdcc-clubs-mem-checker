@@ -16,7 +16,6 @@ const GenerateInviteCode = ({
 }: GenerateInviteCodeProps) => {
   const [copied, setIsCopied] = useState(false);
   const [generateDisabled, setGenerateDisabled] = useState(false);
-  const [showCopyIcon, setShowCopyIcon] = useState(false);
   const [generateButtonColor, setGenerateButtonColor] = useState('#087DF1');
   const [generateButtonText, setGenerateButtonText] = useState('generate!');
   const [fontsize, setFontsize] = useState("1rem");
@@ -38,14 +37,6 @@ const GenerateInviteCode = ({
     setIsCopied(true);
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowCopyIcon(true);
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, [copied]);
-
 const buttonStyle = {
   display: 'flex',
   alignItems: 'center',
@@ -56,8 +47,6 @@ const buttonStyle = {
   cursor: 'pointer',
   marginLeft: '7.75vw',
   marginTop: '-2.75vh',
-  opacity: showCopyIcon ? 1 : 0,
-  transition: 'opacity 0.3s ease-in-out',
 };
 
 const iconStyle = {
