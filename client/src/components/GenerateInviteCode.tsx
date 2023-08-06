@@ -1,9 +1,10 @@
 import styles from './GenerateInviteCode.module.css';
 import Button from './Button';
 import axios from 'axios';
-import CopyIcon from "../assets/CopyIcon2.svg";
-import CopyTickIcon from "../assets/CopyTickIcon.svg";
+// import CopyIcon from "../assets/CopyIcon2.svg";
+// import CopyTickIcon from "../assets/CopyTickIcon.svg";
 import { useState } from 'react';
+import { Copy, CopySuccess } from 'iconsax-react';
 
 export interface GenerateInviteCodeProps {
   text: string;
@@ -14,7 +15,19 @@ const GenerateInviteCode = ({
   onClick, text
   
 }: GenerateInviteCodeProps) => {
-  const [icon, setIcon] = useState(CopyIcon);
+  const [copied, setCopy] = useState(false);
+  const handleClick = () => {
+    navigator.clipboard.writeText(text);
+    setCopy(true);
+  }
+const buttonStyle = {
+  background: "transparent", 
+  border: "none", 
+  outline: "none", 
+  cursor: "pointer",
+  marginTop: "0.25vh",
+  marginLeft: "0.5vw"
+};
   return (
     <>
       <div className={styles.container}>
@@ -26,20 +39,12 @@ const GenerateInviteCode = ({
           <div className={styles.text}>
             { text }
             {text !== "click generate" && (
-            <img
-              src={icon}
-              alt="copy icon"
-              style={{
-                marginLeft: "0.5vw",
-                marginTop: "0.25vh",
-                cursor: "pointer",
-                height: "2vh",
-              }}
-              onClick={() => {
-                setIcon(CopyTickIcon);
-                navigator.clipboard.writeText(text);
-              }}
-            />
+            <button onClick={handleClick} style = {buttonStyle} > 
+            {copied ? (
+              <CopySuccess color = "#03045E" size = {20}/>
+              ) : (
+                <Copy color='#03045E' size = {20}/>
+              )}</button>
             )}
           </div>
           <Button
