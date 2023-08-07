@@ -42,9 +42,9 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
             currentFile={page.logoLink} // Pass the current file from the page state
           />
         </div>
-        <button id={styles.CustomisePageNextButton} onClick={onNext}>
-          next
-        </button>
+        <div id={styles.CustomisePageNextButton}>
+          <Button onClick={onNext} buttonText="next" width="5vw" />
+        </div>
       </div>
       <div className={styles.previewContainer}>
         <div className={styles.preview}>
