@@ -62,6 +62,24 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     };
   }, []);
 
+  // if no clubs attached to user
+  if (clubs.length == 0) {
+    return (
+      <div className={styles.outerContainer}>
+        <div
+          className={styles.clubCard}
+          style={{
+            backgroundColor: "#e8f7fb",
+            borderRadius: "8px",
+            justifyContent: "center",
+          }}
+        >
+          <p className={styles.text}>No Clubs Registered</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={styles.outerContainer}

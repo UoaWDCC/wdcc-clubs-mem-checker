@@ -24,7 +24,7 @@ const CreateDashboard = () => {
 
   // temporary clubs array for dropdown
   // TODO: retrieve clubs of user and create array of type DropdownClub[]
-  const testDropdownClubs = [
+  const testDropdownClubs: DropdownClub[] = [
     { id: 1, name: "Club 1" },
     { id: 2, name: "Club 2" },
     { id: 3, name: "Club 3" },
