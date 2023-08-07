@@ -8,7 +8,7 @@ export default function Dashboard() {
   const [isClicked, setClicked] = useState(false)
   const placeholder = () => {
     axios
-      .get('/club/create-invite-code/63')
+      .get('/club/create-invite-code/25')
       .then(function(response) {
         if (response.status === 200) {
           console.log(response.data);
