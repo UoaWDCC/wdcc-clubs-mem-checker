@@ -13,9 +13,19 @@ const UploadButton = ({ onFileSelect, currentFile }: UploadButtonProps)=> {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     // Update the state when the `currentFile` prop changes
+    // useEffect(() => {
+    //     setSelectedFile(currentFile || null);
+    // }, [currentFile]);
+
     useEffect(() => {
-        setSelectedFile(currentFile || null);
+        // Compare the previous value of currentFile with the current value
+        // before updating the selectedFile state
+        setSelectedFile((prevSelectedFile) => {
+            // If the currentFile prop has changed, update selectedFile
+            return currentFile !== prevSelectedFile ? currentFile || null : prevSelectedFile;
+        });
     }, [currentFile]);
+
 
     const handleButtonClick = () => {
         if (!selectedFile && fileInputRef.current) {
@@ -32,7 +42,12 @@ const UploadButton = ({ onFileSelect, currentFile }: UploadButtonProps)=> {
     };
 
     const handleDelete = () => {
+        // Create a new instance of the file input element to reset it
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
         setSelectedFile(null);
+        onFileSelect(null);
     };
 
     const getFileNameDisplay = () => {
