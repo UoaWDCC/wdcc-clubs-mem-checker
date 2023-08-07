@@ -1,13 +1,13 @@
-import styles from "./style.module.css";
-import Button from "../../components/Button";
-import BackButton from "../../components/BackButton";
-import { Page, PageContextProvider } from "./CreateCheckerPage";
-import { useContext, Dispatch, SetStateAction } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router";
-import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
-import { getSpreadsheetId } from "./GoogleSheetForm";
-import { ClubDetails } from "../club-detail-page/ClubDetailPage";
+import styles from './style.module.css';
+import Button from '../../components/Button';
+import BackButton from '../../components/BackButton';
+import { Page, PageContextProvider } from './CreateCheckerPage';
+import { useContext, Dispatch, SetStateAction } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
+import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
+import { getSpreadsheetId } from './GoogleSheetForm';
+import { ClubDetails } from '../club-detail-page/ClubDetailPage';
 
 interface CustomiseConfirmProps {
   onNext: () => void;
@@ -26,11 +26,11 @@ const CustomiseConfirm = ({
   ];
   const navigate = useNavigate();
   function handleNext(): void {
-    const url = "/club/get-organisationId/" + clubDetails.clubName;
+    const url = '/club/get-organisationId/' + clubDetails.clubName;
     axios.get(url).then((res) => {
       const id = res.data.organisationId;
       axios
-        .post("/customise-page/create-page", {
+        .post('/pages/create', {
           name: page.title,
           organisationId: id,
           sheetId: getSpreadsheetId(page.googleSheetLink!),
@@ -43,7 +43,7 @@ const CustomiseConfirm = ({
           fontFamily: page.font,
         })
         .then((res) => {
-          navigate("/confirmation", {
+          navigate('/confirmation', {
             state: { pathId: res.data.pathId, clubDetails: clubDetails },
           });
         })
@@ -69,24 +69,27 @@ const CustomiseConfirm = ({
         <div className={styles.title}>
           <h1>customise page</h1>
         </div>
-        <i className={styles.subtitle} style={{ fontWeight: 500 }}>
+        <i
+          className={styles.subtitle}
+          style={{ fontWeight: 500 }}
+        >
           customise page for your members
         </i>
         <div
           style={{
-            marginTop: "7.5vh",
-            marginLeft: "4.75vw",
-            marginRight: "4.75vw",
+            marginTop: '7.5vh',
+            marginLeft: '4.75vw',
+            marginRight: '4.75vw',
           }}
         >
           <p
             style={{
-              color: "#707070",
-              float: "left",
-              fontFamily: "Montserrat",
-              fontWeight: "450",
-              fontSize: "1.5rem",
-              lineHeight: "1.25",
+              color: '#707070',
+              float: 'left',
+              fontFamily: 'Montserrat',
+              fontWeight: '450',
+              fontSize: '1.5rem',
+              lineHeight: '1.25',
             }}
           >
             please ensure that you are happy with how your page preview looks
@@ -107,7 +110,7 @@ const CustomiseConfirm = ({
         <div className={styles.preview}>
           <ClubCheckerPage
             clubId={0}
-            clubName={""}
+            clubName={''}
             title={page.title}
             backgroundColor={page.backgroundColor}
             titleTextColor={page.titleTextColor}
