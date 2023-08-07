@@ -8,7 +8,7 @@ import {
 } from "react";
 import EmptyClubLogo from "../../../assets/EmptyClubLogo.svg";
 import styles from "./SelectClubDropdown.module.css";
-import { ArrowDown2 } from "iconsax-react";
+import { ArrowDown2, ArrowUp2 } from "iconsax-react";
 import { Dashboard, DashboardContextProvider } from "../Dashboard";
 
 interface SelectClubDropdownProps {
@@ -103,13 +103,23 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
           }
         />
         <p className={styles.text}>{dashboard.selectedClub.name}</p>
-        <ArrowDown2
-          color="#000000"
-          size={28}
-          variant="Bold"
-          style={{ cursor: "pointer", marginLeft: "auto" }}
-          onClick={() => setIsOpen(!isOpen)}
-        />
+        {isOpen ? (
+          <ArrowUp2
+            color="#000000"
+            size={28}
+            variant="Bold"
+            style={{ cursor: "pointer", marginLeft: "auto" }}
+            onClick={() => setIsOpen(!isOpen)}
+          />
+        ) : (
+          <ArrowDown2
+            color="#000000"
+            size={28}
+            variant="Bold"
+            style={{ cursor: "pointer", marginLeft: "auto" }}
+            onClick={() => setIsOpen(!isOpen)}
+          />
+        )}
       </div>
       {isOpen && (
         <div
