@@ -19,7 +19,7 @@ const GenerateInviteCode = ({
   const [loadingState, setLoadingState] = useState(false);
   const [generateButtonColor, setGenerateButtonColor] = useState('#087DF1');
   const [generateButtonText, setGenerateButtonText] = useState('generate!');
-  const [fontsize, setFontsize] = useState("1rem");
+  const [fontsize, setFontsize] = useState("1.5vh");
 
   const handleClick = () => {
     if (!generateDisabled) {
@@ -87,15 +87,14 @@ setTimeout(() => setIsCopied(false), 7500);
           </div>
           <div>
             { loadingState ? 
-              <div style={{width: "100%", transform: "translate(calc(50% - 20px), 5px)"}}>
+              <div style={{height: "100%", width: "100%", transform: "translate(calc(50% - 1.5vh), 1vh)"}}>
                 <CircularProgress 
                   className={styles.loadingSign}
-                  style={{
-                    position: 'absolute', 
-                  }}
                   sx={{
+                    position: 'absolute',
                     color: '#FFFFFF',
                   }}
+                  size="3vh"
                 />
               </div> : ""
             }
