@@ -34,7 +34,7 @@ const GenerateInviteCode = ({
     setLoadingState(false);
     setGenerateButtonColor('#838383');
     setGenerateButtonText('code expires in 2 hours');
-    setFontsize("0.75rem");
+    setFontsize("1vh");
   }
 
   const handleCopy = () => {
@@ -50,8 +50,8 @@ const buttonStyle = {
   border: 'none',
   outline: 'none',
   cursor: 'pointer',
-  marginLeft: '7.75vw',
-  marginTop: '-2.75vh',
+  marginLeft: '16vw',
+  marginTop: '-3.2vh',
 };
 
 const iconStyle = {
@@ -85,7 +85,7 @@ setTimeout(() => setIsCopied(false), 7500);
               )}</button>
             )}
           </div>
-          <div className={styles.divider}>
+          <div>
             { loadingState ? 
               <div style={{width: "100%", transform: "translate(calc(50% - 20px), 5px)"}}>
                 <CircularProgress 
