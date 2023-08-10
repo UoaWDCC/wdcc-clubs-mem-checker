@@ -19,7 +19,7 @@ const GenerateInviteCode = ({
   const [loadingState, setLoadingState] = useState(false);
   const [generateButtonColor, setGenerateButtonColor] = useState('#087DF1');
   const [generateButtonText, setGenerateButtonText] = useState('generate!');
-  const [fontsize, setFontsize] = useState("1rem");
+  const [fontsize, setFontsize] = useState("1.4vh");
 
   const handleClick = () => {
     if (!generateDisabled) {
