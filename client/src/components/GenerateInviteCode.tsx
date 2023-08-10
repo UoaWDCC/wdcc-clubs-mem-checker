@@ -20,7 +20,6 @@ const GenerateInviteCode = ({
   const [generateButtonColor, setGenerateButtonColor] = useState('#087DF1');
   const [generateButtonText, setGenerateButtonText] = useState('generate!');
   const [fontsize, setFontsize] = useState("1rem");
-  const [inviteText, setInviteText] = useState("click to generate a new invite code");
 
   const handleClick = () => {
     if (!generateDisabled) {
@@ -35,8 +34,7 @@ const GenerateInviteCode = ({
     setLoadingState(false);
     setGenerateButtonColor('#838383');
     setGenerateButtonText('code expires in 2 hours');
-    setFontsize("0.75rem");
-    setInviteText("copy this invite code - you won't get to see it again!");
+    setFontsize("1vh");
   }
 
   const handleCopy = () => {
@@ -52,8 +50,8 @@ const buttonStyle = {
   border: 'none',
   outline: 'none',
   cursor: 'pointer',
-  marginLeft: '13rem',
-  marginTop: '-1.6rem',
+  marginLeft: '16vw',
+  marginTop: '-3.2vh',
 };
 
 const iconStyle = {
@@ -73,7 +71,7 @@ setTimeout(() => setIsCopied(false), 7500);
       <div className={styles.container}>
         <div>
           <h1 className={styles.header}>invite new admin</h1>
-          <h2 className={styles.subheader}>{inviteText}</h2>
+          <h2 className={styles.subheader}>click to generate a new invite code</h2>
         </div>
         <div className={styles.subcontainer}>
           <div className={styles.text}>
@@ -87,7 +85,7 @@ setTimeout(() => setIsCopied(false), 7500);
               )}</button>
             )}
           </div>
-          <div className={styles.divider}>
+          <div>
             { loadingState ? 
               <div style={{width: "100%", transform: "translate(calc(50% - 20px), 5px)"}}>
                 <CircularProgress 
@@ -97,16 +95,14 @@ setTimeout(() => setIsCopied(false), 7500);
                   }}
                   sx={{
                     color: '#FFFFFF',
-                    width: "200px",
-                    fontSize: '1rem',
                   }}
                 />
               </div> : ""
             }
             
           <Button
-            width="8rem"
-            height="3rem"
+            width="6vw"
+            height="5vh"
             backgroundColor={generateButtonColor}
             buttonText={generateButtonText}
             onClick={handleClick}
