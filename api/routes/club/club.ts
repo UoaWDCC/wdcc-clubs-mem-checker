@@ -101,29 +101,6 @@ router.get(
     }
   }
 );
-//get club id from club name
-router.get(
-  '/get-organisationId/:organisationName',
-  auth,
-  async (req: Request, res: Response) => {
-    try {
-      const organisationName = req.params.organisationName;
-
-      const organisation = await prisma.organisation.findUnique({
-        where: {
-          name: organisationName
-        }});
-
-        if (!organisation) return res.status(400).send('invalid club name');
-        const organisationId = organisation.id;
-      return res.status(200).send({organisationId});
-    }
-      catch (err) {
-      console.error(err);
-      return res.status(500).send('failed to get organisation id');
-    }
-  }
-);
 
 router.get(
   '/verify-invite-code/:token',

@@ -102,12 +102,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   // Error handling if next button is clicked but default column hasn't been selected
   const [showError, setShowError] = useState(false);
   const handleOnNext = () => {
-    if (defaultColumn != '') {
-      setPage({
-        ...page,
-        identificationColumns: selectedColumnsList,
-      });
-
+    if (defaultColumn != "") {
       onNext();
       setPage({ ...page, identificationColumns: selectedColumnsList });
     } else {

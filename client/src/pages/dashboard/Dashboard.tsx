@@ -1,80 +1,32 @@
 import styles from './style.module.css';
+import { useState, useEffect } from 'react';
 import GenerateInviteCode from '../../components/GenerateInviteCode'
 import axios from 'axios';
-import WDCCLogoBlue from '../../assets/wdcc_blue_logo.svg';
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import DashboardPage from './DashboardPage';
 
-export interface Dashboard {
-  checkerPage ?: string;  
-  selectedClub ?: string;
-
-}
-
-export const DashboardContextProvider = React.createContext([{}, () => {}]);
-
-const CreateDashboard = () => {
-
-  const [dashboard, setDashboard] = useState<Dashboard>(() => {
-    const storedSelectedClub = localStorage.getItem('selectedClub');
-    return storedSelectedClub ? {checkerPage: JSON.parse(storedSelectedClub)} : {};
-  }) 
-
+export default function Dashboard() {
   const [code, setCode] = useState("click generate")
   const [isClicked, setClicked] = useState(false)
   const placeholder = () => {
     axios
-      .get('/club/create-invite-code/63')
+      .get('/club/create-invite-code/25')
       .then(function(response) {
         if (response.status === 200) {
           console.log(response.data);
           setCode(response.data);
         }
       })
-      .catch(function(error) {
-        console.log(error);
+      .catch(function (error) {
+        console.log(error.data)
       });
-    }
-  console.log(dashboard)
-
+  }
   return (
-    <DashboardContextProvider.Provider value={[dashboard, setDashboard]}>
-      <div className={ styles.dashboardContainer }>
-        <div className={ styles.dashboardHeadingContainer }>
-          <h2 className={ styles.dashboardHeading }>dashboard</h2>
-
-          <img
-              className={styles.logo}
-              src={WDCCLogoBlue}
-              alt="WDCC Logo"
-            />
-        </div>
-        
-        <div className={ styles.gridContainer }>
-          <div className={ styles.rowOne }>
-            <div className={ `${styles.clubsContainer} ${styles.dashboardItemContainer}` }></div>
-            <div className={ `${styles.adminShareContainer} ${styles.dashboardItemContainer}` }></div>
-            <div className={ `${styles.clubAdminContainer} ${styles.dashboardItemContainer}` }>
-              <GenerateInviteCode
-                text = {code}
-                onClick={placeholder}
-                disabled = {isClicked}
-              />
-            </div>
-          </div>
-
-          <div className={ styles.rowTwo }>
-            <div className={`${styles.pagePreviewContainer} ${styles.dashboardItemContainer}`}></div>
-            <div className={ styles.colTwoRowTwo }>
-              <div className={ `${styles.clubMembersContainer} ${styles.dashboardItemContainer}` }></div>
-              <div className={ `${styles.usersContainer} ${styles.dashboardItemContainer}` }></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </DashboardContextProvider.Provider>
+    <div>
+      <p>Welcome to the dashboard</p>
+      <GenerateInviteCode
+        text = {code}
+        onClick={placeholder}
+        disabled = {isClicked}
+      />
+    </div>
   );
 }
-
-export default CreateDashboard;

@@ -18,7 +18,7 @@ interface GoogleSheetFormProps {
   onNext: () => void;
 }
 
-export const getSpreadsheetId = (link: string): string | null => {
+const getSpreadsheetId = (link: string): string | null => {
   const linkArray = link.split("/");
   const idIndex =
     linkArray.findIndex((value) => value.toLowerCase() == "d") + 1;
@@ -36,7 +36,7 @@ const getSheetTabId = (link: string): string | null => {
   return match ? match[1] : null;
 };
 
-export var spreadsheetColumns = {};
+export var spreadsheetColumns = {}
 
 const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
@@ -86,7 +86,7 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
       axios
         .get(`/sheet/columns/${spreadsheetId}/${sheetTabId}`)
         .then((response) => {
-          spreadsheetColumns = response.data;
+           spreadsheetColumns = response.data
           console.log(response.data);
           setPage({
             ...page,
