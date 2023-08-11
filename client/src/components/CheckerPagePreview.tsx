@@ -88,7 +88,7 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
                         clubLogoUrl={currentPageData.clubLogoUrl}
                         backgroundImageUrl={currentPageData.backgroundImageUrl}
                         optionsList={currentPageData.optionsList}
-                        isOnboarding={currentPageData.isOnboarding}
+                        isOnboarding={true}
                     />
                     <div className={styles.overlayButtons}>
                         {/* Navigation buttons */}
