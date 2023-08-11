@@ -3,7 +3,6 @@ import styles from './CheckerPagePreview.module.css';
 import ClubCheckerPage from '../pages/club-checker-page/ClubCheckerPage';
 import Textfield from "./Textfield";
 import copyIcon from "../assets/CopyIcon2.svg"
-import textfield from "./Textfield";
 
 interface CheckerPage {
     clubId: number;
