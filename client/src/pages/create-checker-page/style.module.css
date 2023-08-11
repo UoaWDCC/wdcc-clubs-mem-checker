@@ -149,8 +149,8 @@
 }
 
 .preview {
-  background-color: lightgray;
   border-radius: 20px;
+  min-height: 100%;
 }
 
 .columnsContainer {
