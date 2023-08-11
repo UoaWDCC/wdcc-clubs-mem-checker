@@ -2,6 +2,7 @@ import styles from './style.module.css';
 import WDCCLogoBlue from '../../assets/wdcc_blue_logo.svg';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import DashboardPage from './DashboardPage';
+import ClubAdminsList from './ClubAdminsList';
 
 export interface Dashboard {
   checkerPage ?: string;  
@@ -36,7 +37,7 @@ const CreateDashboard = () => {
         <div className={ styles.gridContainer }>
           <div className={ styles.rowOne }>
             <div className={ `${styles.clubsContainer} ${styles.dashboardItemContainer}` }></div>
-            <div className={ `${styles.adminShareContainer} ${styles.dashboardItemContainer}` }></div>
+            <div className={ `${styles.adminShareContainer} ${styles.dashboardItemContainer}` }><ClubAdminsList></ClubAdminsList></div>
             <div className={ `${styles.clubAdminContainer} ${styles.dashboardItemContainer}` }></div>
           </div>
 
