@@ -1,4 +1,9 @@
-import styles from "./style.module.css";
+
+import styles from './style.module.css';
+import GenerateInviteCode from '../../components/GenerateInviteCode'
+import axios from 'axios';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import DashboardPage from './DashboardPage';
 import WDCCLogoBlue from "../../assets/wdcc_blue_logo.svg";
 import React, { useState } from "react";
 import SelectClubDropdown, {
@@ -19,8 +24,22 @@ const CreateDashboard = () => {
       ? { selectedClub: JSON.parse(storedSelectedClub) }
       : {};
   });
-
-  console.log(dashboard);
+  const [code, setCode] = useState("click generate")
+  const [isClicked, setClicked] = useState(false)
+  const placeholder = () => {
+    axios
+      .get('/club/create-invite-code/63')
+      .then(function(response) {
+        if (response.status === 200) {
+          console.log(response.data);
+          setCode(response.data);
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    }
+  console.log(dashboard)
 
   // temporary clubs array for dropdown
   // TODO: retrieve clubs of user and create array of type DropdownClub[]
@@ -38,34 +57,24 @@ const CreateDashboard = () => {
 
           <img className={styles.logo} src={WDCCLogoBlue} alt="WDCC Logo" />
         </div>
-
-        <div className={styles.gridContainer}>
-          <div className={styles.rowOne}>
-            <div
-              className={`${styles.clubsContainer} ${styles.dashboardItemContainer}`}
-            >
-              <SelectClubDropdown clubs={testDropdownClubs} />
+        <div className={ styles.gridContainer }>
+          <div className={ styles.rowOne }>
+            <div className={ `${styles.clubsContainer} ${styles.dashboardItemContainer}` }></div>
+            <div className={ `${styles.adminShareContainer} ${styles.dashboardItemContainer}` }></div>
+            <div className={ `${styles.clubAdminContainer} ${styles.dashboardItemContainer}` }>
+              <GenerateInviteCode
+                text = {code}
+                onClick={placeholder}
+                disabled = {isClicked}
+              />
             </div>
-            <div
-              className={`${styles.adminShareContainer} ${styles.dashboardItemContainer}`}
-            ></div>
-            <div
-              className={`${styles.clubAdminContainer} ${styles.dashboardItemContainer}`}
-            ></div>
           </div>
 
-          <div className={styles.rowTwo}>
-            <div
-              className={`${styles.pagePreviewContainer} ${styles.dashboardItemContainer}`}
-            ></div>
-
-            <div className={styles.colTwoRowTwo}>
-              <div
-                className={`${styles.clubMembersContainer} ${styles.dashboardItemContainer}`}
-              ></div>
-              <div
-                className={`${styles.usersContainer} ${styles.dashboardItemContainer}`}
-              ></div>
+          <div className={ styles.rowTwo }>
+            <div className={`${styles.pagePreviewContainer} ${styles.dashboardItemContainer}`}></div>
+            <div className={ styles.colTwoRowTwo }>
+              <div className={ `${styles.clubMembersContainer} ${styles.dashboardItemContainer}` }></div>
+              <div className={ `${styles.usersContainer} ${styles.dashboardItemContainer}` }></div>
             </div>
           </div>
         </div>
