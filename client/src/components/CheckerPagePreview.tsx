@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styles from './CheckerPagePreview.module.css';
 import ClubCheckerPage from '../pages/club-checker-page/ClubCheckerPage';
 import Textfield from "./Textfield";
+import copyIcon from "../assets/CopyIcon2.svg"
+import textfield from "./Textfield";
 
 interface CheckerPage {
     clubId: number;
@@ -26,6 +28,7 @@ interface CheckerPagePreviewProps {
 
 const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
     const [currentPage, setCurrentPage] = useState(0);
+    const textFieldRef = useRef<HTMLInputElement | null>(null);;
 
     const handleNextPage = () => {
         if (currentPage < pages.length - 1) {
@@ -41,24 +44,34 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
 
     const currentPageData = pages[currentPage]; // Get the data for the current page
 
-    // const handleCopyButtonClick = () => {
-    //     // Code to copy the text in the textbox to clipboard
-    //     const textBox = document.getElementById('checkerPageUrl');
-    //     if (textBox) {
-    //         textBox.select();
-    //         document.execCommand('copy');
-    //         // You can also provide user feedback here (e.g., show a success message)
-    //     }
-    // };
+    const handleCopyButtonClick = async () => {
+        if (textFieldRef.current){
+            const value = textFieldRef.current?.placeholder;
+            try{
+                await navigator.clipboard.writeText(value);
+                console.log('Copy succeeded');
+            } catch (error){
+
+                console.log('Copy failed:  ', error);
+            }
+        }
+
+    };
 
     return (
         <div className={styles.previewContainer}>
             <p className={styles.overlayText}>Checker Pages</p>
             <div className={styles.preview}>
                 {/* Read-only textbox and copy button */}
-                <div className={styles.urlContainer}>
-                    <Textfield height="2rem" width="100%" placeholder="Enter your username" icon="stupid"/>
-                </div>
+                {pages.length > 1 && (
+                    <div className={styles.urlContainer}>
+                        <Textfield height="2rem" width="100%" placeholder="www.checkerpage.com" readOnly={true} backgroundColor="#C1C1C2" ref={textFieldRef}/>
+                        <button className={styles.copyButton} onClick={handleCopyButtonClick}>
+                            <img src={copyIcon} alt="Copy" className={styles.copyIcon} />
+                        </button>
+                    </div>
+                )}
+
                 <div key={currentPageData.clubId} className={styles.checkerPageWrapper}>
                     <ClubCheckerPage
                         clubId={currentPageData.clubId}

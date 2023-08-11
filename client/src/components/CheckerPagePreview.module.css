@@ -10,6 +10,11 @@
     font-family: "Montserrat Light";
     src: url("../../public/Montserrat-Light.ttf");
 }
+
+@font-face {
+    font-family: "Montserrat Italic";
+    src: url("../../public/Montserrat-Italic-VariableFont_wght.ttf");
+}
 /* Container styles for positioning */
 /*.uploadButtonContainer {*/
 /*    position: relative;*/
@@ -121,4 +126,42 @@
 
 .pagination .activeDot {
     background-color: black;
+}
+
+.urlContainer input::placeholder {
+    color: #03045E;
+    font-family: "Montserrat Italic";
+    font-weight: bold;
+}
+
+.urlContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.copyButton {
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
+    right: 0rem; /* Adjust the distance from the right */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 50%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1; /* Ensure the button is above the Textfield */
+}
+
+.copyIcon {
+    width: 100%;
+    height: 70%;
+    transition: fill 0.2s ease;
+}
+
+.copyButton:hover .copyIcon {
+    fill: #1E40AF; /* Change the color to your desired icon color on hover */
 }
