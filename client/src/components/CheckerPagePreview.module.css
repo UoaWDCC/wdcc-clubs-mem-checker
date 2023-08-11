@@ -78,52 +78,32 @@
     color: #03045E;
 }
 
-/*.overlayButtons button {*/
-/*    background-color: #f0f0f0;*/
-/*    border: none;*/
-/*    color: #333;*/
-/*    margin-top: 30rem;*/
-/*    margin-left: 1%;*/
-/*    cursor: pointer;*/
-/*    border-radius: 4px;*/
-/*    transition: background-color 0.2s ease;*/
-/*}*/
-
-.prevButton {
-    background-color: #f0f0f0;
-    border: none;
-    color: #333;
-    cursor: pointer;
-    border-radius: 4px;
+.prevArrow{
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
     transition: background-color 0.2s ease;
     margin-right: auto; /* Push to the left */
-    margin-left: 1.3%;
+    margin-left: 1rem;
     margin-top: 30rem;
+    display: flex;
 }
 
-.nextButton {
-    background-color: #f0f0f0;
-    border: none;
-    color: #333;
-    cursor: pointer;
-    border-radius: 4px;
+.nextArrow{
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
     transition: background-color 0.2s ease;
     margin-left: auto; /* Push to the right */
     margin-top: 30rem;
+    display: flex;
 }
 
-.prevButton:hover,
-.nextButton:hover {
-    background-color: #ddd;
+.prevArrow:hover,
+.nextArrow:hover {
+    background-color: transparent; /* Remove any background color on hover */
+    opacity: 0.6; /* Reduce opacity slightly on hover for visual feedback */
 }
-
-.overlayButtons button:hover {
-    background-color: #ddd;
-}
-
-/*.overlayButtons button:last-child {*/
-/*    margin-left: auto;*/
-/*}*/
 
 .pagination {
     display: flex;

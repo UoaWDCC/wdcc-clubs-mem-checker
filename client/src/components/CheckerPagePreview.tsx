@@ -2,7 +2,9 @@ import React, { useState, useRef } from 'react';
 import styles from './CheckerPagePreview.module.css';
 import ClubCheckerPage from '../pages/club-checker-page/ClubCheckerPage';
 import Textfield from "./Textfield";
-import copyIcon from "../assets/CopyIcon2.svg"
+import copyIcon from "../assets/CopyIcon2.svg";
+import ClickNextArrow from "../assets/ClickNextArrow.svg";
+import ClickPrevArrow from "../assets/ClickPreviousArrow.svg";
 
 interface CheckerPage {
     clubId: number;
@@ -91,14 +93,10 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
                     <div className={styles.overlayButtons}>
                         {/* Navigation buttons */}
                         {currentPage > 0 && (
-                            <button onClick={handlePrevPage} className={styles.prevButton}>
-                                Prev
-                            </button>
+                            <img src={ClickPrevArrow} alt="Click Next" className={styles.prevArrow} onClick={handlePrevPage}/>
                         )}
                         {currentPage < pages.length - 1 && (
-                            <button onClick={handleNextPage} className={styles.nextButton}>
-                                Next
-                            </button>
+                            <img src={ClickNextArrow} alt="Click Next" className={styles.nextArrow} onClick={handleNextPage}/>
                         )}
                     </div>
                     {pages.length > 1 && (
