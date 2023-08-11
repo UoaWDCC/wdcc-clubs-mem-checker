@@ -1,6 +1,6 @@
 .dashboardContainer{
     width: 100vw;
-    height: 100vh;
+    /*height: 100vh;*/
     padding: 2em 2em 2em 2em;
     display: grid;
     grid-template-rows: 1fr 8fr;
