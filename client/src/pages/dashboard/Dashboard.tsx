@@ -45,6 +45,18 @@ const CreateDashboard = () => {
       isOnboarding: false,
     },
     // Add more pages as needed
+    {
+      clubId: 3,
+      clubName: "Example Club 3",
+      title: "Checker Page Title 3",
+      // Other data for page 2
+      optionsList: [
+        { originalName: "option7", displayName: "Option 7" },
+        { originalName: "option8", displayName: "Option 8" },
+        { originalName: "option9", displayName: "Option 9" },
+      ],
+      isOnboarding: false,
+    },
   ];
 
   console.log(dashboard)

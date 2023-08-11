@@ -90,12 +90,16 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
                     />
                     <div className={styles.overlayButtons}>
                         {/* Navigation buttons */}
-                        <button onClick={handlePrevPage} disabled={currentPage === 0}>
-                            Prev
-                        </button>
-                        <button onClick={handleNextPage} disabled={currentPage === pages.length - 1}>
-                            Next
-                        </button>
+                        {currentPage > 0 && (
+                            <button onClick={handlePrevPage} className={styles.prevButton}>
+                                Prev
+                            </button>
+                        )}
+                        {currentPage < pages.length - 1 && (
+                            <button onClick={handleNextPage} className={styles.nextButton}>
+                                Next
+                            </button>
+                        )}
                     </div>
                     {pages.length > 1 && (
                         <div className={styles.overlayButtons}>
