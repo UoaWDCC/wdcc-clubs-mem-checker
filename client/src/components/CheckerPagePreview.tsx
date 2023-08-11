@@ -27,7 +27,7 @@ interface CheckerPagePreviewProps {
 
 const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
     const [currentPage, setCurrentPage] = useState(0);
-    const textFieldRef = useRef<HTMLInputElement | null>(null);;
+    const textFieldRef = useRef<HTMLInputElement | null>(null);
 
     const handleNextPage = () => {
         if (currentPage < pages.length - 1) {
@@ -115,9 +115,11 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
                             {pages.map((page, index) => (
                                 <span
                                     key={page.clubId}
-                                    className={index === page.clubId ? styles.activeDot : styles.dot}
+                                    className={`${index === currentPage ? styles.activeDot + " " + styles.clicked : styles.dot}`}
                                     onClick={() => setCurrentPage(index)}
-                                />
+                                >
+                                <span className={styles.innerDot} />
+                                </span>
                             ))}
                         </div>
                     )}
