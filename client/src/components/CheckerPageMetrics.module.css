@@ -9,7 +9,7 @@
 
 .subcontainer{
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px 20px;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -17,22 +17,24 @@
 
 .header{
   color: rgb(3, 4, 94);
-  font-size: 3vh;
+  font-size: 3.7vh;
   font-family: Montserrat;
+  font-weight: 600;
+  line-height: 1.1em;
 }
 
 .subheader{
   color: rgb(3, 4, 94, 0.48);
   font-size: 1.5vh;
-  font-family: Montserrat;
   font-style: italic;
+  font-weight: 500;
 }
 
 .statisticText{
   color: #03045E;
-  font-size: 4vh;
-  font-family: Montserrat;
-  font-style: bold;
+  font-size: 5vh;
+  font-weight: 900;
+  /* font-family: Montserrat; */
 }
 
 .dropdown{
@@ -46,6 +48,8 @@
   justify-content: space-between;
   border: none;
   z-index: 2;
+  cursor: pointer;
+  
   
 }
 
