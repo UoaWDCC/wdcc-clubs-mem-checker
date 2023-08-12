@@ -13,21 +13,7 @@ import { createContext } from "react";
 import Column from "../../types/Column";
 import { useLocation } from "react-router";
 import { ClubDetails } from "../club-detail-page/ClubDetailPage";
-
-export interface Page {
-  googleSheetLink?: string;
-  identificationColumns?: Column[];
-  title?: string;
-  font?: string;
-  backgroundColor?: string;
-  titleTextColor?: string;
-  textFieldBackgroundColor?: string;
-  textFieldtextColor?: string;
-  buttonColor?: string;
-  dropDownBackgroundColor?: string;
-  logoLink?: File;
-  backgroundImageLink?: File;
-}
+import Page from "../../types/Page";
 
 export const PageContextProvider = createContext([{}, () => {}]);
 

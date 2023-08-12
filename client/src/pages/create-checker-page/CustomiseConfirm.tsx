@@ -1,7 +1,8 @@
 import styles from './style.module.css';
 import Button from '../../components/Button';
 import BackButton from '../../components/BackButton';
-import { Page, PageContextProvider } from './CreateCheckerPage';
+import { PageContextProvider } from './CreateCheckerPage';
+import Page from '../../types/Page';
 import { useContext, Dispatch, SetStateAction } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';

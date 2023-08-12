@@ -3,7 +3,8 @@ import { BackSquare } from "iconsax-react";
 import Button from "../../components/Button";
 import BackButton from "../../components/BackButton";
 import { useContext, Dispatch, SetStateAction } from "react";
-import { PageContextProvider, Page } from "./CreateCheckerPage";
+import { PageContextProvider } from "./CreateCheckerPage";
+import Page from "../../types/Page";
 import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
 
 interface CustomiseBackgroundProps {

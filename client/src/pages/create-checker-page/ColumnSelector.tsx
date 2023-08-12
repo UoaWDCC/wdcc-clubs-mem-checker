@@ -9,7 +9,8 @@ import {
   useState,
   useEffect,
 } from "react";
-import { PageContextProvider, Page } from "./CreateCheckerPage";
+import { PageContextProvider } from "./CreateCheckerPage";
+import Page from "../../types/Page";
 import { Warning2 } from "iconsax-react";
 import DropDown from "../../components/Dropdown";
 import ColumnSelectRow from "../../components/ColumnSelectRow";

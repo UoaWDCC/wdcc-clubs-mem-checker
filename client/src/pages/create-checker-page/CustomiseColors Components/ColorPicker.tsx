@@ -1,6 +1,7 @@
 import ColorPickerItem from "./ColorPickerItem";
 import { useContext, Dispatch, SetStateAction } from "react";
-import { PageContextProvider, Page } from "../CreateCheckerPage";
+import { PageContextProvider } from "../CreateCheckerPage";
+import Page from "../../../types/Page";
 
 export const ColorPicker = () => {
   const [page, setPage] = useContext(PageContextProvider) as [
