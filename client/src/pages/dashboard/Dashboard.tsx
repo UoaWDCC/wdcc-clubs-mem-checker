@@ -2,7 +2,7 @@ import styles from './style.module.css';
 import WDCCLogoBlue from '../../assets/wdcc_blue_logo.svg';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import DashboardPage from './DashboardPage';
-import ClubAdminsList from './ClubAdminsList';
+import ClubAdminsList from '../../components/ClubAdminsList';
 
 export interface Dashboard {
   checkerPage ?: string;  
