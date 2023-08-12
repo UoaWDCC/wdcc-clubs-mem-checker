@@ -1,6 +1,7 @@
 import styles from "./CheckerPageMetrics.module.css";
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import { ArrowDown2, ArrowUp2 } from "iconsax-react";
 
 export interface CheckerPageMetricsProps {
   temp ?: string;
@@ -36,7 +37,11 @@ const CheckerPageMetrics = ({
           }}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <p className={styles.dropdownText}>{ timePeriod }</p>
+          <p className={styles.dropdownText}>{ timePeriod } </p>
+          <div className={styles.dropdownArrow}>
+            {!isOpen && <ArrowDown2 size="20" color="white"/>}
+            {isOpen && <ArrowUp2 size="20" color="white"/>}
+          </div>
         </div>
         {isOpen && 
           <div className={styles.dropdownList}>
