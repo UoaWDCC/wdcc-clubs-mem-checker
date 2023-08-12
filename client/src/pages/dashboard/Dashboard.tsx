@@ -6,7 +6,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import DashboardPage from './DashboardPage';
 import CheckerPagePreview from "../../components/CheckerPagePreview";
 import WDCCLogoBlue from "../../assets/wdcc_blue_logo.svg";
-import React, { useState } from "react";
 import SelectClubDropdown, {
   DropdownClub,
 } from "./components/SelectClubDropdown";
