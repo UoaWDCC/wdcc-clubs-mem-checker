@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import auth from '../../middleware/auth';
 import { JWT } from 'google-auth-library';
 import { drive_v3, google } from 'googleapis';
+import Column from '../../../client/src/types/Column';
 
 const prisma = new PrismaClient();
 const router = express.Router();
@@ -29,18 +30,18 @@ interface PageCustomization {
   logoLink?: string;
   backgroundImageLink?: string;
   fontFamily?: string;
-  columns: {
-    originalName: string;
-    mappedToName?: string;
-  }[];
+  identificationColumns: Column[];
 }
 
 router.post('/create', auth, async (req: Request, res: Response) => {
   try {
     const customization: PageCustomization = req.body;
 
-    const { name, organisationId, sheetId, sheetTabId, columns, ...rest } =
+    const { name, organisationId, sheetId, sheetTabId, identificationColumns, ...rest } =
       customization;
+
+    console.log(customization);
+    console.log(identificationColumns)
 
     if (!name || !organisationId || !sheetId || !sheetTabId)
       return res
@@ -50,7 +51,7 @@ router.post('/create', auth, async (req: Request, res: Response) => {
         );
 
     const pathId = nanoid(); // Generate random path ID
-
+        
     const existingSheetID = await prisma.page.findUnique({
       where: { sheetId: sheetId },
     });
@@ -106,12 +107,13 @@ router.post('/create', auth, async (req: Request, res: Response) => {
       },
     });
 
-    columns.forEach(async ({ originalName, mappedToName }) => {
+    identificationColumns.forEach(async ({ originalName, displayName }) => {
+      console.log(originalName, displayName);
       await prisma.column.create({
         data: {
           pageId: page.id,
           sheetsName: originalName,
-          mappedTo: mappedToName || originalName,
+          mappedTo: displayName || originalName,
         },
       });
     });
