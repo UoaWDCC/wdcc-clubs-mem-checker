@@ -4,6 +4,7 @@ import Button from "../../components/Button";
 import { useContext, Dispatch, SetStateAction } from "react";
 import { PageContextProvider, Page } from "./CreateCheckerPage";
 import UploadButton from "../../components/UploadButton";
+import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
 
 interface CustomiseLogoProps {
   onNext: () => void;
@@ -15,10 +16,11 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
     Page,
     Dispatch<SetStateAction<Page>>
   ];
+
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
-        <div id = {styles.CustomisePageBackButton}>
+        <div id={styles.CustomisePageBackButton}>
           <BackButton
             onClick={onBack}
             color="#087DF1"
@@ -31,20 +33,39 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
         <div>
           <h2 className={styles.customisePageTitle}>customise page</h2>
           <i className={styles.subtitle}>customise page for your members</i>
-          <p className={styles.optionalText}>please upload your club's logo (optional)</p>
+          <p className={styles.optionalText}>
+            please upload your club's logo (optional)
+          </p>
         </div>
         <div>
           <UploadButton
-              onFileSelect={(file) => setPage({ ...page, logoLink: file })}
-              currentFile={page.logoLink} // Pass the current file from the page state
+            onFileSelect={(file) => setPage({ ...page, logoLink: file })}
+            currentFile={page.logoLink} // Pass the current file from the page state
           />
         </div>
-        <button id={styles.CustomisePageNextButton} onClick={onNext}>
-          next
-        </button>
+        <div id={styles.CustomisePageNextButton}>
+          <Button onClick={onNext} buttonText="next" width="5vw" />
+        </div>
       </div>
       <div className={styles.previewContainer}>
-        <div className={styles.preview}></div>
+        <div className={styles.preview}>
+          <ClubCheckerPage
+            clubId={0}
+            clubName={""}
+            title={page.title}
+            backgroundColor={page.backgroundColor}
+            titleTextColor={page.titleTextColor}
+            textFieldBackgroundColor={page.textFieldBackgroundColor}
+            textFieldTextColor={page.textFieldtextColor}
+            buttonBackgroundColor={page.buttonColor}
+            dropDownBackgroundColor={page.dropDownBackgroundColor}
+            font={page.font}
+            clubLogoUrl={page.logoLink}
+            backgroundImageUrl={page.backgroundImageLink}
+            optionsList={page.identificationColumns || []}
+            isOnboarding={true}
+          />
+        </div>
         <i>page preview</i>
       </div>
     </div>

@@ -17,7 +17,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const SCOPES = [
   "profile",
   "email",
-  "https://www.googleapis.com/auth/spreadsheets.readonly",
 ];
 
 export const oAuth2Client = new google.auth.OAuth2(

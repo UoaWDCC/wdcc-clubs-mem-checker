@@ -17,6 +17,7 @@ export interface ButtonProps {
   hoverColor?: string;
   padding?: string;
   onClick: () => void;
+  disabled?: boolean;
 }
 
 const Button = ({
@@ -34,9 +35,11 @@ const Button = ({
   borderRadius = '8px',
   hoverColor = '',
   padding = "5px",
+  disabled,
   onClick,
 }: ButtonProps) => {
   if (hoverColor == "") hoverColor = lightenColor(backgroundColor, 20);
+  if (disabled) hoverColor = backgroundColor;
   return (
     <>
       <button

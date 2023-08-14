@@ -7,6 +7,7 @@ interface TextfieldProps {
   height?: string;
   width?: string;
   margin?: string;
+  padding?: string;
   backgroundColor?: string;
   textColour?: string;
   fontSize?: string;
@@ -20,6 +21,7 @@ interface TextfieldProps {
   placeholderTextAlign?: string;
   onKeyUp?: () => void;
   onChange?: () => void;
+  readOnly?: boolean;
 }
 
 const Textfield = forwardRef(
@@ -28,6 +30,7 @@ const Textfield = forwardRef(
       height,
       width = "12rem",
       margin,
+      padding,
       backgroundColor = "#e0e0e0",
       textColour,
       fontSize,
@@ -41,6 +44,7 @@ const Textfield = forwardRef(
       onKeyUp,
       onChange,
       placeholderTextAlign = "left",
+        readOnly,
     }: TextfieldProps,
     ref: any
   ) => {
@@ -64,15 +68,19 @@ const Textfield = forwardRef(
             onKeyUp={onKeyUp}
             className={styles.input}
             onChange={onChange}
+            readOnly={readOnly}
             placeholder={placeholder}
             style={{
               height,
               width,
+              padding,
               backgroundColor,
               color: textColour,
               fontSize,
               fontWeight,
-              border: isError ? "2px solid red" : backgroundColor,
+              border: isError
+                ? "2px solid red"
+                : `2px solid ${backgroundColor}`,
               ["--focus-border-color" as any]: lightenColor(
                 backgroundColor,
                 -75

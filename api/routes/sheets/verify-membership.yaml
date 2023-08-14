@@ -1,0 +1,19 @@
+get:
+  security:
+    - jwt_token:
+        - 'read:users'
+        - 'read:clubs'
+  operationId: verifyMembershipStatus
+  summary: 'Verify membership status of student'
+  tags:
+    - 'Columns'
+  description: 'Verify the membership status of a student in a club based on a column, value, and web page'
+  responses:
+    200:
+      description: 'value found in column'
+    400:
+      description: 'missing field or field does not apply to spreadsheet'
+    404:
+      description: 'could not find user in column or could not find spreadsheet'
+    500:
+      description: 'error retrieving data or no data to retrieve'

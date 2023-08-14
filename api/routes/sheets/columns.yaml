@@ -4,6 +4,8 @@ get:
         - 'read:users'
         - 'read:clubs'
   operationId: getColumns
+  tags:
+    - 'Columns'
   summary: |
     'Get the columns from page'
   servers: []

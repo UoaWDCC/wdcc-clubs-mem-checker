@@ -7,6 +7,8 @@ post:
   summary: |
     'Create a new club'
   servers: []
+  tags:
+    - 'Club'
   description: 'Create a new club with a unique name and an acronym associated to the user.'
   responses:
     200:

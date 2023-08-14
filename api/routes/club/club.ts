@@ -2,6 +2,8 @@ import { Router, Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import auth from '../../middleware/auth';
 import jwt from 'jsonwebtoken';
+import { oAuth2Client } from '../auth/google';
+import { google } from 'googleapis';
 
 export const router = Router();
 const prisma = new PrismaClient();
@@ -87,6 +89,7 @@ router.get(
         return res
           .status(401)
           .send('you must be in the organisation to create a share code');
+
       const newUniqueInviteCode = await generateUniqueCode();
       await prisma.organisationInviteCode.create({
         data: { code: newUniqueInviteCode, organisationId },
@@ -98,10 +101,28 @@ router.get(
     }
   }
 );
-
+//get club id from club name
 router.get(
-  '/verify-membership-status',
-  async (req: Request, res: Response) => {}
+  '/get-organisationId/:organisationName',
+  auth,
+  async (req: Request, res: Response) => {
+    try {
+      const organisationName = req.params.organisationName;
+
+      const organisation = await prisma.organisation.findUnique({
+        where: {
+          name: organisationName
+        }});
+
+        if (!organisation) return res.status(400).send('invalid club name');
+        const organisationId = organisation.id;
+      return res.status(200).send({organisationId});
+    }
+      catch (err) {
+      console.error(err);
+      return res.status(500).send('failed to get organisation id');
+    }
+  }
 );
 
 router.get(

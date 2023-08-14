@@ -4,7 +4,7 @@ import CopyIcon from "../../assets/CopyIcon2.svg";
 import CopyTickIcon from "../../assets/CopyTickIcon.svg";
 import femaleStanding from "../../assets/femaleStanding.svg";
 import { useLocation, useNavigate } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../components/Button";
 
 export const ConfimationPage = () => {
@@ -14,7 +14,7 @@ export const ConfimationPage = () => {
   };
 
   const handleCreateAnotherButtonClick = () => {
-    navigate("/create-page");
+    navigate("/create-page", { state: location.state.clubDetails });
   };
 
   const [icon, setIcon] = useState(CopyIcon);
@@ -22,8 +22,8 @@ export const ConfimationPage = () => {
   const location = useLocation();
 
   // uncomment this line when we have te link from the other page and comment the line below
-  // const link = location.state.pageId;
-  const link = "https://www.wdcc.com/laurhliapoiueroij";
+  const link = "https://www.wdcc.com/" + location.state.pathId;
+  // const link = "https://www.wdcc.com/laurhliapoiueroij";
 
   return (
     <div>
@@ -38,7 +38,7 @@ export const ConfimationPage = () => {
       </div>
 
       <div>
-        <p className={styles.paragraph}>
+        <div className={styles.paragraph}>
           click on the link below to see your fresh new page:
           <div
             style={{
@@ -62,7 +62,11 @@ export const ConfimationPage = () => {
                 textOverflow: "ellipsis",
               }}
             >
-              <a href={link} target="_blank" style={{ color: "#707070" }}>
+              <a
+                href={link}
+                target="_blank"
+                style={{ color: "#707070", fontSize: "2.5vh" }}
+              >
                 {link}
               </a>
             </div>
@@ -82,7 +86,7 @@ export const ConfimationPage = () => {
           </div>
           you can update the configs for your page of create a new page from you
           club's admin dashboard
-        </p>
+        </div>
       </div>
 
       <img
