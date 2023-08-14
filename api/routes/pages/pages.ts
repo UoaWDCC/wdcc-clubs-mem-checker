@@ -223,7 +223,7 @@ router.get(
       if (column.includes(value)) {
         await prisma.membershipCheckUsage.create({
           data: {
-            organisationId: page.organisationId,
+            pageId: page.id,
             isDuplicate: true,
             userInput: value,
             columnName,
