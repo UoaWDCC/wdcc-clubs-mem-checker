@@ -1,6 +1,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import DashboardPage from './DashboardPage';
+import CheckerPageMetrics from '../../components/CheckerPageMetrics';
 import ClubAdminsList from '../../components/ClubAdminsList';
 import styles from "./style.module.css";
 import GenerateInviteCode from "../../components/GenerateInviteCode";
@@ -124,13 +125,12 @@ const CreateDashboard = () => {
             >
               <CheckerPagePreview pages={pages} />
             </div>
-            <div className={styles.colTwoRowTwo}>
-              <div
-                className={`${styles.clubMembersContainer} ${styles.dashboardItemContainer}`}
-              ></div>
-              <div
-                className={`${styles.usersContainer} ${styles.dashboardItemContainer}`}
-              ></div>
+            <div className={ styles.colTwoRowTwo }>
+              <div className={ `${styles.clubMembersContainer} ${styles.dashboardItemContainer}` }></div>
+              <div className={ `${styles.usersContainer} ${styles.dashboardItemContainer}` }>
+                <CheckerPageMetrics />
+              </div>
+
             </div>
           </div>
         </div>

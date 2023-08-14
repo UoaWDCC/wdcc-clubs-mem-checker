@@ -1,12 +1,11 @@
 .dashboardContainer{
     width: 100vw;
     /*height: 100vh;*/
-    padding: 2em 2em 2em 2em;
+    padding: 2em;
     display: grid;
     grid-template-rows: 1fr 8fr;
     row-gap: 1em;
     background-color: #F5F5F5;
-
 }
 
 .dashboardHeadingContainer{
@@ -47,6 +46,8 @@
 .dashboardItemContainer{
     background-color: #E0E0E0;
     border-radius: 20px;
+    min-width: 0;
+    min-height: 0;
 }
 
 
@@ -57,6 +58,7 @@
     font-family: 'Montserrat';
     font-weight: 600;
 }
+
 
 .adminShareContainer{
     display: flex;
