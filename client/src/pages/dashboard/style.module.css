@@ -57,3 +57,9 @@
     font-family: 'Montserrat';
     font-weight: 600;
 }
+
+.adminShareContainer{
+    display: flex;
+    justify-content: center;
+    padding: 1em 2em;
+}
