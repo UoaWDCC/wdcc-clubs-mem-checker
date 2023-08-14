@@ -41,7 +41,7 @@ const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
         <i className={styles.subtitle} style={{ fontWeight: 500 }}>
           customise page for your members
         </i>
-        <div style={{ position: "absolute", left: "3.5vw", top: "17vh" }}>
+        <div style={{ float: "left", width: "100%" }}>
           <ColorPicker />
         </div>
         <div id={styles.CustomisePageNextButton}>

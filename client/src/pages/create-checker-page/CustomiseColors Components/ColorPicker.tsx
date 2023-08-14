@@ -17,11 +17,12 @@ export const ColorPicker = () => {
           borderRadius: "10px",
           color: "black",
           fontStyle: "italic",
-          fontSize: "0.9rem",
-          width: "11vw",
+          fontSize: "1.5vh",
+          width: "10vw",
           height: "3vh",
           alignItems: "center",
           justifyContent: "center",
+          marginLeft: "1vw",
         }}
       >
         choose your theme colours
