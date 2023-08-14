@@ -10,7 +10,6 @@ export interface CheckerPageMetricsProps {
 const CheckerPageMetrics = ({
 }: CheckerPageMetricsProps) => {
   /* time periods: last 7 days, last 2 weeks, last month, all time */
-
   const possibleTimePeriods = ["last 7 days", "last 2 weeks", "last month", "all time"] 
   const [timePeriod, setTimePeriod] = useState(possibleTimePeriods[0]);
   const [isOpen, setIsOpen] = useState(false);
