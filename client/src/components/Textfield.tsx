@@ -21,6 +21,7 @@ interface TextfieldProps {
   placeholderTextAlign?: string;
   onKeyUp?: () => void;
   onChange?: () => void;
+  readOnly?: boolean;
 }
 
 const Textfield = forwardRef(
@@ -43,6 +44,7 @@ const Textfield = forwardRef(
       onKeyUp,
       onChange,
       placeholderTextAlign = "left",
+        readOnly,
     }: TextfieldProps,
     ref: any
   ) => {
@@ -66,6 +68,7 @@ const Textfield = forwardRef(
             onKeyUp={onKeyUp}
             className={styles.input}
             onChange={onChange}
+            readOnly={readOnly}
             placeholder={placeholder}
             style={{
               height,

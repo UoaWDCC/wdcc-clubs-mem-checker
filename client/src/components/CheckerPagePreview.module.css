@@ -1,0 +1,187 @@
+/* CheckerPagePreview.module.css */
+@import url("../pages/club-checker-page/ClubCheckerPage.module.css");
+
+@font-face {
+    font-family: "Montserrat SemiBold";
+    src: url("../../public/Montserrat-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: "Montserrat Light";
+    src: url("../../public/Montserrat-Light.ttf");
+}
+
+@font-face {
+    font-family: "Montserrat Italic";
+    src: url("../../public/Montserrat-Italic-VariableFont_wght.ttf");
+}
+/* Container styles for positioning */
+/*.uploadButtonContainer {*/
+/*    position: relative;*/
+/*    width: auto;*/
+/*    height: auto;*/
+/*    color: #707070;*/
+/*    background-color: #ddd;*/
+/*    border-radius: 20px;*/
+/*}*/
+
+.container{
+    height: 10px !important;
+}
+
+.previewContainer {
+    position: relative;
+    padding: 1em; /* Add padding to match the dashboardItemContainer */
+    align-items: center;
+}
+
+/* Styles for the overlaid <p> tag */
+.overlayText {
+    font-family: "Montserrat SemiBold";
+    color: #03045E; /* Change the color to your desired text color */
+    pointer-events: none; /* Prevent the <p> tag from intercepting events */
+    margin-bottom: 2%;
+}
+
+.preview {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.checkerPageWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+}
+
+.overlayButtons {
+    position: absolute;
+    top: 4%;
+    right: 3%;
+    left: 2%;
+    display: flex;
+    gap: 1rem;
+    z-index: 2;
+    transform: translateY(-50%);
+}
+
+.overlayButtons a {
+    color: #03045E;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.overlayButtons span {
+    color: #03045E;
+}
+
+.prevArrow{
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+    margin-right: auto; /* Push to the left */
+    margin-left: 1rem;
+    margin-top: 30rem;
+    display: flex;
+}
+
+.nextArrow{
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+    margin-left: auto; /* Push to the right */
+    margin-top: 30rem;
+    display: flex;
+}
+
+.prevArrow:hover,
+.nextArrow:hover {
+    background-color: transparent; /* Remove any background color on hover */
+    opacity: 0.6; /* Reduce opacity slightly on hover for visual feedback */
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 10px; /* Adjust the distance from the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+
+}
+
+.pagination .dot,
+.pagination .activeDot {
+    width: 13px;
+    height: 13px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    margin: 0 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.pagination .activeDot {
+    background-color: #FFFFFF;
+    position: relative;
+}
+
+.pagination .activeDot.clicked .innerDot {
+    background-color: #DBDBDB; /* Change the color to black when clicked */
+}
+
+.pagination .activeDot .innerDot {
+    position: absolute;
+    width: 75%;
+    height: 75%;
+    background-color: transparent;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.urlContainer input::placeholder {
+    color: #03045E;
+    font-family: "Montserrat Italic";
+    font-weight: bold;
+}
+
+.urlContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: -1.5%;
+}
+
+.copyButton {
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
+    right: 0rem; /* Adjust the distance from the right */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 50%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1; /* Ensure the button is above the Textfield */
+}
+
+.copyIcon {
+    width: 100%;
+    height: 70%;
+    transition: fill 0.2s ease;
+}
+
+.copyButton:hover .copyIcon {
+    fill: #1E40AF; /* Change the color to your desired icon color on hover */
+}

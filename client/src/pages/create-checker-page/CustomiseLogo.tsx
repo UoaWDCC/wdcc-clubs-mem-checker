@@ -16,6 +16,7 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
     Page,
     Dispatch<SetStateAction<Page>>
   ];
+
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>

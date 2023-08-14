@@ -6,6 +6,7 @@
   position: relative;
   row-gap: 50px;
   width: 100%;
+  min-height: 100%;
 }
 
 .logo {

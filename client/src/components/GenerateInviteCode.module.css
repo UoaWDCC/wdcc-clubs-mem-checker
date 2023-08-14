@@ -1,0 +1,44 @@
+.container{
+  background: #E0E0E0;
+  border-radius: 10px;
+  padding: 2% 5% 2% 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 0%;
+  width: 100%;
+  height: 100%;
+  font-family: "montserrat";
+}
+
+.subcontainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 1vw;
+}
+
+.text{
+  height: 5vh;
+  width: 30vw;
+  border-radius: 10px;
+  background: #C1C1C2;
+  color: #03045E;
+  opacity: 48%;
+  font-style: italic;
+  text-align: center;
+  font-size: 2.5vh;
+  padding-top: 0.5vh;
+}
+
+.header{
+  color: #03045E;
+  font-size: 1.5rem;
+}
+
+.subheader{
+  color: #03045E;
+  opacity: 48%;
+  font-size: 1rem;
+  font-style: italic;
+}
