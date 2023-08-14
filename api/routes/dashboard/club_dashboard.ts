@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { Column as DBColumn, Page as DBPage, PrismaClient } from '@prisma/client';
+import { Column as DBColumn, Page as DBPage, Organisation, PrismaClient } from '@prisma/client';
 import Column from '../../../client/src/types/Column';
 import Page from '../../../client/src/types/Page'
 import auth from '../../middleware/auth';
@@ -9,6 +9,13 @@ import jwt from 'jsonwebtoken';
 export const router = Router();
 const prisma = new PrismaClient();
 
+
+interface DashboardPage{
+    club : Organisation // this doesn't contain the club logo, not sure where this is stored?
+    pages : Page[]
+    metrics : any // TODO: add metrics type
+}
+
 router.get(
     '/club-dashboard-endpoint/:organisationId',
     auth,
@@ -16,6 +23,17 @@ router.get(
         try {
             const organisationId = Number.parseInt(req.params['organisationId']);
             const JWT_SECRET = process.env.JWT_SECRET as string;
+
+            const organisation = await prisma.organisation.findUnique({
+                where: {
+                    id: organisationId,
+                }
+            });
+
+            if (!organisation)
+                return res
+                    .status(404)
+                    .send('no organisation found with that id');
 
             const pagesInOrg = await prisma.page.findMany({
                 where: {
@@ -58,7 +76,13 @@ router.get(
                 return convertedPage;
               });
 
-            return res.status(200).send(convertedPages);
+              const dashboardPage : DashboardPage = {
+                    club : organisation,
+                    pages : convertedPages,
+                    metrics : {}
+              }
+
+            return res.status(200).send(dashboardPage);
         } catch (err) {
             console.error(err);
             return res.status(500).send('failed to create invite code');
