@@ -8,8 +8,9 @@ const ClubAdminsList = () => {
     Dispatch<SetStateAction<Dashboard>>
   ];
 
-  const admins = dashboard.clubAdmins || []; //Need to rename this when I find out what the name being saved to the context is
-  
+  //const admins = dashboard.clubAdmins || []; //Need to rename this when I find out what the name being saved to the context is
+  const admins = ["Adam McKinsley", "Bob Arthur", "Cindy Wong", "Amanda Young"];
+
   return (
     <>
         <div className={ styles.classListContainer }> 
