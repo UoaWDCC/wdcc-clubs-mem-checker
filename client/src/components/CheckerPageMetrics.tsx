@@ -10,15 +10,26 @@ export interface CheckerPageMetricsProps {
 const CheckerPageMetrics = ({
 }: CheckerPageMetricsProps) => {
   /* time periods: last 7 days, last 2 weeks, last month, all time */
+  
+  // Example statistics that might come from endpoint
+  const timePeriodMetrics = {
+    "last 7 days": [24, 4], 
+    "last 2 weeks": [30, 5], 
+    "last month": [40, 5], 
+    "all time": [50, 10]
+  };
+    
+  
 
   const possibleTimePeriods = ["last 7 days", "last 2 weeks", "last month", "all time"] 
   const [timePeriod, setTimePeriod] = useState(possibleTimePeriods[0]);
   const [isOpen, setIsOpen] = useState(false);
-  const [statistic, setStatistic] = useState("N/A");
+  const [statistic, setStatistic] = useState([0, 0]);
 
   const handleSelectTimePeriod = (time: string) => {
     setIsOpen(!isOpen)
     setTimePeriod(time)
+    setStatistic(timePeriodMetrics[time]);
   };
 
   return (
@@ -45,7 +56,7 @@ const CheckerPageMetrics = ({
         </div>
         {isOpen && 
           <div className={styles.dropdownList}>
-            {possibleTimePeriods.map((time) => (
+            {possibleTimePeriods.map((time, i) => (
               <div
                 className={styles.dropdownCard}
                 onClick={() => handleSelectTimePeriod(time)}
@@ -66,7 +77,7 @@ const CheckerPageMetrics = ({
       >
         <h1 className={styles.header}>number of users</h1>
         <h1 className={styles.subheader}>total number of checks performed</h1>
-        <h1 className={styles.statisticText}>{statistic}</h1>
+        <h1 className={styles.statisticText}>{statistic[0]}</h1>
       </div>
       <div 
         className={styles.subcontainer}
@@ -77,7 +88,7 @@ const CheckerPageMetrics = ({
       >
         <h1 className={styles.header}>duplicates found</h1>
         <h2 className={styles.subheader}>total number of existing memberships found</h2> 
-        <h1 className={styles.statisticText}>{statistic}</h1>
+        <h1 className={styles.statisticText}>{statistic[1]}</h1>
       </div>
     </div>
   );
