@@ -1,0 +1,59 @@
+.dashboardContainer{
+    width: 100vw;
+    /*height: 100vh;*/
+    padding: 2em 2em 2em 2em;
+    display: grid;
+    grid-template-rows: 1fr 8fr;
+    row-gap: 1em;
+    background-color: #F5F5F5;
+
+}
+
+.dashboardHeadingContainer{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    column-gap: 1em;
+}
+
+.gridContainer{
+    display: grid;
+    grid-template-rows: 1fr 4fr;
+    row-gap: 1em;
+}
+
+.logo{
+    justify-self: end;
+}
+
+.rowOne{
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1.4fr;
+    column-gap: 1em;
+}
+
+.rowTwo{
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    column-gap: 1em;
+}
+
+.colTwoRowTwo{
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+    row-gap: 1em;
+
+}
+
+.dashboardItemContainer{
+    background-color: #E0E0E0;
+    border-radius: 20px;
+}
+
+
+
+.dashboardHeading{
+    color: #087DF1;
+    font-size: 3em;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}

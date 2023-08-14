@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "membership-checker",
+  "private_key_id": "e5457b93d746182a2481b1ce69a9123ea477d5bb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCoZusfm0bcBorJ\nH1Uqlhl/bEY/2SVEAN+Ia6hfyewihBJS6vIlmYOpBzi3V5/04S2yXhXpxnwwl9F6\n9UJ5HkzlzgEt4ES/FwkPLOMtkA3QW6FCp+qU0vmzvd3Ts+ZPoWAuu0m+4ZJ9Q0vu\nFjpgd6f+y1pE5xY5Z5cdJP6RWiD6bjh/WCM5FvLpT6CELGXbyGumux8M2bqQ1FLG\nJrzIiOuf+xtbhugVnKBG7omly+s6yNIB+nUm5Yi9V4nAZheoOtRk7mu5rsKLj71/\nOMl44azSrlr3inmsQNlksCNfheA7XQw8dpL7M77J34Y22DhnwuRO2cYEvaY263J9\nFgop1PH7AgMBAAECggEAJaH2OjZzg9jsa9yWJjGr2gdivYLzqno9edmBI4LWw7Ha\n/G+nlFJ1kzDbclFhHBK0KQ+QexERkLRkqkMjyzhDu/ko100uX7uwmRURYY23IJBR\nfblTmVV6Wrn72AL0XWg1O8w7wy3alCaVUcvi2Mr0nmJoNkyj8UkegnNRdj77bqsV\nHjBVMSZ8Y70UY0ThEbkhZvBqnLJAkI21tD4D5pc3XgUZzidfO5RTP/QMXTrw7Qqz\nmkezdVUVtgtxLHwQdyTy+0F1lcB5QhT6C+DsZhicdSl94SaREMewRKP1XLpr+G+M\nlQwagGhKSZ6V8lij3JpAqgg9xdriYlRW8oV658F2PQKBgQDUxJ8MvW7+OhtlgKz0\nHaz3KlDDpV/mpNt6COdaVCbOvTdgveo0hClAioPYjSFzDGvVd0WYns/DPVWUCM9D\nZZKF1zvsZyt8T30N6Nl6fAKu8ZQhscjsUyq2KOs/Ba5pPllpOsJlqGUgWAEy2FFi\nY5OI5MnknJMwONBr0I30EE2SNwKBgQDKnovlXXueHuIA4yfUbEE1ikV3EGBmID/P\nXLhwMR55wG9Se/XgYN+V4ir482lCKQDiD28PgIP7DkgVuVDFZiAaLjcMm40N2kl7\nlDAXQNCUJevSrCdMUTLbJl6yS1rN6LPOan3myJ2caPS7y2pZXSVzO/gy5VpuEg4I\npJIhNnXMXQKBgGF70M+af581alYANb4HVrdMCQMK4zyerfxk1fM5+Snh4dyORx9W\nqjvq+uueBgRbXZDJe/aoVNLEaFBSFPxxLkfqTIdM4cyr8sULuZD3/pa/Erq5ZTB6\nDmi1qMsQRE/uBDNFe8nt9J90EuCD4g3tR6yB/sqivoFqlnu/azq2uYPTAoGAFjBg\nr6CaLgnBxEkcDoZAaeWXj99qPyTe+A12YUrvxHOPfV/34DebpKVdAWBesZEd+KOq\nDO+NBIxe1ooxzzxM3bEb9DSAsPirvW3QCmvdq6uvdKXHs/Lcd+Vuz2WzLwOB1WQS\nH5jusbdIvdwb7Gdn94OkvaYiThWKFeY33o1BPz0CgYAJ6OUt6FagOr8+9v8+Oxfi\nMJqLWKQR9iPG0J9zt/DGIsWdHcTlr4Iwz5CzJQNZCTHlYPfV3SKxqFnMg5lY2H4m\nqwK60+WrDp9M3S43yiU9hB9g3iMk8RmKWO9SMqVXCDpXOSYXCvQYz14qku5f1eiS\n3rlaSq2vkMT1400xc6/Ylg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "wdcc-membership-checker@membership-checker.iam.gserviceaccount.com",
+  "client_id": "114413156460300248266",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/wdcc-membership-checker%40membership-checker.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
