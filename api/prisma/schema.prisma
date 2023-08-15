@@ -44,12 +44,11 @@ model Page {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   name String
-  pageId Int
-  page Organisation @relation(fields: [pageId], references: [id]) 
+  organisationId Int
+  organisation Organisation @relation(fields: [organisationId], references: [id]) 
   sheetId String @unique
   sheetTabId String @default("0")
   webLink String @unique  
-  membershipCheckUsage MembershipCheckUsage[] 
   identificationColumns Column[]
   backgroundColor String @default("#0582CA")
   membershipCheckUsage MembershipCheckUsage[] 
