@@ -28,7 +28,6 @@ model Organisation {
   acronym String?
   users UsersInOrganisation[]
   pages Page[]
-  membershipCheckUsage MembershipCheckUsage[] 
   inviteCode OrganisationInviteCode[]
 }
 
@@ -52,6 +51,7 @@ model Page {
   webLink String @unique  
   identificationColumns Column[]
   backgroundColor String @default("#0582CA")
+  membershipCheckUsage MembershipCheckUsage[] 
   textFieldBackgroundColor String @default("#0676B6")
   textColor String @default("#FFFFFF")
   buttonColor String @default("#53B2E3")
@@ -79,8 +79,8 @@ model OrganisationInviteCode {
 
 model MembershipCheckUsage {
   id Int @id @default(autoincrement())
-  organisationId Int
-  organisation Organisation @relation(fields: [organisationId], references: [id])
+  pageId Int
+  page Page @relation(fields: [pageId], references: [id])
   isDuplicate Boolean
   userInput String
   columnName String
