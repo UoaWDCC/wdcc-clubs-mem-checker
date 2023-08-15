@@ -42,38 +42,40 @@ body {
   }
 }
 @font-face {
-  font-family: "Montserrat";
-  src: url("../public/Montserrat-VariableFont_wght.ttf");
+  font-family: 'Montserrat';
+  src: url('../public/Montserrat-VariableFont_wght.ttf');
 }
 .montserrat {
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
 }
 
-.fontpicker{
-  background: #E0E0E0 !important;
-  border-color: #2E2E2F !important;
+.fontpicker {
+  background: #e0e0e0 !important;
+  border-color: #2e2e2f !important;
   border-radius: 4px;
   outline: none;
   height: 3rem;
 }
 
-.fontpicker__preview{
-  filter: invert(11%) sepia(5%) saturate(244%) hue-rotate(201deg) brightness(100%) contrast(82%) !important;
+.fontpicker__preview {
+  filter: invert(11%) sepia(5%) saturate(244%) hue-rotate(201deg)
+    brightness(100%) contrast(82%) !important;
   margin-top: 0.5rem;
 }
 
-[class^="font-preview-"]{
-  filter: invert(11%) sepia(5%) saturate(244%) hue-rotate(201deg) brightness(100%) contrast(82%) !important;
+[class^='font-preview-'] {
+  filter: invert(11%) sepia(5%) saturate(244%) hue-rotate(201deg)
+    brightness(100%) contrast(82%) !important;
 }
 
-.fontpicker__option, .fontpicker__search{
-  background: #E0E0E0 !important;
-  color:#2E2E2F !important;
+.fontpicker__option,
+.fontpicker__search {
+  background: #e0e0e0 !important;
+  color: #2e2e2f !important;
 }
 
-.fontpicker__option.selected{
-  background: #C0c0c0 !important;
+.fontpicker__option.selected {
+  background: #c0c0c0 !important;
   border-width: 1px !important;
-  border-color:#2E2E2F !important;
+  border-color: #2e2e2f !important;
 }
-
