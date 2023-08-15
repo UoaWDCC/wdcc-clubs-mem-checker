@@ -55,7 +55,6 @@ const getMetrics = (pageId : number, allCheckerUsages: MembershipCheckUsage[]) =
         last30Days: {numberOfChecks: last30DaysCheckerPageUsage.length,numberOfDuplicates: last30DaysCheckerPageUsage.filter((checkerUsage) => checkerUsage.isDuplicate).length},
     }
 
-    console.log(metrics);
     return metrics
 
 
@@ -70,7 +69,6 @@ router.get(
             const JWT_SECRET = process.env.JWT_SECRET as string;
 
             const allCheckerUsages = await prisma.membershipCheckUsage.findMany();
-            console.log(allCheckerUsages);
 
             const organisation = await prisma.organisation.findUnique({
                 where: {
