@@ -24,7 +24,7 @@ const serviceClient = new google.auth.GoogleAuth({
 
 interface PageCustomization {
   name: string;
-  organisationId: number;
+  organisationId: string;
   sheetId: string;
   sheetTabId: string;
   backgroundColor?: string;
@@ -70,55 +70,10 @@ router.post(
         return res
           .status(400)
           .send(
-            '`name`, `organisationId`, `sheetId`, `columns`, and `sheetTabId` are required fields'
+            '`name`, `organisationId`, `sheetId`, `sheetTabId`, and `columns` are required fields'
           );
 
-      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-      const { background, logo } = files;
-
-      let backgroundUrl: string | undefined = undefined;
-      let logoUrl: string | undefined = undefined;
-      const storageBucketUrlPrefix = process.env.SUPABASE_STORAGE_URL_PREFIX!;
-
-      if (background && background[0]) {
-        const fileName = background[0].originalname;
-        const buffer = background[0].buffer;
-        const { data, error } = await supabase.storage
-          .from('image-bucket')
-          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
-            cacheControl: '3600',
-            upsert: false,
-          });
-        if (error) {
-          console.error(`Error: ${JSON.stringify(error)}`);
-          return res
-            .status(500)
-            .send('failed to upload background to storage bucket');
-        }
-        backgroundUrl = storageBucketUrlPrefix + data.path;
-      }
-
-      if (logo && logo[0]) {
-        const fileName = logo[0].originalname;
-        const buffer = logo[0].buffer;
-        const { data, error } = await supabase.storage
-          .from('image-bucket')
-          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
-            cacheControl: '3600',
-            upsert: false,
-          });
-        if (error) {
-          console.error(`Error: ${JSON.stringify(error)}`);
-          return res
-            .status(500)
-            .send('failed to upload logo to storage bucket');
-        }
-        logoUrl = storageBucketUrlPrefix + data.path;
-      }
-      console.log(`logoUrl = ${logoUrl}, backgroundUrl = ${backgroundUrl}`);
-
-      const pathId = nanoid(); // Generate random path ID
-
+        
       const existingSheetID = await prisma.page.findUnique({
         where: { sheetId: sheetId },
       });
@@ -158,10 +113,53 @@ router.post(
           );
       }
 
+
+
+      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+      const { background, logo } = files;
+
+      let backgroundUrl: string | undefined = undefined;
+      let logoUrl: string | undefined = undefined;
+      const storageBucketUrlPrefix = process.env.SUPABASE_STORAGE_URL_PREFIX!;
+
+      if (background && background[0]) {
+        const fileName = background[0].originalname;
+        const buffer = background[0].buffer;
+        const { data, error } = await supabase.storage
+          .from('image-bucket')
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, { contentType: 'image/*' });
+        if (error) {
+          console.error(`Error: ${JSON.stringify(error)}`);
+          return res
+            .status(500)
+            .send('failed to upload background to storage bucket');
+        }
+        backgroundUrl = storageBucketUrlPrefix + data.path;
+      }
+
+      if (logo && logo[0]) {
+        const fileName = logo[0].originalname;
+        const buffer = logo[0].buffer;
+        const { data, error } = await supabase.storage
+          .from('image-bucket')
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, { contentType: 'image/*' });
+        if (error) {
+          console.error(`Error: ${JSON.stringify(error)}`);
+          return res
+            .status(500)
+            .send('failed to upload logo to storage bucket');
+      }
+        logoUrl = storageBucketUrlPrefix + data.path;
+      }
+      console.log(`logoUrl = ${logoUrl}, backgroundUrl = ${backgroundUrl}`);
+
+      const pathId = nanoid(); // Generate random path ID
+      const numberOrganisationId: number = Number.parseInt(organisationId);
+
       const page = await prisma.page.create({
         data: {
-          name: name, // or simply name, as they have the same name
-          organisationId: organisationId,
+          name: name, 
+          organisationId: numberOrganisationId,
           sheetId: sheetId,
           sheetTabId: sheetTabId,
           webLink: pathId,
@@ -176,7 +174,10 @@ router.post(
         },
       });
 
-      columns.forEach(async ({ originalName, mappedToName }) => {
+      // @ts-ignore
+      const parsedColumns = JSON.parse(columns);
+      // @ts-ignore
+      parsedColumns!.forEach(async ({ originalName, mappedToName }) => {
         await prisma.column.create({
           data: {
             pageId: page.id,
