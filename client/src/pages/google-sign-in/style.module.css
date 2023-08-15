@@ -16,6 +16,7 @@
   align-items: center;
   justify-content: center;
   gap: 1em;
+  /* border: 1px solid red; */
 }
 
 .door-image {
@@ -29,6 +30,7 @@
 }
 
 .sign-in-container {
+  /* border: 1px solid green; */
   display: flex;
   flex-direction: column;
   justify-content: center;
