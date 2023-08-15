@@ -6,7 +6,7 @@ import auth from '../../middleware/auth';
 import jwt from 'jsonwebtoken';
 
 
-export const router = Router();
+const router = Router();
 const prisma = new PrismaClient();
 
 
