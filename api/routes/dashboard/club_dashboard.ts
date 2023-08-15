@@ -12,8 +12,10 @@ const prisma = new PrismaClient();
 
 interface DashboardPage{
     club : Organisation // this doesn't contain the club logo, not sure where this is stored?
-    pages : Page[]
-    metrics : any // TODO: add metrics type
+    pages : (Page & {
+        weblink: String
+        metrics: any //TODO: add metrics type
+    })[]
 }
 
 router.get(
@@ -47,7 +49,7 @@ router.get(
                     .status(404)
                     .send('you must be in the organisation to have checker pages');
 
-            const convertedPages: (Page & {weblink: String}) [] = pagesInOrg.map((page : DBPage) => {
+            const convertedPages: (Page & {weblink: String, metrics: any}) [] = pagesInOrg.map((page : DBPage) => {
                 
                 const convertedColumns : Column[] = columns.filter((column : DBColumn) => page.id === column.pageId).map((column : DBColumn) => {
                     const convertedColumn : Column = {
@@ -57,7 +59,8 @@ router.get(
                     return convertedColumn;
                 })
 
-                const convertedPage: Page & {weblink: String} = {
+                const convertedPage: Page & {weblink: String, metrics: any} = {
+                  metrics: {},  
                   weblink: page.webLink,
                   identificationColumns: convertedColumns, // Fill this with your actual Column[] data
                   title: page.name,
@@ -79,7 +82,6 @@ router.get(
               const dashboardPage : DashboardPage = {
                     club : organisation,
                     pages : convertedPages,
-                    metrics : {}
               }
 
             return res.status(200).send(dashboardPage);
