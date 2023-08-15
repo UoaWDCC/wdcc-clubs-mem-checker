@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "commonjs",
   "scripts": {
-    "start": "tsc && node ./dist/index.js",
+    "start": "tsc && node ./dist/api/index.js",
     "watch": "nodemon ./index.ts"
   },
   "dependencies": {
