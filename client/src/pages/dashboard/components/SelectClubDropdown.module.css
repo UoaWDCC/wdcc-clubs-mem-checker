@@ -37,8 +37,9 @@
   border-radius: 0px 0px 10px 10px;
   overflow-x: hidden;
   overflow-y: auto;
-  position: fixed;
+  position: absolute;
   width: inherit;
+  z-index: 100;
 }
 
 /* width */

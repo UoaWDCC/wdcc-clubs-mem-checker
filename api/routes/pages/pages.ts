@@ -4,10 +4,15 @@ import { nanoid } from 'nanoid';
 import auth from '../../middleware/auth';
 import { JWT } from 'google-auth-library';
 import { drive_v3, google } from 'googleapis';
-import Column from '../../../client/src/types/Column';
+import multer, { memoryStorage } from 'multer';
+import { supabase } from '../..';
+import { v4 as uuidv4 } from 'uuid';
 
 const prisma = new PrismaClient();
-const router = express.Router();
+export const router = express.Router();
+
+const storage = memoryStorage();
+const upload = multer({ storage });
 
 const serviceClient = new google.auth.GoogleAuth({
   keyFile: 'membership-checker-e5457b93d746.json',
@@ -19,7 +24,7 @@ const serviceClient = new google.auth.GoogleAuth({
 
 interface PageCustomization {
   name: string;
-  organisationId: number;
+  organisationId: string;
   sheetId: string;
   sheetTabId: string;
   backgroundColor?: string;
@@ -30,100 +35,165 @@ interface PageCustomization {
   logoLink?: string;
   backgroundImageLink?: string;
   fontFamily?: string;
-  identificationColumns: Column[];
+  columns: {
+    originalName: string;
+    mappedTo?: string;
+  }[];
 }
 
-router.post('/create', auth, async (req: Request, res: Response) => {
-  try {
-    const customization: PageCustomization = req.body;
+router.post(
+  '/create',
+  upload.fields([
+    {
+      name: 'background',
+    },
+    {
+      name: 'logo',
+    },
+  ]),
+  auth,
+  async (req: Request, res: Response) => {
+    try {
+      const customization: PageCustomization = req.body;
 
-    const { name, organisationId, sheetId, sheetTabId, identificationColumns, ...rest } =
-      customization;
+      const {
+        name,
+        organisationId,
+        sheetId,
+        sheetTabId,
+        columns,
+        fontFamily,
+        ...rest
+      } = customization;
 
-    console.log(customization);
-    console.log(identificationColumns)
+      if (!name || !organisationId || !sheetId || !sheetTabId || !columns)
+        return res
+          .status(400)
+          .send(
+            '`name`, `organisationId`, `sheetId`, `sheetTabId`, and `columns` are required fields'
+          );
 
-    if (!name || !organisationId || !sheetId || !sheetTabId)
-      return res
-        .status(400)
-        .send(
-          '`name`, `organisationId`, `sheetId`, and `sheetTabId` are required fields'
-        );
-
-    const pathId = nanoid(); // Generate random path ID
         
-    const existingSheetID = await prisma.page.findUnique({
-      where: { sheetId: sheetId },
-    });
+      const existingSheetID = await prisma.page.findUnique({
+        where: { sheetId: sheetId },
+      });
 
-    if (existingSheetID) {
-      return res.status(400).json({ error: 'Sheet ID already exists' });
-    }
+      if (existingSheetID) {
+        return res.status(400).json({ error: 'Sheet ID already exists' });
+      }
 
-    const user = req.body.user;
-    // intialise credentials
-    const userEmailAddress = user.email;
+      const user = req.body.user;
+      // intialise credentials
+      const userEmailAddress = user.email;
 
-    // try {
-    //   const drive = google.drive({
-    //     version: 'v3',
-    //     auth: serviceClient,
-    //   });
-    //   console.log(await drive.files.list());
-    //   const permissions = await drive.permissions.list({
-    //     fileId: sheetId,
-    //     fields: 'permissions(emailAddress)',
-    //   });
-    //   const isSharedWithEmail = permissions.data.permissions!.some(
-    //     (permission: drive_v3.Schema$Permission) =>
-    //       permission.emailAddress === userEmailAddress
-    //   );
-    //   if (!isSharedWithEmail)
-    //     return res.status(401).send('unauthorised to access this spreadsheet');
-    // } catch (err) {
-    //   console.error(err);
-    //   return res
-    //     .status(500)
-    //     .send(
-    //       'failed to check if sheet is shared with user. make sure this spreadsheet is shared with the service account.'
-    //     );
-    // }
+      try {
+        const drive = google.drive({
+          version: 'v3',
+          auth: serviceClient,
+        });
+        console.log(await drive.files.list());
+        const permissions = await drive.permissions.list({
+          fileId: sheetId,
+          fields: 'permissions(emailAddress)',
+        });
+        const isSharedWithEmail = permissions.data.permissions!.some(
+          (permission: drive_v3.Schema$Permission) =>
+            permission.emailAddress === userEmailAddress
+        );
+        if (!isSharedWithEmail)
+          return res
+            .status(401)
+            .send('unauthorised to access this spreadsheet');
+      } catch (err) {
+        console.error(err);
+        return res
+          .status(500)
+          .send(
+            'failed to check if sheet is shared with user. make sure this spreadsheet is shared with the service account.'
+          );
+      }
 
-    const page = await prisma.page.create({
-      data: {
-        name: name, // or simply name, as they have the same name
-        organisationId: organisationId,
-        sheetId: sheetId,
-        sheetTabId: sheetTabId,
-        webLink: pathId,
-        backgroundColor: rest.backgroundColor,
-        textFieldBackgroundColor: rest.textFieldBackgroundColor,
-        textColor: rest.textColor,
-        buttonColor: rest.buttonColor,
-        headingColor: rest.headingColor,
-        logoLink: rest.logoLink,
-        backgroundImageLink: rest.backgroundImageLink,
-        fontFamily: rest.fontFamily!,
-      },
-    });
 
-    identificationColumns.forEach(async ({ originalName, displayName }) => {
-      console.log(originalName, displayName);
-      await prisma.column.create({
+
+      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+      const { background, logo } = files;
+
+      let backgroundUrl: string | undefined = undefined;
+      let logoUrl: string | undefined = undefined;
+      const storageBucketUrlPrefix = process.env.SUPABASE_STORAGE_URL_PREFIX!;
+
+      if (background && background[0]) {
+        const fileName = background[0].originalname;
+        const buffer = background[0].buffer;
+        const { data, error } = await supabase.storage
+          .from('image-bucket')
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, { contentType: 'image/*' });
+        if (error) {
+          console.error(`Error: ${JSON.stringify(error)}`);
+          return res
+            .status(500)
+            .send('failed to upload background to storage bucket');
+        }
+        backgroundUrl = storageBucketUrlPrefix + data.path;
+      }
+
+      if (logo && logo[0]) {
+        const fileName = logo[0].originalname;
+        const buffer = logo[0].buffer;
+        const { data, error } = await supabase.storage
+          .from('image-bucket')
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, { contentType: 'image/*' });
+        if (error) {
+          console.error(`Error: ${JSON.stringify(error)}`);
+          return res
+            .status(500)
+            .send('failed to upload logo to storage bucket');
+      }
+        logoUrl = storageBucketUrlPrefix + data.path;
+      }
+      console.log(`logoUrl = ${logoUrl}, backgroundUrl = ${backgroundUrl}`);
+
+      const pathId = nanoid(); // Generate random path ID
+      const numberOrganisationId: number = Number.parseInt(organisationId);
+
+      const page = await prisma.page.create({
         data: {
-          pageId: page.id,
-          sheetsName: originalName,
-          mappedTo: displayName || originalName,
+          name: name, 
+          organisationId: numberOrganisationId,
+          sheetId: sheetId,
+          sheetTabId: sheetTabId,
+          webLink: pathId,
+          backgroundColor: rest.backgroundColor,
+          textFieldBackgroundColor: rest.textFieldBackgroundColor,
+          textColor: rest.textColor,
+          buttonColor: rest.buttonColor,
+          headingColor: rest.headingColor,
+          logoLink: logoUrl,
+          backgroundImageLink: backgroundUrl,
+          fontFamily: fontFamily || 'Montserrat',
         },
       });
-    });
 
-    res.status(200).json({ pathId });
-  } catch (error) {
-    console.error('Error creating page:', error);
-    res.status(400).json({ error: 'Error creating page' });
+      // @ts-ignore
+      const parsedColumns = JSON.parse(columns);
+      // @ts-ignore
+      parsedColumns!.forEach(async ({ originalName, mappedTo }) => {
+        await prisma.column.create({
+          data: {
+            pageId: page.id,
+            sheetsName: originalName,
+            mappedTo: mappedTo || originalName,
+          },
+        });
+      });
+
+      res.status(200).json({ pathId });
+    } catch (error) {
+      console.error(`Error creating page: ${error}`);
+      res.status(400).json({ error: 'Error creating page' });
+    }
   }
-});
+);
 
 router.get(
   '/verify/:webLink/:columnName/:value',
@@ -251,5 +321,43 @@ router.get(
     }
   }
 );
+
+router.get("/info/:webLink", async (req: Request, res: Response) => {
+
+  const { webLink } = req.params;
+  
+  const pageData = await prisma.page.findFirst({
+    where: {
+      webLink
+    }
+  });
+
+  if (!pageData) return res.status(400).send("failed to get data with that link");
+
+  const columnData = await prisma.column.findMany({
+    where: {
+      pageId: pageData.id
+    }
+  });
+
+  if (!columnData) return res.status(400).send("failed to get columns data with that link");
+
+  const dataToReturn = {
+    title: pageData?.name,
+    backgroundColor: pageData?.backgroundColor,
+    textFieldBackgroundColor: pageData?.textFieldBackgroundColor,
+    textColor: pageData?.textColor,
+    buttonColor: pageData?.buttonColor,
+    headingColor: pageData?.headingColor,
+    logoLink: pageData?.logoLink,
+    backgroundImageLink: pageData?.backgroundImageLink,
+    fontFamily: pageData?.fontFamily,
+    clubId: pageData?.organisationId,
+
+  };
+
+  return res.status(200).send(dataToReturn);
+
+});
 
 export default router;

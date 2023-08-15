@@ -23,6 +23,8 @@ model Organisation {
   createdAt  DateTime                 @default(now())
   name       String                   @unique
   acronym    String?
+  users      UsersInOrganisation[]
+  pages      Page[]
   inviteCode OrganisationInviteCode[]
   pages      Page[]
   users      UsersInOrganisation[]
@@ -43,20 +45,20 @@ model Page {
   createdAt                DateTime               @default(now())
   name                     String
   organisationId           Int
+  organisation             Organisation           @relation(fields: [organisationId], references: [id])
   sheetId                  String                 @unique
+  sheetTabId               String                 @default("0")
   webLink                  String                 @unique
+  identificationColumns    Column[]
   backgroundColor          String                 @default("#0582CA")
-  backgroundImageLink      String?
+  membershipCheckUsage     MembershipCheckUsage[]
+  textFieldBackgroundColor String                 @default("#0676B6")
+  textColor                String                 @default("#FFFFFF")
   buttonColor              String                 @default("#53B2E3")
-  fontFamily               String
   headingColor             String                 @default("#FFFFFF")
   logoLink                 String?
-  textColor                String                 @default("#FFFFFF")
-  textFieldBackgroundColor String                 @default("#0676B6")
-  sheetTabId               String                 @default("0")
-  identificationColumns    Column[]
-  MembershipCheckUsage     MembershipCheckUsage[]
-  organisation             Organisation           @relation(fields: [organisationId], references: [id])
+  backgroundImageLink      String?
+  fontFamily               String
 }
 
 model Column {
@@ -77,6 +79,8 @@ model OrganisationInviteCode {
 
 model MembershipCheckUsage {
   id          Int      @id @default(autoincrement())
+  pageId      Int
+  page        Page     @relation(fields: [pageId], references: [id])
   isDuplicate Boolean
   userInput   String
   columnName  String

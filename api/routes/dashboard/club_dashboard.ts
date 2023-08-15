@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import { Metric } from '@prisma/client/runtime';
 
 
-export const router = Router();
+const router = Router();
 const prisma = new PrismaClient();
 
 interface MetricRecord {
