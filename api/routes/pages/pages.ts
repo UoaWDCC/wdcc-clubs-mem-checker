@@ -9,7 +9,7 @@ import { supabase } from '../..';
 import { v4 as uuidv4 } from 'uuid';
 
 const prisma = new PrismaClient();
-const router = express.Router();
+export const router = express.Router();
 
 const storage = memoryStorage();
 const upload = multer({ storage });
@@ -321,5 +321,43 @@ router.get(
     }
   }
 );
+
+router.get("/info/:webLink", async (req: Request, res: Response) => {
+
+  const { webLink } = req.params;
+  
+  const pageData = await prisma.page.findFirst({
+    where: {
+      webLink
+    }
+  });
+
+  if (!pageData) return res.status(400).send("failed to get data with that link");
+
+  const columnData = await prisma.column.findMany({
+    where: {
+      pageId: pageData.id
+    }
+  });
+
+  if (!columnData) return res.status(400).send("failed to get columns data with that link");
+
+  const dataToReturn = {
+    title: pageData?.name,
+    backgroundColor: pageData?.backgroundColor,
+    textFieldBackgroundColor: pageData?.textFieldBackgroundColor,
+    textColor: pageData?.textColor,
+    buttonColor: pageData?.buttonColor,
+    headingColor: pageData?.headingColor,
+    logoLink: pageData?.logoLink,
+    backgroundImageLink: pageData?.backgroundImageLink,
+    fontFamily: pageData?.fontFamily,
+    clubId: pageData?.organisationId,
+
+  };
+
+  return res.status(200).send(dataToReturn);
+
+});
 
 export default router;

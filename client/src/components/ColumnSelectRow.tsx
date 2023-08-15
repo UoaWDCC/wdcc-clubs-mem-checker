@@ -6,7 +6,7 @@ interface ColumnSelectRowProps {
   onCheckChange: (originalName: string, newCheckedValue: boolean) => void;
   originalName: string;
   customName: (originalName: string, newCustName: string) => void;
-  displayName: string;
+  mappedTo: string;
   isDefaultColumn: (column: string) => boolean;
   defaultColumn: string;
   isCheckedPersisted: boolean;
@@ -21,7 +21,7 @@ const ColumnSelectRow = ({
   customName,
   isCheckedPersisted,
   isUnique,
-  displayName,
+  mappedTo,
 }: ColumnSelectRowProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(
     isDefaultColumn(originalName) || isCheckedPersisted
@@ -32,11 +32,11 @@ const ColumnSelectRow = ({
   }, [defaultColumn]);
 
   const [custName, setCustName] = useState<string>(
-    isChecked ? displayName : ""
+    isChecked ? mappedTo : ""
   );
 
   useEffect(() => {
-    setCustName(isChecked ? displayName : "");
+    setCustName(isChecked ? mappedTo : "");
   }, []);
 
   // Save the input value to localStorage whenever it changes

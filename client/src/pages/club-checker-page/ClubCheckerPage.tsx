@@ -134,7 +134,7 @@ const ClubCheckerPage = ({
         </option>
         {optionsList.map((option) => (
           <option key={option.originalName} value={option.originalName}>
-            {option.displayName}
+            {option.mappedTo}
           </option>
         ))}
       </select>
@@ -159,16 +159,16 @@ const ClubCheckerPage = ({
           }}
           ref={textFieldLabelRef}
         >
-          {selectedIdentifier.displayName}
+          {selectedIdentifier.mappedTo}
         </p>
         <Textfield
           backgroundColor={textFieldBackgroundColor}
           isError={isError}
-          errorText={`Please enter a ${selectedIdentifier.displayName}`}
+          errorText={`Please enter a ${selectedIdentifier.mappedTo}`}
           height="45px"
           padding={`0px 0px 0px ${textFieldWidth + 18}px`}
           placeholder={
-            `please enter your ${selectedIdentifier.displayName}` ||
+            `please enter your ${selectedIdentifier.mappedTo}` ||
             "no identifier selected yet"
           }
           textColour={textFieldTextColor}

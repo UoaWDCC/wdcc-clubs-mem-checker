@@ -96,7 +96,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
     const foundColumn = selectedColumnsList.find(
       (column: Column) => column.originalName === name
     );
-    return foundColumn ? foundColumn.displayName : name;
+    return foundColumn ? foundColumn.mappedTo : name;
   }
 
   // Error handling if next button is clicked but default column hasn't been selected
@@ -150,11 +150,11 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
               if (defaultIndex != -1) {
                 removeColumn({
                   originalName: defaultColumn,
-                  displayName: selectedColumnsList[defaultIndex].displayName,
+                  mappedTo: selectedColumnsList[defaultIndex].displayName,
                 });
               }
               if (index == -1) {
-                addColumn({ originalName: column, displayName: column });
+                addColumn({ originalName: column, mappedTo: column });
               }
               setDefaultColumn(column);
               setShowError(false);
@@ -191,7 +191,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
               });
               const tempSelectedColumnsList = selectedColumnsList;
               setSelectedColumnsList([...selectedColumnsList]);
-              tempSelectedColumnsList[index].displayName = newCustName;
+              tempSelectedColumnsList[index].mappedTo = newCustName;
               setSelectedColumnsList(tempSelectedColumnsList);
               localStorage.setItem(
                 "selectedColumnsList",
@@ -201,7 +201,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
             }}
             onCheckChange={(originalName, newCheckedValue) => {
               if (newCheckedValue) {
-                addColumn({ originalName, displayName: originalName });
+                addColumn({ originalName, mappedTo: originalName });
               } else {
                 const index = selectedColumnsList.findIndex((obj: Column) => {
                   return obj.originalName === originalName;
@@ -210,7 +210,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
               }
               console.log(selectedColumnsList);
             }}
-            displayName={findDisplayName(column[0])}
+            mappedTo={findDisplayName(column[0])}
             isDefaultColumn={(column: string | boolean) =>
               column == defaultColumn
             }

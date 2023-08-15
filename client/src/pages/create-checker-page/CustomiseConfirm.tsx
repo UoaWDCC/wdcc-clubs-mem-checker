@@ -6,7 +6,7 @@ import { useContext, Dispatch, SetStateAction } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
-import { getSpreadsheetId } from './GoogleSheetForm';
+import { getSheetTabId, getSpreadsheetId } from './GoogleSheetForm';
 import { ClubDetails } from '../club-detail-page/ClubDetailPage';
 
 interface CustomiseConfirmProps {
@@ -26,21 +26,31 @@ const CustomiseConfirm = ({
   ];
   const navigate = useNavigate();
   function handleNext(): void {
-    const url = '/club/get-organisationId/' + clubDetails.clubName;
-    axios.get(url).then((res) => {
+
+    let formData = new FormData();
+    if (page.logoLink) {
+      formData.append("logo", page.logoLink!);
+    }
+
+    axios.get(`/club/get-organisationId/${clubDetails.clubName}`).then((res) => {
       const id = res.data.organisationId;
+      formData.append("name", page.title!);
+      formData.append("organisationId", id);
+      formData.append("sheetId", getSpreadsheetId(page.googleSheetLink!)!);
+      formData.append("sheetTabId", getSheetTabId(page.googleSheetLink!)!);
+      formData.append("columns", JSON.stringify(page.identificationColumns![0]));
+      if (page.textFieldBackgroundColor != null) formData.append("textFieldBackgroundColor", page.textFieldBackgroundColor!);
+      if (page.buttonColor != null) formData.append("buttonColor", page.buttonColor!);
+      if (page.textFieldtextColor != null) formData.append("textColor", page.textFieldtextColor!);
+      if (page.titleTextColor != null) formData.append("headingColor", page.titleTextColor!);
+      if (page.font != null) formData.append("fontFamily", page.font!);
+
+
       axios
-        .post('/pages/create', {
-          name: page.title,
-          organisationId: id,
-          sheetId: getSpreadsheetId(page.googleSheetLink!),
-          textFieldBackgroundColor: page.textFieldBackgroundColor,
-          textColor: page.textFieldtextColor,
-          buttonColor: page.buttonColor,
-          headingColor: page.titleTextColor,
-          logoLink: page.logoLink?.text,
-          backgroundImageLink: page.backgroundImageLink?.text,
-          fontFamily: page.font,
+        .post('/pages/create', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
         })
         .then((res) => {
           navigate('/confirmation', {

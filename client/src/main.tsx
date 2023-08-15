@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { HomePage } from "./pages/home/home";
-import { ExamplePage } from "./pages/example/page";
 import CreateCheckerPage from "./pages/create-checker-page/CreateCheckerPage";
 import ClubDetailPage from "./pages/club-detail-page/ClubDetailPage";
 import { GoogleSignIn } from "./pages/google-sign-in/GoogleSignInPage";
@@ -17,16 +16,14 @@ import DashboardPage from "./pages/dashboard/DashboardPage";
 import { ConfimationPage } from "./pages/onboarding-confirmation-page/ConfirmationPage";
 import ClubCheckerPage from "./pages/club-checker-page/ClubCheckerPage";
 import EmptyClubLogo from "./assets/EmptyClubLogo.svg";
+import CheckMembership from "./pages/check-membership/CheckMembership";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
   },
-  {
-    path: "/example",
-    element: <ExamplePage />,
-  },
+
   {
     path: "/create-page",
     element: <CreateCheckerPage />,
@@ -64,6 +61,10 @@ const router = createBrowserRouter([
     element: <ConfimationPage />,
   },
   {
+    path: "/check/:webLink",
+    element: <CheckMembership />
+  },
+  {
     path: "/checker-page",
     element: (
       // example props
@@ -73,9 +74,9 @@ const router = createBrowserRouter([
           clubName="UAWB"
           title="UAWB membership checker"
           optionsList={[
-            { originalName: "column1", displayName: "upi" },
-            { originalName: "column2", displayName: "first name" },
-            { originalName: "column3", displayName: "last name" },
+            { originalName: "column1", mappedTo: "upi" },
+            { originalName: "column2", mappedTo: "first name" },
+            { originalName: "column3", mappedTo: "last name" },
           ]}
           isOnboarding={false}
         />

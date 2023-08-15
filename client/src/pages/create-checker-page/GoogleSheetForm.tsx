@@ -25,7 +25,7 @@ export const getSpreadsheetId = (link: string): string | null => {
   return linkArray[idIndex];
 };
 
-const getSheetTabId = (link: string): string | null => {
+export const getSheetTabId = (link: string): string | null => {
   const regex = /edit#gid=(\w+)/;
   const linkArray = link.split("/");
   const gidIndex = linkArray.findIndex((value) =>
