@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -26,16 +29,14 @@ model Organisation {
   users      UsersInOrganisation[]
   pages      Page[]
   inviteCode OrganisationInviteCode[]
-  pages      Page[]
-  users      UsersInOrganisation[]
 }
 
 model UsersInOrganisation {
   userId         Int
   createdAt      DateTime     @default(now())
+  user           User         @relation(fields: [userId], references: [id])
   organisationId Int
   organisation   Organisation @relation(fields: [organisationId], references: [id])
-  user           User         @relation(fields: [userId], references: [id])
 
   @@id([userId, organisationId])
 }
@@ -73,8 +74,8 @@ model OrganisationInviteCode {
   id             Int          @id @default(autoincrement())
   code           String       @unique
   organisationId Int
-  createdAt      DateTime     @default(now())
   organisation   Organisation @relation(fields: [organisationId], references: [id])
+  createdAt      DateTime     @default(now())
 }
 
 model MembershipCheckUsage {
@@ -85,6 +86,4 @@ model MembershipCheckUsage {
   userInput   String
   columnName  String
   createdAt   DateTime @default(now())
-  pageId      Int
-  Page        Page     @relation(fields: [pageId], references: [id])
 }
