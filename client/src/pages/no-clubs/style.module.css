@@ -52,7 +52,7 @@ p.no-clubs {
 
 .tooltip_container {
   position: absolute;
-  right: -1rem;
+  right: -1.3rem;
   top: 50%;
   transform: translateY(-50%);
 }

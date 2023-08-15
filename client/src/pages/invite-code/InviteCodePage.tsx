@@ -1,11 +1,11 @@
-import Background from "../../components/Background";
-import styles from "./InviteCodePage.module.css";
-import Textfield from "../../components/Textfield";
-import Button from "../../components/Button";
-import BackButton from "../../components/BackButton";
-import axios from "axios";
-import { useNavigate } from "react-router";
-import { useRef, useState } from "react";
+import Background from '../../components/Background';
+import styles from './InviteCodePage.module.css';
+import Textfield from '../../components/Textfield';
+import Button from '../../components/Button';
+import BackButton from '../../components/BackButton';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
+import { useRef, useState } from 'react';
 
 const InviteCodePage = () => {
   const navigate = useNavigate();
@@ -13,18 +13,18 @@ const InviteCodePage = () => {
   const inviteCode = useRef<HTMLInputElement>(null);
   const [inviteCodeError, setInviteCodeError] = useState<boolean>(false);
   const handleOnBack = () => {
-    navigate("/no-clubs");
+    navigate('/no-clubs');
   };
   const handleOnNext = () => {
     const url =
-      "http://localhost:3000/club/verify-invite-code/" +
+      'http://localhost:3000/club/verify-invite-code/' +
       inviteCode.current?.value;
     axios
       .get(url)
       .then(function (response) {
         if (response.status === 200) {
           console.log(response.data);
-          navigate("/dashboard");
+          navigate('/dashboard');
         }
       })
       .catch(function (error) {
@@ -35,41 +35,50 @@ const InviteCodePage = () => {
   return (
     <Background>
       <div className={styles.container}>
-        <div>
-          <BackButton
-            onClick={handleOnBack}
-            size="40px"
-            backgroundColor="#087DF1"
-            margin="0 500px 0 0"
-            color="#FFFFFF"
-          />
-          <div className={styles.title}>
-            <h1>enter invite code</h1>
-          </div>
-          <i className={styles.subtitle}>
-            please enter the invite code sent by an existing club admin
-          </i>
-        </div>
-        <Textfield
-          backgroundColor="#ffffff"
-          height="40px"
-          placeholder="enter code here"
-          width="95%"
-          placeholderTextAlign="center"
-          isError={inviteCodeError}
-          ref={inviteCode}
-          errorText="invalid invite code"
+        <BackButton
+          onClick={handleOnBack}
+          size="40px"
+          backgroundColor="transparent"
+          margin="0 500px 0 0"
+          color="#183249"
+          hoverColor="#03045E0F"
         />
+        <div className={styles.title}>
+          <h1>enter invite code</h1>
+        </div>
+        <i className={styles.subtitle}>
+          please enter the invite code sent by an existing club admin
+        </i>
+        <div className={styles.textfield}>
+          <Textfield
+            backgroundColor="#ffffff"
+            height="3rem"
+            fontSize="1.2rem"
+            placeholder="enter code here"
+            width="100%"
+            textAlign="center"
+            ref={inviteCode}
+            isError={inviteCodeError}
+          />
+          {inviteCodeError && (
+            <>
+              <div className={styles['error-arrow']}></div>
+              <div className={styles['error-box']}>invalid code</div>
+            </>
+          )}
+        </div>
+
         <p className={styles.body}>
           if you don’t know what this is, please contact one of your club’s
           admins with an existing account in our system and ask them to share an
           invite code with you.
         </p>
         <Button
-          buttonText="enter"
+          buttonText="submit"
           onClick={handleOnNext}
           backgroundColor="#03045E"
-          width="100px"
+          width="8rem"
+          height="2.8rem"
         />
       </div>
     </Background>
