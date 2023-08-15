@@ -27,6 +27,9 @@ app.use(rateLimiter);
 
 const supabaseProjectUrl = process.env.SUPABASE_PROJECT_URL!;
 const supabaseApiKey = process.env.SUPABASE_API_KEY!;
+console.log(
+  `SUPABASE_PROJECT_URL = ${supabaseProjectUrl}, SUPABASE_API_KEY = ${supabaseApiKey}`
+);
 export const supabase = createClient(supabaseProjectUrl, supabaseApiKey);
 
 app.use(
@@ -52,8 +55,10 @@ app.get('/firstname', auth, async (req, res) => {
 });
 
 app.get('/organisationid', auth, async (req, res) => {
-  return res.status(200).json({ organisationId: req.body.user.organisations.organisationId })
-})
+  return res
+    .status(200)
+    .json({ organisationId: req.body.user.organisations.organisationId });
+});
 
 app.get('/', maybeAuth, async (req, res) => {
   const name = req.body.user?.firstName || 'World';

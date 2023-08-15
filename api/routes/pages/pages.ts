@@ -6,6 +6,7 @@ import { JWT } from 'google-auth-library';
 import { drive_v3, google } from 'googleapis';
 import multer, { memoryStorage } from 'multer';
 import { supabase } from '../..';
+import { v4 as uuidv4 } from 'uuid';
 
 const prisma = new PrismaClient();
 const router = express.Router();
@@ -45,135 +46,149 @@ router.post(
   upload.fields([
     {
       name: 'background',
-      maxCount: 1,
     },
     {
       name: 'logo',
-      maxCount: 1,
     },
   ]),
   auth,
   async (req: Request, res: Response) => {
     try {
-      console.log(req);
-      console.log(req.files);
-      // @ts-ignore
-      const { background, logo } = req.files;
+      const customization: PageCustomization = req.body;
+
+      const {
+        name,
+        organisationId,
+        sheetId,
+        sheetTabId,
+        columns,
+        fontFamily,
+        ...rest
+      } = customization;
+
+      if (!name || !organisationId || !sheetId || !sheetTabId || !columns)
+        return res
+          .status(400)
+          .send(
+            '`name`, `organisationId`, `sheetId`, `columns`, and `sheetTabId` are required fields'
+          );
+
+      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+      const { background, logo } = files;
 
       let backgroundUrl: string | undefined = undefined;
+      let logoUrl: string | undefined = undefined;
+      const storageBucketUrlPrefix = process.env.SUPABASE_STORAGE_URL_PREFIX!;
+
       if (background && background[0]) {
-        const fileName = background[0].originalName;
+        const fileName = background[0].originalname;
         const buffer = background[0].buffer;
         const { data, error } = await supabase.storage
           .from('image-bucket')
-          .upload(fileName, buffer);
-        if (error)
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
+            cacheControl: '3600',
+            upsert: false,
+          });
+        if (error) {
+          console.error(`Error: ${JSON.stringify(error)}`);
           return res
             .status(500)
             .send('failed to upload background to storage bucket');
-        backgroundUrl = data.path;
+        }
+        backgroundUrl = storageBucketUrlPrefix + data.path;
       }
 
-      let logoUrl: string | undefined = undefined;
       if (logo && logo[0]) {
-        const fileName = logo[0].originalName;
+        const fileName = logo[0].originalname;
         const buffer = logo[0].buffer;
         const { data, error } = await supabase.storage
           .from('image-bucket')
-          .upload(fileName, buffer);
-        if (error)
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
+            cacheControl: '3600',
+            upsert: false,
+          });
+        if (error) {
+          console.error(`Error: ${JSON.stringify(error)}`);
           return res
             .status(500)
             .send('failed to upload logo to storage bucket');
-        logoUrl = data.path;
+        }
+        logoUrl = storageBucketUrlPrefix + data.path;
       }
-
       console.log(`logoUrl = ${logoUrl}, backgroundUrl = ${backgroundUrl}`);
 
-      //     const customization: PageCustomization = req.body;
+      const pathId = nanoid(); // Generate random path ID
 
-      //     const { name, organisationId, sheetId, sheetTabId, columns, ...rest } =
-      //       customization;
+      const existingSheetID = await prisma.page.findUnique({
+        where: { sheetId: sheetId },
+      });
 
-      //     if (!name || !organisationId || !sheetId || !sheetTabId)
-      //       return res
-      //         .status(400)
-      //         .send(
-      //           '`name`, `organisationId`, `sheetId`, and `sheetTabId` are required fields'
-      //         );
+      if (existingSheetID) {
+        return res.status(400).json({ error: 'Sheet ID already exists' });
+      }
 
-      //     const pathId = nanoid(); // Generate random path ID
+      const user = req.body.user;
+      // intialise credentials
+      const userEmailAddress = user.email;
 
-      //     const existingSheetID = await prisma.page.findUnique({
-      //       where: { sheetId: sheetId },
-      //     });
+      try {
+        const drive = google.drive({
+          version: 'v3',
+          auth: serviceClient,
+        });
+        console.log(await drive.files.list());
+        const permissions = await drive.permissions.list({
+          fileId: sheetId,
+          fields: 'permissions(emailAddress)',
+        });
+        const isSharedWithEmail = permissions.data.permissions!.some(
+          (permission: drive_v3.Schema$Permission) =>
+            permission.emailAddress === userEmailAddress
+        );
+        if (!isSharedWithEmail)
+          return res
+            .status(401)
+            .send('unauthorised to access this spreadsheet');
+      } catch (err) {
+        console.error(err);
+        return res
+          .status(500)
+          .send(
+            'failed to check if sheet is shared with user. make sure this spreadsheet is shared with the service account.'
+          );
+      }
 
-      //     if (existingSheetID) {
-      //       return res.status(400).json({ error: 'Sheet ID already exists' });
-      //     }
+      const page = await prisma.page.create({
+        data: {
+          name: name, // or simply name, as they have the same name
+          organisationId: organisationId,
+          sheetId: sheetId,
+          sheetTabId: sheetTabId,
+          webLink: pathId,
+          backgroundColor: rest.backgroundColor,
+          textFieldBackgroundColor: rest.textFieldBackgroundColor,
+          textColor: rest.textColor,
+          buttonColor: rest.buttonColor,
+          headingColor: rest.headingColor,
+          logoLink: logoUrl,
+          backgroundImageLink: backgroundUrl,
+          fontFamily: fontFamily || 'Montserrat',
+        },
+      });
 
-      //     const user = req.body.user;
-      //     // intialise credentials
-      //     const userEmailAddress = user.email;
+      columns.forEach(async ({ originalName, mappedToName }) => {
+        await prisma.column.create({
+          data: {
+            pageId: page.id,
+            sheetsName: originalName,
+            mappedTo: mappedToName || originalName,
+          },
+        });
+      });
 
-      //     try {
-      //       const drive = google.drive({
-      //         version: 'v3',
-      //         auth: serviceClient,
-      //       });
-      //       console.log(await drive.files.list());
-      //       const permissions = await drive.permissions.list({
-      //         fileId: sheetId,
-      //         fields: 'permissions(emailAddress)',
-      //       });
-      //       const isSharedWithEmail = permissions.data.permissions!.some(
-      //         (permission: drive_v3.Schema$Permission) =>
-      //           permission.emailAddress === userEmailAddress
-      //       );
-      //       if (!isSharedWithEmail)
-      //         return res
-      //           .status(401)
-      //           .send('unauthorised to access this spreadsheet');
-      //     } catch (err) {
-      //       console.error(err);
-      //       return res
-      //         .status(500)
-      //         .send(
-      //           'failed to check if sheet is shared with user. make sure this spreadsheet is shared with the service account.'
-      //         );
-      //     }
-
-      //     const page = await prisma.page.create({
-      //       data: {
-      //         name: name, // or simply name, as they have the same name
-      //         organisationId: organisationId,
-      //         sheetId: sheetId,
-      //         sheetTabId: sheetTabId,
-      //         webLink: pathId,
-      //         backgroundColor: rest.backgroundColor,
-      //         textFieldBackgroundColor: rest.textFieldBackgroundColor,
-      //         textColor: rest.textColor,
-      //         buttonColor: rest.buttonColor,
-      //         headingColor: rest.headingColor,
-      //         logoLink: logoUrl,
-      //         backgroundImageLink: backgroundUrl,
-      //         fontFamily: rest.fontFamily!,
-      //       },
-      //     });
-
-      //     columns.forEach(async ({ originalName, mappedToName }) => {
-      //       await prisma.column.create({
-      //         data: {
-      //           pageId: page.id,
-      //           sheetsName: originalName,
-      //           mappedTo: mappedToName || originalName,
-      //         },
-      //       });
-      //     });
-
-      //     res.status(200).json({ pathId });
+      res.status(200).json({ pathId });
     } catch (error) {
-      console.error('Error creating page:', error);
+      console.error(`Error creating page: ${error}`);
       res.status(400).json({ error: 'Error creating page' });
     }
   }
