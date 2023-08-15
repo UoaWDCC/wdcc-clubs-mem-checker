@@ -12,10 +12,13 @@ const InviteCodePage = () => {
 
   const inviteCode = useRef<HTMLInputElement>(null);
   const [inviteCodeError, setInviteCodeError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const handleOnBack = () => {
     navigate('/no-clubs');
   };
   const handleOnNext = () => {
+    setIsLoading(true);
     const url =
       'http://localhost:3000/club/verify-invite-code/' +
       inviteCode.current?.value;
@@ -24,11 +27,13 @@ const InviteCodePage = () => {
       .then(function (response) {
         if (response.status === 200) {
           console.log(response.data);
+          setIsLoading(false);
           navigate('/dashboard');
         }
       })
       .catch(function (error) {
         setInviteCodeError(true);
+        setIsLoading(false);
         console.log(error);
       });
   };
@@ -79,6 +84,7 @@ const InviteCodePage = () => {
           backgroundColor="#03045E"
           width="8rem"
           height="2.8rem"
+          isLoading={isLoading}
         />
       </div>
     </Background>

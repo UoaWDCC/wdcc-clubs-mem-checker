@@ -13,6 +13,7 @@
 .input::placeholder {
   color: var(--placeholder-color);
   font-family: 'Montserrat';
+  opacity: 0.5;
 }
 
 .errorText {

@@ -1,14 +1,14 @@
-import styles from "./style.module.css";
-import { BackSquare } from "iconsax-react";
-import { useRef, useState } from "react";
-import Textfield from "../../components/Textfield";
-import Button from "../../components/Button";
-import BackButton from "../../components/BackButton";
-import { ClubDetails } from "./ClubDetailPage";
-import axios from "axios";
-import { useNavigate } from "react-router";
+import styles from './style.module.css';
+import { BackSquare } from 'iconsax-react';
+import { useRef, useState } from 'react';
+import Textfield from '../../components/Textfield';
+import Button from '../../components/Button';
+import BackButton from '../../components/BackButton';
+import { ClubDetails } from './ClubDetailPage';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
 
-const url = "/club/create"; //temp url
+const url = '/club/create'; //temp url
 
 interface ClubDetailFormProps {
   onNext: (clubDetails: ClubDetails) => void;
@@ -20,22 +20,24 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
   const clubAcronymRef = useRef<HTMLInputElement>(null);
   const [clubNameError, setClubNameError] = useState(false);
   const [clubAcronymError, setClubAcronymError] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [clubNameErrorMessage, setClubNameErrorMessage] =
-    useState("enter club name");
+    useState('enter club name');
 
   const handleOnClick = () => {
-    if (clubNameRef.current?.value === "") {
-      setClubNameErrorMessage("enter club name");
+    if (clubNameRef.current?.value === '') {
+      setClubNameErrorMessage('enter club name');
       setClubNameError(true);
     }
-    if (clubAcronymRef.current?.value === "") {
+    if (clubAcronymRef.current?.value === '') {
       setClubAcronymError(true);
     }
     if (
-      clubNameRef.current?.value !== "" &&
-      clubAcronymRef.current?.value !== ""
+      clubNameRef.current?.value !== '' &&
+      clubAcronymRef.current?.value !== ''
     ) {
+      setIsLoading(true);
       axios
         .post(url, {
           clubName: clubNameRef.current?.value,
@@ -48,16 +50,18 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
               clubName: clubNameRef.current?.value!,
               clubAcronym: clubAcronymRef.current?.value!,
             });
+            setIsLoading(false);
           }
         })
         .catch(function (error) {
-          setClubNameErrorMessage("the club you want to create already exists");
+          setClubNameErrorMessage('the club you want to create already exists');
           setClubNameError(true);
+          setIsLoading(false);
         });
     }
   };
   const handleOnBack = () => {
-    navigate("/no-clubs");
+    navigate('/no-clubs');
   };
 
   return (
@@ -84,9 +88,11 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
       <div>
         <Textfield
           margin="1rem 0rem -2rem 2rem"
+          padding="0 1rem"
           width="20rem"
           height="4rem"
-          fontSize="1.5rem"
+          fontSize="1.3rem"
+          fontWeight="500"
           placeholder="club name"
           ref={clubNameRef}
           onChange={() => setClubNameError(false)}
@@ -95,9 +101,11 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
         />
         <Textfield
           margin="2rem 2rem 0rem 2rem"
+          padding="0 1rem"
           width="20rem"
           height="4rem"
-          fontSize="1.5rem"
+          fontSize="1.3rem"
+          fontWeight="500"
           placeholder="club acronym"
           ref={clubAcronymRef}
           onChange={() => setClubAcronymError(false)}
@@ -110,7 +118,8 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
         onClick={handleOnClick}
         width="10rem"
         height="4rem"
-        fontSize="1.5rem"
+        fontSize="1.3rem"
+        isLoading={isLoading}
       />
     </div>
   );
