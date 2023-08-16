@@ -1,45 +1,47 @@
-import React, { useState, useRef } from "react";
+import React, {
+  useState,
+  useRef,
+  Dispatch,
+  SetStateAction,
+  useContext,
+} from "react";
 import styles from "./CheckerPagePreview.module.css";
 import ClubCheckerPage from "../pages/club-checker-page/ClubCheckerPage";
 import Textfield from "./Textfield";
 import copyIcon from "../assets/CopyIcon2.svg";
 import ClickNextArrow from "../assets/ClickNextArrow.svg";
 import ClickPrevArrow from "../assets/ClickPreviousArrow.svg";
-
-interface CheckerPage {
-  clubId: number;
-  clubName: string;
-  title?: string;
-  backgroundColor?: string;
-  titleTextColor?: string;
-  textFieldBackgroundColor?: string;
-  textFieldTextColor?: string;
-  buttonBackgroundColor?: string;
-  dropDownBackgroundColor?: string;
-  font?: string;
-  clubLogoUrl?: File;
-  backgroundImageUrl?: File;
-  optionsList: { originalName: string; displayName: string }[];
-  isOnboarding: boolean;
-}
+import {
+  Dashboard,
+  DashboardContextProvider,
+} from "../pages/dashboard/Dashboard";
+import { PageMetrics } from "../../../api/routes/dashboard/club_dashboard";
+import Page from "../types/Page";
 
 interface CheckerPagePreviewProps {
-  pages: CheckerPage[];
+  pages: (Page & { weblink: String; metrics: PageMetrics })[];
 }
 
 const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
+  const [dashboard, setDashboard] = useContext(DashboardContextProvider) as [
+    Dashboard,
+    Dispatch<SetStateAction<Dashboard>>
+  ];
   const [currentPage, setCurrentPage] = useState(0);
   const textFieldRef = useRef<HTMLInputElement | null>(null);
 
   const handleNextPage = () => {
     if (currentPage < pages.length - 1) {
       setCurrentPage(currentPage + 1);
+      setDashboard({ ...dashboard, selectedPageId: currentPage + 1 });
     }
   };
 
   const handlePrevPage = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
+
+      setDashboard({ ...dashboard, selectedPageId: currentPage - 1 });
     }
   };
 
@@ -81,21 +83,17 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
           </div>
         )}
 
-        <div key={currentPageData.clubId} className={styles.checkerPageWrapper}>
+        <div className={styles.checkerPageWrapper}>
           <ClubCheckerPage
-            clubId={currentPageData.clubId}
-            clubName={currentPageData.clubName}
             title={currentPageData.title}
             backgroundColor={currentPageData.backgroundColor}
             titleTextColor={currentPageData.titleTextColor}
             textFieldBackgroundColor={currentPageData.textFieldBackgroundColor}
-            textFieldTextColor={currentPageData.textFieldTextColor}
-            buttonBackgroundColor={currentPageData.buttonBackgroundColor}
+            textFieldTextColor={currentPageData.textFieldBackgroundColor}
+            buttonBackgroundColor={currentPageData.buttonColor}
             dropDownBackgroundColor={currentPageData.dropDownBackgroundColor}
             font={currentPageData.font}
-            clubLogoUrl={currentPageData.clubLogoUrl}
-            backgroundImageUrl={currentPageData.backgroundImageUrl}
-            optionsList={currentPageData.optionsList}
+            optionsList={currentPageData.identificationColumns!}
             isOnboarding={true}
           />
           <div className={styles.overlayButtons}>
@@ -137,7 +135,7 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
                 {/* Show the navigation dots */}
                 {pages.map((page, index) => (
                   <span
-                    key={page.clubId}
+                    key={index}
                     className={`${
                       index === currentPage
                         ? styles.activeDot + " " + styles.clicked

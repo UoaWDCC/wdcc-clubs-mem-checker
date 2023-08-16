@@ -17,8 +17,8 @@ import { getTextColor } from "../../utils/helpers";
 import Column from "../../types/Column";
 
 interface ClubCheckerPageProps {
-  clubId: number;
-  clubName: string;
+  clubId?: number;
+  clubName?: string;
   title?: string;
   // colors
   backgroundColor?: string;

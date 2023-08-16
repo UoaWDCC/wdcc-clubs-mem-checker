@@ -1,94 +1,115 @@
 import styles from "./CheckerPageMetrics.module.css";
-import {useState, useEffect} from 'react';
-import axios from 'axios';
+import {
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+  useContext,
+} from "react";
+import axios from "axios";
 import { ArrowDown2, ArrowUp2 } from "iconsax-react";
+import {
+  Dashboard,
+  DashboardContextProvider,
+} from "../pages/dashboard/Dashboard";
+import {
+  MetricRecord,
+  PageMetrics,
+} from "../../../api/routes/dashboard/club_dashboard";
 
 export interface CheckerPageMetricsProps {
-  temp ?: string;
+  temp?: string;
 }
 
-const CheckerPageMetrics = ({
-}: CheckerPageMetricsProps) => {
+const CheckerPageMetrics = ({}: CheckerPageMetricsProps) => {
   /* time periods: last 7 days, last 2 weeks, last month, all time */
-  
-  // Example statistics that might come from endpoint
-  const timePeriodMetrics = {
-    "last 7 days": [24, 4], 
-    "last 2 weeks": [30, 5], 
-    "last month": [40, 5], 
-    "all time": [50, 10]
-  };
-    
-  
+  const [dashboard, setDashboard] = useContext(DashboardContextProvider) as [
+    Dashboard,
+    Dispatch<SetStateAction<Dashboard>>
+  ];
+  if (
+    dashboard.checkerPage === undefined ||
+    dashboard.selectedPageId === undefined ||
+    dashboard.checkerPage.pages[dashboard.selectedPageId] === undefined
+  ) {
+    return <div></div>;
+  }
+  const metrics = dashboard.checkerPage.pages[dashboard.selectedPageId].metrics;
+  const possibleTimePeriods = Object.keys(metrics);
 
-  const possibleTimePeriods = ["last 7 days", "last 2 weeks", "last month", "all time"] 
   const [timePeriod, setTimePeriod] = useState(possibleTimePeriods[0]);
   const [isOpen, setIsOpen] = useState(false);
-  const [statistic, setStatistic] = useState([0, 0]);
+  const [statistic, setStatistic] = useState<MetricRecord>(
+    metrics[possibleTimePeriods[0] as keyof PageMetrics]
+  );
 
   const handleSelectTimePeriod = (time: string) => {
-    setIsOpen(!isOpen)
-    setTimePeriod(time)
-    setStatistic(timePeriodMetrics[time]);
+    setIsOpen(!isOpen);
+    setTimePeriod(time);
+    setStatistic(metrics[time as keyof PageMetrics]);
   };
 
   return (
     <div className={styles.container}>
-      <div 
+      <div
         className={styles.subcontainer}
         style={{
           background: "transparent",
-          height: "20%"
+          height: "20%",
         }}
       >
         <div
-          className = {styles.dropdown}
+          className={styles.dropdown}
           style={{
-            background: "#087DF1"
+            background: "#087DF1",
           }}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <p className={styles.dropdownText}>{ timePeriod } </p>
+          <p className={styles.dropdownText}>{timePeriod} </p>
           <div className={styles.dropdownArrow}>
-            {!isOpen && <ArrowDown2 size="20" color="white"/>}
-            {isOpen && <ArrowUp2 size="20" color="white"/>}
+            {!isOpen && <ArrowDown2 size="20" color="white" />}
+            {isOpen && <ArrowUp2 size="20" color="white" />}
           </div>
         </div>
-        {isOpen && 
+        {isOpen && (
           <div className={styles.dropdownList}>
             {possibleTimePeriods.map((time, i) => (
               <div
                 className={styles.dropdownCard}
                 onClick={() => handleSelectTimePeriod(time)}
-                style={{transform: "translate(0%, 5.7vh)"}}
+                style={{ transform: "translate(0%, 5.7vh)" }}
               >
                 <p>{time}</p>
               </div>
             ))}
           </div>
-        }
+        )}
       </div>
-      <div 
+      <div
         className={styles.subcontainer}
         style={{
           background: "transparent",
-          height: "40%"
+          height: "40%",
         }}
       >
         <h1 className={styles.header}>number of users</h1>
         <h1 className={styles.subheader}>total number of checks performed</h1>
-        <h1 className={styles.statisticText}>{statistic[0]}</h1>
+        <h1 className={styles.statisticText}>{statistic?.numberOfChecks}</h1>
       </div>
-      <div 
+      <div
         className={styles.subcontainer}
         style={{
           background: "white",
-          height: "40%"
+          height: "40%",
         }}
       >
         <h1 className={styles.header}>duplicates found</h1>
-        <h2 className={styles.subheader}>total number of existing memberships found</h2> 
-        <h1 className={styles.statisticText}>{statistic[1]}</h1>
+        <h2 className={styles.subheader}>
+          total number of existing memberships found
+        </h2>
+        <h1 className={styles.statisticText}>
+          {statistic?.numberOfDuplicates}
+        </h1>
       </div>
     </div>
   );

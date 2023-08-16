@@ -1,8 +1,6 @@
-
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import DashboardPage from './DashboardPage';
-import CheckerPageMetrics from '../../components/CheckerPageMetrics';
-import ClubAdminsList from '../../components/ClubAdminsList';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import CheckerPageMetrics from "../../components/CheckerPageMetrics";
+import ClubAdminsList from "../../components/ClubAdminsList";
 import styles from "./style.module.css";
 import GenerateInviteCode from "../../components/GenerateInviteCode";
 import axios from "axios";
@@ -11,61 +9,80 @@ import WDCCLogoBlue from "../../assets/wdcc_blue_logo.svg";
 import SelectClubDropdown, {
   DropdownClub,
 } from "./components/SelectClubDropdown";
+import Page from "../../types/Page";
+import { DashboardPage } from "../../../../api/routes/dashboard/club_dashboard";
 
 export interface Dashboard {
-  checkerPage?: string;
+  checkerPage?: DashboardPage;
   selectedClub?: DropdownClub;
+  selectedPageId?: number; // stores the selected page id
 }
 
 export const DashboardContextProvider = React.createContext([{}, () => {}]);
 
-const CreateDashboard = () => {
-  const [dashboard, setDashboard] = useState<Dashboard>(() => {
-    const storedSelectedClub = localStorage.getItem("selectedClub");
-    return storedSelectedClub
-      ? { checkerPage: JSON.parse(storedSelectedClub) }
-      : {};
-  });
+const Dashboard = () => {
+  const [dashboard, setDashboard] = useState<Dashboard>({});
 
-  const pages = [
-    {
-      clubId: 1,
-      clubName: "Example Club 1",
-      title: "Checker Page Title 1",
-      // Other data for page 1
-      optionsList: [
-        { originalName: "option1", displayName: "Option 1" },
-        { originalName: "option2", displayName: "Option 2" },
-        { originalName: "option3", displayName: "Option 3" },
-      ],
-      isOnboarding: true,
-    },
-    {
-      clubId: 2,
-      clubName: "Example Club 2",
-      title: "Checker Page Title 2",
-      // Other data for page 2
-      optionsList: [
-        { originalName: "option4", displayName: "Option 4" },
-        { originalName: "option5", displayName: "Option 5" },
-        { originalName: "option6", displayName: "Option 6" },
-      ],
-      isOnboarding: false,
-    },
-    // Add more pages as needed
-    {
-      clubId: 3,
-      clubName: "Example Club 3",
-      title: "Checker Page Title 3",
-      // Other data for page 2
-      optionsList: [
-        { originalName: "option7", displayName: "Option 7" },
-        { originalName: "option8", displayName: "Option 8" },
-        { originalName: "option9", displayName: "Option 9" },
-      ],
-      isOnboarding: false,
-    },
-  ];
+  // load cached selected club
+  const storedSelectedClub = localStorage.getItem("selectedClub");
+  dashboard.selectedClub = storedSelectedClub
+    ? JSON.parse(storedSelectedClub)
+    : undefined;
+
+  useEffect(() => {
+    axios
+      .get(`/dashboard/club-dashboard-endpoint/${dashboard.selectedClub?.id}`)
+      .then((response) => {
+        setDashboard({
+          ...dashboard,
+          checkerPage: response.data,
+          selectedPageId: 0,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [dashboard.selectedClub]);
+
+  // const pages = [
+  //   {
+  //     clubId: 1,
+  //     clubName: "Example Club 1",
+  //     title: "Checker Page Title 1",
+  //     // Other data for page 1
+  //     optionsList: [
+  //       { originalName: "option1", displayName: "Option 1" },
+  //       { originalName: "option2", displayName: "Option 2" },
+  //       { originalName: "option3", displayName: "Option 3" },
+  //     ],
+  //     isOnboarding: true,
+  //   },
+  //   {
+  //     clubId: 2,
+  //     clubName: "Example Club 2",
+  //     title: "Checker Page Title 2",
+  //     // Other data for page 2
+  //     optionsList: [
+  //       { originalName: "option4", displayName: "Option 4" },
+  //       { originalName: "option5", displayName: "Option 5" },
+  //       { originalName: "option6", displayName: "Option 6" },
+  //     ],
+  //     isOnboarding: false,
+  //   },
+  //   // Add more pages as needed
+  //   {
+  //     clubId: 3,
+  //     clubName: "Example Club 3",
+  //     title: "Checker Page Title 3",
+  //     // Other data for page 2
+  //     optionsList: [
+  //       { originalName: "option7", displayName: "Option 7" },
+  //       { originalName: "option8", displayName: "Option 8" },
+  //       { originalName: "option9", displayName: "Option 9" },
+  //     ],
+  //     isOnboarding: false,
+  //   },
+  // ];
 
   const [code, setCode] = useState("click generate");
   const [isClicked, setClicked] = useState(false);
@@ -86,12 +103,7 @@ const CreateDashboard = () => {
 
   // temporary clubs array for dropdown
   // TODO: retrieve clubs of user and create array of type DropdownClub[]
-  const testDropdownClubs: DropdownClub[] = [
-    { id: 1, name: "Club 1" },
-    { id: 2, name: "Club 2" },
-    { id: 3, name: "Club 3" },
-    { id: 4, name: "Club 4" },
-  ];
+  const testDropdownClubs: DropdownClub[] = [{ id: 1, name: "Club 1" }];
   return (
     <DashboardContextProvider.Provider value={[dashboard, setDashboard]}>
       <div className={styles.dashboardContainer}>
@@ -107,7 +119,11 @@ const CreateDashboard = () => {
             >
               <SelectClubDropdown clubs={testDropdownClubs} />
             </div>
-             <div className={ `${styles.adminShareContainer} ${styles.dashboardItemContainer}` }><ClubAdminsList></ClubAdminsList></div>
+            <div
+              className={`${styles.adminShareContainer} ${styles.dashboardItemContainer}`}
+            >
+              <ClubAdminsList></ClubAdminsList>
+            </div>
             <div
               className={`${styles.clubAdminContainer} ${styles.dashboardItemContainer}`}
             >
@@ -123,14 +139,19 @@ const CreateDashboard = () => {
             <div
               className={`${styles.pagePreviewContainer} ${styles.dashboardItemContainer}`}
             >
-              <CheckerPagePreview pages={pages} />
+              {dashboard.checkerPage?.pages && (
+                <CheckerPagePreview pages={dashboard.checkerPage.pages} />
+              )}
             </div>
-            <div className={ styles.colTwoRowTwo }>
-              <div className={ `${styles.clubMembersContainer} ${styles.dashboardItemContainer}` }></div>
-              <div className={ `${styles.usersContainer} ${styles.dashboardItemContainer}` }>
+            <div className={styles.colTwoRowTwo}>
+              <div
+                className={`${styles.clubMembersContainer} ${styles.dashboardItemContainer}`}
+              ></div>
+              <div
+                className={`${styles.usersContainer} ${styles.dashboardItemContainer}`}
+              >
                 <CheckerPageMetrics />
               </div>
-
             </div>
           </div>
         </div>
@@ -139,4 +160,4 @@ const CreateDashboard = () => {
   );
 };
 
-export default CreateDashboard;
+export default Dashboard;
