@@ -64,24 +64,19 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
       <p className={styles.overlayText}>Checker Pages</p>
       <div className={styles.preview}>
         {/* Read-only textbox and copy button */}
-        {pages.length > 1 && (
-          <div className={styles.urlContainer}>
-            <Textfield
-              height="2rem"
-              width="100%"
-              placeholder="www.checkerpage.com"
-              readOnly={true}
-              backgroundColor="#C1C1C2"
-              ref={textFieldRef}
-            />
-            <button
-              className={styles.copyButton}
-              onClick={handleCopyButtonClick}
-            >
-              <img src={copyIcon} alt="Copy" className={styles.copyIcon} />
-            </button>
-          </div>
-        )}
+        <div className={styles.urlContainer}>
+          <Textfield
+            height="2rem"
+            width="100%"
+            placeholder="www.checkerpage.com"
+            readOnly={true}
+            backgroundColor="#C1C1C2"
+            ref={textFieldRef}
+          />
+          <button className={styles.copyButton} onClick={handleCopyButtonClick}>
+            <img src={copyIcon} alt="Copy" className={styles.copyIcon} />
+          </button>
+        </div>
 
         <div className={styles.checkerPageWrapper}>
           <ClubCheckerPage
