@@ -34,6 +34,7 @@ const CheckerPageMetrics = ({}: CheckerPageMetricsProps) => {
   ) {
     return <div></div>;
   }
+
   const metrics = dashboard.checkerPage.pages[dashboard.selectedPageId].metrics;
   const possibleTimePeriods = Object.keys(metrics);
 
@@ -42,6 +43,9 @@ const CheckerPageMetrics = ({}: CheckerPageMetricsProps) => {
   const [statistic, setStatistic] = useState<MetricRecord>(
     metrics[possibleTimePeriods[0] as keyof PageMetrics]
   );
+  useEffect(() => {
+    setStatistic(metrics[possibleTimePeriods[0] as keyof PageMetrics]);
+  }, [JSON.stringify(metrics)]);
 
   const handleSelectTimePeriod = (time: string) => {
     setIsOpen(!isOpen);
@@ -73,8 +77,9 @@ const CheckerPageMetrics = ({}: CheckerPageMetricsProps) => {
         </div>
         {isOpen && (
           <div className={styles.dropdownList}>
-            {possibleTimePeriods.map((time, i) => (
+            {possibleTimePeriods.map((time) => (
               <div
+                key={time}
                 className={styles.dropdownCard}
                 onClick={() => handleSelectTimePeriod(time)}
                 style={{ transform: "translate(0%, 5.7vh)" }}

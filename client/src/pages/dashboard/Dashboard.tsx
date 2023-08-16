@@ -42,7 +42,7 @@ const Dashboard = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [dashboard.selectedClub]);
+  }, [JSON.stringify(dashboard.selectedClub)]);
 
   // const pages = [
   //   {
