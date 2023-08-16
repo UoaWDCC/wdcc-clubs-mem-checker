@@ -36,12 +36,12 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
           <p className={styles.optionalText}>
             please upload your club's logo (optional)
           </p>
-        </div>
-        <div>
-          <UploadButton
-            onFileSelect={(file) => setPage({ ...page, logoLink: file })}
-            currentFile={page.logoLink} // Pass the current file from the page state
-          />
+          <div>
+            <UploadButton
+                onFileSelect={(file) => setPage({ ...page, logoLink: file })}
+                currentFile={page.logoLink} // Pass the current file from the page state
+            />
+          </div>
         </div>
         <div id={styles.CustomisePageNextButton}>
           <Button onClick={onNext} buttonText="next" width="5vw" />
