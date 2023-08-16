@@ -5,6 +5,7 @@ import Textfield from "./Textfield";
 import copyIcon from "../assets/CopyIcon2.svg";
 import ClickNextArrow from "../assets/ClickNextArrow.svg";
 import ClickPrevArrow from "../assets/ClickPreviousArrow.svg";
+import {Copy, TickCircle} from 'iconsax-react';
 
 interface CheckerPage {
   clubId: number;
@@ -30,6 +31,7 @@ interface CheckerPagePreviewProps {
 const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const textFieldRef = useRef<HTMLInputElement | null>(null);
+  const [copied, setIsCopied] = useState(false);
 
   const handleNextPage = () => {
     if (currentPage < pages.length - 1) {
@@ -50,12 +52,15 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
       const value = textFieldRef.current?.placeholder;
       try {
         await navigator.clipboard.writeText(value);
+        setIsCopied(true);
         console.log("Copy succeeded");
       } catch (error) {
         console.log("Copy failed:  ", error);
       }
     }
   };
+
+  setTimeout(() => setIsCopied(false), 7500);
 
   return (
     <div className={styles.previewContainer}>
@@ -76,7 +81,11 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
               className={styles.copyButton}
               onClick={handleCopyButtonClick}
             >
-              <img src={copyIcon} alt="Copy" className={styles.copyIcon} />
+              {copied ? (
+                <TickCircle className={styles.copyIcon}/>
+            ) : (
+                  <img src={copyIcon} alt="Copy" className={styles.copyIcon} />
+            )}
             </button>
           </div>
         )}

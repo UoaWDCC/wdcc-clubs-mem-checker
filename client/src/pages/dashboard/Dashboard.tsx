@@ -41,7 +41,7 @@ const CreateDashboard = () => {
       isOnboarding: true,
     },
     {
-      clubId: 2,
+      clubId: 1,
       clubName: "Example Club 2",
       title: "Checker Page Title 2",
       // Other data for page 2
@@ -54,7 +54,7 @@ const CreateDashboard = () => {
     },
     // Add more pages as needed
     {
-      clubId: 3,
+      clubId: 1,
       clubName: "Example Club 3",
       title: "Checker Page Title 3",
       // Other data for page 2

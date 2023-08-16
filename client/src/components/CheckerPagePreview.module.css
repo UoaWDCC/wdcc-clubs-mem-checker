@@ -25,9 +25,9 @@
 /*    border-radius: 20px;*/
 /*}*/
 
-.container {
-  height: 10px !important;
-}
+/*.container {*/
+/*  height: 10px !important;*/
+/*}*/
 
 .previewContainer {
   position: relative;
@@ -169,19 +169,19 @@
   position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: -1.5%;
+  margin-bottom: 1.5%;
 }
 
 .copyButton {
   position: absolute;
-  top: 30%;
+  top: 50%;
   transform: translateY(-50%);
   right: 0rem; /* Adjust the distance from the right */
   display: flex;
   align-items: center;
   justify-content: center;
   width: 2.5rem;
-  height: 50%;
+  height: 90%;
   background-color: transparent;
   border: none;
   cursor: pointer;
