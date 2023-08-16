@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
 .title {
-  color: #ffffff;
+  color: #183249;
   position: absolute;
   font-size: 3.3vw;
   letter-spacing: 0.08vw;
@@ -19,7 +19,7 @@
 }
 
 .paragraph {
-  color: #ffffff;
+  color: #183249;
   position: absolute;
 
   font-size: 1.8vw;
