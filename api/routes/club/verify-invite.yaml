@@ -1,0 +1,15 @@
+get:
+  security:
+    - jwt_token:
+        - 'read:users'
+        - 'read:clubs'
+  operationId: verifyInviteCode
+  summary: 'Verify the club invite code shared'
+  tags:
+    - 'Club'
+  description: 'Verify invite code containing users organisation ID signed by a JWT Token. If JWT token signature is valid, it will add the signed in user to the club with that name'
+  responses:
+    200:
+      description: 'successfully added user to organisation'
+    400:
+      description: 'invalid token'

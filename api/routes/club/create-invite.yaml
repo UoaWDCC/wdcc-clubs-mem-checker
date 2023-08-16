@@ -1,0 +1,15 @@
+get:
+  security:
+    - jwt_token:
+        - 'read:users'
+        - 'read:clubs'
+  operationId: createInviteCode
+  summary: 'Create the invite code for new members to join the club'
+  tags:
+    - 'Club'
+  description: 'Create the invite code for new members to join the club. Creates 6 digit code that expires in 2 hours.'
+  responses:
+    200:
+      description: 'successfully added user to organisation'
+    400:
+      description: 'invalid token'

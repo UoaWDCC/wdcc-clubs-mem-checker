@@ -1,0 +1,59 @@
+get:
+  security:
+    - jwt_token:
+        - 'read:users'
+        - 'read:clubs'
+  operationId: getColumns
+  tags:
+    - 'Columns'
+  summary: |
+    'Get the columns from page'
+  servers: []
+  description: 'Get the columns from the page with the id'
+  responses:
+    200:
+      description: 'OK'
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                unique:
+                  type: boolean
+          example:
+            - id: 'A'
+              name: 'Email'
+              unique: true
+            - id: 'B'
+              name: 'UPI'
+              unique: false
+            - id: 'C'
+              name: 'Student ID'
+              unique: true
+    400:
+      description: 'BAD REQUEST'
+      content:
+        application/text:
+          schema:
+            type: string
+          examples:
+            example1:
+              value: 'spreadsheet has no sheets'
+            example2:
+              value: 'sheet not found'
+            example3:
+              value: 'could not find user'
+
+    500:
+      description: 'INTERNAL SERVER ERROR'
+      content:
+        application/text:
+          schema:
+            type: string
+          example: 'error retrieving data'

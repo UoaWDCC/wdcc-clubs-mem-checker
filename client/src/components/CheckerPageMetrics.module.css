@@ -1,0 +1,100 @@
+.container{
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%; 
+}
+
+.subcontainer{
+  border-radius: 10px;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.header{
+  color: rgb(3, 4, 94);
+  font-size: 3.7vh;
+  font-family: Montserrat;
+  font-weight: 600;
+  line-height: 1.1em;
+}
+
+.subheader{
+  color: rgb(3, 4, 94, 0.48);
+  font-size: 1.5vh;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.statisticText{
+  color: #03045E;
+  font-size: 5vh;
+  font-weight: 900;
+  /* font-family: Montserrat; */
+}
+
+.dropdown{
+  position: relative;
+  height: 6vh;
+  width: 15vw;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  z-index: 2;
+  cursor: pointer;
+  
+  
+}
+
+.dropdownText{
+  padding: 10%;
+  color: white;
+  font-size: 2vh;
+  font-family: Montserrat;
+  font-weight: 600;
+}
+
+.dropdownArrow{
+  padding: 10%;
+  display: flex;
+  align-items: center;
+}
+
+.dropdownList{
+  position: absolute;
+  border-radius: 10px;
+  background: #489EF4;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 15vw;
+  height: 21.7  vh;
+}
+
+.dropdownCard {
+  align-items: center;
+  column-gap: 10px;
+  cursor: pointer;
+  display: flex;
+  padding: 5px 20px;
+  fill-opacity: 50%;
+  z-index: 3;
+  font-size: 1.7vh;
+  font-weight: 500;
+  font-family: Montserrat;
+  height: 5vh;
+  /*disable highlighting of text*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  &:hover {
+    background: #0c81d4;
+  }
+}

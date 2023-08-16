@@ -1,56 +1,79 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
-
 :root {
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-	line-height: 1.5;
-	font-weight: 400;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
 
-	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
 
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-text-size-adjust: 100%;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 a {
-	font-weight: 500;
-	color: #646cff;
-	text-decoration: inherit;
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
 }
 a:hover {
-	color: #535bf2;
+  color: #535bf2;
 }
 
 body {
-	margin: 0;
-	display: flex;
-	min-width: 100vw;
-	min-height: 100vh;
+  margin: 0;
+  display: flex;
+  min-width: 100vw;
+  min-height: 100vh;
 }
 @media (prefers-color-scheme: light) {
-	:root {
-		color: #213547;
-		background-color: #ffffff;
-	}
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
 }
-
+@font-face {
+  font-family: "Montserrat";
+  src: url("../public/Montserrat-VariableFont_wght.ttf");
+}
 .montserrat {
-	font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
 
-.logo {
-	position: absolute;
-	top: 40px;
-	right: 40px;
-	width: 120px;
+.fontpicker{
+  background: #E0E0E0 !important;
+  border-color: #2E2E2F !important;
+  border-radius: 4px;
+  outline: none;
+  height: 3rem;
 }
+
+.fontpicker__preview{
+  filter: invert(11%) sepia(5%) saturate(244%) hue-rotate(201deg) brightness(100%) contrast(82%) !important;
+  margin-top: 0.5rem;
+}
+
+[class^="font-preview-"]{
+  filter: invert(11%) sepia(5%) saturate(244%) hue-rotate(201deg) brightness(100%) contrast(82%) !important;
+}
+
+.fontpicker__option, .fontpicker__search{
+  background: #E0E0E0 !important;
+  color:#2E2E2F !important;
+}
+
+.fontpicker__option.selected{
+  background: #C0c0c0 !important;
+  border-width: 1px !important;
+  border-color:#2E2E2F !important;
+}
+

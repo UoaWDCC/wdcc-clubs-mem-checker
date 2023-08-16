@@ -1,7 +1,11 @@
-import styles from './style.module.css';
-import BackArrow from '../../assets/BackArrow.svg';
-import { useContext, Dispatch, SetStateAction } from 'react';
-import { PageContextProvider, Page } from './CreateCheckerPage';
+import styles from "./style.module.css";
+import Button from "../../components/Button";
+import BackButton from "../../components/BackButton";
+import { useContext, Dispatch, SetStateAction } from "react";
+import { PageContextProvider, Page } from "./CreateCheckerPage";
+import { ColorPicker } from "./CustomiseColors Components/ColorPicker";
+import { ChromePicker } from "react-color";
+import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
 
 interface CustomiseColorsProps {
   onNext: () => void;
@@ -13,31 +17,55 @@ const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
     Page,
     Dispatch<SetStateAction<Page>>
   ];
+  function handleNext(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
-        <button
-          id={styles.CustomisePageBackButton}
-          onClick={onBack}
-        >
-          <img src={BackArrow} />
-        </button>
-        <div>
-          <h2>customise page</h2>
-          <i className={styles.subtitle}>customise page for your members</i>
+        <div id={styles.CustomisePageBackButton}>
+          <BackButton
+            onClick={onBack}
+            color="#087DF1"
+            size="27px"
+            hoverColor="#cceeff"
+            backgroundColor="transparent"
+            margin="0 500px 0 0"
+          />
         </div>
-        <div>
-          <p>choose your theme colours</p>
+        <div className={styles.title}>
+          <h1>customise page</h1>
         </div>
-        <button
-          id={styles.CustomisePageNextButton}
-          onClick={onNext}
-        >
-          next
-        </button>
+        <i className={styles.subtitle} style={{ fontWeight: 500 }}>
+          customise page for your members
+        </i>
+        <div style={{ position: "absolute", left: "3.5vw", top: "17vh" }}>
+          <ColorPicker />
+        </div>
+        <div id={styles.CustomisePageNextButton}>
+          <Button onClick={onNext} buttonText="next" width="5vw" />
+        </div>
       </div>
       <div className={styles.previewContainer}>
-        <div className={styles.preview}></div>
+        <div className={styles.preview}>
+          <ClubCheckerPage
+            clubId={0}
+            clubName={""}
+            title={page.title}
+            backgroundColor={page.backgroundColor}
+            titleTextColor={page.titleTextColor}
+            textFieldBackgroundColor={page.textFieldBackgroundColor}
+            textFieldTextColor={page.textFieldtextColor}
+            buttonBackgroundColor={page.buttonColor}
+            dropDownBackgroundColor={page.dropDownBackgroundColor}
+            font={page.font}
+            clubLogoUrl={page.logoLink}
+            backgroundImageUrl={page.backgroundImageLink}
+            optionsList={page.identificationColumns || []}
+            isOnboarding={true}
+          />
+        </div>
         <i>page preview</i>
       </div>
     </div>
