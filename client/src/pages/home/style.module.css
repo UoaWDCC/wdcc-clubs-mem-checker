@@ -2,16 +2,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
+.home {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .home_container {
+    max-width: 90%;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: flex-start;
+    padding: 8em 0;
+  }
+}
+
 .title {
-  color: #ffffff;
-  position: absolute;
-  font-size: 3.3vw;
-  letter-spacing: 0.11vw;
-
-  width: 50vw;
-
-  top: 17vh;
-  left: 10.3vw;
+  color: #183249;
+  font-size: 2.8em;
 
   font-family: 'Montserrat';
   font-style: normal;
@@ -19,50 +30,43 @@
 }
 
 .paragraph {
-  color: #ffffff;
-  position: absolute;
+  color: #183249;
+  font-size: 1.5em;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  width: 20em;
 
-  font-size: 2.05vw;
-  line-height: 4.3vh;
-  letter-spacing: 0.05vw;
-
-  height: auto;
-  width: 36vw;
-
-  top: 28vh;
-  left: 10.4vw;
+  margin-top: 1em;
 
   font-family: 'Open Sans';
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 body {
-  background-color: #087df1;
+  background-color: #e6e9f1;
 }
 
 .intro_button {
-  position: absolute;
-  left: 22vw;
-  top: 69vh;
+  margin-top: 1.5em;
 }
 
 .logo {
   position: absolute;
-
-  top: 7vh;
-  right: 3vw;
-
-  width: 10vw;
+  top: 3em;
+  right: 3em;
+  width: 9em;
   height: auto;
 }
 
 .femaleProgrammer {
-  position: absolute;
-
-  top: 15vh;
-  right: 7vw;
-
+  top: 7em;
   width: auto;
-  height: 70vh;
+  height: 30em;
+}
+
+.hide_for_mobile {
+  @media (max-width: 63.9375em) {
+    display: none;
+  }
 }

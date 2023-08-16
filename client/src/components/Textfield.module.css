@@ -2,7 +2,8 @@
   border: none;
   border-radius: 8px;
   padding: 10px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  text-align: var(--text-align);
 }
 
 .input:focus {
@@ -11,10 +12,10 @@
 
 .input::placeholder {
   color: var(--placeholder-color);
-  font-family: "Montserrat";
-  text-align: var(--placeholder-text-align);
+  font-family: 'Montserrat';
+  opacity: 0.5;
 }
 
 .errorText {
-  color: red;
+  color: #f58693;
 }
