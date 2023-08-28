@@ -1,6 +1,7 @@
 import ColorPickerItem from "./ColorPickerItem";
 import { useContext, Dispatch, SetStateAction } from "react";
-import { PageContextProvider, Page } from "../CreateCheckerPage";
+import { PageContextProvider } from "../CreateCheckerPage";
+import Page from "../../../types/Page";
 
 export const ColorPicker = () => {
   const [page, setPage] = useContext(PageContextProvider) as [
@@ -16,11 +17,12 @@ export const ColorPicker = () => {
           borderRadius: "10px",
           color: "black",
           fontStyle: "italic",
-          fontSize: "0.9rem",
-          width: "11vw",
+          fontSize: "1.5vh",
+          width: "10vw",
           height: "3vh",
           alignItems: "center",
           justifyContent: "center",
+          marginLeft: "1vw",
         }}
       >
         choose your theme colours

@@ -1,11 +1,11 @@
 @font-face {
-  font-family: "Montserrat Italic";
-  src: url("../../../public/Montserrat-Italic-VariableFont_wght.ttf");
+  font-family: 'Montserrat Italic';
+  src: url('../../../public/Montserrat-Italic-VariableFont_wght.ttf');
 }
 
 @font-face {
-  font-family: "Montserrat SemiBold";
-  src: url("../../../public/Montserrat-SemiBold.ttf");
+  font-family: 'Montserrat SemiBold';
+  src: url('../../../public/Montserrat-SemiBold.ttf');
 }
 
 .container {
@@ -14,7 +14,7 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   height: 75%;
   justify-content: space-between;
   margin: 100px auto;
@@ -41,7 +41,7 @@
 }
 
 .bar {
-  background-color: #ffd166;
+  background-color: #087df1;
   border: none;
   border-radius: 10px;
   height: 8px;
@@ -54,12 +54,12 @@
   font-size: 1rem;
   text-align: left;
   color: #087df1;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
 }
 
 .subtitle {
   font-size: 0.9rem;
-  font-family: "Montserrat Italic";
+  font-family: 'Montserrat Italic';
   color: #087df1;
 }
 
@@ -67,7 +67,7 @@
   display: flex;
   font-size: 33px;
   text-align: center;
-  font-family: "Montserrat SemiBold";
+  font-family: 'Montserrat SemiBold';
   color: #087df1;
 }
 
@@ -76,7 +76,7 @@
   padding-left: 12px;
   font-size: 14px;
   text-align: center;
-  font-family: "Open Sans";
+  font-family: 'Open Sans';
   font-style: italic;
   color: #aaaaaa;
   margin-bottom: 60px;
@@ -84,7 +84,7 @@
 
 .styling_subtext {
   font-size: 0.9rem;
-  font-family: "Montserrat Italic";
+  font-family: 'Montserrat Italic';
   color: #aaaaaa;
 }
 

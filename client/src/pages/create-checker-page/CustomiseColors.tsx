@@ -2,7 +2,8 @@ import styles from "./style.module.css";
 import Button from "../../components/Button";
 import BackButton from "../../components/BackButton";
 import { useContext, Dispatch, SetStateAction } from "react";
-import { PageContextProvider, Page } from "./CreateCheckerPage";
+import { PageContextProvider } from "./CreateCheckerPage";
+import Page from "../../types/Page";
 import { ColorPicker } from "./CustomiseColors Components/ColorPicker";
 import { ChromePicker } from "react-color";
 import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
@@ -40,7 +41,7 @@ const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
         <i className={styles.subtitle} style={{ fontWeight: 500 }}>
           customise page for your members
         </i>
-        <div style={{ position: "absolute", left: "3.5vw", top: "17vh" }}>
+        <div style={{ float: "left", width: "100%" }}>
           <ColorPicker />
         </div>
         <div id={styles.CustomisePageNextButton}>

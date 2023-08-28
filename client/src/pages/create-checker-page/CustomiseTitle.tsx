@@ -9,7 +9,8 @@ import {
   useEffect,
 } from "react";
 
-import { PageContextProvider, Page } from "./CreateCheckerPage";
+import { PageContextProvider } from "./CreateCheckerPage";
+import Page from "../../types/Page";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
 import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";

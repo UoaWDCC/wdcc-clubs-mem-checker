@@ -8,7 +8,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import { PageContextProvider, Page } from "./CreateCheckerPage";
+import { PageContextProvider } from "./CreateCheckerPage";
+import Page from "../../types/Page";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
 import LinkIcon from "../../assets/LinkIcon.svg";
@@ -25,7 +26,7 @@ export const getSpreadsheetId = (link: string): string | null => {
   return linkArray[idIndex];
 };
 
-const getSheetTabId = (link: string): string | null => {
+export const getSheetTabId = (link: string): string | null => {
   const regex = /edit#gid=(\w+)/;
   const linkArray = link.split("/");
   const gidIndex = linkArray.findIndex((value) =>

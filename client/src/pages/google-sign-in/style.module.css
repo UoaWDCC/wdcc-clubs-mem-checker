@@ -1,24 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
-.container {
+.sign_in_page {
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  /* border: 1px solid red; */
 }
 
 .door-image {
-  width: min(50vw, 600px);
+  width: min(45em, 50%);
+}
+
+.hide_for_mobile {
+  @media (max-width: 63.9375em) {
+    display: none;
+  }
 }
 
 .sign-in-container {
+  /* border: 1px solid green; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 4rem;
+  width: 25em;
+  min-width: 25em;
 }
 
 .text {
@@ -27,23 +46,22 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  color: white;
+  color: #183249;
 }
 
 .title {
   font-size: 2.5rem;
   font-weight: 600;
   font-family: 'Montserrat';
-  color: white;
+  color: #183249;
 }
 
 .subtitle {
   font-family: 'Open Sans';
   font-style: italic;
   font-size: 1.5rem;
-  width: 70%;
   text-align: center;
-  color: white;
+  color: #183249;
 }
 
 .sign-in-with-google-button {
@@ -55,10 +73,4 @@
   align-items: center;
   gap: 0.5rem;
   border-radius: 2rem;
-}
-
-@media only screen and (max-width: 700px) {
-  .door-image {
-    display: none;
-  }
 }

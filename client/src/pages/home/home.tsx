@@ -1,5 +1,5 @@
 import styles from './style.module.css';
-import WDCCLogo from '../../assets/WdccLogo.svg';
+import WDCCLogo from '../../assets/wdcc_blue_logo.svg';
 import femaleProgrammer from '../../assets/femaleProgrammer.svg';
 import { useNavigate } from 'react-router';
 import Button from '../../components/Button';
@@ -10,47 +10,40 @@ export const HomePage = () => {
     navigate('/sign-in');
   };
   return (
-    <div>
+    <div className={styles.home}>
       <title>Club Membership Checker</title>
+      <img className={styles.logo} src={WDCCLogo} alt="WDCC Logo" />
+      <div className={styles.home_container}>
+        <div className={styles.col1}>
+          <h1 className={styles.title}>Club Membership Checker</h1>
 
-      <img
-        className={styles.logo}
-        src={WDCCLogo}
-        alt="WDCC Logo"
-      />
+          <p className={styles.paragraph}>
+            we’re here to make membership status checking super easy for you and
+            your club members. <br />
+            <br />
+            simply link your club’s Google Sheet to create and customise your
+            club’s checker page, and manage your data in the admin dashboard.
+          </p>
+          <div className={styles.intro_button}>
+            <Button
+              buttonText="get started!"
+              width="8.5em"
+              height="3.1em"
+              backgroundColor="transparent"
+              hoverColor="#03045E0F"
+              color="#03045E"
+              border="3px solid #03045E"
+              fontWeight="600"
+              fontSize="1.2em"
+              onClick={handleButtonClick}
+            />
+          </div>
+        </div>
 
-      <div>
-        <h1 className={styles.title}>Club Membership Checker</h1>
-      </div>
-
-      <div>
-        <p className={styles.paragraph}>
-          we’re here to make membership status checking super easy for you and
-          your club members. <br />
-          <br />
-          simply link your club’s Google Sheet to create and customise your
-          club’s checker page, and manage your data in the admin dashboard.
-        </p>
-      </div>
-
-      <img
-        className={styles.femaleProgrammer}
-        src={femaleProgrammer}
-        alt=""
-        width={100}
-        height={500}
-      />
-
-      <div className={styles.intro_button}>
-        <Button
-          buttonText="get started!"
-          width="15vw"
-          height="6vw"
-          backgroundColor="#FFD166"
-          border="None"
-          fontWeight="600"
-          fontSize="1.6vw"
-          onClick={handleButtonClick}
+        <img
+          className={`${styles.femaleProgrammer} ${styles.hide_for_mobile}`}
+          src={femaleProgrammer}
+          alt=""
         />
       </div>
     </div>

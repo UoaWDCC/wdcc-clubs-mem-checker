@@ -57,10 +57,10 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
       >
         <div
           style={{
-            height: "20px",
+            height: "2.5vh",
             display: "flex",
             alignItems: "center",
-            paddingLeft: "5px",
+            paddingLeft: "0.5vw",
           }}
         >
           <img
@@ -72,9 +72,9 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
           <div
             style={{
               color: "#AAAAAA",
-              fontSize: "0.7rem",
+              fontSize: "1.3vh",
               float: "left",
-              marginLeft: "10px",
+              marginLeft: "1vw",
             }}
           >
             {title}
@@ -82,7 +82,7 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
         </div>
         <div
           style={{
-            height: "20px",
+            height: "1.5vh",
             alignItems: "center",
             display: "flex",
             paddingLeft: "2vw",
@@ -91,8 +91,8 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
         >
           <div
             style={{
-              height: "15px",
-              width: "15px",
+              height: "1.5vh",
+              width: "1.5vh",
               float: "left",
               background: color,
             }}
@@ -101,7 +101,7 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
             style={{
               color: "black",
               float: "left",
-              fontSize: "10px",
+              fontSize: "1.5vh",
               paddingLeft: "0.5vw",
               paddingRight: "1vw",
               width: "3vw",
@@ -113,7 +113,7 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
             style={{
               color: "black",
               float: "left",
-              fontSize: "10px",
+              fontSize: "1.5vh",
               paddingLeft: "0.5vw",
             }}
           >
@@ -125,8 +125,8 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
         <div
           style={{
             position: "absolute",
-            left: "21.5vw",
-            top: "5vh",
+            left: "25vw",
+            top: "15vh",
             zIndex: "10",
           }}
           ref={refOne}

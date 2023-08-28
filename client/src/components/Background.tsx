@@ -1,5 +1,5 @@
-import styles from "./Background.module.css";
-import WdccLogo from "../assets/WdccLogo.svg";
+import styles from './Background.module.css';
+import WdccLogo from '../assets/wdcc_blue_logo.svg';
 
 interface BackgroundProps {
   children?: React.ReactNode;
