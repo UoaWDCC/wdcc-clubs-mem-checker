@@ -15,6 +15,7 @@ import { useLocation } from "react-router";
 import { ClubDetails } from "../club-detail-page/ClubDetailPage";
 import Page from "../../types/Page";
 
+
 export const PageContextProvider = createContext([{}, () => {}]);
 
 const CreateCheckerPage = () => {

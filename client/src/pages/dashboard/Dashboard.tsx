@@ -10,6 +10,8 @@ import SelectClubDropdown, {
   DropdownClub,
 } from "./components/SelectClubDropdown";
 import Page from "../../types/Page";
+import ClubSize from '../../components/ClubSize';
+import { Page } from '../create-checker-page/CreateCheckerPage';
 import { DashboardPage } from "../../../../api/routes/dashboard/club_dashboard";
 
 export interface Dashboard {
@@ -146,13 +148,9 @@ const Dashboard = () => {
                 <CheckerPagePreview pages={dashboard.checkerPage.pages} />
               )}
             </div>
-            <div className={styles.colTwoRowTwo}>
-              <div
-                className={`${styles.clubMembersContainer} ${styles.dashboardItemContainer}`}
-              ></div>
-              <div
-                className={`${styles.usersContainer} ${styles.dashboardItemContainer}`}
-              >
+            <div className={ styles.colTwoRowTwo }>
+              <div className={ `${styles.clubMembersContainer} ${styles.dashboardItemContainer}` }><ClubSize /></div>
+              <div className={ `${styles.usersContainer} ${styles.dashboardItemContainer}` }>
                 <CheckerPageMetrics />
               </div>
             </div>

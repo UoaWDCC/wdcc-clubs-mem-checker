@@ -8,6 +8,10 @@
     src: url("../../public/Montserrat-Light.ttf");
 }
 
+.container{
+    margin-top: -2rem;
+}
+
 #upload-button {
     display: none;
 }
