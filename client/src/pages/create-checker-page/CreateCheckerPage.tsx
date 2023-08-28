@@ -27,6 +27,7 @@ export interface Page {
   dropDownBackgroundColor?: string;
   logoLink?: File;
   backgroundImageLink?: File;
+  clubSize?: number;
 }
 
 export const PageContextProvider = createContext([{}, () => {}]);

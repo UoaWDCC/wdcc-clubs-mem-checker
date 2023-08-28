@@ -11,9 +11,11 @@ import WDCCLogoBlue from "../../assets/wdcc_blue_logo.svg";
 import SelectClubDropdown, {
   DropdownClub,
 } from "./components/SelectClubDropdown";
+import ClubSize from '../../components/ClubSize';
+import { Page } from '../create-checker-page/CreateCheckerPage';
 
 export interface Dashboard {
-  checkerPage?: string;
+  checkerPage?: Page;
   selectedClub?: DropdownClub;
 }
 
@@ -126,11 +128,11 @@ const CreateDashboard = () => {
               <CheckerPagePreview pages={pages} />
             </div>
             <div className={ styles.colTwoRowTwo }>
-              <div className={ `${styles.clubMembersContainer} ${styles.dashboardItemContainer}` }></div>
+
+              <div className={ `${styles.clubMembersContainer} ${styles.dashboardItemContainer}` }><ClubSize /></div>
               <div className={ `${styles.usersContainer} ${styles.dashboardItemContainer}` }>
                 <CheckerPageMetrics />
               </div>
-
             </div>
           </div>
         </div>
