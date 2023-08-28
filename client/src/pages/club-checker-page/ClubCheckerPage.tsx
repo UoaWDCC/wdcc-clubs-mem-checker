@@ -56,7 +56,7 @@ const ClubCheckerPage = ({
   optionsList,
   isOnboarding,
 }: ClubCheckerPageProps) => {
-  document.body.style.backgroundColor = backgroundColor || "white";
+  // document.body.style.backgroundColor = backgroundColor || "white";
 
   const textFieldLabelRef = useRef<HTMLInputElement>(null);
 
@@ -93,7 +93,7 @@ const ClubCheckerPage = ({
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundColor: backgroundColor,
-        borderRadius: "20px",
+        borderRadius: isOnboarding ? "20px" : "0px",
       }}
     >
       {clubLogoUrl && (

@@ -12,11 +12,6 @@ const UploadButton = ({ onFileSelect, currentFile }: UploadButtonProps)=> {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-    // Update the state when the `currentFile` prop changes
-    // useEffect(() => {
-    //     setSelectedFile(currentFile || null);
-    // }, [currentFile]);
-
     useEffect(() => {
         // Compare the previous value of currentFile with the current value
         // before updating the selectedFile state
