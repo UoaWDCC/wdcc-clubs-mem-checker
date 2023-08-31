@@ -1,4 +1,4 @@
-import { PrismaClient, UsersInOrganisation } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
 import auth from "../../middleware/auth";
 
@@ -9,7 +9,7 @@ router.get("/organisations", auth, async (req, res) => {
     try {
         const userOrganisations = await prisma.usersInOrganisation.findMany({
             where: {
-              userId: req.body.user.id // Replace this with the actual user ID
+              userId: req.body.user.id
             },
             select: {
               organisation: {
@@ -29,18 +29,19 @@ router.get("/organisations", auth, async (req, res) => {
               }
             }
           });
+          if (!userOrganisations) {
+            return res.status(400).send("user is not in any organisations");
+          }
           
-          // Transform the result to match the desired structure
-          const transformedOrganisations = userOrganisations.map(userOrg => ({
-            id: userOrg.organisation.id,
-            name: userOrg.organisation.name,
-            logoLink: userOrg.organisation.pages.length > 0
-              ? userOrg.organisation.pages[0].logoLink
+          const transformedOrganisations = userOrganisations.map(org => ({
+            organisationId: org.organisation.id,
+            organisationName: org.organisation.name,
+            logoLink: org.organisation.pages.length > 0
+              ? org.organisation.pages[0].logoLink
               : null
           }));
           return res.status(200).send(transformedOrganisations);   
-
-          
+ 
     }
     catch (err) {
         console.error(err);
