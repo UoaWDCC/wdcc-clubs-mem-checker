@@ -12,57 +12,44 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
 import Button from "../../components/Button";
 import Textfield from "../../components/Textfield";
 import styles from "./ClubCheckerPage.module.css";
-import { createRef, useLayoutEffect, useRef, useState } from "react";
+import { createRef, useLayoutEffect, useRef, useState, useEffect } from "react";
 import { getTextColor } from "../../utils/helpers";
 import Column from "../../types/Column";
+import axios from "axios";
+import { CheckerPageProps } from "../../../../api/routes/pages/pages"
 
-interface ClubCheckerPageProps {
-  clubId?: number;
-  clubName?: string;
-  title?: string;
-  // colors
-  backgroundColor?: string;
-  titleTextColor?: string;
-  textFieldBackgroundColor?: string;
-  textFieldTextColor?: string;
-  buttonBackgroundColor?: string;
-  dropDownBackgroundColor?: string;
-
-  font?: string; // just for title
-  // bodyfont?
-
-  // images
-  clubLogoUrl?: File;
-  backgroundImageUrl?: File;
-  optionsList: Column[]; // first column object is the default option
-  // defaultOption: string;
-  isOnboarding: boolean;
+export interface ClubCheckerPageProps {
+  pageProps: CheckerPageProps;
+  webLink: string;
 }
 
-const ClubCheckerPage = ({
-  clubId,
-  clubName,
-  title = "No title selected",
-  // colors
-  backgroundColor = "#ECECEC",
-  titleTextColor = "#000000",
-  textFieldBackgroundColor = "#E0E0E0",
-  textFieldTextColor = "#000000",
-  buttonBackgroundColor = "#C1C1C2",
-  dropDownBackgroundColor = "#4F4F4F",
-  font = "Montserrat",
-  clubLogoUrl,
-  backgroundImageUrl,
-  optionsList,
-  isOnboarding,
-}: ClubCheckerPageProps) => {
-  // document.body.style.backgroundColor = backgroundColor || "white";
+const ClubCheckerPage = () => {
+  const [pageData, setPageData] = useState<ClubCheckerPageProps>();
+
+  useEffect(() => {
+    axios
+      .get(`/pages/info/${pageData?.webLink}`)
+      .then((response) => {
+        setPageData({
+          ...pageData,
+          pageProps: response,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  });
+
+  
+  //document.body.style.backgroundColor = backgroundColor || "white";
 
   const textFieldLabelRef = useRef<HTMLInputElement>(null);
 
   const [selectedIdentifier, setSelectedIdentifier] = useState<Column>(
-    optionsList[0]
+    pageData.pageProps.columns[0]
   );
+
+  const isOnboarding = false;
 
   const [textFieldWidth, setTextFieldWidth] = useState(0);
   const textFieldRef = createRef();
@@ -86,43 +73,41 @@ const ClubCheckerPage = ({
     <div
       className={styles.container}
       style={{
-        backgroundImage: backgroundImageUrl
-          ? `url(${URL.createObjectURL(backgroundImageUrl)})`
-          : "",
+        backgroundImage: pageData?.pageProps.backgroundImageLink,
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        backgroundColor: backgroundColor,
+        backgroundColor: pageData?.pageProps.backgroundColor,
         borderRadius: isOnboarding ? "20px" : "0px",
       }}
     >
-      {clubLogoUrl && (
-        <img className={styles.logo} src={URL.createObjectURL(clubLogoUrl)} />
+      {pageData?.pageProps.logoLink && (
+        <img className={styles.logo} src={pageData?.pageProps.logoLink} />
       )}
       <h1
         style={{
-          color: titleTextColor,
-          font: `bold 36px "${font}"`,
+          color: pageData?.pageProps.headingColor,
+          font: `bold 36px "${pageData?.pageProps.fontFamily}"`,
           textAlign: "center",
           minHeight: "45px",
           maxWidth: "100%",
           overflowWrap: "break-word",
         }}
       >
-        {title}
+        {pageData?.pageProps.title}
       </h1>
       <select
         style={{
-          backgroundColor: dropDownBackgroundColor,
+          backgroundColor: pageData?.pageProps.textFieldBackgroundColor,
           borderRadius: "8px",
           height: "30px",
           width: "180px",
-          color: getTextColor(dropDownBackgroundColor),
+          color: getTextColor(pageData?.pageProps.textFieldBackgroundColor),
         }}
         value={""}
         onChange={(event) => {
           const originalName = event.target.value;
-          const columnObject = optionsList.find(
+          const columnObject = pageData?.pageProps.columns.find(
             (column) => column.originalName === originalName
           );
           if (!columnObject) return;
@@ -132,7 +117,7 @@ const ClubCheckerPage = ({
         <option value="" disabled hidden>
           Select identifier
         </option>
-        {optionsList.map((option) => (
+        {pageData?.pageProps.columns.map((option) => (
           <option key={option.originalName} value={option.originalName}>
             {option.displayName}
           </option>
@@ -149,7 +134,7 @@ const ClubCheckerPage = ({
         <p
           style={{
             alignSelf: "center",
-            color: textFieldTextColor,
+            color: pageData?.pageProps.textColor,
             display: "flex",
             fontWeight: "bold",
             left: "10px",
@@ -162,7 +147,7 @@ const ClubCheckerPage = ({
           {selectedIdentifier.displayName}
         </p>
         <Textfield
-          backgroundColor={textFieldBackgroundColor}
+          backgroundColor={pageData?.pageProps.textFieldBackgroundColor}
           isError={isError}
           errorText={`Please enter a ${selectedIdentifier.displayName}`}
           height="45px"
@@ -171,14 +156,14 @@ const ClubCheckerPage = ({
             `please enter your ${selectedIdentifier.displayName}` ||
             "no identifier selected yet"
           }
-          textColour={textFieldTextColor}
+          textColour={pageData?.pageProps.textColor}
           ref={textFieldRef}
           width="330px"
         />
       </div>
       <Button
         buttonText="check"
-        backgroundColor={buttonBackgroundColor}
+        backgroundColor={pageData?.pageProps.buttonColor}
         onClick={() => !isOnboarding && onCheck()}
         width="160px"
         padding="12px 0px"
