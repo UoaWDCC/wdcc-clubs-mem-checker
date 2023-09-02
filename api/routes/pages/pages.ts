@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { PrismaClient, User } from '@prisma/client';
+import { Column, PrismaClient, User } from '@prisma/client';
 import { nanoid } from 'nanoid';
 import auth from '../../middleware/auth';
 import { JWT } from 'google-auth-library';
@@ -39,6 +39,20 @@ interface PageCustomization {
     originalName: string;
     mappedTo?: string;
   }[];
+}
+
+export interface CheckerPageProps {
+  title: string,
+  backgroundColor: string,
+  textFieldBackgroundColor: string,
+  textColor: string,
+  buttonColor: string,
+  headingColor: string,
+  logoLink?: string | null,
+  backgroundImageLink?: string | null,
+  fontFamily: string,
+  clubId: number,
+  columns: Column[],
 }
 
 router.post(
@@ -342,7 +356,7 @@ router.get("/info/:webLink", async (req: Request, res: Response) => {
 
   if (!columnData) return res.status(400).send("failed to get columns data with that link");
 
-  const dataToReturn = {
+  const dataToReturn : CheckerPageProps = {
     title: pageData?.name,
     backgroundColor: pageData?.backgroundColor,
     textFieldBackgroundColor: pageData?.textFieldBackgroundColor,
