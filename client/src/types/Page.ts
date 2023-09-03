@@ -11,6 +11,6 @@ export default interface Page {
     textFieldtextColor?: string;
     buttonColor?: string;
     dropDownBackgroundColor?: string;
-    logoLink?: File;
-    backgroundImageLink?: File;
+    logoLink?: string;
+    backgroundImageLink?: string;
 }

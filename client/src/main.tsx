@@ -85,7 +85,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/public-checker-page",
-    element: (<PublicCheckerPage/>),
+    element: <PublicCheckerPage/>,
   },
 ]);
 

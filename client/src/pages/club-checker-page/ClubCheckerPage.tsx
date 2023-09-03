@@ -15,6 +15,7 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
  import { createRef, useLayoutEffect, useRef, useState } from "react";
  import { getTextColor } from "../../utils/helpers";
  import Column from "../../types/Column";
+import { url } from "inspector";
  
  interface ClubCheckerPageProps {
    clubId?: number;
@@ -32,8 +33,8 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
    // bodyfont?
  
    // images
-   clubLogoUrl?: File;
-   backgroundImageUrl?: File;
+   clubLogoUrl?: string;
+   backgroundImageUrl?: string;
    optionsList: Column[]; // first column object is the default option
    // defaultOption: string;
    isOnboarding: boolean;
@@ -86,7 +87,7 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
        className={styles.container}
        style={{
          backgroundImage: backgroundImageUrl
-           ? `url(${URL.createObjectURL(backgroundImageUrl)})`
+           ? backgroundImageUrl
            : "",
          backgroundSize: "contain",
          backgroundRepeat: "no-repeat",
@@ -96,7 +97,7 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
        }}
      >
        {clubLogoUrl && (
-         <img className={styles.logo} src={URL.createObjectURL(clubLogoUrl)} />
+         <img className={styles.logo} src={clubLogoUrl} />
        )}
        <h1
          style={{

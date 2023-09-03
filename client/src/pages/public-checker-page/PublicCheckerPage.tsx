@@ -10,7 +10,6 @@ const PublicCheckerPage = () => {
     const weblinkId = "bsWwPRZRyH0YJojidNxTW";
 
     useEffect(() => {
-        console.log("Hello");
         axios
         .get(`/pages/info/${weblinkId}`)
         .then((response) => {
@@ -34,8 +33,8 @@ const PublicCheckerPage = () => {
         buttonBackgroundColor={pageData.buttonColor}
         dropDownBackgroundColor={pageData.dropDownBackgroundColor}
         font={pageData.font}
-        //clubLogoUrl={pageData.logoLink} Issue 1!!
-        // backgroundImageUrl={pageData.backgroundImageLink} Issue 2!
+        clubLogoUrl={pageData.logoLink}
+        backgroundImageUrl={pageData.backgroundImageLink} 
         optionsList={pageData.identificationColumns!}
         
         // optionsList={[
@@ -45,9 +44,6 @@ const PublicCheckerPage = () => {
         //   ]}
         isOnboarding={false}
         
-        // 
-        // 
-        // isOnboarding={false}
         ></ClubCheckerPage>
     </>
     );
