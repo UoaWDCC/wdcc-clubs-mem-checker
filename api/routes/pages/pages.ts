@@ -353,7 +353,7 @@ router.get("/info/:webLink", async (req: Request, res: Response) => {
     backgroundImageLink: pageData?.backgroundImageLink,
     fontFamily: pageData?.fontFamily,
     clubId: pageData?.organisationId,
-    identificationColumns: pageData?.identificationColumns,
+    identificationColumns: columnData,
 
   };
 
