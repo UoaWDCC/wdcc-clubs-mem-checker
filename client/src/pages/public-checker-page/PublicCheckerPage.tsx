@@ -44,12 +44,6 @@ const PublicCheckerPage = () => {
             clubLogoUrl={pageData.logoLink}
             backgroundImageUrl={pageData.backgroundImageLink} 
             optionsList={columnArray}
-            
-            // optionsList={[
-            //     { originalName: "column1", displayName: "upi" },
-            //     { originalName: "column2", displayName: "first name" },
-            //     { originalName: "column3", displayName: "last name" },
-            //   ]}
             isOnboarding={false}
             
             ></ClubCheckerPage>
