@@ -58,8 +58,8 @@ import { url } from "inspector";
    // document.body.style.backgroundColor = backgroundColor || "white";
  
    const textFieldLabelRef = useRef<HTMLInputElement>(null);
- 
-   const [selectedIdentifier, setSelectedIdentifier] = useState<Column>(
+
+   const [selectedIdentifier, setSelectedIdentifier] = useState(
      optionsList[0]
    );
  
@@ -80,7 +80,6 @@ import { url } from "inspector";
      }
      setIsError(false);
    };
-   console.log("optionslist: ", optionsList);
  
    return (
      <div

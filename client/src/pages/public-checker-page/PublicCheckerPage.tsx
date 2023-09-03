@@ -8,7 +8,7 @@ import styles from "./style.module.css";
 
 const PublicCheckerPage = () => {
     const [pageData, setPageData] = useState<Page>({});
-    const weblinkId = "bsWwPRZRyH0YJojidNxTW";
+    const { weblinkId } = useParams();
 
     useEffect(() => {
         axios
@@ -20,8 +20,6 @@ const PublicCheckerPage = () => {
             console.error(error);
         });
     }, []);
-    //console.log(pageData.identificationColumns![0]);
-    console.log('page cols: ', pageData.identificationColumns);
 
     return (
     <div className={ styles.publicCheckerPageContainer }>
