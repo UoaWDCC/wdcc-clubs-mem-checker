@@ -11,6 +11,7 @@ const PublicCheckerPage = () => {
     const { weblinkId } = useParams();
     var columnArray : Column[];
 
+
     useEffect(() => {
         axios
         .get(`/pages/info/${weblinkId}`)
@@ -31,7 +32,7 @@ const PublicCheckerPage = () => {
     
 
     return (
-    <div className={ styles.publicCheckerPageContainer }>
+        <div className={ styles.publicCheckerPageContainer }>
         <ClubCheckerPage 
             title={pageData.title}
             backgroundColor={pageData.backgroundColor}
@@ -45,6 +46,7 @@ const PublicCheckerPage = () => {
             backgroundImageUrl={pageData.backgroundImageLink} 
             optionsList={columnArray}
             isOnboarding={false}
+            webLink = {weblinkId}
             
             ></ClubCheckerPage>
     </div>

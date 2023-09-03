@@ -15,7 +15,7 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
  import { createRef, useEffect, useLayoutEffect, useRef, useState } from "react";
  import { getTextColor } from "../../utils/helpers";
  import Column from "../../types/Column";
-import { url } from "inspector";
+ import axios from "axios";
  
  interface ClubCheckerPageProps {
    clubId?: number;
@@ -28,7 +28,7 @@ import { url } from "inspector";
    textFieldTextColor?: string;
    buttonBackgroundColor?: string;
    dropDownBackgroundColor?: string;
- 
+   webLink?: string;
    font?: string; // just for title
    // bodyfont?
  
@@ -54,6 +54,7 @@ import { url } from "inspector";
    backgroundImageUrl,
    optionsList = [{ originalName: "column1", displayName: "upi" }],
    isOnboarding,
+   webLink,
  }: ClubCheckerPageProps) => {
    // document.body.style.backgroundColor = backgroundColor || "white";
  
@@ -77,7 +78,8 @@ import { url } from "inspector";
    });
  
    const [isError, setIsError] = useState<boolean>(false);
-   const onCheck = () => {
+   const [isSuccess, setIsSuccess] = useState<string | null>(null);
+   const onCheck = async () => {
      const input = (textFieldRef.current as HTMLInputElement).value;
      // check if input is empty
      if (!input || input.trim().length == 0) {
@@ -85,6 +87,18 @@ import { url } from "inspector";
        return;
      }
      setIsError(false);
+
+     try {const response = await axios.get(`/pages/verify/${webLink}/${selectedIdentifier}/${input}`);
+     if (response.status == 200) {
+      setIsSuccess("You are part of this club!");
+     }
+     else {
+      setIsSuccess("You are not part of this club!");
+     }
+    } catch (error) {
+      console.error(error);
+      setIsSuccess('An error occurred while making the request');
+    }
    };
  
    return (
@@ -188,6 +202,13 @@ import { url } from "inspector";
          width="160px"
          padding="12px 0px"
        />
+       <div>
+          {isSuccess && (
+            <p>
+              {isSuccess}
+            </p>
+          )}
+       </div>
      </div>
    );
  };
