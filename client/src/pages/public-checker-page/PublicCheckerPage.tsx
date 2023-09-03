@@ -9,6 +9,7 @@ import styles from "./style.module.css";
 const PublicCheckerPage = () => {
     const [pageData, setPageData] = useState<Page>({});
     const { weblinkId } = useParams();
+    var columnArray : Column[];
 
     useEffect(() => {
         axios
@@ -20,6 +21,14 @@ const PublicCheckerPage = () => {
             console.error(error);
         });
     }, []);
+
+    if (pageData.identificationColumns){
+        columnArray = pageData.identificationColumns.map((obj) => ({
+            originalName: obj.sheetsName,
+            displayName: obj.mappedTo,
+          }));
+    }
+    
 
     return (
     <div className={ styles.publicCheckerPageContainer }>
@@ -34,7 +43,7 @@ const PublicCheckerPage = () => {
             font={pageData.font}
             clubLogoUrl={pageData.logoLink}
             backgroundImageUrl={pageData.backgroundImageLink} 
-            optionsList={pageData.identificationColumns!}
+            optionsList={columnArray}
             
             // optionsList={[
             //     { originalName: "column1", displayName: "upi" },

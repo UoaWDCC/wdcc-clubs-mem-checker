@@ -12,7 +12,7 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
  import Button from "../../components/Button";
  import Textfield from "../../components/Textfield";
  import styles from "./ClubCheckerPage.module.css";
- import { createRef, useLayoutEffect, useRef, useState } from "react";
+ import { createRef, useEffect, useLayoutEffect, useRef, useState } from "react";
  import { getTextColor } from "../../utils/helpers";
  import Column from "../../types/Column";
 import { url } from "inspector";
@@ -62,6 +62,12 @@ import { url } from "inspector";
    const [selectedIdentifier, setSelectedIdentifier] = useState(
      optionsList[0]
    );
+
+   useEffect(() => {
+    // Update selectedIdentifier when optionsList changes
+    setSelectedIdentifier(optionsList[0]); // You can choose how to set selectedIdentifier here based on your requirements
+  }, [optionsList]); // This dependency array specifies that the effect should run whenever optionsList changes
+
  
    const [textFieldWidth, setTextFieldWidth] = useState(0);
    const textFieldRef = createRef();
