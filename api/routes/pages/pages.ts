@@ -7,6 +7,7 @@ import { drive_v3, google } from 'googleapis';
 import multer, { memoryStorage } from 'multer';
 import { supabase } from '../..';
 import { v4 as uuidv4 } from 'uuid';
+import Page from '../../../client/src/types/Page';
 
 const prisma = new PrismaClient();
 export const router = express.Router();
@@ -40,21 +41,6 @@ interface PageCustomization {
     mappedTo?: string;
   }[];
 }
-
-export interface CheckerPageProps {
-  title: string,
-  backgroundColor: string,
-  textFieldBackgroundColor: string,
-  textColor: string,
-  buttonColor: string,
-  headingColor: string,
-  logoLink?: string | null,
-  backgroundImageLink?: string | null,
-  fontFamily: string,
-  clubId: number,
-  columns: Column[],
-}
-
 router.post(
   '/create',
   upload.fields([
@@ -356,7 +342,7 @@ router.get("/info/:webLink", async (req: Request, res: Response) => {
 
   if (!columnData) return res.status(400).send("failed to get columns data with that link");
 
-  const dataToReturn : CheckerPageProps = {
+  const dataToReturn = {
     title: pageData?.name,
     backgroundColor: pageData?.backgroundColor,
     textFieldBackgroundColor: pageData?.textFieldBackgroundColor,
@@ -367,7 +353,7 @@ router.get("/info/:webLink", async (req: Request, res: Response) => {
     backgroundImageLink: pageData?.backgroundImageLink,
     fontFamily: pageData?.fontFamily,
     clubId: pageData?.organisationId,
-    columns: columnData,
+    identificationColumns: pageData?.identificationColumns,
 
   };
 
