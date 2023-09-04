@@ -84,7 +84,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/checker-page/:weblinkId",
+    path: "/:weblinkId",
     element: <PublicCheckerPage/>,
   },
 ]);

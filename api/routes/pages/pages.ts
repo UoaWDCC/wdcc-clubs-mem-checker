@@ -292,7 +292,7 @@ router.get(
 
       // Iterate through each column
       const column = values.slice(1).map((row) => row[columnIndex]);
-      if (column.includes(value)) {
+      if (column.map((element: string) => element.toLowerCase()).includes(value.toLowerCase())) {
         await prisma.membershipCheckUsage.create({
           data: {
             pageId: page.id,
@@ -313,7 +313,7 @@ router.get(
           },
         });
 
-        return res.status(404).send('could not find user in column');
+        return res.status(200).send('could not find user in column');
       }
     } catch (err) {
       console.error(err);

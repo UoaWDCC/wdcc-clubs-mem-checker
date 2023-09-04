@@ -88,8 +88,9 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
      }
      setIsError(false);
 
-     try {const response = await axios.get(`/pages/verify/${webLink}/${selectedIdentifier}/${input}`);
-     if (response.status == 200) {
+     try {const response = await axios.get(`/pages/verify/${webLink}/${selectedIdentifier.displayName}/${input}`);
+     console.log(response.data);
+     if (response.data == 'value found in column') {
       setIsSuccess("You are part of this club!");
      }
      else {

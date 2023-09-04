@@ -1,12 +1,12 @@
 
 @font-face {
     font-family: "Montserrat-ExtraBold";
-    src: url('../../public/Montserrat-ExtraBold.ttf');
+    src: url('/Montserrat-ExtraBold.ttf');
 }
 
 @font-face {
     font-family: "Montserrat-SemiBold-Italics";
-    src: url('../../public/Montserrat-SemiBoldItalic.ttf');
+    src: url('/Montserrat-SemiBoldItalic.ttf');
 }
 
 .container{
@@ -24,7 +24,7 @@
 
   .header{
     color: rgb(3, 4, 94);
-    font-size: 3.7vh;
+    font-size: 1.75rem;
     font-weight: 600;
     line-height: 1.1em;
   }
