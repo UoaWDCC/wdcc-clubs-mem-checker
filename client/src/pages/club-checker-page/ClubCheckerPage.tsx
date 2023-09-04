@@ -226,7 +226,9 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
                 />
           </div>
         ) : (
-          isSuccess && <p>{isSuccess}</p>
+          isSuccess && <p style={{
+             fontFamily: "montserrat",
+           }}>{isSuccess}</p>
         )}
       </div>
      </div>
