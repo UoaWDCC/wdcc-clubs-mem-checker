@@ -8,7 +8,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import { PageContextProvider, Page } from "./CreateCheckerPage";
+import { PageContextProvider } from "./CreateCheckerPage";
+import Page from "../../types/Page";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
 import LinkIcon from "../../assets/LinkIcon.svg";
@@ -18,14 +19,14 @@ interface GoogleSheetFormProps {
   onNext: () => void;
 }
 
-const getSpreadsheetId = (link: string): string | null => {
+export const getSpreadsheetId = (link: string): string | null => {
   const linkArray = link.split("/");
   const idIndex =
     linkArray.findIndex((value) => value.toLowerCase() == "d") + 1;
   return linkArray[idIndex];
 };
 
-const getSheetTabId = (link: string): string | null => {
+export const getSheetTabId = (link: string): string | null => {
   const regex = /edit#gid=(\w+)/;
   const linkArray = link.split("/");
   const gidIndex = linkArray.findIndex((value) =>
@@ -35,6 +36,8 @@ const getSheetTabId = (link: string): string | null => {
   const match = linkArray[gidIndex].match(regex);
   return match ? match[1] : null;
 };
+
+export var spreadsheetColumns = {};
 
 const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
@@ -72,7 +75,7 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
         ...page,
         googleSheetLink: link,
       });
-      // get spreadsheetId and sheetTabId
+      // --------------get spreadsheetId and sheetTabId
       const spreadsheetId = getSpreadsheetId(link);
       const sheetTabId = getSheetTabId(link);
       if (!spreadsheetId || !sheetTabId) {
@@ -80,10 +83,11 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
         (inputRef.current as HTMLInputElement).focus();
         return;
       }
-      // try fetch spreadsheet columns
+      // --------------try fetch spreadsheet columns
       axios
         .get(`/sheet/columns/${spreadsheetId}/${sheetTabId}`)
         .then((response) => {
+          spreadsheetColumns = response.data;
           console.log(response.data);
           setPage({
             ...page,

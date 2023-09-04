@@ -1,12 +1,13 @@
-import { getTextColor, lightenColor } from "../utils/helpers";
-import styles from "./Textfield.module.css";
-import ErrorMessage from "./ErrorMessage";
-import { forwardRef } from "react";
+import { getTextColor, lightenColor } from '../utils/helpers';
+import styles from './Textfield.module.css';
+import ErrorMessage from './ErrorMessage';
+import { forwardRef } from 'react';
 
 interface TextfieldProps {
   height?: string;
   width?: string;
   margin?: string;
+  padding?: string;
   backgroundColor?: string;
   textColour?: string;
   fontSize?: string;
@@ -17,18 +18,20 @@ interface TextfieldProps {
   errorText?: string;
   icon?: string;
   iconSize?: string;
-  placeholderTextAlign?: string;
+  textAlign?: string;
   onKeyUp?: () => void;
   onChange?: () => void;
+  readOnly?: boolean;
 }
 
 const Textfield = forwardRef(
   (
     {
       height,
-      width = "12rem",
+      width = '12rem',
       margin,
-      backgroundColor = "#e0e0e0",
+      padding,
+      backgroundColor = '#e0e0e0',
       textColour,
       fontSize,
       fontWeight,
@@ -37,20 +40,21 @@ const Textfield = forwardRef(
       isError,
       errorText,
       icon,
-      iconSize = "1rem",
+      iconSize = '1rem',
       onKeyUp,
       onChange,
-      placeholderTextAlign = "left",
+      textAlign = 'left',
+      readOnly,
     }: TextfieldProps,
     ref: any
   ) => {
     const iconStyles = icon
       ? {
           backgroundImage: `url(${icon})`,
-          backgroundRepeat: "no-repeat",
+          backgroundRepeat: 'no-repeat',
           backgroundSize: iconSize,
-          backgroundPosition: "10px",
-          paddingLeft: icon ? `calc(${iconSize} + 1rem)` : "1rem",
+          backgroundPosition: '10px',
+          paddingLeft: icon ? `calc(${iconSize} + 1rem)` : '1rem',
         }
       : {};
     textColour = textColour ? textColour : getTextColor(backgroundColor);
@@ -64,26 +68,31 @@ const Textfield = forwardRef(
             onKeyUp={onKeyUp}
             className={styles.input}
             onChange={onChange}
+            readOnly={readOnly}
             placeholder={placeholder}
             style={{
               height,
               width,
+              padding,
               backgroundColor,
               color: textColour,
               fontSize,
               fontWeight,
-              border: isError ? "2px solid red" : backgroundColor,
-              ["--focus-border-color" as any]: lightenColor(
+              border: isError
+                ? '2.5px solid #f58693'
+                : `2px solid ${backgroundColor}`,
+              ['--focus-border-color' as any]: lightenColor(
                 backgroundColor,
                 -75
               ),
-              ["--placeholder-color" as any]: getTextColor(backgroundColor),
-              ["--placeholder-text-align" as any]: placeholderTextAlign,
+              ['--placeholder-color' as any]: getTextColor(backgroundColor),
+              ['--text-align' as any]: textAlign,
+
               ...iconStyles,
             }}
           />
         </div>
-        <ErrorMessage isError={isError} errorText={errorText} />
+        {errorText && <ErrorMessage isError={isError} errorText={errorText} />}
       </div>
     );
   }

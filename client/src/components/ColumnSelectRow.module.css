@@ -1,0 +1,107 @@
+/* Row Checkbox */
+.tickBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+    background: white;
+    border-radius: 7px;
+    margin: 0 5px;  
+}
+
+.tickBox:hover{
+    cursor: pointer;
+}
+
+.tickSquare{
+    visibility: hidden;
+}
+
+.tickSquareActive{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Row edit name button */
+.editNameButton{
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editNameButtonHover:hover{
+    cursor: pointer;
+}
+
+/* Row input field */
+.custNameInput{
+    margin: 0 5px;
+    background-color: #e0e0e000;
+    border: None;
+    color: #848484;
+    font-weight: 525;
+    padding: 3px;
+    width: 70px;
+}
+
+.custNameInput:focus{
+    outline: none;
+}
+
+.custNameEditable:focus{
+    background-color: white;
+    outline: none;
+    border-radius: 4px;
+}
+    
+
+/* Duplicate field warning tooltip */
+.duplicateFieldWarningIcon{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.duplicateFieldWarningIcon:hover{
+    cursor: pointer;
+}
+
+.duplicateFieldWarningDescription{
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    background-color: #AAD3F7;
+    border-radius: 6px;
+    margin-left: 260px;
+    color: #0472de;
+    font-size: 8px;
+    padding: 6px;
+    display: none;
+}
+
+.speechTriangle:before{
+    content: "";
+    position: absolute;
+    border-left: 4px solid #AAD3F7;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #AAD3F7;
+    border-bottom: 4px solid transparent;
+    right: 95px;
+    top: 20px;
+    transform: rotate(-45deg);
+    
+}
+
+.duplicateFieldWarningIcon:hover~.duplicateFieldWarningDescription{
+    display: block;
+}
+
+.warningHidden{
+    visibility: hidden;
+}
+
+

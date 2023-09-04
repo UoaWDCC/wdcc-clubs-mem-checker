@@ -2,6 +2,8 @@ import { Router, Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import auth from '../../middleware/auth';
 import jwt from 'jsonwebtoken';
+import { oAuth2Client } from '../auth/google';
+import { google } from 'googleapis';
 
 export const router = Router();
 const prisma = new PrismaClient();
@@ -20,7 +22,9 @@ router.post('/create', auth, async (req, res) => {
       where: { name: clubName },
     });
     if (existingOrganisation) {
-      throw new Error('Organisation already exists');
+      return res
+        .status(400)
+        .send(`failed to create club ${clubName} please try a unique name`);
     }
     const organisation = await prisma.organisation.create({
       data: {
@@ -43,11 +47,83 @@ router.post('/create', auth, async (req, res) => {
       );
   } catch (error) {
     console.log(error);
-    return res
-      .status(400)
-      .send(`Error creating club ${clubName}, please try a unique name`);
+    return res.status(500).send(`failed to create club ${clubName}`);
   }
 });
+
+function generateRandomSixDigitCode() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+async function generateUniqueCode() {
+  let code = generateRandomSixDigitCode();
+  let codeExists = await prisma.organisationInviteCode.findUnique({
+    where: { code },
+  });
+
+  while (codeExists) {
+    code = generateRandomSixDigitCode();
+    codeExists = await prisma.organisationInviteCode.findUnique({
+      where: { code },
+    });
+  }
+
+  return code;
+}
+
+router.get(
+  '/create-invite-code/:organisationId',
+  auth,
+  async (req: Request, res: Response) => {
+    try {
+      const organisationId = Number.parseInt(req.params['organisationId']);
+      const JWT_SECRET = process.env.JWT_SECRET as string;
+      const userId = req.body.user.id;
+      const userInOrg = await prisma.usersInOrganisation.findFirst({
+        where: {
+          userId: userId!,
+          organisationId: organisationId!,
+        },
+      });
+      if (!userInOrg)
+        return res
+          .status(401)
+          .send('you must be in the organisation to create a share code');
+
+      const newUniqueInviteCode = await generateUniqueCode();
+      await prisma.organisationInviteCode.create({
+        data: { code: newUniqueInviteCode, organisationId },
+      });
+      return res.status(200).send(newUniqueInviteCode);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send('failed to create invite code');
+    }
+  }
+);
+//get club id from club name
+router.get(
+  '/get-organisationId/:organisationName',
+  auth,
+  async (req: Request, res: Response) => {
+    try {
+      const organisationName = req.params.organisationName;
+
+      const organisation = await prisma.organisation.findUnique({
+        where: {
+          name: organisationName
+        }});
+
+        if (!organisation) return res.status(400).send('invalid club name');
+        const organisationId = organisation.id;
+      return res.status(200).send({organisationId});
+    }
+      catch (err) {
+      console.error(err);
+      return res.status(500).send('failed to get organisation id');
+    }
+  }
+);
 
 router.get(
   '/verify-invite-code/:token',
@@ -56,29 +132,28 @@ router.get(
     //Endpoint
     try {
       const token = req.params.token as string;
-      const JWT_SECRET = process.env.JWT_SECRET as string;
 
-      interface Organisation {
-        organisationId: string;
-      }
+      const twoHoursAgo = new Date();
+      twoHoursAgo.setHours(twoHoursAgo.getHours() - 2);
 
-      if (token !== "12345") {
-        throw new Error("invalid token");
-      }
+      const inviteCode = await prisma.organisationInviteCode.findFirst({
+        where: {
+          code: token,
+          createdAt: {
+            gte: twoHoursAgo.toISOString(),
+          },
+        },
+      });
 
-      //Check that token is correct with jwt.verify();
-      // let organisation: Organisation = (await jwt.verify(
-      //   token,
-      //   JWT_SECRET
-      // )) as Organisation;
-      // const organisationId = parseInt(organisation.organisationId);
+      if (!inviteCode) return res.status(400).send('invite code is invalid');
 
-      const organisationId = 1;
+      const organisationId = inviteCode.organisationId;
 
       //Get the data from it
       const userId: number = req.body.user.id;
 
-      const User = await prisma.usersInOrganisation.upsert({
+      // Add user to the club
+      await prisma.usersInOrganisation.upsert({
         where: {
           userId_organisationId: {
             userId: userId!,
@@ -91,7 +166,12 @@ router.get(
           organisationId: organisationId!,
         },
       });
-      return res.status(200).send(`successfully added user to organisation`);
+
+      return res
+        .status(200)
+        .send(
+          `successfully added user with id ${userId} to organisation with id ${organisationId}`
+        );
     } catch (err) {
       return res.status(400).send(`invalid token`);
     }

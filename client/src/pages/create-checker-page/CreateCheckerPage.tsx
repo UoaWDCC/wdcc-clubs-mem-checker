@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import GoogleSheetForm from "./GoogleSheetForm";
 import Background from "../../components/Background";
 import ColumnSelector from "./ColumnSelector";
@@ -10,21 +10,11 @@ import CustomiseLogo from "./CustomiseLogo";
 import CustomiseBackground from "./CustomiseBackground";
 import CustomiseConfirm from "./CustomiseConfirm";
 import { createContext } from "react";
+import Column from "../../types/Column";
+import { useLocation } from "react-router";
+import { ClubDetails } from "../club-detail-page/ClubDetailPage";
+import Page from "../../types/Page";
 
-export interface Page {
-  googleSheetLink?: string;
-  identificationColumns?: Object; // temporary type, needs to be changed when implementing column selector e.g. Column[]
-  title?: string;
-  font?: string;
-  backgroundColor?: string;
-  titleTextColor?: string;
-  textFieldBackgroundColor?: string;
-  textFieldtextColor?: string;
-  buttonColor?: string;
-  dropDownBackgroundColor?: string;
-  logoLink?: string;
-  backgroundImageLink?: string;
-}
 
 export const PageContextProvider = createContext([{}, () => {}]);
 
@@ -32,6 +22,15 @@ const CreateCheckerPage = () => {
   const [progress, setProgress] = useState(1);
   const onNext = () => setProgress(progress + 1);
   const onBack = () => setProgress(progress - 1);
+
+  const clubDetails = useLocation().state as ClubDetails;
+
+  useEffect(() => {
+    setPage({
+      ...page,
+      title: clubDetails.clubAcronym + " Membership Checker",
+    });
+  }, []);
 
   const [showConfirm, setShowConfirm] = useState(false);
   const onConfirm = () => {
@@ -75,9 +74,11 @@ const CreateCheckerPage = () => {
           {progress} of {steps.size}
         </p>
       </div>
+
       <PageContextProvider.Provider value={[page, setPage]}>
         {showConfirm ? (
           <CustomiseConfirm
+            clubDetails={clubDetails}
             onNext={onConfirm}
             onBack={() => setShowConfirm(false)}
           />

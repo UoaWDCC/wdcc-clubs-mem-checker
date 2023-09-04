@@ -8,8 +8,7 @@
 }
 
 .button {
-  padding: 10px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .buttonContent {
@@ -21,4 +20,13 @@
 .button:hover {
   cursor: pointer;
   background: var(--hover-color) !important;
+}
+
+.circular_progress {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

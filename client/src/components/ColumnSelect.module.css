@@ -1,0 +1,141 @@
+.columnContainer{
+    display: flex;
+    padding: 5px 10px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.editName{
+    background-color: #e0e0e000;
+    border: None;
+    color: #aeaeae;
+    font-weight: 525;
+    padding: 3px;
+    margin-right: 10px;
+    width: 70px;
+}
+
+.editName:focus{
+    outline: none;
+}
+
+.editable{
+    
+    border: None;
+    
+}
+
+.checkbox{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    background: white;
+    border-radius: 4px;
+    margin-right: 4px;
+}
+
+.checkbox:hover{
+    cursor: pointer;
+}
+
+
+.checkbox.checkboxActive{
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.editColumn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+.editColumnButton:hover{
+    cursor: pointer;
+}
+
+.editColumnButton{
+    color: grey;
+}
+
+.tickActive{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.tickNotActive{
+    display: None;
+}
+
+.editing{
+    background: white;
+    border-radius: 4px;
+}
+
+
+.dropdownInfo{
+    position: absolute;
+    width: 70px;
+    height: 35px;
+    background-color: #AAD3F7;
+    border-radius: 6px;
+    margin-left: 235px;
+    margin-top: -5px;
+    color: #0472de;
+    font-size: 5px;
+    padding: 6px;
+    display: None;
+}
+
+.triangle:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 4px solid #AAD3F7;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #AAD3F7;
+    border-bottom: 4px solid transparent;
+    right: 65px;
+    top: 13px;
+    transform: rotate(-45deg);
+}
+
+.infoHover:hover{
+    cursor: pointer;
+  }
+  
+.infoHover:hover~.dropdownInfo{
+    display: block;
+}
+
+.infoHover{
+    position: relative;
+}
+  
+  .pickColumnsDescription{
+    color: #087DF1;
+  }
+  
+  .dropdownButtonContainer{
+    padding: 20px 0;
+  }
+
+  .columnContainer{
+    position: relative;
+    z-index: 0;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    height: 100%;
+    width: 80%;
+    padding: 10px 20px;
+    overflow-y: scroll;
+  }
