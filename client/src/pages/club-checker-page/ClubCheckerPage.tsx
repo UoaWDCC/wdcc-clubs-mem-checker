@@ -79,6 +79,12 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
  
    const [isError, setIsError] = useState<boolean>(false);
    const [isSuccess, setIsSuccess] = useState<string | null>(null);
+   const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        onCheck();
+      }
+   };
    const onCheck = async () => {
      const input = (textFieldRef.current as HTMLInputElement).value;
      // check if input is empty
@@ -89,7 +95,6 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
      setIsError(false);
 
      try {const response = await axios.get(`/pages/verify/${webLink}/${selectedIdentifier.displayName}/${input}`);
-     console.log(response.data);
      if (response.data == 'value found in column') {
       setIsSuccess("You are part of this club!");
      }
@@ -194,6 +199,7 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
            textColour={textFieldTextColor}
            ref={textFieldRef}
            width="330px"
+          onKeyDown={handleEnterKey}
          />
        </div>
        <Button
