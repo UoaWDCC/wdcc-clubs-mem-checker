@@ -222,7 +222,8 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
                   sx={{
                     color: '#000000',
                   }}
-                  size="3vh"
+                  size={24}
+                  thickness={3}
                 />
           </div>
         ) : (
