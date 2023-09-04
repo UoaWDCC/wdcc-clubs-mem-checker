@@ -16,6 +16,7 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
  import { getTextColor } from "../../utils/helpers";
  import Column from "../../types/Column";
  import axios from "axios";
+ import { CircularProgress } from '@mui/material';
  
  interface ClubCheckerPageProps {
    clubId?: number;
@@ -79,12 +80,15 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
  
    const [isError, setIsError] = useState<boolean>(false);
    const [isSuccess, setIsSuccess] = useState<string | null>(null);
+   const [loading, setLoading] = useState(false);
    const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === "Enter") {
         event.preventDefault();
         onCheck();
       }
    };
+  
+
    const onCheck = async () => {
      const input = (textFieldRef.current as HTMLInputElement).value;
      // check if input is empty
@@ -93,7 +97,7 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
        return;
      }
      setIsError(false);
-
+     setLoading(true);
      try {const response = await axios.get(`/pages/verify/${webLink}/${selectedIdentifier.displayName}/${input}`);
      if (response.data == 'value found in column') {
       setIsSuccess("You are part of this club!");
@@ -104,6 +108,8 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
     } catch (error) {
       console.error(error);
       setIsSuccess('An error occurred while making the request');
+    } finally {
+      setLoading(false);
     }
    };
  
@@ -210,12 +216,19 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
          padding="12px 0px"
        />
        <div>
-          {isSuccess && (
-            <p>
-              {isSuccess}
-            </p>
-          )}
-       </div>
+          {loading ? (<div className={styles.loadingContainer}>
+            <CircularProgress 
+                  className={styles.loadingContainer}
+                  sx={{
+                    color: '#000000',
+                  }}
+                  size="3vh"
+                />
+          </div>
+        ) : (
+          isSuccess && <p>{isSuccess}</p>
+        )}
+      </div>
      </div>
    );
  };
