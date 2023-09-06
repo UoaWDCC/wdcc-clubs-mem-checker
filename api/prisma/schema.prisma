@@ -60,6 +60,7 @@ model Page {
   logoLink                 String?
   backgroundImageLink      String?
   fontFamily               String
+  dropDownBackgroundColor String                 @default("#4F4F4F")
 }
 
 model Column {

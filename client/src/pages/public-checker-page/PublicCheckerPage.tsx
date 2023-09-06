@@ -5,6 +5,7 @@ import axios from "axios";
 import { useParams } from 'react-router-dom';
 import Column from "../../types/Column";
 import styles from "./style.module.css";
+import WebFont from 'webfontloader';
 
 const PublicCheckerPage = () => {
     const [pageData, setPageData] = useState<Page>({});
