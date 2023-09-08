@@ -61,8 +61,9 @@ const Dashboard = () => {
   // TODO: retrieve clubs of user and create array of type DropdownClub[]
   const testDropdownClubs: IDropdownClub[] = [
     { id: 1, name: "WDCC" },
-    { id: 2, name: "SESA" },
+    { id: 84, name: "testing" },
     { id: 85, name: "random" },
+    { id: 102, name: "Alex's Music Club" },
   ];
   return (
     <DashboardContextProvider.Provider value={[dashboard, setDashboard]}>
@@ -82,7 +83,7 @@ const Dashboard = () => {
             <div
               className={`${styles.adminShareContainer} ${styles.dashboardItemContainer}`}
             >
-              <ClubAdminsList></ClubAdminsList>
+              <ClubAdminsList />
             </div>
             <div
               className={`${styles.clubAdminContainer} ${styles.dashboardItemContainer}`}

@@ -12,6 +12,7 @@ import jwt from "jsonwebtoken";
 import { Metric } from "@prisma/client/runtime";
 import IPageMetrics from "../types/IPageMetrics";
 import IDashboardPage from "../types/IDashboardPage";
+import { google } from "googleapis";
 
 const router = Router();
 const prisma = new PrismaClient();
@@ -101,20 +102,22 @@ router.get(
 
       const allCheckerUsages = await prisma.membershipCheckUsage.findMany();
 
+      // retrieve organisation
       const organisation = await prisma.organisation.findUnique({
         where: {
           id: organisationId,
         },
       });
-
       if (!organisation)
         return res.status(404).send("no organisation found with that id");
 
+      // retrieve checker pages for organisation
       const pagesInOrg = await prisma.page.findMany({
         where: {
           organisationId: organisationId!,
         },
       });
+      // retrieve google sheets columns for all checker pages
       const columns: DBColumn[] = await prisma.column.findMany();
 
       if (!pagesInOrg)
@@ -158,9 +161,29 @@ router.get(
           return convertedPage;
         });
 
+      const adminsInOrganisation = await prisma.usersInOrganisation.findMany({
+        where: {
+          organisationId: organisationId,
+        },
+        select: {
+          userId: true,
+          user: {
+            select: {
+              firstName: true,
+              lastName: true,
+            },
+          },
+        },
+      });
+
+      const clubAdmins = adminsInOrganisation.map((entry) =>
+        [entry.user.firstName, entry.user.lastName].filter(Boolean).join(" ")
+      );
+
       const dashboardPage: IDashboardPage = {
         club: organisation,
         pages: convertedPages,
+        clubAdmins,
       };
 
       return res.status(200).send(dashboardPage);

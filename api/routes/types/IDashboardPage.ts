@@ -8,4 +8,5 @@ export default interface IDashboardPage {
     weblink: String;
     metrics: IPageMetrics;
   })[];
+  clubAdmins: string[];
 }

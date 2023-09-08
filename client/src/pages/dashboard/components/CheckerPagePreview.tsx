@@ -25,20 +25,19 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
     IDashboardContext,
     Dispatch<SetStateAction<IDashboardContext>>
   ];
-  const [currentPageIndex, setCurrentPageIndex] = useState(0);
+
   const textFieldRef = useRef<HTMLInputElement | null>(null);
 
+  const currentPageIndex = dashboard.selectedPageIndex || 0;
+
   const handleNextPage = () => {
-    if (currentPageIndex < pages.length - 1) {
-      setCurrentPageIndex(currentPageIndex + 1);
+    if (currentPageIndex !== undefined && currentPageIndex < pages.length - 1) {
       setDashboard({ ...dashboard, selectedPageIndex: currentPageIndex + 1 });
     }
   };
 
   const handlePrevPage = () => {
-    if (currentPageIndex > 0) {
-      setCurrentPageIndex(currentPageIndex - 1);
-
+    if (currentPageIndex !== undefined && currentPageIndex > 0) {
       setDashboard({ ...dashboard, selectedPageIndex: currentPageIndex - 1 });
     }
   };
@@ -134,7 +133,9 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
                         ? styles.activeDot + " " + styles.clicked
                         : styles.dot
                     }`}
-                    onClick={() => setCurrentPageIndex(index)}
+                    onClick={() =>
+                      setDashboard({ ...dashboard, selectedPageIndex: index })
+                    }
                   >
                     <span className={styles.innerDot} />
                   </span>

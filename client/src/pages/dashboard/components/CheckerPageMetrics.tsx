@@ -6,48 +6,33 @@ import {
   SetStateAction,
   useContext,
 } from "react";
-import axios from "axios";
 import { ArrowDown2, ArrowUp2 } from "iconsax-react";
 import { DashboardContextProvider } from "../Dashboard";
-import IMetricRecord from "../../../../../api/routes/types/IMetricRecord";
-import IPageMetrics from "../../../../../api/routes/types/IPageMetrics";
 import IDashboardContext from "../../../types/IDashboardContext";
 
-export interface CheckerPageMetricsProps {
-  temp?: string;
-}
-
-const CheckerPageMetrics = ({}: CheckerPageMetricsProps) => {
+const CheckerPageMetrics = () => {
   /* time periods: last 7 days, last 2 weeks, last month, all time */
   const [dashboard, setDashboard] = useContext(DashboardContextProvider) as [
     IDashboardContext,
     Dispatch<SetStateAction<IDashboardContext>>
   ];
-  if (
-    dashboard.dashboardPage === undefined ||
-    dashboard.selectedPageIndex === undefined ||
-    dashboard.dashboardPage.pages[dashboard.selectedPageIndex] === undefined
-  ) {
-    return <div></div>;
-  }
 
   const metrics =
-    dashboard.dashboardPage.pages[dashboard.selectedPageIndex].metrics;
+    dashboard.dashboardPage && dashboard.selectedPageIndex !== undefined
+      ? dashboard.dashboardPage.pages[dashboard.selectedPageIndex].metrics
+      : Object.create(null);
   const possibleTimePeriods = Object.keys(metrics);
 
-  const [timePeriod, setTimePeriod] = useState(possibleTimePeriods[0]);
+  const [timePeriod, setTimePeriod] = useState<undefined | string>();
   const [isOpen, setIsOpen] = useState(false);
-  const [statistic, setStatistic] = useState<IMetricRecord>(
-    metrics[possibleTimePeriods[0] as keyof IPageMetrics]
-  );
+
   useEffect(() => {
-    setStatistic(metrics[possibleTimePeriods[0] as keyof IPageMetrics]);
-  }, [JSON.stringify(metrics)]);
+    setTimePeriod(possibleTimePeriods[0]);
+  }, [dashboard.dashboardPage && dashboard.selectedPageIndex !== undefined]);
 
   const handleSelectTimePeriod = (time: string) => {
     setIsOpen(!isOpen);
     setTimePeriod(time);
-    setStatistic(metrics[time as keyof IPageMetrics]);
   };
 
   return (
@@ -96,7 +81,9 @@ const CheckerPageMetrics = ({}: CheckerPageMetricsProps) => {
       >
         <h1 className={styles.header}>number of users</h1>
         <h1 className={styles.subheader}>total number of checks performed</h1>
-        <h1 className={styles.statisticText}>{statistic?.numberOfChecks}</h1>
+        <h1 className={styles.statisticText}>
+          {timePeriod && metrics[timePeriod].numberOfChecks}
+        </h1>
       </div>
       <div
         className={styles.subcontainer}
@@ -110,7 +97,7 @@ const CheckerPageMetrics = ({}: CheckerPageMetricsProps) => {
           total number of existing memberships found
         </h2>
         <h1 className={styles.statisticText}>
-          {statistic?.numberOfDuplicates}
+          {timePeriod && metrics[timePeriod].numberOfDuplicates}
         </h1>
       </div>
     </div>
