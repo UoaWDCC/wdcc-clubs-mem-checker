@@ -1,11 +1,9 @@
-import {
-  Dashboard,
-  DashboardContextProvider,
-} from "../pages/dashboard/Dashboard";
+import { DashboardContextProvider } from "../Dashboard";
+import IDashboardContext from "../../../types/IDashboardContext";
 import styles from "./ClubSize.module.css";
 import { useState, useContext, Dispatch, SetStateAction } from "react";
 
-export interface ClubSizeProps {
+interface ClubSizeProps {
   temp?: string;
 }
 
@@ -14,8 +12,8 @@ const ClubSize = ({}: ClubSizeProps) => {
 
   // retrieve context
   const [dashboard, setDashboard] = useContext(DashboardContextProvider) as [
-    Dashboard,
-    Dispatch<SetStateAction<Dashboard>>
+    IDashboardContext,
+    Dispatch<SetStateAction<IDashboardContext>>
   ];
 
   return (

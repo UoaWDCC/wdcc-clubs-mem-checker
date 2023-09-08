@@ -8,14 +8,10 @@ import {
 } from "react";
 import axios from "axios";
 import { ArrowDown2, ArrowUp2 } from "iconsax-react";
-import {
-  Dashboard,
-  DashboardContextProvider,
-} from "../pages/dashboard/Dashboard";
-import {
-  MetricRecord,
-  PageMetrics,
-} from "../../../api/routes/dashboard/club_dashboard";
+import { DashboardContextProvider } from "../Dashboard";
+import IMetricRecord from "../../../../../api/routes/types/IMetricRecord";
+import IPageMetrics from "../../../../../api/routes/types/IPageMetrics";
+import IDashboardContext from "../../../types/IDashboardContext";
 
 export interface CheckerPageMetricsProps {
   temp?: string;
@@ -24,33 +20,34 @@ export interface CheckerPageMetricsProps {
 const CheckerPageMetrics = ({}: CheckerPageMetricsProps) => {
   /* time periods: last 7 days, last 2 weeks, last month, all time */
   const [dashboard, setDashboard] = useContext(DashboardContextProvider) as [
-    Dashboard,
-    Dispatch<SetStateAction<Dashboard>>
+    IDashboardContext,
+    Dispatch<SetStateAction<IDashboardContext>>
   ];
   if (
-    dashboard.checkerPage === undefined ||
-    dashboard.selectedPageId === undefined ||
-    dashboard.checkerPage.pages[dashboard.selectedPageId] === undefined
+    dashboard.dashboardPage === undefined ||
+    dashboard.selectedPageIndex === undefined ||
+    dashboard.dashboardPage.pages[dashboard.selectedPageIndex] === undefined
   ) {
     return <div></div>;
   }
 
-  const metrics = dashboard.checkerPage.pages[dashboard.selectedPageId].metrics;
+  const metrics =
+    dashboard.dashboardPage.pages[dashboard.selectedPageIndex].metrics;
   const possibleTimePeriods = Object.keys(metrics);
 
   const [timePeriod, setTimePeriod] = useState(possibleTimePeriods[0]);
   const [isOpen, setIsOpen] = useState(false);
-  const [statistic, setStatistic] = useState<MetricRecord>(
-    metrics[possibleTimePeriods[0] as keyof PageMetrics]
+  const [statistic, setStatistic] = useState<IMetricRecord>(
+    metrics[possibleTimePeriods[0] as keyof IPageMetrics]
   );
   useEffect(() => {
-    setStatistic(metrics[possibleTimePeriods[0] as keyof PageMetrics]);
+    setStatistic(metrics[possibleTimePeriods[0] as keyof IPageMetrics]);
   }, [JSON.stringify(metrics)]);
 
   const handleSelectTimePeriod = (time: string) => {
     setIsOpen(!isOpen);
     setTimePeriod(time);
-    setStatistic(metrics[time as keyof PageMetrics]);
+    setStatistic(metrics[time as keyof IPageMetrics]);
   };
 
   return (

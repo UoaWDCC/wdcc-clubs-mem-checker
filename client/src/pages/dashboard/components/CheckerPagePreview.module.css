@@ -1,5 +1,5 @@
 /* CheckerPagePreview.module.css */
-@import url("../pages/club-checker-page/ClubCheckerPage.module.css");
+@import url("../../club-checker-page/ClubCheckerPage.module.css");
 
 @font-face {
   font-family: "Montserrat SemiBold";

@@ -14,7 +14,7 @@ import Textfield from "../../components/Textfield";
 import styles from "./ClubCheckerPage.module.css";
 import { createRef, useLayoutEffect, useRef, useState } from "react";
 import { getTextColor } from "../../utils/helpers";
-import Column from "../../types/Column";
+import IColumn from "../../types/IColumn";
 
 interface ClubCheckerPageProps {
   clubId?: number;
@@ -34,7 +34,7 @@ interface ClubCheckerPageProps {
   // images
   clubLogoUrl?: File;
   backgroundImageUrl?: File;
-  optionsList: Column[]; // first column object is the default option
+  optionsList: IColumn[]; // first column object is the default option
   // defaultOption: string;
   isOnboarding: boolean;
 }
@@ -60,7 +60,7 @@ const ClubCheckerPage = ({
 
   const textFieldLabelRef = useRef<HTMLInputElement>(null);
 
-  const [selectedIdentifier, setSelectedIdentifier] = useState<Column>(
+  const [selectedIdentifier, setSelectedIdentifier] = useState<IColumn>(
     optionsList[0]
   );
 

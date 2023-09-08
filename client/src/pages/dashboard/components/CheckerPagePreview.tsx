@@ -6,46 +6,44 @@ import React, {
   useContext,
 } from "react";
 import styles from "./CheckerPagePreview.module.css";
-import ClubCheckerPage from "../pages/club-checker-page/ClubCheckerPage";
-import Textfield from "./Textfield";
-import copyIcon from "../assets/CopyIcon2.svg";
-import ClickNextArrow from "../assets/ClickNextArrow.svg";
-import ClickPrevArrow from "../assets/ClickPreviousArrow.svg";
-import {
-  Dashboard,
-  DashboardContextProvider,
-} from "../pages/dashboard/Dashboard";
-import { PageMetrics } from "../../../api/routes/dashboard/club_dashboard";
-import Page from "../types/Page";
+import ClubCheckerPage from "../../club-checker-page/ClubCheckerPage";
+import Textfield from "../../../components/Textfield";
+import copyIcon from "../../../assets/CopyIcon2.svg";
+import ClickNextArrow from "../../../assets/ClickNextArrow.svg";
+import ClickPrevArrow from "../../../assets/ClickPreviousArrow.svg";
+import { DashboardContextProvider } from "../Dashboard";
+import IPage from "../../../types/IPage";
+import IPageMetrics from "../../../../../api/routes/types/IPageMetrics";
+import IDashboardContext from "../../../types/IDashboardContext";
 
 interface CheckerPagePreviewProps {
-  pages: (Page & { weblink: String; metrics: PageMetrics })[];
+  pages: (IPage & { weblink: String; metrics: IPageMetrics })[];
 }
 
 const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
   const [dashboard, setDashboard] = useContext(DashboardContextProvider) as [
-    Dashboard,
-    Dispatch<SetStateAction<Dashboard>>
+    IDashboardContext,
+    Dispatch<SetStateAction<IDashboardContext>>
   ];
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const textFieldRef = useRef<HTMLInputElement | null>(null);
 
   const handleNextPage = () => {
-    if (currentPage < pages.length - 1) {
-      setCurrentPage(currentPage + 1);
-      setDashboard({ ...dashboard, selectedPageId: currentPage + 1 });
+    if (currentPageIndex < pages.length - 1) {
+      setCurrentPageIndex(currentPageIndex + 1);
+      setDashboard({ ...dashboard, selectedPageIndex: currentPageIndex + 1 });
     }
   };
 
   const handlePrevPage = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
+    if (currentPageIndex > 0) {
+      setCurrentPageIndex(currentPageIndex - 1);
 
-      setDashboard({ ...dashboard, selectedPageId: currentPage - 1 });
+      setDashboard({ ...dashboard, selectedPageIndex: currentPageIndex - 1 });
     }
   };
 
-  const currentPageData = pages[currentPage]; // Get the data for the current page
+  const currentPageData = pages[currentPageIndex]; // Get the data for the current page
 
   const handleCopyButtonClick = async () => {
     if (textFieldRef.current) {
@@ -105,7 +103,7 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
             </div>
             {/* Navigation buttons */}
             <div className={styles.prevArrowContainer}>
-              {currentPage > 0 && (
+              {currentPageIndex > 0 && (
                 <img
                   src={ClickPrevArrow}
                   alt="Click Previous"
@@ -115,7 +113,7 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
               )}
             </div>
             <div className={styles.nextArrowContainer}>
-              {currentPage < pages.length - 1 && (
+              {currentPageIndex < pages.length - 1 && (
                 <img
                   src={ClickNextArrow}
                   alt="Click Next"
@@ -132,11 +130,11 @@ const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
                   <span
                     key={index}
                     className={`${
-                      index === currentPage
+                      index === currentPageIndex
                         ? styles.activeDot + " " + styles.clicked
                         : styles.dot
                     }`}
-                    onClick={() => setCurrentPage(index)}
+                    onClick={() => setCurrentPageIndex(index)}
                   >
                     <span className={styles.innerDot} />
                   </span>

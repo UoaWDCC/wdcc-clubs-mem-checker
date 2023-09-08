@@ -10,7 +10,7 @@ import {
 } from "react";
 
 import { PageContextProvider } from "./CreateCheckerPage";
-import Page from "../../types/Page";
+import IPage from "../../types/IPage";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
 import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
@@ -24,8 +24,8 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
   const [error, setError] = useState<boolean>(false);
   const titleRef = createRef();
   const [page, setPage] = useContext(PageContextProvider) as [
-    Page,
-    Dispatch<SetStateAction<Page>>
+    IPage,
+    Dispatch<SetStateAction<IPage>>
   ];
   useEffect(() => {
     (titleRef.current as HTMLInputElement).setAttribute(

@@ -2,19 +2,19 @@ import styles from "./style.module.css";
 import Button from "../../components/Button";
 import BackButton from "../../components/BackButton";
 import { PageContextProvider } from "./CreateCheckerPage";
-import Page from "../../types/Page";
+import IPage from "../../types/IPage";
 import { useContext, Dispatch, SetStateAction } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
 import { getSpreadsheetId } from "./GoogleSheetForm";
-import { ClubDetails } from "../club-detail-page/ClubDetailPage";
+import { IClubDetails } from "../club-detail-page/ClubDetailPage";
 import { getSheetTabId } from "./GoogleSheetForm";
 
 interface CustomiseConfirmProps {
   onNext: () => void;
   onBack: () => void;
-  clubDetails: ClubDetails;
+  clubDetails: IClubDetails;
 }
 
 const CustomiseConfirm = ({
@@ -23,8 +23,8 @@ const CustomiseConfirm = ({
   clubDetails,
 }: CustomiseConfirmProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
-    Page,
-    Dispatch<SetStateAction<Page>>
+    IPage,
+    Dispatch<SetStateAction<IPage>>
   ];
   const navigate = useNavigate();
   function handleNext(): void {

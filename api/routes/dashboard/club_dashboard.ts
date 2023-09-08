@@ -3,37 +3,18 @@ import {
   Column as DBColumn,
   Page as DBPage,
   MembershipCheckUsage,
-  Organisation,
   PrismaClient,
 } from "@prisma/client";
-import Column from "../../../client/src/types/Column";
-import Page from "../../../client/src/types/Page";
+import IColumn from "../../../client/src/types/IColumn";
+import IPage from "../../../client/src/types/IPage";
 import auth from "../../middleware/auth";
 import jwt from "jsonwebtoken";
 import { Metric } from "@prisma/client/runtime";
+import IPageMetrics from "../types/IPageMetrics";
+import IDashboardPage from "../types/IDashboardPage";
 
 const router = Router();
 const prisma = new PrismaClient();
-
-export interface MetricRecord {
-  numberOfChecks: number;
-  numberOfDuplicates: number;
-}
-
-export interface PageMetrics {
-  allTime: MetricRecord;
-  lastDay: MetricRecord;
-  last7Days: MetricRecord;
-  last30Days: MetricRecord;
-}
-
-export interface DashboardPage {
-  club: Organisation; // this doesn't contain the club logo, not sure where this is stored?
-  pages: (Page & {
-    weblink: String;
-    metrics: PageMetrics;
-  })[];
-}
 
 const getMetrics = (
   pageId: number,
@@ -141,22 +122,23 @@ router.get(
           .status(404)
           .send("you must be in the organisation to have checker pages");
 
-      const convertedPages: (Page & { weblink: String; metrics: any })[] =
+      const convertedPages: (IPage & { weblink: String; metrics: any })[] =
         pagesInOrg.map((page: DBPage) => {
-          const convertedColumns: Column[] = columns
+          const convertedColumns: IColumn[] = columns
             .filter((column: DBColumn) => page.id === column.pageId)
             .map((column: DBColumn) => {
-              const convertedColumn: Column = {
+              const convertedColumn: IColumn = {
                 displayName: column.mappedTo,
                 originalName: column.sheetsName,
               };
               return convertedColumn;
             });
 
-          const convertedPage: Page & {
+          const convertedPage: IPage & {
             weblink: String;
-            metrics: PageMetrics;
+            metrics: IPageMetrics;
           } = {
+            id: page.id,
             metrics: getMetrics(page.id, allCheckerUsages),
             weblink: page.webLink,
             identificationColumns: convertedColumns, // Fill this with your actual Column[] data
@@ -176,7 +158,7 @@ router.get(
           return convertedPage;
         });
 
-      const dashboardPage: DashboardPage = {
+      const dashboardPage: IDashboardPage = {
         club: organisation,
         pages: convertedPages,
       };

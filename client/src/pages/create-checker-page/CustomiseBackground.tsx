@@ -4,7 +4,7 @@ import Button from "../../components/Button";
 import BackButton from "../../components/BackButton";
 import { useContext, Dispatch, SetStateAction } from "react";
 import { PageContextProvider } from "./CreateCheckerPage";
-import Page from "../../types/Page";
+import IPage from "../../types/IPage";
 import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
 
 interface CustomiseBackgroundProps {
@@ -14,8 +14,8 @@ interface CustomiseBackgroundProps {
 
 const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
-    Page,
-    Dispatch<SetStateAction<Page>>
+    IPage,
+    Dispatch<SetStateAction<IPage>>
   ];
   return (
     <div id={styles.customisePageContainer}>

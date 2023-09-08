@@ -1,34 +1,29 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import CheckerPageMetrics from "../../components/CheckerPageMetrics";
-import ClubAdminsList from "../../components/ClubAdminsList";
+import React, { useEffect, useState } from "react";
+import CheckerPageMetrics from "./components/CheckerPageMetrics";
+import ClubAdminsList from "./components/ClubAdminsList";
 import styles from "./style.module.css";
-import GenerateInviteCode from "../../components/GenerateInviteCode";
+import GenerateInviteCode from "./components/GenerateInviteCode";
 import axios from "axios";
-import CheckerPagePreview from "../../components/CheckerPagePreview";
+import CheckerPagePreview from "./components/CheckerPagePreview";
 import WDCCLogoBlue from "../../assets/wdcc_blue_logo.svg";
-import SelectClubDropdown, {
-  DropdownClub,
-} from "./components/SelectClubDropdown";
-import Page from "../../types/Page";
-import ClubSize from "../../components/ClubSize";
-import { DashboardPage } from "../../../../api/routes/dashboard/club_dashboard";
-
-export interface Dashboard {
-  checkerPage?: DashboardPage;
-  selectedClub?: DropdownClub;
-  selectedPageId?: number; // stores the selected page id
-}
+import SelectClubDropdown from "./components/SelectClubDropdown";
+import ClubSize from "./components/ClubSize";
+import IDashboardContext from "../../types/IDashboardContext";
+import IDropdownClub from "../../types/IDropdownClub";
 
 export const DashboardContextProvider = React.createContext([{}, () => {}]);
 
 const Dashboard = () => {
-  const [dashboard, setDashboard] = useState<Dashboard>({});
+  // retrieve user's list of clubs
 
   // load cached selected club
   const storedSelectedClub = localStorage.getItem("selectedClub");
-  dashboard.selectedClub = storedSelectedClub
-    ? JSON.parse(storedSelectedClub)
-    : undefined;
+
+  const [dashboard, setDashboard] = useState<IDashboardContext>({
+    selectedClub: storedSelectedClub
+      ? JSON.parse(storedSelectedClub)
+      : undefined,
+  });
 
   useEffect(() => {
     axios
@@ -36,54 +31,14 @@ const Dashboard = () => {
       .then((response) => {
         setDashboard({
           ...dashboard,
-          checkerPage: response.data,
-          selectedPageId: 0,
+          dashboardPage: response.data,
+          selectedPageIndex: 0,
         });
       })
       .catch((error) => {
         console.error(error);
       });
-  }, [JSON.stringify(dashboard.selectedClub)]);
-
-  // const pages = [
-  //   {
-  //     clubId: 1,
-  //     clubName: "Example Club 1",
-  //     title: "Checker Page Title 1",
-  //     // Other data for page 1
-  //     optionsList: [
-  //       { originalName: "option1", displayName: "Option 1" },
-  //       { originalName: "option2", displayName: "Option 2" },
-  //       { originalName: "option3", displayName: "Option 3" },
-  //     ],
-  //     isOnboarding: true,
-  //   },
-  //   {
-  //     clubId: 2,
-  //     clubName: "Example Club 2",
-  //     title: "Checker Page Title 2",
-  //     // Other data for page 2
-  //     optionsList: [
-  //       { originalName: "option4", displayName: "Option 4" },
-  //       { originalName: "option5", displayName: "Option 5" },
-  //       { originalName: "option6", displayName: "Option 6" },
-  //     ],
-  //     isOnboarding: false,
-  //   },
-  //   // Add more pages as needed
-  //   {
-  //     clubId: 3,
-  //     clubName: "Example Club 3",
-  //     title: "Checker Page Title 3",
-  //     // Other data for page 2
-  //     optionsList: [
-  //       { originalName: "option7", displayName: "Option 7" },
-  //       { originalName: "option8", displayName: "Option 8" },
-  //       { originalName: "option9", displayName: "Option 9" },
-  //     ],
-  //     isOnboarding: false,
-  //   },
-  // ];
+  }, [dashboard.selectedClub]);
 
   const [code, setCode] = useState("click generate");
   const [isClicked, setClicked] = useState(false);
@@ -104,9 +59,10 @@ const Dashboard = () => {
 
   // temporary clubs array for dropdown
   // TODO: retrieve clubs of user and create array of type DropdownClub[]
-  const testDropdownClubs: DropdownClub[] = [
+  const testDropdownClubs: IDropdownClub[] = [
     { id: 1, name: "WDCC" },
     { id: 2, name: "SESA" },
+    { id: 85, name: "random" },
   ];
   return (
     <DashboardContextProvider.Provider value={[dashboard, setDashboard]}>
@@ -143,8 +99,8 @@ const Dashboard = () => {
             <div
               className={`${styles.pagePreviewContainer} ${styles.dashboardItemContainer}`}
             >
-              {dashboard.checkerPage?.pages && (
-                <CheckerPagePreview pages={dashboard.checkerPage.pages} />
+              {dashboard.dashboardPage?.pages && (
+                <CheckerPagePreview pages={dashboard.dashboardPage.pages} />
               )}
             </div>
             <div className={styles.colTwoRowTwo}>
