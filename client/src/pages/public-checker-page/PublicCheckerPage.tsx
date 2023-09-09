@@ -6,8 +6,8 @@ import { useParams } from 'react-router-dom';
 import Column from "../../types/Column";
 import styles from "./style.module.css";
 import WebFont from 'webfontloader';
-
 const PublicCheckerPage = () => {
+
     const [pageData, setPageData] = useState<Page>({});
     const { weblinkId } = useParams();
     var columnArray : Column[];
@@ -23,6 +23,17 @@ const PublicCheckerPage = () => {
             console.error(error);
         });
     }, []);
+
+    useEffect(() => {
+        WebFont.load({
+            google: {
+              families: [pageData.font]
+            },
+            active: function() {
+
+          },
+        });
+    }  , [pageData]);
 
     if (pageData.identificationColumns){
         columnArray = pageData.identificationColumns.map((obj) => ({
