@@ -346,7 +346,7 @@ router.get("/info/:webLink", async (req: Request, res: Response) => {
     title: pageData?.name,
     backgroundColor: pageData?.backgroundColor,
     textFieldBackgroundColor: pageData?.textFieldBackgroundColor,
-    textColor: pageData?.textColor,
+    textFieldtextColor: pageData?.textColor,
     buttonColor: pageData?.buttonColor,
     titleTextColor: pageData?.headingColor,
     logoLink: pageData?.logoLink || undefined,
