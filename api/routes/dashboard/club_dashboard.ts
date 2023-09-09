@@ -10,7 +10,6 @@ import Column from "../../../client/src/types/Column";
 import Page from "../../../client/src/types/Page";
 import auth from "../../middleware/auth";
 import jwt from "jsonwebtoken";
-import { Metric } from "@prisma/client/runtime";
 
 const router = Router();
 const prisma = new PrismaClient();

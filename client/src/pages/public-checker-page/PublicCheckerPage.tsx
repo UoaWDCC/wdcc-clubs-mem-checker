@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
 import Page from "../../types/Page";
 import axios from "axios";
@@ -17,6 +17,13 @@ const PublicCheckerPage = () => {
         axios
         .get(`/pages/info/${weblinkId}`)
         .then((response) => {
+
+            WebFont.load({
+                google: {
+                  families: [response.data!.font!]
+                },
+            
+            });
             setPageData(response.data!);
         })
         .catch((error) => {
@@ -24,16 +31,6 @@ const PublicCheckerPage = () => {
         });
     }, []);
 
-    useEffect(() => {
-        WebFont.load({
-            google: {
-              families: [pageData.font]
-            },
-            active: function() {
-
-          },
-        });
-    }  , [pageData]);
 
     if (pageData.identificationColumns){
         columnArray = pageData.identificationColumns.map((obj) => ({
@@ -53,7 +50,7 @@ const PublicCheckerPage = () => {
             textFieldTextColor={pageData.textFieldtextColor}
             buttonBackgroundColor={pageData.buttonColor}
             dropDownBackgroundColor={pageData.dropDownBackgroundColor}
-            font={pageData.font}
+            font={pageData.font!}
             clubLogoUrl={pageData.logoLink}
             backgroundImageUrl={pageData.backgroundImageLink} 
             optionsList={columnArray}

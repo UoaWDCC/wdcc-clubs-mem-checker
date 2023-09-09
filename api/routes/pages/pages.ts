@@ -342,16 +342,16 @@ router.get("/info/:webLink", async (req: Request, res: Response) => {
 
   if (!columnData) return res.status(400).send("failed to get columns data with that link");
 
-  const dataToReturn = {
+  const dataToReturn: any = {
     title: pageData?.name,
     backgroundColor: pageData?.backgroundColor,
     textFieldBackgroundColor: pageData?.textFieldBackgroundColor,
     textColor: pageData?.textColor,
     buttonColor: pageData?.buttonColor,
-    headingColor: pageData?.headingColor,
-    logoLink: pageData?.logoLink,
-    backgroundImageLink: pageData?.backgroundImageLink,
-    fontFamily: pageData?.fontFamily,
+    titleTextColor: pageData?.headingColor,
+    logoLink: pageData?.logoLink || undefined,
+    backgroundImageLink: pageData?.backgroundImageLink || undefined,
+    font: pageData?.fontFamily,
     clubId: pageData?.organisationId,
     identificationColumns: columnData,
 
