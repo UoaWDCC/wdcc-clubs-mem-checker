@@ -1,20 +1,24 @@
 import { DashboardContextProvider } from "../Dashboard";
 import IDashboardContext from "../../../types/IDashboardContext";
 import styles from "./ClubSize.module.css";
-import { useState, useContext, Dispatch, SetStateAction } from "react";
+import { useContext, Dispatch, SetStateAction } from "react";
 
-interface ClubSizeProps {
-  temp?: string;
-}
-
-const ClubSize = ({}: ClubSizeProps) => {
-  const [clubSize, setClubSize] = useState(0);
-
+const ClubSize = () => {
   // retrieve context
   const [dashboard, setDashboard] = useContext(DashboardContextProvider) as [
     IDashboardContext,
     Dispatch<SetStateAction<IDashboardContext>>
   ];
+
+  let memberCount;
+  const selectedPageIndex = dashboard.selectedPageIndex;
+  if (selectedPageIndex !== undefined) {
+    const pageId = dashboard.dashboardPage?.pages[selectedPageIndex].id;
+    if (pageId !== undefined) {
+      memberCount =
+        dashboard.dashboardPage?.memberCountByPageId[pageId].totalMembers;
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -23,7 +27,9 @@ const ClubSize = ({}: ClubSizeProps) => {
         <h2 className={styles.subheader}>
           specific to the Google Sheet for this checker page
         </h2>
-        <h1 className={styles.sizeText}>999</h1>
+        <h1 className={styles.sizeText}>
+          {memberCount !== undefined ? memberCount : " "}
+        </h1>
       </div>
     </div>
   );

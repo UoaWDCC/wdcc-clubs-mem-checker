@@ -24,10 +24,18 @@ const Dashboard = () => {
       ? JSON.parse(storedSelectedClub)
       : undefined,
   });
+  const [cancelTokenSource, setCancelTokenSource] = useState(
+    axios.CancelToken.source()
+  );
 
   useEffect(() => {
+    cancelTokenSource.cancel("Cancel getting club info due to switching club");
+    const newCancelToken = axios.CancelToken.source();
+    setCancelTokenSource(newCancelToken);
     axios
-      .get(`/dashboard/club-dashboard-endpoint/${dashboard.selectedClub?.id}`)
+      .get(`/dashboard/club-dashboard-endpoint/${dashboard.selectedClub?.id}`, {
+        cancelToken: newCancelToken.token,
+      })
       .then((response) => {
         setDashboard({
           ...dashboard,
@@ -36,11 +44,13 @@ const Dashboard = () => {
         });
       })
       .catch((error) => {
-        console.error(error);
+        if (axios.isCancel(error)) {
+          console.log("Request canceled:", error.message);
+        } else {
+          console.error(error);
+        }
       });
   }, [dashboard.selectedClub]);
-
-  console.log(dashboard);
 
   // temporary clubs array for dropdown
   // TODO: retrieve clubs of user and create array of type DropdownClub[]

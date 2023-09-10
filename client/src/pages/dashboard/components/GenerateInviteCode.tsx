@@ -37,7 +37,6 @@ const GenerateInviteCode = () => {
     setGenerateDisabled(true);
     setGenerateButtonText("");
     setLoadingState(true);
-    console.log(dashboard.selectedClub?.id);
     axios
       .get(`/club/create-invite-code/${dashboard.selectedClub?.id}`, {
         cancelToken: newCancelToken.token,
@@ -57,7 +56,7 @@ const GenerateInviteCode = () => {
           // Handle the cancellation here
           console.log("Request canceled:", error.message);
         } else {
-          console.log(error);
+          console.error(error);
         }
       });
   };
