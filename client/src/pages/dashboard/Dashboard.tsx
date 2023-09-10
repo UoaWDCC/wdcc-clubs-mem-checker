@@ -40,21 +40,6 @@ const Dashboard = () => {
       });
   }, [dashboard.selectedClub]);
 
-  const [code, setCode] = useState("click generate");
-  const [isClicked, setClicked] = useState(false);
-  const placeholder = () => {
-    axios
-      .get("/club/create-invite-code/63")
-      .then(function (response) {
-        if (response.status === 200) {
-          console.log(response.data);
-          setCode(response.data);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
   console.log(dashboard);
 
   // temporary clubs array for dropdown
@@ -88,11 +73,7 @@ const Dashboard = () => {
             <div
               className={`${styles.clubAdminContainer} ${styles.dashboardItemContainer}`}
             >
-              <GenerateInviteCode
-                text={code}
-                onClick={placeholder}
-                disabled={isClicked}
-              />
+              <GenerateInviteCode />
             </div>
           </div>
 
