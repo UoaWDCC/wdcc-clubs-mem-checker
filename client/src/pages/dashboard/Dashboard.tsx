@@ -71,11 +71,6 @@ const Dashboard = () => {
           selectedPageIndex: data.pages.length > 0 ? 0 : undefined,
         });
         setIsLoading(false);
-        console.log({
-          ...dashboard,
-          dashboardPage: response.data,
-          selectedPageIndex: 0,
-        });
       })
       .catch((error) => {
         if (axios.isCancel(error)) {
