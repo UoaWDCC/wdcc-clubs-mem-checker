@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createRef, useEffect, useLayoutEffect, useState } from "react";
 import CheckerPageMetrics from "./components/CheckerPageMetrics";
 import ClubAdminsList from "./components/ClubAdminsList";
 import styles from "./style.module.css";
@@ -10,6 +10,7 @@ import SelectClubDropdown from "./components/SelectClubDropdown";
 import ClubSize from "./components/ClubSize";
 import IDashboardContext from "../../types/IDashboardContext";
 import IDropdownClub from "../../types/IDropdownClub";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const DashboardContextProvider = React.createContext([{}, () => {}]);
 
@@ -24,11 +25,20 @@ const Dashboard = () => {
       ? JSON.parse(storedSelectedClub)
       : undefined,
   });
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loadingHeight, setLoadingHeight] = useState("100%");
+  const containerRef = createRef<HTMLDivElement>();
+  useLayoutEffect(() => {
+    setLoadingHeight(`${containerRef.current?.offsetHeight}px`);
+  });
+
   const [cancelTokenSource, setCancelTokenSource] = useState(
     axios.CancelToken.source()
   );
 
   useEffect(() => {
+    setIsLoading(true);
     cancelTokenSource.cancel("Cancel getting club info due to switching club");
     const newCancelToken = axios.CancelToken.source();
     setCancelTokenSource(newCancelToken);
@@ -42,6 +52,7 @@ const Dashboard = () => {
           dashboardPage: response.data,
           selectedPageIndex: 0,
         });
+        setIsLoading(false);
       })
       .catch((error) => {
         if (axios.isCancel(error)) {
@@ -62,7 +73,22 @@ const Dashboard = () => {
   ];
   return (
     <DashboardContextProvider.Provider value={[dashboard, setDashboard]}>
-      <div className={styles.dashboardContainer}>
+      <div className={styles.dashboardContainer} ref={containerRef}>
+        {isLoading && (
+          <div
+            style={{ height: `${loadingHeight}` }}
+            className={styles.loadingContainer}
+          >
+            <CircularProgress
+              className={styles.loadingSign}
+              sx={{
+                position: "absolute",
+                color: "#FFFFFF",
+              }}
+              size="3vh"
+            />
+          </div>
+        )}
         <div className={styles.dashboardHeadingContainer}>
           <h2 className={styles.dashboardHeading}>dashboard</h2>
 
