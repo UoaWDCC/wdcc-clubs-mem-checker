@@ -68,9 +68,15 @@ const CheckerPageMetrics = () => {
           style={{
             background: "#087DF1",
           }}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={
+            Object.getPrototypeOf(metrics) === null
+              ? () => {}
+              : () => setIsOpen(!isOpen)
+          }
         >
-          <p className={styles.dropdownText}>{timePeriod} </p>
+          <p className={styles.dropdownText}>
+            {Object.getPrototypeOf(metrics) === null ? "N/A" : timePeriod}{" "}
+          </p>
           <div className={styles.dropdownArrow}>
             {!isOpen && <ArrowDown2 size="20" color="white" />}
             {isOpen && <ArrowUp2 size="20" color="white" />}
@@ -101,10 +107,12 @@ const CheckerPageMetrics = () => {
         <h1 className={styles.header}>number of users</h1>
         <h1 className={styles.subheader}>total number of checks performed</h1>
         <h1 className={styles.statisticText}>
-          {timePeriod &&
-            metrics[
-              getKeyFromDisplayString(timePeriod, possibleTimePeriodsDisplay)
-            ].numberOfChecks}
+          {Object.getPrototypeOf(metrics) === null
+            ? "N/A"
+            : timePeriod &&
+              metrics[
+                getKeyFromDisplayString(timePeriod, possibleTimePeriodsDisplay)
+              ].numberOfChecks}
         </h1>
       </div>
       <div
@@ -119,10 +127,12 @@ const CheckerPageMetrics = () => {
           total number of existing memberships found
         </h2>
         <h1 className={styles.statisticText}>
-          {timePeriod &&
-            metrics[
-              getKeyFromDisplayString(timePeriod, possibleTimePeriodsDisplay)
-            ].numberOfDuplicates}
+          {Object.getPrototypeOf(metrics) === null
+            ? "N/A"
+            : timePeriod &&
+              metrics[
+                getKeyFromDisplayString(timePeriod, possibleTimePeriodsDisplay)
+              ].numberOfDuplicates}
         </h1>
       </div>
     </div>

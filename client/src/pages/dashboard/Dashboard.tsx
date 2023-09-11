@@ -11,6 +11,7 @@ import ClubSize from "./components/ClubSize";
 import IDashboardContext from "../../types/IDashboardContext";
 import IDropdownClub from "../../types/IDropdownClub";
 import CircularProgress from "@mui/material/CircularProgress";
+import EmptyCheckerPageMetrics from "./components/EmptyCheckerPageMetrics";
 
 export const DashboardContextProvider = React.createContext([{}, () => {}]);
 
@@ -84,6 +85,7 @@ const Dashboard = () => {
           console.error(error);
         }
       });
+    console.log(dashboard);
   }, [dashboard.selectedClub]);
 
   // temporary clubs array for dropdown

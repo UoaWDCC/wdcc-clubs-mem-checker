@@ -131,7 +131,6 @@ router.get(
           identificationColumns: {},
         },
       });
-      console.log(pagesInOrg);
       // retrieve google sheets columns for all checker pages
       const columns: DBColumn[] = await prisma.column.findMany();
 
