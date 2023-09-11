@@ -52,6 +52,10 @@ const Dashboard = () => {
   );
 
   useEffect(() => {
+    if (dashboard.selectedClub?.id === undefined) {
+      return;
+    }
+    console.log("test");
     setIsLoading(true);
     cancelTokenSource.cancel("Cancel getting club info due to switching club");
     const newCancelToken = axios.CancelToken.source();
@@ -64,9 +68,14 @@ const Dashboard = () => {
         setDashboard({
           ...dashboard,
           dashboardPage: response.data,
-          selectedPageIndex: 0,
+          selectedPageIndex: userClubs.length > 0 ? 0 : undefined,
         });
         setIsLoading(false);
+        console.log({
+          ...dashboard,
+          dashboardPage: response.data,
+          selectedPageIndex: 0,
+        });
       })
       .catch((error) => {
         if (axios.isCancel(error)) {
