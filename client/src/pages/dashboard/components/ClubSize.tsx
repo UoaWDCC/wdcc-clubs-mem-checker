@@ -12,7 +12,10 @@ const ClubSize = () => {
 
   let memberCount;
   const selectedPageIndex = dashboard.selectedPageIndex;
-  if (selectedPageIndex !== undefined) {
+  if (
+    selectedPageIndex !== undefined &&
+    dashboard.dashboardPage?.pages.length !== 0
+  ) {
     const pageId = dashboard.dashboardPage?.pages[selectedPageIndex].id;
     if (pageId !== undefined) {
       memberCount =

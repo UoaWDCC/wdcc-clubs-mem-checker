@@ -30,7 +30,9 @@ const CheckerPageMetrics = () => {
   ];
 
   const metrics =
-    dashboard.dashboardPage && dashboard.selectedPageIndex !== undefined
+    dashboard.dashboardPage?.pages.length !== 0 &&
+    dashboard.dashboardPage &&
+    dashboard.selectedPageIndex !== undefined
       ? dashboard.dashboardPage.pages[dashboard.selectedPageIndex].metrics
       : Object.create(null);
 
