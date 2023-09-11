@@ -1,0 +1,17 @@
+get:
+  security:
+    - jwt_token:
+        - "read:users"
+        - "read:clubs"
+  operationId: organisations
+  summary: "Get the organisations for the requesting user"
+  tags:
+    - "User"
+  description: "Get an array of shallow organisation objects for the requesting user, which each contain the organisation ID, name and logolink if available, and otherwise return null"
+  responses:
+    200:
+      description: "successfully retrieved organisations for user"
+    400:
+      description: "user is not in any organisations"
+    500:
+      description: 'failed to get clubs of user"'

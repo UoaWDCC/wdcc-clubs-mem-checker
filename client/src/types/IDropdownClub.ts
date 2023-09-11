@@ -1,5 +1,5 @@
 export default interface IDropdownClub {
   id: number;
   name: string;
-  logo?: File; // should be string??
+  logo?: File | string; // should be string??
 }

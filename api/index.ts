@@ -10,6 +10,7 @@ import auth, { maybeAuth } from "./middleware/auth";
 import pages from "./routes/pages/pages";
 import rateLimit from "express-rate-limit";
 import { createClient } from "@supabase/supabase-js";
+import userRoutes from "./routes/user/user";
 
 const app = express();
 config(); // Dotenv init
@@ -49,6 +50,7 @@ app.use("/club", organisationRoutes);
 app.use("/pages", pages);
 app.use("/dashboard", dashboardRoutes);
 app.use("/club-size", club_admin_size_routes);
+app.use("/user", userRoutes);
 
 app.get("/protected", auth, async (req, res) => {
   return res.send(`Hello, ${req.body.user.firstName}`);

@@ -16,6 +16,20 @@ export const DashboardContextProvider = React.createContext([{}, () => {}]);
 
 const Dashboard = () => {
   // retrieve user's list of clubs
+  const [userClubs, setUserClubs] = useState<IDropdownClub[]>([]);
+  useEffect(() => {
+    axios
+      .get(`/user/organisations`)
+      .then((response) => {
+        if (response.status == 200) {
+          setUserClubs(response.data);
+          console.log(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   // load cached selected club
   const storedSelectedClub = localStorage.getItem("selectedClub");
@@ -99,7 +113,7 @@ const Dashboard = () => {
             <div
               className={`${styles.clubsContainer} ${styles.dashboardItemContainer}`}
             >
-              <SelectClubDropdown clubs={testDropdownClubs} />
+              <SelectClubDropdown clubs={userClubs} />
             </div>
             <div
               className={`${styles.adminShareContainer} ${styles.dashboardItemContainer}`}
