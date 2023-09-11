@@ -11,6 +11,7 @@ import ClubSize from "./components/ClubSize";
 import IDashboardContext from "../../types/IDashboardContext";
 import IDropdownClub from "../../types/IDropdownClub";
 import CircularProgress from "@mui/material/CircularProgress";
+import IDashboardPage from "../../../../api/routes/types/IDashboardPage";
 
 export const DashboardContextProvider = React.createContext([{}, () => {}]);
 
@@ -23,7 +24,6 @@ const Dashboard = () => {
       .then((response) => {
         if (response.status == 200) {
           setUserClubs(response.data);
-          console.log(response.data);
         }
       })
       .catch((error) => {
@@ -55,7 +55,6 @@ const Dashboard = () => {
     if (dashboard.selectedClub?.id === undefined) {
       return;
     }
-    console.log("test");
     setIsLoading(true);
     cancelTokenSource.cancel("Cancel getting club info due to switching club");
     const newCancelToken = axios.CancelToken.source();
@@ -65,10 +64,11 @@ const Dashboard = () => {
         cancelToken: newCancelToken.token,
       })
       .then((response) => {
+        const data: IDashboardPage = response.data;
         setDashboard({
           ...dashboard,
-          dashboardPage: response.data,
-          selectedPageIndex: userClubs.length > 0 ? 0 : undefined,
+          dashboardPage: data,
+          selectedPageIndex: data.pages.length > 0 ? 0 : undefined,
         });
         setIsLoading(false);
         console.log({
@@ -84,7 +84,6 @@ const Dashboard = () => {
           console.error(error);
         }
       });
-    console.log(dashboard);
   }, [dashboard.selectedClub]);
 
   // temporary clubs array for dropdown
@@ -123,7 +122,7 @@ const Dashboard = () => {
             <div
               className={`${styles.clubsContainer} ${styles.dashboardItemContainer}`}
             >
-              <SelectClubDropdown clubs={userClubs} />
+              {userClubs.length > 0 && <SelectClubDropdown clubs={userClubs} />}
             </div>
             <div
               className={`${styles.adminShareContainer} ${styles.dashboardItemContainer}`}
@@ -141,9 +140,7 @@ const Dashboard = () => {
             <div
               className={`${styles.pagePreviewContainer} ${styles.dashboardItemContainer}`}
             >
-              {dashboard.dashboardPage?.pages && (
-                <CheckerPagePreview pages={dashboard.dashboardPage.pages} />
-              )}
+              <CheckerPagePreview />
             </div>
             <div className={styles.colTwoRowTwo}>
               <div

@@ -12,21 +12,20 @@ import copyIcon from "../../../assets/CopyIcon2.svg";
 import ClickNextArrow from "../../../assets/ClickNextArrow.svg";
 import ClickPrevArrow from "../../../assets/ClickPreviousArrow.svg";
 import { DashboardContextProvider } from "../Dashboard";
-import IPage from "../../../types/IPage";
-import IPageMetrics from "../../../../../api/routes/types/IPageMetrics";
 import IDashboardContext from "../../../types/IDashboardContext";
 
-interface CheckerPagePreviewProps {
-  pages: (IPage & { weblink: String; metrics: IPageMetrics })[];
-}
-
-const CheckerPagePreview: React.FC<CheckerPagePreviewProps> = ({ pages }) => {
+const CheckerPagePreview = () => {
   const [dashboard, setDashboard] = useContext(DashboardContextProvider) as [
     IDashboardContext,
     Dispatch<SetStateAction<IDashboardContext>>
   ];
 
   const textFieldRef = useRef<HTMLInputElement | null>(null);
+
+  const pages = dashboard.dashboardPage?.pages;
+  if (pages === undefined) {
+    return <div></div>;
+  }
 
   const currentPageIndex = dashboard.selectedPageIndex;
 
