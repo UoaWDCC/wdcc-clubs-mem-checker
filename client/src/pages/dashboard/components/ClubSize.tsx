@@ -28,7 +28,7 @@ const ClubSize = () => {
           specific to the Google Sheet for this checker page
         </h2>
         <h1 className={styles.sizeText}>
-          {memberCount !== undefined ? memberCount : " "}
+          {memberCount !== undefined ? memberCount : "N/A"}
         </h1>
       </div>
     </div>

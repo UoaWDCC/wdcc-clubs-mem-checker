@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createRef, useEffect, useLayoutEffect, useState } from "react";
 import CheckerPageMetrics from "./components/CheckerPageMetrics";
 import ClubAdminsList from "./components/ClubAdminsList";
 import styles from "./style.module.css";
@@ -10,11 +10,27 @@ import SelectClubDropdown from "./components/SelectClubDropdown";
 import ClubSize from "./components/ClubSize";
 import IDashboardContext from "../../types/IDashboardContext";
 import IDropdownClub from "../../types/IDropdownClub";
+import CircularProgress from "@mui/material/CircularProgress";
+import EmptyCheckerPageMetrics from "./components/EmptyCheckerPageMetrics";
 
 export const DashboardContextProvider = React.createContext([{}, () => {}]);
 
 const Dashboard = () => {
   // retrieve user's list of clubs
+  const [userClubs, setUserClubs] = useState<IDropdownClub[]>([]);
+  useEffect(() => {
+    axios
+      .get(`/user/organisations`)
+      .then((response) => {
+        if (response.status == 200) {
+          setUserClubs(response.data);
+          console.log(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   // load cached selected club
   const storedSelectedClub = localStorage.getItem("selectedClub");
@@ -24,11 +40,24 @@ const Dashboard = () => {
       ? JSON.parse(storedSelectedClub)
       : undefined,
   });
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loadingHeight, setLoadingHeight] = useState("100%");
+  const containerRef = createRef<HTMLDivElement>();
+  useLayoutEffect(() => {
+    setLoadingHeight(`${containerRef.current?.offsetHeight}px`);
+  });
+
   const [cancelTokenSource, setCancelTokenSource] = useState(
     axios.CancelToken.source()
   );
 
   useEffect(() => {
+    if (dashboard.selectedClub?.id === undefined) {
+      return;
+    }
+    console.log("test");
+    setIsLoading(true);
     cancelTokenSource.cancel("Cancel getting club info due to switching club");
     const newCancelToken = axios.CancelToken.source();
     setCancelTokenSource(newCancelToken);
@@ -38,6 +67,12 @@ const Dashboard = () => {
       })
       .then((response) => {
         setDashboard({
+          ...dashboard,
+          dashboardPage: response.data,
+          selectedPageIndex: userClubs.length > 0 ? 0 : undefined,
+        });
+        setIsLoading(false);
+        console.log({
           ...dashboard,
           dashboardPage: response.data,
           selectedPageIndex: 0,
@@ -50,6 +85,7 @@ const Dashboard = () => {
           console.error(error);
         }
       });
+    console.log(dashboard);
   }, [dashboard.selectedClub]);
 
   // temporary clubs array for dropdown
@@ -62,7 +98,22 @@ const Dashboard = () => {
   ];
   return (
     <DashboardContextProvider.Provider value={[dashboard, setDashboard]}>
-      <div className={styles.dashboardContainer}>
+      <div className={styles.dashboardContainer} ref={containerRef}>
+        {isLoading && (
+          <div
+            style={{ height: `${loadingHeight}` }}
+            className={styles.loadingContainer}
+          >
+            <CircularProgress
+              className={styles.loadingSign}
+              sx={{
+                position: "absolute",
+                color: "#FFFFFF",
+              }}
+              size="3vh"
+            />
+          </div>
+        )}
         <div className={styles.dashboardHeadingContainer}>
           <h2 className={styles.dashboardHeading}>dashboard</h2>
 
@@ -73,7 +124,7 @@ const Dashboard = () => {
             <div
               className={`${styles.clubsContainer} ${styles.dashboardItemContainer}`}
             >
-              <SelectClubDropdown clubs={testDropdownClubs} />
+              <SelectClubDropdown clubs={userClubs} />
             </div>
             <div
               className={`${styles.adminShareContainer} ${styles.dashboardItemContainer}`}
