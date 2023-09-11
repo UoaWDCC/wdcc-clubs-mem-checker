@@ -27,6 +27,9 @@ const GenerateInviteCode = () => {
   const [generateButtonText, setGenerateButtonText] = useState("generate!");
   const [fontsize, setFontsize] = useState("1.4vh");
   const [text, setText] = useState("click generate");
+  const [subheader, setSubheader] = useState(
+    "click to generate a new invite code"
+  );
   const [cancelTokenSource, setCancelTokenSource] = useState(
     axios.CancelToken.source()
   );
@@ -44,7 +47,9 @@ const GenerateInviteCode = () => {
       .then(function (response) {
         if (response.status === 200) {
           setText(response.data);
-
+          setSubheader(
+            "copy this invite code - you won’t get to see it again!"
+          );
           setLoadingState(false);
           setGenerateButtonColor("#838383");
           setGenerateButtonText("code expires in 2 hours");
@@ -62,6 +67,7 @@ const GenerateInviteCode = () => {
   };
 
   const resetLayout = () => {
+    setSubheader("click to generate a new invite code");
     cancelTokenSource.cancel("Cancel generating code due to switching club");
     setLoadingState(false);
     setGenerateDisabled(false);
@@ -104,9 +110,7 @@ const GenerateInviteCode = () => {
       <div className={styles.container}>
         <div>
           <h1 className={styles.header}>invite new admin</h1>
-          <h2 className={styles.subheader}>
-            click to generate a new invite code
-          </h2>
+          <h2 className={styles.subheader}>{subheader}</h2>
         </div>
         <div className={styles.subcontainer}>
           <div className={styles.text}>
