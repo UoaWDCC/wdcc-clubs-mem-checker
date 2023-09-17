@@ -87,6 +87,10 @@ const router = createBrowserRouter([
       </div>
     ),
   },
+  {
+    path: "/*",
+    element: <Navigate to="/" />,
+  },
 ]);
 
 axios.defaults.baseURL = "http://localhost:3000";
