@@ -69,7 +69,7 @@ const router = createBrowserRouter([
     element: <ConfimationPage />,
   },
   {
-    path: "/checker-page",
+    path: "/checker-page/:webLinkID",
     element: (
       // example props
       <div style={{ width: "100vw", height: "100%" }}>

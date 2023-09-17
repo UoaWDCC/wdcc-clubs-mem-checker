@@ -12,9 +12,11 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
 import Button from "../../components/Button";
 import Textfield from "../../components/Textfield";
 import styles from "./ClubCheckerPage.module.css";
-import { createRef, useLayoutEffect, useRef, useState } from "react";
+import { createRef, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { getTextColor } from "../../utils/helpers";
 import Column from "../../types/Column";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 interface ClubCheckerPageProps {
   clubId?: number;
@@ -58,6 +60,10 @@ const ClubCheckerPage = ({
 }: ClubCheckerPageProps) => {
   // document.body.style.backgroundColor = backgroundColor || "white";
 
+  const { webLinkID } = useParams();
+
+  const navigate = useNavigate();
+
   const textFieldLabelRef = useRef<HTMLInputElement>(null);
 
   const [selectedIdentifier, setSelectedIdentifier] = useState<Column>(
@@ -70,6 +76,14 @@ const ClubCheckerPage = ({
   useLayoutEffect(() => {
     setTextFieldWidth(textFieldLabelRef.current?.offsetWidth || 0);
   });
+
+  useEffect(() => {
+    axios.get(`/pages/info/${webLinkID}`).catch((err) => {
+      if (err.response.status === 400) {
+        navigate("/");
+      }
+    });
+  }, []);
 
   const [isError, setIsError] = useState<boolean>(false);
   const onCheck = () => {
