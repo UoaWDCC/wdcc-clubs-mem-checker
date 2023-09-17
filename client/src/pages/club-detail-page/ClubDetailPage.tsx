@@ -1,21 +1,21 @@
-import { useState } from 'react';
-import Background from '../../components/Background';
-import ClubDetailForm from './ClubDetailForm';
-import NewClubAdded from './NewClubAdded';
+import { useState } from "react";
+import Background from "../../components/Background";
+import ClubDetailForm from "./ClubDetailForm";
+import NewClubAdded from "./NewClubAdded";
 
-export interface ClubDetails {
+export interface IClubDetails {
   clubName: string;
   clubAcronym: string;
 }
 
 const ClubDetailPage = () => {
   const [progress, setProgress] = useState(1);
-  const [clubDetails, setClubDetails] = useState<ClubDetails>({
-    clubName: '',
-    clubAcronym: '',
+  const [clubDetails, setClubDetails] = useState<IClubDetails>({
+    clubName: "",
+    clubAcronym: "",
   });
 
-  const onNext = (clubDetails: ClubDetails) => {
+  const onNext = (clubDetails: IClubDetails) => {
     setProgress(progress + 1);
     setClubDetails(clubDetails);
   };

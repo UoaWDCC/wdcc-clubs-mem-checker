@@ -10,11 +10,10 @@ import CustomiseLogo from "./CustomiseLogo";
 import CustomiseBackground from "./CustomiseBackground";
 import CustomiseConfirm from "./CustomiseConfirm";
 import { createContext } from "react";
-import Column from "../../types/Column";
+import IColumn from "../../types/IColumn";
 import { useLocation } from "react-router";
-import { ClubDetails } from "../club-detail-page/ClubDetailPage";
-import Page from "../../types/Page";
-
+import { IClubDetails } from "../club-detail-page/ClubDetailPage";
+import IPage from "../../types/IPage";
 
 export const PageContextProvider = createContext([{}, () => {}]);
 
@@ -23,7 +22,7 @@ const CreateCheckerPage = () => {
   const onNext = () => setProgress(progress + 1);
   const onBack = () => setProgress(progress - 1);
 
-  const clubDetails = useLocation().state as ClubDetails;
+  const clubDetails = useLocation().state as IClubDetails;
 
   useEffect(() => {
     setPage({
@@ -53,7 +52,7 @@ const CreateCheckerPage = () => {
     ],
   ]);
 
-  const [page, setPage] = useState<Page>({}); // might need default values?
+  const [page, setPage] = useState<IPage>({}); // might need default values?
 
   return (
     <Background>

@@ -9,16 +9,12 @@ import {
 import EmptyClubLogo from "../../../assets/EmptyClubLogo.svg";
 import styles from "./SelectClubDropdown.module.css";
 import { ArrowDown2, ArrowUp2 } from "iconsax-react";
-import { Dashboard, DashboardContextProvider } from "../Dashboard";
+import { DashboardContextProvider } from "../Dashboard";
+import IDashboardContext from "../../../types/IDashboardContext";
+import IDropdownClub from "../../../types/IDropdownClub";
 
 interface SelectClubDropdownProps {
-  clubs: DropdownClub[];
-}
-
-export interface DropdownClub {
-  id: number;
-  name: string;
-  logo?: File;
+  clubs: IDropdownClub[];
 }
 
 // NEED TO ADD HOVER COLOUR
@@ -27,15 +23,15 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
 
   // retrieve context
   const [dashboard, setDashboard] = useContext(DashboardContextProvider) as [
-    Dashboard,
-    Dispatch<SetStateAction<Dashboard>>
+    IDashboardContext,
+    Dispatch<SetStateAction<IDashboardContext>>
   ];
 
   if (!dashboard.selectedClub) {
     dashboard.selectedClub = clubs[0];
   }
 
-  const handleSelectClub = (club: DropdownClub) => {
+  const handleSelectClub = (club: IDropdownClub) => {
     setIsOpen(!isOpen);
     localStorage.setItem("selectedClub", JSON.stringify(club));
     setDashboard({ ...dashboard, selectedClub: club });
@@ -97,9 +93,10 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
           className={styles.logo}
           style={{ border: "3px solid #E0E0E0" }}
           src={
-            dashboard.selectedClub.logo
-              ? URL.createObjectURL(dashboard.selectedClub.logo)
-              : EmptyClubLogo
+            // dashboard.selectedClub.logo
+            //   ? URL.createObjectURL(dashboard.selectedClub.logo)
+            //   : EmptyClubLogo
+            EmptyClubLogo
           }
         />
         <p className={styles.text}>{dashboard.selectedClub.name}</p>
@@ -138,7 +135,10 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
             >
               <img
                 className={styles.logo}
-                src={club.logo ? URL.createObjectURL(club.logo) : EmptyClubLogo}
+                src={
+                  // club.logo ? URL.createObjectURL(club.logo) : EmptyClubLogo
+                  EmptyClubLogo
+                }
               />
               <p className={styles.text}>{club.name}</p>
             </div>
