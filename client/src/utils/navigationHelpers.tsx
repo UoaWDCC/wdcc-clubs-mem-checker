@@ -6,7 +6,7 @@ const hasClubs = (): boolean => {
       return false;
     }
   });
-  return false;
+  return true;
 };
 
 export default hasClubs;

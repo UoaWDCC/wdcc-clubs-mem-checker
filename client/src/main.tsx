@@ -42,7 +42,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/no-clubs",
-    element: <NoClubs />,
+    element: hasClubs() ? <Navigate to="/dashboard" /> : <NoClubs />,
   },
   {
     path: "/dashboard",
