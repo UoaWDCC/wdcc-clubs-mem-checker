@@ -31,7 +31,7 @@ router.get("/organisations", auth, async (req, res) => {
           });
 
           if (!userOrganisations) {
-            return res.status(400).send("user is not in any organisations");
+            return res.status(204);
           }
           
           const transformedOrganisations = userOrganisations.map(org => ({

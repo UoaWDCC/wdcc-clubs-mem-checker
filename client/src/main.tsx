@@ -1,7 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 import { HomePage } from "./pages/home/home";
 import { ExamplePage } from "./pages/example/page";
 import CreateCheckerPage from "./pages/create-checker-page/CreateCheckerPage";
@@ -17,6 +21,7 @@ import DashboardPage from "./pages/dashboard/DashboardPage";
 import { ConfimationPage } from "./pages/onboarding-confirmation-page/ConfirmationPage";
 import ClubCheckerPage from "./pages/club-checker-page/ClubCheckerPage";
 import EmptyClubLogo from "./assets/EmptyClubLogo.svg";
+import hasClubs from "./utils/navigationHelpers";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +46,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: hasClubs() ? <Dashboard /> : <Navigate to="/no-clubs" />,
   },
   {
     path: "/auth/google/callback",
