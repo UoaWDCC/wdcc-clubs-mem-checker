@@ -4,7 +4,7 @@ import Button from '../../components/Button';
 import { useContext, Dispatch, SetStateAction } from 'react';
 import { PageContextProvider } from './CreateCheckerPage';
 import IPage from '../../types/IPage';
-import UploadButton from '../../components/UploadButton';
+import UploadButton from './CustomiseLogo Components/UploadButton';
 import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
 
 interface CustomiseLogoProps {

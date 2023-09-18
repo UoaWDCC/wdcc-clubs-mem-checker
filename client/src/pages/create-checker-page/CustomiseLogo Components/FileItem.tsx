@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './UploadLogo.module.css';
-import TrashIcon from '../assets/trash_icon.svg';
+import TrashIcon from '../../../assets/trash_icon.svg';
 
 interface FileItemProps {
     fileName: string;
