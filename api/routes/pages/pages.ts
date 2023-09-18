@@ -36,9 +36,9 @@ interface PageCustomization {
   logoLink?: string;
   backgroundImageLink?: string;
   fontFamily?: string;
-  columns: {
+  identificatonColumns: {
     originalName: string;
-    mappedTo?: string;
+    displayName?: string;
   }[];
 }
 router.post(
@@ -61,16 +61,22 @@ router.post(
         organisationId,
         sheetId,
         sheetTabId,
-        columns,
+        identificationColumns,
         fontFamily,
         ...rest
       } = customization;
 
-      if (!name || !organisationId || !sheetId || !sheetTabId || !columns)
+      if (
+        !name ||
+        !organisationId ||
+        !sheetId ||
+        !sheetTabId ||
+        !identificationColumns
+      )
         return res
           .status(400)
           .send(
-            '`name`, `organisationId`, `sheetId`, `sheetTabId`, and `columns` are required fields'
+            '`name`, `organisationId`, `sheetId`, `sheetTabId`, and `identificationColumns` are required fields'
           );
 
       const existingSheetID = await prisma.page.findUnique({
@@ -176,14 +182,14 @@ router.post(
       });
 
       // @ts-ignore
-      const parsedColumns = JSON.parse(columns);
+      const parsedColumns = JSON.parse(identificationColumns);
       // @ts-ignore
-      parsedColumns!.forEach(async ({ originalName, mappedTo }) => {
+      parsedColumns!.forEach(async ({ originalName, displayName }) => {
         await prisma.column.create({
           data: {
             pageId: page.id,
             sheetsName: originalName,
-            mappedTo: mappedTo || originalName,
+            mappedTo: displayName || originalName,
           },
         });
       });

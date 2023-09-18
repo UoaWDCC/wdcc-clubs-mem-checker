@@ -166,10 +166,10 @@ router.get(
             textFieldtextColor: page.textColor,
             buttonColor: page.buttonColor,
             dropDownBackgroundColor: page.backgroundColor, // Adjust this as needed
-            //   logoLink: page.logoLink ? { name: page.logoLink, type: 'logo' } : File,
-            //   backgroundImageLink: page.backgroundImageLink
-            // ? { name: page.backgroundImageLink, type: 'background' }
-            // : undefined,
+            logoLink: page.logoLink ? page.logoLink : undefined,
+            backgroundImageLink: page.backgroundImageLink
+              ? page.backgroundImageLink
+              : undefined,
           };
           return convertedPage;
         });

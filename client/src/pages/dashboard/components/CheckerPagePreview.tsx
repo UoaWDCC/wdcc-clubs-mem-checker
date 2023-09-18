@@ -4,15 +4,15 @@ import React, {
   Dispatch,
   SetStateAction,
   useContext,
-} from "react";
-import styles from "./CheckerPagePreview.module.css";
-import ClubCheckerPage from "../../club-checker-page/ClubCheckerPage";
-import Textfield from "../../../components/Textfield";
-import copyIcon from "../../../assets/CopyIcon2.svg";
-import ClickNextArrow from "../../../assets/ClickNextArrow.svg";
-import ClickPrevArrow from "../../../assets/ClickPreviousArrow.svg";
-import { DashboardContextProvider } from "../Dashboard";
-import IDashboardContext from "../../../types/IDashboardContext";
+} from 'react';
+import styles from './CheckerPagePreview.module.css';
+import ClubCheckerPage from '../../club-checker-page/ClubCheckerPage';
+import Textfield from '../../../components/Textfield';
+import copyIcon from '../../../assets/CopyIcon2.svg';
+import ClickNextArrow from '../../../assets/ClickNextArrow.svg';
+import ClickPrevArrow from '../../../assets/ClickPreviousArrow.svg';
+import { DashboardContextProvider } from '../Dashboard';
+import IDashboardContext from '../../../types/IDashboardContext';
 
 const CheckerPagePreview = () => {
   const [dashboard, setDashboard] = useContext(DashboardContextProvider) as [
@@ -51,9 +51,9 @@ const CheckerPagePreview = () => {
       const value = textFieldRef.current?.placeholder;
       try {
         await navigator.clipboard.writeText(value);
-        console.log("Copy succeeded");
+        console.log('Copy succeeded');
       } catch (error) {
-        console.log("Copy failed:  ", error);
+        console.log('Copy failed:  ', error);
       }
     }
   };
@@ -79,7 +79,11 @@ const CheckerPagePreview = () => {
               className={styles.copyButton}
               onClick={handleCopyButtonClick}
             >
-              <img src={copyIcon} alt="Copy" className={styles.copyIcon} />
+              <img
+                src={copyIcon}
+                alt="Copy"
+                className={styles.copyIcon}
+              />
             </button>
           </div>
 
@@ -97,6 +101,8 @@ const CheckerPagePreview = () => {
               font={currentPageData.font}
               optionsList={currentPageData.identificationColumns!}
               isOnboarding={true}
+              clubLogoUrl={currentPageData.logoLink}
+              backgroundImageUrl={currentPageData.backgroundImageLink}
             />
             <div className={styles.overlayButtons}>
               {/*div for links */}
@@ -140,7 +146,7 @@ const CheckerPagePreview = () => {
                       key={index}
                       className={`${
                         index === currentPageIndex
-                          ? styles.activeDot + " " + styles.clicked
+                          ? styles.activeDot + ' ' + styles.clicked
                           : styles.dot
                       }`}
                       onClick={() =>
