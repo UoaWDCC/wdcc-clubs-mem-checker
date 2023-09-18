@@ -27,10 +27,6 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     Dispatch<SetStateAction<IDashboardContext>>
   ];
 
-  if (!dashboard.selectedClub) {
-    setDashboard({ ...dashboard, selectedClub: clubs[0] });
-  }
-
   const handleSelectClub = (club: IDropdownClub) => {
     setIsOpen(!isOpen);
     localStorage.setItem("selectedClub", JSON.stringify(club));
@@ -58,24 +54,6 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     };
   }, []);
 
-  // if no clubs attached to user
-  if (clubs.length == 0) {
-    return (
-      <div className={styles.outerContainer}>
-        <div
-          className={styles.clubCard}
-          style={{
-            backgroundColor: "#e8f7fb",
-            borderRadius: "8px",
-            justifyContent: "center",
-          }}
-        >
-          <p className={styles.text}>No Clubs Registered</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div
       className={styles.outerContainer}
@@ -99,7 +77,14 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
             <p className={styles.text}>{dashboard.selectedClub.name}</p>
           </>
         ) : (
-          <p>No Clubs</p>
+          <div
+            style={{
+              width: "100%",
+              textAlign: "center",
+            }}
+          >
+            <p className={styles.text}>No Clubs Registered</p>
+          </div>
         )}
 
         {clubs.length > 1 &&

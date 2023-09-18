@@ -23,7 +23,11 @@ const Dashboard = () => {
       .get(`/user/organisations`)
       .then((response) => {
         if (response.status == 200) {
-          setUserClubs(response.data);
+          const clubs: IDropdownClub[] = response.data;
+          setUserClubs(clubs);
+          if (clubs.length > 0)
+            localStorage.setItem("selectedClub", JSON.stringify(clubs[0]));
+          setDashboard({ ...dashboard, selectedClub: response.data[0] });
         }
       })
       .catch((error) => {
@@ -117,7 +121,7 @@ const Dashboard = () => {
             <div
               className={`${styles.clubsContainer} ${styles.dashboardItemContainer}`}
             >
-              {userClubs.length > 0 && <SelectClubDropdown clubs={userClubs} />}
+              <SelectClubDropdown clubs={userClubs} />
             </div>
             <div
               className={`${styles.adminShareContainer} ${styles.dashboardItemContainer}`}
