@@ -93,10 +93,9 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
           className={styles.logo}
           style={{ border: '3px solid #E0E0E0' }}
           src={
-            // dashboard.selectedClub.logo
-            //   ? URL.createObjectURL(dashboard.selectedClub.logo)
-            //   : EmptyClubLogo
-            EmptyClubLogo
+            dashboard.selectedClub.logo
+              ? dashboard.selectedClub.logo
+              : EmptyClubLogo
           }
         />
         <p className={styles.text}>{dashboard.selectedClub.name}</p>
