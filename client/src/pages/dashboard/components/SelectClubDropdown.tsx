@@ -89,7 +89,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
           borderRadius: "8px",
         }}
       >
-        {dashboard.selectedClub && (
+        {dashboard.selectedClub ? (
           <>
             <img
               className={styles.logo}
@@ -98,27 +98,30 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
             />
             <p className={styles.text}>{dashboard.selectedClub.name}</p>
           </>
+        ) : (
+          <p>No Clubs</p>
         )}
 
-        {isOpen ? (
-          <ArrowUp2
-            color="#000000"
-            size={28}
-            variant="Bold"
-            style={{ cursor: "pointer", marginLeft: "auto" }}
-            onClick={() => setIsOpen(!isOpen)}
-          />
-        ) : (
-          <ArrowDown2
-            color="#000000"
-            size={28}
-            variant="Bold"
-            style={{ cursor: "pointer", marginLeft: "auto" }}
-            onClick={() => setIsOpen(!isOpen)}
-          />
-        )}
+        {clubs.length > 1 &&
+          (isOpen ? (
+            <ArrowUp2
+              color="#000000"
+              size={28}
+              variant="Bold"
+              style={{ cursor: "pointer", marginLeft: "auto" }}
+              onClick={() => setIsOpen(!isOpen)}
+            />
+          ) : (
+            <ArrowDown2
+              color="#000000"
+              size={28}
+              variant="Bold"
+              style={{ cursor: "pointer", marginLeft: "auto" }}
+              onClick={() => setIsOpen(!isOpen)}
+            />
+          ))}
       </div>
-      {isOpen && (
+      {clubs.length > 1 && isOpen && (
         <div
           className={styles.dropdownContainer}
           style={{
