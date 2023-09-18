@@ -1,4 +1,4 @@
-import IColumn from "./IColumn";
+import IColumn from './IColumn';
 
 export default interface IPage {
   id?: number;
@@ -12,6 +12,6 @@ export default interface IPage {
   textFieldtextColor?: string;
   buttonColor?: string;
   dropDownBackgroundColor?: string;
-  logoLink?: File; // could change to string
-  backgroundImageLink?: File; // could change to string
+  logoLink?: string; // could change to string
+  backgroundImageLink?: string; // could change to string
 }

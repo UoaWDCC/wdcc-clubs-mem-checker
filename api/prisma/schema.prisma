@@ -59,7 +59,8 @@ model Page {
   headingColor             String                 @default("#FFFFFF")
   logoLink                 String?
   backgroundImageLink      String?
-  fontFamily               String
+  fontFamily               String                @default("Montserrat")
+  dropDownBackgroundColor String                 @default("#4F4F4F")
 }
 
 model Column {

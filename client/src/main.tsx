@@ -17,6 +17,7 @@ import DashboardPage from "./pages/dashboard/DashboardPage";
 import { ConfimationPage } from "./pages/onboarding-confirmation-page/ConfirmationPage";
 import ClubCheckerPage from "./pages/club-checker-page/ClubCheckerPage";
 import EmptyClubLogo from "./assets/EmptyClubLogo.svg";
+import PublicCheckerPage from "./pages/public-checker-page/PublicCheckerPage";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
         />
       </div>
     ),
+  },
+  {
+    path: "/:weblinkId",
+    element: <PublicCheckerPage/>,
   },
 ]);
 
