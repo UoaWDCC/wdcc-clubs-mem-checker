@@ -1,30 +1,29 @@
-import { Router, Request, Response } from "express";
+import { Router, Request, Response } from 'express';
 import {
   Column as DBColumn,
   Page as DBPage,
   MembershipCheckUsage,
   PrismaClient,
-} from "@prisma/client";
-import IColumn from "../../../client/src/types/IColumn";
-import IPage from "../../../client/src/types/IPage";
-import auth from "../../middleware/auth";
-import jwt from "jsonwebtoken";
-import { Metric } from "@prisma/client/runtime";
-import IPageMetrics from "../types/IPageMetrics";
-import IDashboardPage from "../types/IDashboardPage";
-import { google } from "googleapis";
-import { IMemberCountByPageId } from "../../../client/src/types/IMemberCountByPageId";
+} from '@prisma/client';
+import IColumn from '../../../client/src/types/IColumn';
+import IPage from '../../../client/src/types/IPage';
+import auth from '../../middleware/auth';
+import jwt from 'jsonwebtoken';
+import IPageMetrics from '../types/IPageMetrics';
+import IDashboardPage from '../types/IDashboardPage';
+import { google } from 'googleapis';
+import { IMemberCountByPageId } from '../../../client/src/types/IMemberCountByPageId';
 
 const router = Router();
 const prisma = new PrismaClient();
 
 const serviceClient = new google.auth.GoogleAuth({
-  keyFile: "membership-checker-e5457b93d746.json",
-  scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
+  keyFile: 'membership-checker-e5457b93d746.json',
+  scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
 });
 
 const sheets = google.sheets({
-  version: "v4",
+  version: 'v4',
   auth: serviceClient,
 });
 
@@ -104,11 +103,11 @@ const getMetrics = (
 };
 
 router.get(
-  "/club-dashboard-endpoint/:organisationId",
+  '/club-dashboard-endpoint/:organisationId',
   auth,
   async (req: Request, res: Response) => {
     try {
-      const organisationId = Number.parseInt(req.params["organisationId"]);
+      const organisationId = Number.parseInt(req.params['organisationId']);
       const JWT_SECRET = process.env.JWT_SECRET as string;
 
       const allCheckerUsages = await prisma.membershipCheckUsage.findMany();
@@ -120,7 +119,7 @@ router.get(
         },
       });
       if (!organisation)
-        return res.status(404).send("no organisation found with that id");
+        return res.status(404).send('no organisation found with that id');
 
       // retrieve checker pages for organisation
       const pagesInOrg = await prisma.page.findMany({
@@ -137,7 +136,7 @@ router.get(
       if (!pagesInOrg)
         return res
           .status(404)
-          .send("you must be in the organisation to have checker pages");
+          .send('you must be in the organisation to have checker pages');
 
       const convertedPages: (IPage & { weblink: String; metrics: any })[] =
         pagesInOrg.map((page: DBPage) => {
@@ -191,7 +190,7 @@ router.get(
       });
 
       const clubAdmins = adminsInOrganisation.map((entry) =>
-        [entry.user.firstName, entry.user.lastName].filter(Boolean).join(" ")
+        [entry.user.firstName, entry.user.lastName].filter(Boolean).join(' ')
       );
 
       /**------------NOT OPTIMISED---------- */
@@ -208,7 +207,7 @@ router.get(
         if (!metadataResponse.data.sheets) {
           return res
             .status(400)
-            .send(JSON.stringify("spreadsheet has no sheets"));
+            .send(JSON.stringify('spreadsheet has no sheets'));
         }
 
         const sheet = metadataResponse.data.sheets.find(
@@ -216,7 +215,7 @@ router.get(
         );
 
         if (!sheet) {
-          return res.status(400).send(JSON.stringify("sheet not found"));
+          return res.status(400).send(JSON.stringify('sheet not found'));
         }
 
         const sheetName = sheet.properties?.title;
@@ -243,7 +242,7 @@ router.get(
               const columnData = values.slice(1).map((row) => row[k]);
 
               const nonEmptyRowCount = columnData.filter(
-                (cellValue) => cellValue !== "" && cellValue !== undefined
+                (cellValue) => cellValue !== '' && cellValue !== undefined
               ).length;
 
               memberCountByPageId[page.id] = {
@@ -266,7 +265,7 @@ router.get(
       return res.status(200).send(dashboardPage);
     } catch (err) {
       console.error(err);
-      return res.status(500).send("failed to create invite code");
+      return res.status(500).send('failed to create invite code');
     }
   }
 );

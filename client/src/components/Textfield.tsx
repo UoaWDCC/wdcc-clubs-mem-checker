@@ -20,6 +20,7 @@ interface TextfieldProps {
   iconSize?: string;
   textAlign?: string;
   onKeyUp?: () => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   onChange?: () => void;
   readOnly?: boolean;
 }
@@ -42,6 +43,7 @@ const Textfield = forwardRef(
       icon,
       iconSize = '1rem',
       onKeyUp,
+      onKeyDown,
       onChange,
       textAlign = 'left',
       readOnly,
@@ -66,6 +68,7 @@ const Textfield = forwardRef(
           <input
             ref={ref}
             onKeyUp={onKeyUp}
+            onKeyDown={onKeyDown}
             className={styles.input}
             onChange={onChange}
             readOnly={readOnly}
