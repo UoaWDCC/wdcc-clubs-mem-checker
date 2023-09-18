@@ -5,20 +5,16 @@ import {
   useLayoutEffect,
   useRef,
   useState,
-} from "react";
-import EmptyClubLogo from "../../../assets/EmptyClubLogo.svg";
-import styles from "./SelectClubDropdown.module.css";
-import { ArrowDown2, ArrowUp2 } from "iconsax-react";
-import { Dashboard, DashboardContextProvider } from "../Dashboard";
+} from 'react';
+import EmptyClubLogo from '../../../assets/EmptyClubLogo.svg';
+import styles from './SelectClubDropdown.module.css';
+import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
+import { DashboardContextProvider } from '../Dashboard';
+import IDashboardContext from '../../../types/IDashboardContext';
+import IDropdownClub from '../../../types/IDropdownClub';
 
 interface SelectClubDropdownProps {
-  clubs: DropdownClub[];
-}
-
-export interface DropdownClub {
-  id: number;
-  name: string;
-  logo?: File;
+  clubs: IDropdownClub[];
 }
 
 // NEED TO ADD HOVER COLOUR
@@ -27,17 +23,17 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
 
   // retrieve context
   const [dashboard, setDashboard] = useContext(DashboardContextProvider) as [
-    Dashboard,
-    Dispatch<SetStateAction<Dashboard>>
+    IDashboardContext,
+    Dispatch<SetStateAction<IDashboardContext>>
   ];
 
   if (!dashboard.selectedClub) {
     dashboard.selectedClub = clubs[0];
   }
 
-  const handleSelectClub = (club: DropdownClub) => {
+  const handleSelectClub = (club: IDropdownClub) => {
     setIsOpen(!isOpen);
-    localStorage.setItem("selectedClub", JSON.stringify(club));
+    localStorage.setItem('selectedClub', JSON.stringify(club));
     setDashboard({ ...dashboard, selectedClub: club });
   };
 
@@ -54,11 +50,11 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     updateWidth();
 
     // Update width when the window is resized
-    window.addEventListener("resize", updateWidth);
+    window.addEventListener('resize', updateWidth);
 
     // Clean up the event listener on unmount
     return () => {
-      window.removeEventListener("resize", updateWidth);
+      window.removeEventListener('resize', updateWidth);
     };
   }, []);
 
@@ -69,9 +65,9 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
         <div
           className={styles.clubCard}
           style={{
-            backgroundColor: "#e8f7fb",
-            borderRadius: "8px",
-            justifyContent: "center",
+            backgroundColor: '#e8f7fb',
+            borderRadius: '8px',
+            justifyContent: 'center',
           }}
         >
           <p className={styles.text}>No Clubs Registered</p>
@@ -83,22 +79,22 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
   return (
     <div
       className={styles.outerContainer}
-      style={{ backgroundColor: `${isOpen ? "#d6ebf0" : "transparent"}` }}
+      style={{ backgroundColor: `${isOpen ? '#d6ebf0' : 'transparent'}` }}
     >
       <div
         ref={clubCardRef}
         className={styles.clubCard}
         style={{
-          backgroundColor: "#e8f7fb",
-          borderRadius: "8px",
+          backgroundColor: '#e8f7fb',
+          borderRadius: '8px',
         }}
       >
         <img
           className={styles.logo}
-          style={{ border: "3px solid #E0E0E0" }}
+          style={{ border: '3px solid #E0E0E0' }}
           src={
             dashboard.selectedClub.logo
-              ? URL.createObjectURL(dashboard.selectedClub.logo)
+              ? dashboard.selectedClub.logo
               : EmptyClubLogo
           }
         />
@@ -108,7 +104,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
             color="#000000"
             size={28}
             variant="Bold"
-            style={{ cursor: "pointer", marginLeft: "auto" }}
+            style={{ cursor: 'pointer', marginLeft: 'auto' }}
             onClick={() => setIsOpen(!isOpen)}
           />
         ) : (
@@ -116,7 +112,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
             color="#000000"
             size={28}
             variant="Bold"
-            style={{ cursor: "pointer", marginLeft: "auto" }}
+            style={{ cursor: 'pointer', marginLeft: 'auto' }}
             onClick={() => setIsOpen(!isOpen)}
           />
         )}
@@ -132,13 +128,13 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
           {clubs.map((club) => (
             <div
               className={styles.clubCard}
-              style={{ height: clubCardHeight, cursor: "pointer" }}
+              style={{ height: clubCardHeight, cursor: 'pointer' }}
               onClick={() => handleSelectClub(club)}
               key={club.id}
             >
               <img
                 className={styles.logo}
-                src={club.logo ? URL.createObjectURL(club.logo) : EmptyClubLogo}
+                src={club.logo || EmptyClubLogo}
               />
               <p className={styles.text}>{club.name}</p>
             </div>

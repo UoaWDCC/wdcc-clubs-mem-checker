@@ -1,4 +1,4 @@
-export default interface Column {
+export default interface IColumn {
   originalName: string;
   displayName: string;
 }

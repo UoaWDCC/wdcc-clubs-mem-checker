@@ -10,12 +10,12 @@ import {
   useEffect,
 } from "react";
 import { PageContextProvider } from "./CreateCheckerPage";
-import Page from "../../types/Page";
+import IPage from "../../types/IPage";
 import { Warning2 } from "iconsax-react";
 import DropDown from "../../components/Dropdown";
 import ColumnSelectRow from "../../components/ColumnSelectRow";
 import { spreadsheetColumns } from "./GoogleSheetForm";
-import Column from "../../types/Column";
+import IColumn from "../../types/IColumn";
 
 interface ColumnSelectorProps {
   onNext: () => void;
@@ -24,8 +24,8 @@ interface ColumnSelectorProps {
 
 const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
-    Page,
-    Dispatch<SetStateAction<Page>>
+    IPage,
+    Dispatch<SetStateAction<IPage>>
   ];
 
   // const testColumns = {
@@ -69,8 +69,8 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   }, [selectedColumnsList]);
 
   // Add column to selectedColumnsList
-  const addColumn = (newColumn: Column) => {
-    setSelectedColumnsList((prevList: Column[]) => {
+  const addColumn = (newColumn: IColumn) => {
+    setSelectedColumnsList((prevList: IColumn[]) => {
       const updatedList = [...prevList, newColumn];
       localStorage.setItem("selectedColumnsList", JSON.stringify(updatedList));
       return updatedList;
@@ -78,8 +78,8 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   };
 
   // Remove column from selectedColumnsList
-  const removeColumn = (columnToRemove: Column) => {
-    setSelectedColumnsList((prevList: Column[]) => {
+  const removeColumn = (columnToRemove: IColumn) => {
+    setSelectedColumnsList((prevList: IColumn[]) => {
       const updatedList = prevList.filter(
         (item) => item.originalName !== columnToRemove.originalName
       );
@@ -90,12 +90,14 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
 
   // Used to persist styles in ColumnSelectRow
   function isObjectChecked(name: string) {
-    return selectedColumnsList.some((obj: Column) => obj.originalName === name);
+    return selectedColumnsList.some(
+      (obj: IColumn) => obj.originalName === name
+    );
   }
 
   function findDisplayName(name: string) {
     const foundColumn = selectedColumnsList.find(
-      (column: Column) => column.originalName === name
+      (column: IColumn) => column.originalName === name
     );
     return foundColumn ? foundColumn.displayName : name;
   }
@@ -103,7 +105,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   // Error handling if next button is clicked but default column hasn't been selected
   const [showError, setShowError] = useState(false);
   const handleOnNext = () => {
-    if (defaultColumn != '') {
+    if (defaultColumn != "") {
       setPage({
         ...page,
         identificationColumns: selectedColumnsList,
@@ -138,12 +140,12 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
           <DropDown
             onColumnClick={(column) => {
               const index: number = selectedColumnsList.findIndex(
-                (obj: Column) => {
+                (obj: IColumn) => {
                   return obj.originalName === column;
                 }
               );
               const defaultIndex: number = selectedColumnsList.findIndex(
-                (newObj: Column) => {
+                (newObj: IColumn) => {
                   return newObj.originalName === defaultColumn;
                 }
               );
@@ -187,7 +189,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
             originalName={column[0]}
             isUnique={column[1]}
             customName={(originalName, newCustName) => {
-              const index = selectedColumnsList.findIndex((obj: Column) => {
+              const index = selectedColumnsList.findIndex((obj: IColumn) => {
                 return obj.originalName === originalName;
               });
               const tempSelectedColumnsList = selectedColumnsList;
@@ -204,7 +206,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
               if (newCheckedValue) {
                 addColumn({ originalName, displayName: originalName });
               } else {
-                const index = selectedColumnsList.findIndex((obj: Column) => {
+                const index = selectedColumnsList.findIndex((obj: IColumn) => {
                   return obj.originalName === originalName;
                 });
                 removeColumn(selectedColumnsList[index]);

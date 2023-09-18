@@ -1,10 +1,10 @@
 import Button from "../../components/Button";
 import styles from "./style.module.css";
-import { ClubDetails } from "./ClubDetailPage";
+import { IClubDetails } from "./ClubDetailPage";
 import { useNavigate } from "react-router";
 
 interface NewClubAddedProps {
-  clubDetails: ClubDetails;
+  clubDetails: IClubDetails;
 }
 
 const NewClubAdded = ({ clubDetails }: NewClubAddedProps) => {

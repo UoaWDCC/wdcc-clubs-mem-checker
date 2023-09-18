@@ -1,14 +1,14 @@
-import { useState } from "react";
-import styles from "./style.module.css";
-import Button from "../../components/Button";
-import BackButton from "../../components/BackButton";
-import { Dispatch, SetStateAction, useContext } from "react";
-import { PageContextProvider } from "./CreateCheckerPage";
-import Page from "../../types/Page";
-import FontPicker from "react-fontpicker-ts";
-import "react-fontpicker-ts/dist/index.css";
-import { ArrowDown2 } from "iconsax-react";
-import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
+import { useState } from 'react';
+import styles from './style.module.css';
+import Button from '../../components/Button';
+import BackButton from '../../components/BackButton';
+import { Dispatch, SetStateAction, useContext } from 'react';
+import { PageContextProvider } from './CreateCheckerPage';
+import IPage from '../../types/IPage';
+import FontPicker from 'react-fontpicker-ts';
+import 'react-fontpicker-ts/dist/index.css';
+import { ArrowDown2 } from 'iconsax-react';
+import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
 
 interface CustomiseFontProps {
   onNext: () => void;
@@ -17,8 +17,8 @@ interface CustomiseFontProps {
 
 const CustomiseFont = ({ onNext, onBack }: CustomiseFontProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
-    Page,
-    Dispatch<SetStateAction<Page>>
+    IPage,
+    Dispatch<SetStateAction<IPage>>
   ];
 
   return (
@@ -37,39 +37,46 @@ const CustomiseFont = ({ onNext, onBack }: CustomiseFontProps) => {
         <div className={styles.title}>
           <h1>customise page</h1>
         </div>
-        <i className={styles.subtitle} style={{ fontWeight: 500 }}>
+        <i
+          className={styles.subtitle}
+          style={{ fontWeight: 500 }}
+        >
           customise page for your members
         </i>
         <div className={styles.styling_container}>
           <p className={styles.styling_subtext}>please choose a font</p>
           <ArrowDown2
             style={{
-              position: "absolute",
-              zIndex: "2",
-              top: "30px",
-              left: "calc(100% - 50px)",
+              position: 'absolute',
+              zIndex: '2',
+              top: '30px',
+              left: 'calc(100% - 50px)',
             }}
             size="32"
             color="#AAAAAA"
           />
           <FontPicker
             autoLoad
-            defaultValue={page.font || "Montserrat"}
-            fontCategories={["serif", "sans-serif"]}
+            defaultValue={page.font || 'Montserrat'}
+            fontCategories={['serif', 'sans-serif']}
             value={(font: string) => {
               setPage({ ...page, font });
             }}
           />
         </div>
         <div id={styles.CustomisePageNextButton}>
-          <Button onClick={onNext} buttonText="next" width="5vw" />
+          <Button
+            onClick={onNext}
+            buttonText="next"
+            width="5vw"
+          />
         </div>
       </div>
       <div className={styles.previewContainer}>
         <div className={styles.preview}>
           <ClubCheckerPage
             clubId={0}
-            clubName={""}
+            clubName={''}
             title={page.title}
             backgroundColor={page.backgroundColor}
             titleTextColor={page.titleTextColor}
@@ -78,8 +85,14 @@ const CustomiseFont = ({ onNext, onBack }: CustomiseFontProps) => {
             buttonBackgroundColor={page.buttonColor}
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
-            clubLogoUrl={page.logoLink}
-            backgroundImageUrl={page.backgroundImageLink}
+            clubLogoUrl={
+              page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
+            }
+            backgroundImageUrl={
+              page.backgroundImageLink
+                ? URL.createObjectURL(page.backgroundImageLink!)
+                : undefined
+            }
             optionsList={page.identificationColumns || []}
             isOnboarding={true}
           />

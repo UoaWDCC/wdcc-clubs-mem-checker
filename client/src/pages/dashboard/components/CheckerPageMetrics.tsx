@@ -6,51 +6,54 @@ import {
   SetStateAction,
   useContext,
 } from "react";
-import axios from "axios";
 import { ArrowDown2, ArrowUp2 } from "iconsax-react";
-import {
-  Dashboard,
-  DashboardContextProvider,
-} from "../pages/dashboard/Dashboard";
-import {
-  MetricRecord,
-  PageMetrics,
-} from "../../../api/routes/dashboard/club_dashboard";
+import { DashboardContextProvider } from "../Dashboard";
+import IDashboardContext from "../../../types/IDashboardContext";
 
-export interface CheckerPageMetricsProps {
-  temp?: string;
-}
+const getKeyFromDisplayString = (
+  displayString: string,
+  map: { [key: string]: string }
+) => {
+  for (const key in map) {
+    if (map[key] === displayString) {
+      return key;
+    }
+  }
+  return map[Object.keys(map)[0]];
+};
 
-const CheckerPageMetrics = ({}: CheckerPageMetricsProps) => {
+const CheckerPageMetrics = () => {
   /* time periods: last 7 days, last 2 weeks, last month, all time */
   const [dashboard, setDashboard] = useContext(DashboardContextProvider) as [
-    Dashboard,
-    Dispatch<SetStateAction<Dashboard>>
+    IDashboardContext,
+    Dispatch<SetStateAction<IDashboardContext>>
   ];
-  if (
-    dashboard.checkerPage === undefined ||
-    dashboard.selectedPageId === undefined ||
-    dashboard.checkerPage.pages[dashboard.selectedPageId] === undefined
-  ) {
-    return <div></div>;
-  }
 
-  const metrics = dashboard.checkerPage.pages[dashboard.selectedPageId].metrics;
+  const metrics =
+    dashboard.dashboardPage?.pages.length !== 0 &&
+    dashboard.dashboardPage &&
+    dashboard.selectedPageIndex !== undefined
+      ? dashboard.dashboardPage.pages[dashboard.selectedPageIndex].metrics
+      : Object.create(null);
+
+  const possibleTimePeriodsDisplay: { [key: string]: string } = {
+    allTime: "all time",
+    lastDay: "last day",
+    last7Days: "last 7 days",
+    last30Days: "last 30 days",
+  };
   const possibleTimePeriods = Object.keys(metrics);
 
-  const [timePeriod, setTimePeriod] = useState(possibleTimePeriods[0]);
+  const [timePeriod, setTimePeriod] = useState<undefined | string>();
   const [isOpen, setIsOpen] = useState(false);
-  const [statistic, setStatistic] = useState<MetricRecord>(
-    metrics[possibleTimePeriods[0] as keyof PageMetrics]
-  );
+
   useEffect(() => {
-    setStatistic(metrics[possibleTimePeriods[0] as keyof PageMetrics]);
-  }, [JSON.stringify(metrics)]);
+    setTimePeriod(possibleTimePeriodsDisplay[possibleTimePeriods[0]]);
+  }, [dashboard.dashboardPage && dashboard.selectedPageIndex !== undefined]);
 
   const handleSelectTimePeriod = (time: string) => {
     setIsOpen(!isOpen);
     setTimePeriod(time);
-    setStatistic(metrics[time as keyof PageMetrics]);
   };
 
   return (
@@ -67,9 +70,15 @@ const CheckerPageMetrics = ({}: CheckerPageMetricsProps) => {
           style={{
             background: "#087DF1",
           }}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={
+            Object.getPrototypeOf(metrics) === null
+              ? () => {}
+              : () => setIsOpen(!isOpen)
+          }
         >
-          <p className={styles.dropdownText}>{timePeriod} </p>
+          <p className={styles.dropdownText}>
+            {Object.getPrototypeOf(metrics) === null ? "N/A" : timePeriod}{" "}
+          </p>
           <div className={styles.dropdownArrow}>
             {!isOpen && <ArrowDown2 size="20" color="white" />}
             {isOpen && <ArrowUp2 size="20" color="white" />}
@@ -77,7 +86,7 @@ const CheckerPageMetrics = ({}: CheckerPageMetricsProps) => {
         </div>
         {isOpen && (
           <div className={styles.dropdownList}>
-            {possibleTimePeriods.map((time) => (
+            {Object.values(possibleTimePeriodsDisplay).map((time) => (
               <div
                 key={time}
                 className={styles.dropdownCard}
@@ -99,7 +108,14 @@ const CheckerPageMetrics = ({}: CheckerPageMetricsProps) => {
       >
         <h1 className={styles.header}>number of users</h1>
         <h1 className={styles.subheader}>total number of checks performed</h1>
-        <h1 className={styles.statisticText}>{statistic?.numberOfChecks}</h1>
+        <h1 className={styles.statisticText}>
+          {Object.getPrototypeOf(metrics) === null
+            ? "N/A"
+            : timePeriod &&
+              metrics[
+                getKeyFromDisplayString(timePeriod, possibleTimePeriodsDisplay)
+              ].numberOfChecks}
+        </h1>
       </div>
       <div
         className={styles.subcontainer}
@@ -113,7 +129,12 @@ const CheckerPageMetrics = ({}: CheckerPageMetricsProps) => {
           total number of existing memberships found
         </h2>
         <h1 className={styles.statisticText}>
-          {statistic?.numberOfDuplicates}
+          {Object.getPrototypeOf(metrics) === null
+            ? "N/A"
+            : timePeriod &&
+              metrics[
+                getKeyFromDisplayString(timePeriod, possibleTimePeriodsDisplay)
+              ].numberOfDuplicates}
         </h1>
       </div>
     </div>

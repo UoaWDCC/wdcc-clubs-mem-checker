@@ -1,5 +1,5 @@
-import styles from "./style.module.css";
-import BackButton from "../../components/BackButton";
+import styles from './style.module.css';
+import BackButton from '../../components/BackButton';
 import {
   useContext,
   Dispatch,
@@ -7,13 +7,13 @@ import {
   useState,
   createRef,
   useEffect,
-} from "react";
+} from 'react';
 
-import { PageContextProvider } from "./CreateCheckerPage";
-import Page from "../../types/Page";
-import Textfield from "../../components/Textfield";
-import Button from "../../components/Button";
-import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
+import { PageContextProvider } from './CreateCheckerPage';
+import IPage from '../../types/IPage';
+import Textfield from '../../components/Textfield';
+import Button from '../../components/Button';
+import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
 
 interface CustomiseTitleProps {
   onNext: () => void;
@@ -24,19 +24,19 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
   const [error, setError] = useState<boolean>(false);
   const titleRef = createRef();
   const [page, setPage] = useContext(PageContextProvider) as [
-    Page,
-    Dispatch<SetStateAction<Page>>
+    IPage,
+    Dispatch<SetStateAction<IPage>>
   ];
   useEffect(() => {
     (titleRef.current as HTMLInputElement).setAttribute(
-      "value",
-      page.title || ""
+      'value',
+      page.title || ''
     );
   }, []);
 
   const handleNext = () => {
     const title = (titleRef.current as HTMLInputElement).value;
-    if (title === "") {
+    if (title === '') {
       setError(true);
     } else {
       onNext();
@@ -59,11 +59,14 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
         <div className={styles.title}>
           <h1>customise page</h1>
         </div>
-        <i className={styles.subtitle} style={{ fontWeight: 500 }}>
+        <i
+          className={styles.subtitle}
+          style={{ fontWeight: 500 }}
+        >
           customise page for your members
         </i>
-        <div style={{ marginTop: "10vh" }}>
-          <p style={{ color: "#AAAAAA", fontStyle: "italic", float: "left" }}>
+        <div style={{ marginTop: '10vh' }}>
+          <p style={{ color: '#AAAAAA', fontStyle: 'italic', float: 'left' }}>
             please edit your title
           </p>
           <Textfield
@@ -83,14 +86,18 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
           />
         </div>
         <div id={styles.CustomisePageNextButton}>
-          <Button onClick={handleNext} buttonText="next" width="5vw" />
+          <Button
+            onClick={handleNext}
+            buttonText="next"
+            width="5vw"
+          />
         </div>
       </div>
       <div className={styles.previewContainer}>
         <div className={styles.preview}>
           <ClubCheckerPage
             clubId={0}
-            clubName={""}
+            clubName={''}
             title={page.title}
             backgroundColor={page.backgroundColor}
             titleTextColor={page.titleTextColor}
@@ -99,8 +106,14 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
             buttonBackgroundColor={page.buttonColor}
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
-            clubLogoUrl={page.logoLink}
-            backgroundImageUrl={page.backgroundImageLink}
+            clubLogoUrl={
+              page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
+            }
+            backgroundImageUrl={
+              page.backgroundImageLink
+                ? URL.createObjectURL(page.backgroundImageLink!)
+                : undefined
+            }
             optionsList={page.identificationColumns || []}
             isOnboarding={true}
           />

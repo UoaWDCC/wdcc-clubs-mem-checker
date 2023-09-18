@@ -1,6 +1,6 @@
-import styles from './Button.module.css';
-import { getTextColor, lightenColor } from '../utils/helpers';
-import { CircularProgress } from '@mui/material';
+import styles from "./Button.module.css";
+import { getTextColor, lightenColor } from "../utils/helpers";
+import { CircularProgress } from "@mui/material";
 
 export interface ButtonProps {
   height?: string;
@@ -28,20 +28,20 @@ const Button = ({
   buttonText,
   margin,
   color,
-  backgroundColor = '#087DF1',
+  backgroundColor = "#087DF1",
   border = backgroundColor,
-  fontSize = '1rem',
-  fontWeight = 'bold',
+  fontSize = "1rem",
+  fontWeight = "bold",
   icon,
   iconSize,
-  borderRadius = '8px',
-  hoverColor = '',
-  padding = '5px',
+  borderRadius = "8px",
+  hoverColor = "",
+  padding = "5px",
   disabled,
   onClick,
   isLoading,
 }: ButtonProps) => {
-  if (hoverColor == '') hoverColor = lightenColor(backgroundColor, 20);
+  if (hoverColor == "") hoverColor = lightenColor(backgroundColor, 20);
   if (disabled) hoverColor = backgroundColor;
   return (
     <>
@@ -58,18 +58,22 @@ const Button = ({
           fontWeight,
           borderRadius: borderRadius,
           padding: padding,
-          ['--hover-color' as any]: hoverColor,
+          ["--hover-color" as any]: hoverColor,
+          pointerEvents: disabled ? "none" : "auto",
         }}
-        onClick={onClick}>
+        onClick={onClick}
+        disabled={disabled}
+      >
         <div
-          className={icon ? styles.buttonContent : ''}
+          className={icon ? styles.buttonContent : ""}
           style={{
-            width: '80%',
-            margin: 'auto',
-          }}>
+            width: "80%",
+            margin: "auto",
+          }}
+        >
           {isLoading ? (
             <div className={styles.circular_progress}>
-              <CircularProgress sx={{ color: 'white' }} size="1.5rem" />
+              <CircularProgress sx={{ color: "white" }} size="1.5rem" />
             </div>
           ) : (
             <>

@@ -7,6 +7,7 @@ import { drive_v3, google } from 'googleapis';
 import multer, { memoryStorage } from 'multer';
 import { supabase } from '../..';
 import { v4 as uuidv4 } from 'uuid';
+import IPageCustomization from '../types/IPageCustomization';
 
 const prisma = new PrismaClient();
 export const router = express.Router();
@@ -35,12 +36,11 @@ interface PageCustomization {
   logoLink?: string;
   backgroundImageLink?: string;
   fontFamily?: string;
-  columns: {
+  identificatonColumns: {
     originalName: string;
-    mappedTo?: string;
+    displayName?: string;
   }[];
 }
-
 router.post(
   '/create',
   upload.fields([
@@ -54,26 +54,31 @@ router.post(
   auth,
   async (req: Request, res: Response) => {
     try {
-      const customization: PageCustomization = req.body;
+      const customization: IPageCustomization = req.body;
 
       const {
         name,
         organisationId,
         sheetId,
         sheetTabId,
-        columns,
+        identificationColumns,
         fontFamily,
         ...rest
       } = customization;
 
-      if (!name || !organisationId || !sheetId || !sheetTabId || !columns)
+      if (
+        !name ||
+        !organisationId ||
+        !sheetId ||
+        !sheetTabId ||
+        !identificationColumns
+      )
         return res
           .status(400)
           .send(
-            '`name`, `organisationId`, `sheetId`, `sheetTabId`, and `columns` are required fields'
+            '`name`, `organisationId`, `sheetId`, `sheetTabId`, and `identificationColumns` are required fields'
           );
 
-        
       const existingSheetID = await prisma.page.findUnique({
         where: { sheetId: sheetId },
       });
@@ -113,8 +118,6 @@ router.post(
           );
       }
 
-
-
       const files = req.files as { [fieldname: string]: Express.Multer.File[] };
       const { background, logo } = files;
 
@@ -127,7 +130,9 @@ router.post(
         const buffer = background[0].buffer;
         const { data, error } = await supabase.storage
           .from('image-bucket')
-          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, { contentType: 'image/*' });
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
+            contentType: 'image/*',
+          });
         if (error) {
           console.error(`Error: ${JSON.stringify(error)}`);
           return res
@@ -142,13 +147,15 @@ router.post(
         const buffer = logo[0].buffer;
         const { data, error } = await supabase.storage
           .from('image-bucket')
-          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, { contentType: 'image/*' });
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
+            contentType: 'image/*',
+          });
         if (error) {
           console.error(`Error: ${JSON.stringify(error)}`);
           return res
             .status(500)
             .send('failed to upload logo to storage bucket');
-      }
+        }
         logoUrl = storageBucketUrlPrefix + data.path;
       }
       console.log(`logoUrl = ${logoUrl}, backgroundUrl = ${backgroundUrl}`);
@@ -158,7 +165,7 @@ router.post(
 
       const page = await prisma.page.create({
         data: {
-          name: name, 
+          name: name,
           organisationId: numberOrganisationId,
           sheetId: sheetId,
           sheetTabId: sheetTabId,
@@ -175,14 +182,14 @@ router.post(
       });
 
       // @ts-ignore
-      const parsedColumns = JSON.parse(columns);
+      const parsedColumns = JSON.parse(identificationColumns);
       // @ts-ignore
-      parsedColumns!.forEach(async ({ originalName, mappedTo }) => {
+      parsedColumns!.forEach(async ({ originalName, displayName }) => {
         await prisma.column.create({
           data: {
             pageId: page.id,
             sheetsName: originalName,
-            mappedTo: mappedTo || originalName,
+            mappedTo: displayName || originalName,
           },
         });
       });
@@ -292,7 +299,11 @@ router.get(
 
       // Iterate through each column
       const column = values.slice(1).map((row) => row[columnIndex]);
-      if (column.includes(value)) {
+      if (
+        column
+          .map((element: string) => element.toLowerCase())
+          .includes(value.toLowerCase())
+      ) {
         await prisma.membershipCheckUsage.create({
           data: {
             pageId: page.id,
@@ -313,7 +324,7 @@ router.get(
           },
         });
 
-        return res.status(404).send('could not find user in column');
+        return res.status(200).send('could not find user in column');
       }
     } catch (err) {
       console.error(err);
@@ -322,42 +333,42 @@ router.get(
   }
 );
 
-router.get("/info/:webLink", async (req: Request, res: Response) => {
-
+router.get('/info/:webLink', async (req: Request, res: Response) => {
   const { webLink } = req.params;
-  
+
   const pageData = await prisma.page.findFirst({
     where: {
-      webLink
-    }
+      webLink,
+    },
   });
 
-  if (!pageData) return res.status(400).send("failed to get data with that link");
+  if (!pageData)
+    return res.status(400).send('failed to get data with that link');
 
   const columnData = await prisma.column.findMany({
     where: {
-      pageId: pageData.id
-    }
+      pageId: pageData.id,
+    },
   });
 
-  if (!columnData) return res.status(400).send("failed to get columns data with that link");
+  if (!columnData)
+    return res.status(400).send('failed to get columns data with that link');
 
-  const dataToReturn = {
+  const dataToReturn: any = {
     title: pageData?.name,
     backgroundColor: pageData?.backgroundColor,
     textFieldBackgroundColor: pageData?.textFieldBackgroundColor,
-    textColor: pageData?.textColor,
+    textFieldtextColor: pageData?.textColor,
     buttonColor: pageData?.buttonColor,
-    headingColor: pageData?.headingColor,
-    logoLink: pageData?.logoLink,
-    backgroundImageLink: pageData?.backgroundImageLink,
-    fontFamily: pageData?.fontFamily,
+    titleTextColor: pageData?.headingColor,
+    logoLink: pageData?.logoLink || undefined,
+    backgroundImageLink: pageData?.backgroundImageLink || undefined,
+    font: pageData?.fontFamily,
     clubId: pageData?.organisationId,
-
+    identificationColumns: columnData,
   };
 
   return res.status(200).send(dataToReturn);
-
 });
 
 export default router;

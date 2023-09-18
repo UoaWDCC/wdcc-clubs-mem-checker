@@ -22,6 +22,7 @@ import { ConfimationPage } from "./pages/onboarding-confirmation-page/Confirmati
 import ClubCheckerPage from "./pages/club-checker-page/ClubCheckerPage";
 import EmptyClubLogo from "./assets/EmptyClubLogo.svg";
 import hasClubs from "./utils/navigationHelpers";
+import PublicCheckerPage from "./pages/public-checker-page/PublicCheckerPage";
 
 const router = createBrowserRouter([
   {
@@ -88,8 +89,8 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/*",
-    element: <Navigate to="/" />,
+    path: "/:weblinkId",
+    element: <PublicCheckerPage/>,
   },
 ]);
 

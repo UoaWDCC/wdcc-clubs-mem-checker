@@ -1,11 +1,11 @@
-import styles from "./style.module.css";
-import BackButton from "../../components/BackButton";
-import Button from "../../components/Button";
-import { useContext, Dispatch, SetStateAction } from "react";
-import { PageContextProvider } from "./CreateCheckerPage";
-import Page from "../../types/Page";
-import UploadButton from "../../components/UploadButton";
-import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
+import styles from './style.module.css';
+import BackButton from '../../components/BackButton';
+import Button from '../../components/Button';
+import { useContext, Dispatch, SetStateAction } from 'react';
+import { PageContextProvider } from './CreateCheckerPage';
+import IPage from '../../types/IPage';
+import UploadButton from '../../components/UploadButton';
+import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
 
 interface CustomiseLogoProps {
   onNext: () => void;
@@ -14,8 +14,8 @@ interface CustomiseLogoProps {
 
 const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
-    Page,
-    Dispatch<SetStateAction<Page>>
+    IPage,
+    Dispatch<SetStateAction<IPage>>
   ];
 
   return (
@@ -39,20 +39,24 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
           </p>
           <div>
             <UploadButton
-                onFileSelect={(file) => setPage({ ...page, logoLink: file })}
-                currentFile={page.logoLink} // Pass the current file from the page state
+              onFileSelect={(file) => setPage({ ...page, logoLink: file })}
+              currentFile={page.logoLink} // Pass the current file from the page state
             />
           </div>
         </div>
         <div id={styles.CustomisePageNextButton}>
-          <Button onClick={onNext} buttonText="next" width="5vw" />
+          <Button
+            onClick={onNext}
+            buttonText="next"
+            width="5vw"
+          />
         </div>
       </div>
       <div className={styles.previewContainer}>
         <div className={styles.preview}>
           <ClubCheckerPage
             clubId={0}
-            clubName={""}
+            clubName={''}
             title={page.title}
             backgroundColor={page.backgroundColor}
             titleTextColor={page.titleTextColor}
@@ -61,8 +65,14 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
             buttonBackgroundColor={page.buttonColor}
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
-            clubLogoUrl={page.logoLink}
-            backgroundImageUrl={page.backgroundImageLink}
+            clubLogoUrl={
+              page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
+            }
+            backgroundImageUrl={
+              page.backgroundImageLink
+                ? URL.createObjectURL(page.backgroundImageLink!)
+                : undefined
+            }
             optionsList={page.identificationColumns || []}
             isOnboarding={true}
           />

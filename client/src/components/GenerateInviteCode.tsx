@@ -20,6 +20,7 @@ const GenerateInviteCode = ({
   const [generateButtonColor, setGenerateButtonColor] = useState('#087DF1');
   const [generateButtonText, setGenerateButtonText] = useState('generate!');
   const [fontsize, setFontsize] = useState("1.4vh");
+  const [subheader, setSubheader] = useState("click to generate a new invite code");
 
   const handleClick = () => {
     if (!generateDisabled) {
@@ -35,6 +36,7 @@ const GenerateInviteCode = ({
     setGenerateButtonColor('#838383');
     setGenerateButtonText('code expires in 2 hours');
     setFontsize("1vh");
+    setSubheader("copy this invite code - you won’t get to see it again!");
   }
 
   const handleCopy = () => {
@@ -71,7 +73,7 @@ setTimeout(() => setIsCopied(false), 7500);
       <div className={styles.container}>
         <div>
           <h1 className={styles.header}>invite new admin</h1>
-          <h2 className={styles.subheader}>click to generate a new invite code</h2>
+          <h2 className={styles.subheader}>{subheader}</h2>
         </div>
         <div className={styles.subcontainer}>
           <div className={styles.text}>

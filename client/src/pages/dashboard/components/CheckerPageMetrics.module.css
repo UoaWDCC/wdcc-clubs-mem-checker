@@ -1,13 +1,13 @@
-.container{
+.container {
   border-radius: 10px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 100%; 
+  width: 100%;
 }
 
-.subcontainer{
+.subcontainer {
   border-radius: 10px;
   padding: 10px 20px;
   display: flex;
@@ -15,7 +15,7 @@
   width: 100%;
 }
 
-.header{
+.header {
   color: rgb(3, 4, 94);
   font-size: 3.7vh;
   font-family: Montserrat;
@@ -23,21 +23,21 @@
   line-height: 1.1em;
 }
 
-.subheader{
+.subheader {
   color: rgb(3, 4, 94, 0.48);
   font-size: 1.5vh;
   font-style: italic;
   font-weight: 500;
 }
 
-.statisticText{
-  color: #03045E;
+.statisticText {
+  color: #03045e;
   font-size: 5vh;
   font-weight: 900;
   /* font-family: Montserrat; */
 }
 
-.dropdown{
+.dropdown {
   position: relative;
   height: 6vh;
   width: 15vw;
@@ -49,11 +49,9 @@
   border: none;
   z-index: 2;
   cursor: pointer;
-  
-  
 }
 
-.dropdownText{
+.dropdownText {
   padding: 10%;
   color: white;
   font-size: 2vh;
@@ -61,20 +59,20 @@
   font-weight: 600;
 }
 
-.dropdownArrow{
-  padding: 10%;
+.dropdownArrow {
+  padding: 10% 5% 10% 0%;
   display: flex;
   align-items: center;
 }
 
-.dropdownList{
+.dropdownList {
   position: absolute;
   border-radius: 10px;
-  background: #489EF4;
+  background: #489ef4;
   overflow-x: hidden;
   overflow-y: auto;
   width: 15vw;
-  height: 21.7  vh;
+  height: 21.7 vh;
 }
 
 .dropdownCard {

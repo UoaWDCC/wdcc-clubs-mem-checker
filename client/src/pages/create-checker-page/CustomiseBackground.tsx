@@ -1,11 +1,11 @@
-import styles from "./style.module.css";
-import { BackSquare } from "iconsax-react";
-import Button from "../../components/Button";
-import BackButton from "../../components/BackButton";
-import { useContext, Dispatch, SetStateAction } from "react";
-import { PageContextProvider } from "./CreateCheckerPage";
-import Page from "../../types/Page";
-import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
+import styles from './style.module.css';
+import { BackSquare } from 'iconsax-react';
+import Button from '../../components/Button';
+import BackButton from '../../components/BackButton';
+import { useContext, Dispatch, SetStateAction } from 'react';
+import { PageContextProvider } from './CreateCheckerPage';
+import IPage from '../../types/IPage';
+import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
 
 interface CustomiseBackgroundProps {
   onNext: () => void;
@@ -14,9 +14,10 @@ interface CustomiseBackgroundProps {
 
 const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
-    Page,
-    Dispatch<SetStateAction<Page>>
+    IPage,
+    Dispatch<SetStateAction<IPage>>
   ];
+
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
@@ -37,7 +38,10 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
         <div>
           <p>upload a background image (optional)</p>
         </div>
-        <button id={styles.CustomisePageNextButton} onClick={onNext}>
+        <button
+          id={styles.CustomisePageNextButton}
+          onClick={onNext}
+        >
           next
         </button>
       </div>
@@ -45,7 +49,7 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
         <div className={styles.preview}>
           <ClubCheckerPage
             clubId={0}
-            clubName={""}
+            clubName={''}
             title={page.title}
             backgroundColor={page.backgroundColor}
             titleTextColor={page.titleTextColor}
@@ -54,8 +58,14 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
             buttonBackgroundColor={page.buttonColor}
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
-            clubLogoUrl={page.logoLink}
-            backgroundImageUrl={page.backgroundImageLink}
+            clubLogoUrl={
+              page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
+            }
+            backgroundImageUrl={
+              page.backgroundImageLink
+                ? URL.createObjectURL(page.backgroundImageLink!)
+                : undefined
+            }
             optionsList={page.identificationColumns || []}
             isOnboarding={true}
           />

@@ -1,12 +1,12 @@
-import styles from "./style.module.css";
-import Button from "../../components/Button";
-import BackButton from "../../components/BackButton";
-import { useContext, Dispatch, SetStateAction } from "react";
-import { PageContextProvider } from "./CreateCheckerPage";
-import Page from "../../types/Page";
-import { ColorPicker } from "./CustomiseColors Components/ColorPicker";
-import { ChromePicker } from "react-color";
-import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
+import styles from './style.module.css';
+import Button from '../../components/Button';
+import BackButton from '../../components/BackButton';
+import { useContext, Dispatch, SetStateAction } from 'react';
+import { PageContextProvider } from './CreateCheckerPage';
+import IPage from '../../types/IPage';
+import { ColorPicker } from './CustomiseColors Components/ColorPicker';
+import { ChromePicker } from 'react-color';
+import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
 
 interface CustomiseColorsProps {
   onNext: () => void;
@@ -15,11 +15,11 @@ interface CustomiseColorsProps {
 
 const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
   const [page, setPage] = useContext(PageContextProvider) as [
-    Page,
-    Dispatch<SetStateAction<Page>>
+    IPage,
+    Dispatch<SetStateAction<IPage>>
   ];
   function handleNext(): void {
-    throw new Error("Function not implemented.");
+    throw new Error('Function not implemented.');
   }
 
   return (
@@ -38,21 +38,28 @@ const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
         <div className={styles.title}>
           <h1>customise page</h1>
         </div>
-        <i className={styles.subtitle} style={{ fontWeight: 500 }}>
+        <i
+          className={styles.subtitle}
+          style={{ fontWeight: 500 }}
+        >
           customise page for your members
         </i>
-        <div style={{ float: "left", width: "100%" }}>
+        <div style={{ float: 'left', width: '100%' }}>
           <ColorPicker />
         </div>
         <div id={styles.CustomisePageNextButton}>
-          <Button onClick={onNext} buttonText="next" width="5vw" />
+          <Button
+            onClick={onNext}
+            buttonText="next"
+            width="5vw"
+          />
         </div>
       </div>
       <div className={styles.previewContainer}>
         <div className={styles.preview}>
           <ClubCheckerPage
             clubId={0}
-            clubName={""}
+            clubName={''}
             title={page.title}
             backgroundColor={page.backgroundColor}
             titleTextColor={page.titleTextColor}
@@ -61,8 +68,14 @@ const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
             buttonBackgroundColor={page.buttonColor}
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
-            clubLogoUrl={page.logoLink}
-            backgroundImageUrl={page.backgroundImageLink}
+            clubLogoUrl={
+              page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
+            }
+            backgroundImageUrl={
+              page.backgroundImageLink
+                ? URL.createObjectURL(page.backgroundImageLink!)
+                : undefined
+            }
             optionsList={page.identificationColumns || []}
             isOnboarding={true}
           />
