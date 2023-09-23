@@ -9,7 +9,7 @@ const ClubAdminsList = () => {
     Dispatch<SetStateAction<IDashboardContext>>
   ];
 
-  const admins = dashboard.dashboardPage?.clubAdmins || []; //Need to rename this when I find out what the name being saved to the context is
+  const admins = dashboard.dashboardPage?.clubAdmins || [];
   // const admins = ["Adam McKinsley", "Bob Arthur", "Cindy Wong", "Amanda Young"];
 
   return (
