@@ -27,6 +27,7 @@ const GenerateInviteCode = () => {
   const [generateButtonText, setGenerateButtonText] = useState("generate!");
   const [fontsize, setFontsize] = useState("1.4vh");
   const [text, setText] = useState("click generate");
+  const [textStyle, setTextStyle] = useState(["1.8vh", "500", "48%"]);
   const [subheader, setSubheader] = useState(
     "click to generate a new invite code"
   );
@@ -53,7 +54,8 @@ const GenerateInviteCode = () => {
           setLoadingState(false);
           setGenerateButtonColor("#838383");
           setGenerateButtonText("code expires in 2 hours");
-          setFontsize("1vh");
+          setFontsize("1.2vh");
+          setTextStyle(["2.7vh", "700", "100%"]);
         }
       })
       .catch(function (error) {
@@ -74,8 +76,10 @@ const GenerateInviteCode = () => {
     setGenerateButtonColor("#087DF1");
     setGenerateButtonText("generate!");
     setText("click generate");
-    setFontsize("1.4vh");
+    setFontsize("1.6vh");
+    setTextStyle(["1.8vh", "500", "48%"]);
     setIsCopied(false);
+    
   };
 
   useEffect(() => {
@@ -96,8 +100,8 @@ const GenerateInviteCode = () => {
     border: "none",
     outline: "none",
     cursor: "pointer",
-    marginLeft: "16vw",
-    marginTop: "-3.2vh",
+    marginLeft: "8vw",
+    marginTop: "-3.7vh",
   };
 
   const iconStyle = {
@@ -113,7 +117,8 @@ const GenerateInviteCode = () => {
           <h2 className={styles.subheader}>{subheader}</h2>
         </div>
         <div className={styles.subcontainer}>
-          <div className={styles.text}>
+          <div className={styles.text} style={{fontSize: textStyle[0], fontWeight: textStyle[1], opacity: textStyle[2]}}>
+            <div>
             {text}
             {text !== "click generate" && (
               <button onClick={handleCopy} style={buttonStyle}>
@@ -124,6 +129,8 @@ const GenerateInviteCode = () => {
                 )}
               </button>
             )}
+            </div>
+          
           </div>
           <div>
             {loadingState ? (
@@ -156,7 +163,7 @@ const GenerateInviteCode = () => {
               disabled={generateDisabled}
               color="#FFFFFF"
               fontSize={fontsize}
-              fontWeight="400"
+              fontWeight="500"
             />
           </div>
         </div>
