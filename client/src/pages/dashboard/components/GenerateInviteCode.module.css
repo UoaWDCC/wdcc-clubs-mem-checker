@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Montserrat-SemiBold-Italics";
+  src: url('/Montserrat-SemiBoldItalic.ttf');
+}
+
 .container{
   border-radius: 20px;
   padding: 2% 5% 2% 5%;
@@ -26,7 +31,8 @@
   background: #C1C1C2;
   color: #03045E;
   opacity: 48%;
-  font-style: italic;
+  /* font-style: italic; */
+  font-family: 'Montserrat-SemiBold-Italics'	;
   text-align: center;
   display: flex;
   align-items: center;
@@ -42,6 +48,7 @@
   color: #03045E;
   opacity: 48%;
   font-size: 14px;
-  font-style: italic;
+  /* font-style: italic; */
   font-weight: 500;
+  font-family: 'Montserrat-SemiBold-Italics'	;
 }

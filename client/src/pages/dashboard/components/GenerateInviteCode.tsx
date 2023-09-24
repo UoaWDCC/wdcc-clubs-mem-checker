@@ -55,7 +55,7 @@ const GenerateInviteCode = () => {
           setGenerateButtonColor("#838383");
           setGenerateButtonText("code expires in 2 hours");
           setFontsize("1.2vh");
-          setTextStyle(["2.7vh", "700", "100%"]);
+          setTextStyle(["2.7vh", "800", "100%"]);
         }
       })
       .catch(function (error) {
