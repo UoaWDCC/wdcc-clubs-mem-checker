@@ -23,14 +23,14 @@
 
   .header{
     color: rgb(3, 4, 94);
-    font-size: 1.75rem;
+    font-size: 20px;
     font-weight: 600;
     line-height: 1.1em;
   }
 
   .subheader{
     color: rgb(3, 4, 94, 0.48);
-    font-size: 1.5vh;
+    font-size: 15px;
     /* font-style: italic;
     font-weight: 500; */
     font-family: 'Montserrat-SemiBold-Italics'	;
@@ -38,7 +38,7 @@
 
   .sizeText{
     color: #03045E;
-    font-size: 5vh;
+    font-size: 36px;
     /* font-weight: 900; */
     font-family: 'Montserrat-ExtraBold';	
   }
