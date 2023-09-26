@@ -1,3 +1,13 @@
+@font-face {
+  font-family: "Montserrat-ExtraBold";
+  src: url('/Montserrat-ExtraBold.ttf');
+}
+
+@font-face {
+  font-family: "Montserrat-SemiBold-Italics";
+  src: url('/Montserrat-SemiBoldItalic.ttf');
+}
+
 .container {
   border-radius: 10px;
   padding: 20px;
@@ -5,6 +15,7 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
+  /* background-color: blue; */
 }
 
 .subcontainer {
@@ -17,7 +28,7 @@
 
 .header {
   color: rgb(3, 4, 94);
-  font-size: 3.7vh;
+  font-size: 32px;
   font-family: Montserrat;
   font-weight: 600;
   line-height: 1.1em;
@@ -25,16 +36,15 @@
 
 .subheader {
   color: rgb(3, 4, 94, 0.48);
-  font-size: 1.5vh;
-  font-style: italic;
+  font-size: 15px;
   font-weight: 500;
+  font-family: 'Montserrat-SemiBold-Italics'	;
 }
 
 .statisticText {
   color: #03045e;
   font-size: 5vh;
-  font-weight: 900;
-  /* font-family: Montserrat; */
+  font-family: 'Montserrat-ExtraBold';	
 }
 
 .dropdown {

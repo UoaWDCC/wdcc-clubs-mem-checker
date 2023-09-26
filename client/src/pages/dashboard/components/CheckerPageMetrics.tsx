@@ -120,7 +120,7 @@ const CheckerPageMetrics = () => {
       <div
         className={styles.subcontainer}
         style={{
-          background: "white",
+          background: "#E6E9F1",
           height: "40%",
         }}
       >
