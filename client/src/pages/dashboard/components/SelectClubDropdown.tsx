@@ -31,13 +31,13 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     dashboard.selectedClub = clubs[0];
   }
 
-  const handleSelectClub = (club: IDropdownClub) => {
+  const handleSelectClub = (club: IDropdownClub) => { 
     setIsOpen(!isOpen);
     localStorage.setItem('selectedClub', JSON.stringify(club));
     setDashboard({ ...dashboard, selectedClub: club });
   };
 
-  const clubCardHeight = 60;
+  const clubCardHeight = 100;
 
   const clubCardRef = useRef<HTMLInputElement>(null);
   const [clubCardWidth, setClubCardWidth] = useState(0);
@@ -66,7 +66,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
           className={styles.clubCard}
           style={{
             backgroundColor: '#e8f7fb',
-            borderRadius: '8px',
+            borderRadius: '20px',
             justifyContent: 'center',
           }}
         >
@@ -85,8 +85,8 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
         ref={clubCardRef}
         className={styles.clubCard}
         style={{
-          backgroundColor: '#e8f7fb',
-          borderRadius: '8px',
+          backgroundColor: '#DAF6FC',
+          borderRadius: '20px',
         }}
       >
         <img

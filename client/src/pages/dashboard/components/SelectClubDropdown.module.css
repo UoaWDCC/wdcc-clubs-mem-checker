@@ -1,5 +1,5 @@
 .outerContainer {
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 20px 20px 0px 0px;
   width: 100%;
   height: 100%;
 }
@@ -10,7 +10,7 @@
   align-items: center;
   column-gap: 10px;
   display: flex;
-  padding: 5px 10px;
+  padding: 10px 20px;
   /*disable highlighting of text*/
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -20,8 +20,8 @@
 
 .logo {
   border-radius: 50%;
-  height: 45px;
-  width: 45px;
+  height: 70px;
+  width: 70px;
 }
 
 .text {
@@ -30,11 +30,12 @@
   font-weight: bold;
   max-height: 50px;
   overflow: hidden;
+  font-size: 18px;
 }
 
 .dropdownContainer {
   background-color: #d6ebf0;
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px 20px 20px;
   overflow-x: hidden;
   overflow-y: auto;
   position: absolute;
@@ -55,7 +56,7 @@
 /* Handle */
 .dropdownContainer::-webkit-scrollbar-thumb {
   background: #888;
-  border-radius: 5px;
+  border-radius: 20px;
 }
 
 /* Handle on hover */
@@ -64,5 +65,5 @@
 }
 
 .clubCard:hover {
-  background-color: #e8f7fb;
+  background-color: #DAF6FC;
 }
