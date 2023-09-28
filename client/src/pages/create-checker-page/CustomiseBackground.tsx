@@ -1,10 +1,10 @@
 import styles from './style.module.css';
-import { BackSquare } from 'iconsax-react';
-import Button from '../../components/Button';
 import BackButton from '../../components/BackButton';
+import Button from '../../components/Button';
 import { useContext, Dispatch, SetStateAction } from 'react';
 import { PageContextProvider } from './CreateCheckerPage';
 import IPage from '../../types/IPage';
+import UploadButton from './CustomiseLogo Components/UploadButton';
 import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
 
 interface CustomiseBackgroundProps {
@@ -19,32 +19,39 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
   ];
 
   return (
-    <div id={styles.customisePageContainer}>
-      <div id={styles.customiseContainer}>
-        <div id={styles.CustomisePageBackButton}>
-          <BackButton
-            onClick={onBack}
-            color="#087DF1"
-            size="27px"
-            hoverColor="#cceeff"
-            backgroundColor="transparent"
-            margin="0 500px 0 0"
-          />
+      <div id={styles.customisePageContainer}>
+        <div id={styles.customiseContainer}>
+          <div id={styles.CustomisePageBackButton}>
+            <BackButton
+                onClick={onBack}
+                color="#087DF1"
+                size="27px"
+                hoverColor="#cceeff"
+                backgroundColor="transparent"
+                margin="0 500px 0 0"
+            />
+          </div>
+          <div>
+            <h2 className={styles.customisePageTitle}>customise page</h2>
+            <i className={styles.subtitle}>customise page for your members</i>
+            <p className={styles.optionalText}>
+              upload a background image (optional)
+            </p>
+            <div>
+              <UploadButton
+                  onFileSelect={(file) => setPage({ ...page, backgroundImageLink: file })}
+                  currentFile={page.backgroundImageLink} // Pass the current file from the page state
+              />
+            </div>
+          </div>
+          <div id={styles.CustomisePageNextButton}>
+            <Button
+                onClick={onNext}
+                buttonText="next"
+                width="5vw"
+            />
+          </div>
         </div>
-        <div>
-          <h2>customise page</h2>
-          <i className={styles.subtitle}>customise page for your members</i>
-        </div>
-        <div>
-          <p>upload a background image (optional)</p>
-        </div>
-        <button
-          id={styles.CustomisePageNextButton}
-          onClick={onNext}
-        >
-          next
-        </button>
-      </div>
       <div className={styles.previewContainer}>
         <div className={styles.preview}>
           <ClubCheckerPage

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styles from './UploadLogo.module.css';
-import UploadIcon from '../assets/upload_logo.svg';
+import UploadIcon from '../../../assets/upload_logo.svg';
 import FileItem from './FileItem';
 
 interface UploadButtonProps {
