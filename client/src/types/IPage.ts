@@ -8,6 +8,7 @@ export default interface IPage {
   font?: string;
   backgroundColor?: string;
   titleTextColor?: string;
+  webLink?: string;
   textFieldBackgroundColor?: string;
   textFieldtextColor?: string;
   buttonColor?: string;

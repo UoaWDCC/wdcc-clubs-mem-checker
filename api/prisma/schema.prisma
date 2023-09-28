@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -26,17 +23,17 @@ model Organisation {
   createdAt  DateTime                 @default(now())
   name       String                   @unique
   acronym    String?
-  users      UsersInOrganisation[]
-  pages      Page[]
   inviteCode OrganisationInviteCode[]
+  pages      Page[]
+  users      UsersInOrganisation[]
 }
 
 model UsersInOrganisation {
   userId         Int
   createdAt      DateTime     @default(now())
-  user           User         @relation(fields: [userId], references: [id])
   organisationId Int
   organisation   Organisation @relation(fields: [organisationId], references: [id])
+  user           User         @relation(fields: [userId], references: [id])
 
   @@id([userId, organisationId])
 }
@@ -46,21 +43,21 @@ model Page {
   createdAt                DateTime               @default(now())
   name                     String
   organisationId           Int
-  organisation             Organisation           @relation(fields: [organisationId], references: [id])
   sheetId                  String                 @unique
-  sheetTabId               String                 @default("0")
   webLink                  String                 @unique
-  identificationColumns    Column[]
   backgroundColor          String                 @default("#0582CA")
-  membershipCheckUsage     MembershipCheckUsage[]
-  textFieldBackgroundColor String                 @default("#0676B6")
-  textColor                String                 @default("#FFFFFF")
+  backgroundImageLink      String?
   buttonColor              String                 @default("#53B2E3")
+  fontFamily               String                 @default("Montserrat")
   headingColor             String                 @default("#FFFFFF")
   logoLink                 String?
-  backgroundImageLink      String?
-  fontFamily               String                @default("Montserrat")
-  dropDownBackgroundColor String                 @default("#4F4F4F")
+  textColor                String                 @default("#FFFFFF")
+  textFieldBackgroundColor String                 @default("#0676B6")
+  sheetTabId               String                 @default("0")
+  dropDownBackgroundColor  String                 @default("#4F4F4F")
+  identificationColumns    Column[]
+  membershipCheckUsage     MembershipCheckUsage[]
+  organisation             Organisation           @relation(fields: [organisationId], references: [id])
 }
 
 model Column {
@@ -75,16 +72,16 @@ model OrganisationInviteCode {
   id             Int          @id @default(autoincrement())
   code           String       @unique
   organisationId Int
-  organisation   Organisation @relation(fields: [organisationId], references: [id])
   createdAt      DateTime     @default(now())
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
 }
 
 model MembershipCheckUsage {
   id          Int      @id @default(autoincrement())
-  pageId      Int
-  page        Page     @relation(fields: [pageId], references: [id])
   isDuplicate Boolean
   userInput   String
   columnName  String
   createdAt   DateTime @default(now())
+  pageId      Int
+  page        Page     @relation(fields: [pageId], references: [id])
 }

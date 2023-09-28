@@ -1,17 +1,17 @@
-import React, { createRef, useEffect, useLayoutEffect, useState } from "react";
-import CheckerPageMetrics from "./components/CheckerPageMetrics";
-import ClubAdminsList from "./components/ClubAdminsList";
-import styles from "./style.module.css";
-import GenerateInviteCode from "./components/GenerateInviteCode";
-import axios from "axios";
-import CheckerPagePreview from "./components/CheckerPagePreview";
-import WDCCLogoBlue from "../../assets/wdcc_blue_logo.svg";
-import SelectClubDropdown from "./components/SelectClubDropdown";
-import ClubSize from "./components/ClubSize";
-import IDashboardContext from "../../types/IDashboardContext";
-import IDropdownClub from "../../types/IDropdownClub";
-import CircularProgress from "@mui/material/CircularProgress";
-import IDashboardPage from "../../../../api/routes/types/IDashboardPage";
+import React, { createRef, useEffect, useLayoutEffect, useState } from 'react';
+import CheckerPageMetrics from './components/CheckerPageMetrics';
+import ClubAdminsList from './components/ClubAdminsList';
+import styles from './style.module.css';
+import GenerateInviteCode from './components/GenerateInviteCode';
+import axios from 'axios';
+import CheckerPagePreview from './components/CheckerPagePreview';
+import WDCCLogoBlue from '../../assets/wdcc_blue_logo.svg';
+import SelectClubDropdown from './components/SelectClubDropdown';
+import ClubSize from './components/ClubSize';
+import IDashboardContext from '../../types/IDashboardContext';
+import IDropdownClub from '../../types/IDropdownClub';
+import CircularProgress from '@mui/material/CircularProgress';
+import IDashboardPage from '../../../../api/routes/types/IDashboardPage';
 
 export const DashboardContextProvider = React.createContext([{}, () => {}]);
 
@@ -32,7 +32,7 @@ const Dashboard = () => {
   }, []);
 
   // load cached selected club
-  const storedSelectedClub = localStorage.getItem("selectedClub");
+  const storedSelectedClub = localStorage.getItem('selectedClub');
 
   const [dashboard, setDashboard] = useState<IDashboardContext>({
     selectedClub: storedSelectedClub
@@ -41,7 +41,7 @@ const Dashboard = () => {
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [loadingHeight, setLoadingHeight] = useState("100%");
+  const [loadingHeight, setLoadingHeight] = useState('100%');
   const containerRef = createRef<HTMLDivElement>();
   useLayoutEffect(() => {
     setLoadingHeight(`${containerRef.current?.offsetHeight}px`);
@@ -56,7 +56,7 @@ const Dashboard = () => {
       return;
     }
     setIsLoading(true);
-    cancelTokenSource.cancel("Cancel getting club info due to switching club");
+    cancelTokenSource.cancel('Cancel getting club info due to switching club');
     const newCancelToken = axios.CancelToken.source();
     setCancelTokenSource(newCancelToken);
     axios
@@ -74,24 +74,19 @@ const Dashboard = () => {
       })
       .catch((error) => {
         if (axios.isCancel(error)) {
-          console.log("Request canceled:", error.message);
+          console.log('Request canceled:', error.message);
         } else {
           console.error(error);
         }
       });
   }, [dashboard.selectedClub]);
 
-  // temporary clubs array for dropdown
-  // TODO: retrieve clubs of user and create array of type DropdownClub[]
-  const testDropdownClubs: IDropdownClub[] = [
-    { id: 1, name: "WDCC" },
-    { id: 84, name: "testing" },
-    { id: 85, name: "random" },
-    { id: 102, name: "Alex's Music Club" },
-  ];
   return (
     <DashboardContextProvider.Provider value={[dashboard, setDashboard]}>
-      <div className={styles.dashboardContainer} ref={containerRef}>
+      <div
+        className={styles.dashboardContainer}
+        ref={containerRef}
+      >
         {isLoading && (
           <div
             style={{ height: `${loadingHeight}` }}
@@ -100,8 +95,8 @@ const Dashboard = () => {
             <CircularProgress
               className={styles.loadingSign}
               sx={{
-                position: "absolute",
-                color: "#FFFFFF",
+                position: 'absolute',
+                color: '#FFFFFF',
               }}
               size="3vh"
             />
@@ -110,7 +105,11 @@ const Dashboard = () => {
         <div className={styles.dashboardHeadingContainer}>
           <h2 className={styles.dashboardHeading}>dashboard</h2>
 
-          <img className={styles.logo} src={WDCCLogoBlue} alt="WDCC Logo" />
+          <img
+            className={styles.logo}
+            src={WDCCLogoBlue}
+            alt="WDCC Logo"
+          />
         </div>
         <div className={styles.gridContainer}>
           <div className={styles.rowOne}>

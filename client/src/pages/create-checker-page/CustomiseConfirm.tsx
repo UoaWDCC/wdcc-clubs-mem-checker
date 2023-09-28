@@ -28,7 +28,7 @@ const CustomiseConfirm = ({
   ];
   const navigate = useNavigate();
   function handleNext(): void {
-    const url = '/club/get-organisationId/' + clubDetails.clubName;
+    const url = '/api/club/get-organisationId/' + clubDetails.clubName;
     axios.get(url).then((res) => {
       const id = res.data.organisationId;
       const formData = new FormData();
@@ -54,7 +54,7 @@ const CustomiseConfirm = ({
         formData.append('headingColor', page.titleTextColor!);
       if (page.font) formData.append('fontFamily', page.font!);
       axios
-        .post('/pages/create', formData)
+        .post('/api/pages/create', formData)
         .then((res) => {
           navigate('/confirmation', {
             state: { pathId: res.data.pathId, clubDetails: clubDetails },

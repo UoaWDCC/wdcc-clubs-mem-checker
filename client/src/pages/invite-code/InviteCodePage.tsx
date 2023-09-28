@@ -19,9 +19,7 @@ const InviteCodePage = () => {
   };
   const handleOnNext = () => {
     setIsLoading(true);
-    const url =
-      'http://localhost:3000/club/verify-invite-code/' +
-      inviteCode.current?.value;
+    const url = '/club/verify-invite-code/' + inviteCode.current?.value;
     axios
       .get(url)
       .then(function (response) {
