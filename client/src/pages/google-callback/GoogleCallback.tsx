@@ -13,7 +13,7 @@ export default function GoogleCallback() {
     const fetchData = async () => {
       const code = searchParams.get('code');
       if (!code) setLoadingText('Error: Could not sign in with Google.');
-      const res = await axios.post('/api/auth/google/callback', {
+      const res = await axios.post('/auth/google/callback', {
         code,
       });
       const { token, isInClub } = res.data;

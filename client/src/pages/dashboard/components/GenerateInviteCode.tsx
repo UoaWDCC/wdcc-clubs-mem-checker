@@ -41,7 +41,7 @@ const GenerateInviteCode = () => {
     setGenerateButtonText('');
     setLoadingState(true);
     axios
-      .get(`/api/club/create-invite-code/${dashboard.selectedClub?.id}`, {
+      .get(`/club/create-invite-code/${dashboard.selectedClub?.id}`, {
         cancelToken: newCancelToken.token,
       })
       .then(function (response) {

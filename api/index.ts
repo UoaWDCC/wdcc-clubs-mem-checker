@@ -37,7 +37,7 @@ console.log(
 export const supabase = createClient(supabaseProjectUrl, supabaseApiKey);
 
 // Publicly serve the static files
-app.use(express.static('../client/dist'));
+app.use(express.static('./ui'));
 
 app.use(
   cors({
@@ -67,7 +67,7 @@ app.get('/api/organisationid', auth, async (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../../client/dist/index.html'));
+  res.sendFile(path.join(__dirname, '../../ui/index.html'));
 });
 
 const server = app.listen(port, () => {

@@ -14,7 +14,6 @@ import Textfield from '../../components/Textfield';
 import styles from './ClubCheckerPage.module.css';
 import { createRef, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { getTextColor } from '../../utils/helpers';
-import { useParams, useNavigate } from 'react-router';
 import IColumn from '../../types/IColumn';
 import axios from 'axios';
 import { CircularProgress } from '@mui/material';
@@ -60,10 +59,6 @@ const ClubCheckerPage = ({
 }: ClubCheckerPageProps) => {
   // document.body.style.backgroundColor = backgroundColor || "white";
 
-  const { webLinkID } = useParams();
-
-  const navigate = useNavigate();
-
   const textFieldLabelRef = useRef<HTMLInputElement>(null);
 
   const [selectedIdentifier, setSelectedIdentifier] = useState<IColumn>(
@@ -81,15 +76,6 @@ const ClubCheckerPage = ({
   useLayoutEffect(() => {
     setTextFieldWidth(textFieldLabelRef.current?.offsetWidth || 0);
   });
-
-  useEffect(() => {
-    axios.get(`/api/pages/info/${webLinkID}`).catch((err) => {
-      if (err.response.status === 400) {
-        navigate('/');
-      }
-    });
-  }, []);
-
   const [isError, setIsError] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -111,7 +97,7 @@ const ClubCheckerPage = ({
     setLoading(true);
     try {
       const response = await axios.get(
-        `/api/pages/verify/${webLink}/${selectedIdentifier.displayName}/${input}`
+        `/pages/verify/${webLink}/${selectedIdentifier.displayName}/${input}`
       );
       if (response.data == 'value found in column') {
         setIsSuccess('You are part of this club!');

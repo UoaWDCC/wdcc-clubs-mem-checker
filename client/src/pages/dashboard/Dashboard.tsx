@@ -12,18 +12,22 @@ import IDashboardContext from '../../types/IDashboardContext';
 import IDropdownClub from '../../types/IDropdownClub';
 import CircularProgress from '@mui/material/CircularProgress';
 import IDashboardPage from '../../../../api/routes/types/IDashboardPage';
+import { useNavigate } from 'react-router';
 
 export const DashboardContextProvider = React.createContext([{}, () => {}]);
 
 const Dashboard = () => {
   // retrieve user's list of clubs
+  const navigate = useNavigate();
   const [userClubs, setUserClubs] = useState<IDropdownClub[]>([]);
   useEffect(() => {
     axios
-      .get(`/api/user/organisations`)
+      .get(`/user/organisations`)
       .then((response) => {
         if (response.status == 200) {
           setUserClubs(response.data);
+        } else {
+          navigate('/');
         }
       })
       .catch((error) => {
@@ -60,12 +64,9 @@ const Dashboard = () => {
     const newCancelToken = axios.CancelToken.source();
     setCancelTokenSource(newCancelToken);
     axios
-      .get(
-        `/api/dashboard/club-dashboard-endpoint/${dashboard.selectedClub?.id}`,
-        {
-          cancelToken: newCancelToken.token,
-        }
-      )
+      .get(`/dashboard/club-dashboard-endpoint/${dashboard.selectedClub?.id}`, {
+        cancelToken: newCancelToken.token,
+      })
       .then((response) => {
         const data: IDashboardPage = response.data;
         setDashboard({

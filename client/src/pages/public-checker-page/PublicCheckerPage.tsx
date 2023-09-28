@@ -8,12 +8,12 @@ import styles from './style.module.css';
 import WebFont from 'webfontloader';
 const PublicCheckerPage = () => {
   const [pageData, setPageData] = useState<Page>({});
-  const { weblinkId } = useParams();
+  const { webLinkId } = useParams();
   let columnArray: Column[] = [];
 
   useEffect(() => {
     axios
-      .get(`/api/pages/info/${weblinkId}`)
+      .get(`/pages/info/${webLinkId}`)
       .then((response) => {
         WebFont.load({
           google: {
@@ -51,7 +51,7 @@ const PublicCheckerPage = () => {
         backgroundImageUrl={pageData.backgroundImageLink}
         optionsList={columnArray}
         isOnboarding={false}
-        webLink={weblinkId}
+        webLink={webLinkId}
       ></ClubCheckerPage>
     </div>
   );

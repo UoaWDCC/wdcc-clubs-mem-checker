@@ -85,7 +85,7 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
       }
       // --------------try fetch spreadsheet columns
       axios
-        .get(`/api/sheet/columns/${spreadsheetId}/${sheetTabId}`)
+        .get(`/sheet/columns/${spreadsheetId}/${sheetTabId}`)
         .then((response) => {
           spreadsheetColumns = response.data;
           console.log(response.data);

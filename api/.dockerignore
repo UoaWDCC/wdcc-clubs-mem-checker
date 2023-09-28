@@ -1,0 +1,6 @@
+/node_modules
+/dist
+/.env
+.idea/* 
+membership-checker-e5457b93d746.json
+.service

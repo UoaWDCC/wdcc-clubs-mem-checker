@@ -7,8 +7,14 @@ import { JWT } from 'google-auth-library';
 export const router = Router();
 const prisma = new PrismaClient();
 
+const serviceAccountJsonBase64: any =
+  process.env.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64;
+const serviceAccount = JSON.parse(
+  Buffer.from(serviceAccountJsonBase64, 'base64').toString()
+);
+
 const serviceClient = new google.auth.GoogleAuth({
-  keyFile: 'membership-checker-e5457b93d746.json',
+  credentials: serviceAccount,
   scopes: [
     'https://www.googleapis.com/auth/spreadsheets',
     'https://www.googleapis.com/auth/drive',

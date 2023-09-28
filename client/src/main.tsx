@@ -19,7 +19,6 @@ import InviteCodePage from './pages/invite-code/InviteCodePage';
 import { ConfimationPage } from './pages/onboarding-confirmation-page/ConfirmationPage';
 import ClubCheckerPage from './pages/club-checker-page/ClubCheckerPage';
 import EmptyClubLogo from './assets/EmptyClubLogo.svg';
-import hasClubs from './utils/navigationHelpers';
 import PublicCheckerPage from './pages/public-checker-page/PublicCheckerPage';
 
 const router = createBrowserRouter([
@@ -37,11 +36,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/no-clubs',
-    element: hasClubs() ? <Navigate to="/dashboard" /> : <NoClubs />,
+    element: <NoClubs />,
   },
   {
     path: '/dashboard',
-    element: hasClubs() ? <Dashboard /> : <Navigate to="/no-clubs" />,
+    element: <Dashboard />,
   },
   {
     path: '/auth/google/callback',
@@ -69,6 +68,20 @@ const router = createBrowserRouter([
 const token: string | undefined = Cookies.get('token');
 if (token != undefined) {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+}
+
+axios.defaults.baseURL = '/api/';
+
+function hasClubs(): boolean {
+  axios
+    .get('/user/organisations')
+    .then((res) => {
+      if (res.status === 204) {
+        return true;
+      }
+    })
+    .catch(() => false);
+  return false;
 }
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

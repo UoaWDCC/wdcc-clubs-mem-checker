@@ -37,7 +37,7 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
     ) {
       setIsLoading(true);
       axios
-        .post('/api/club/create', {
+        .post('/club/create', {
           clubName: clubNameRef.current?.value,
           clubAcronym: clubAcronymRef.current?.value,
         })
