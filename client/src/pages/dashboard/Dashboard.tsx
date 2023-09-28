@@ -20,7 +20,7 @@ const Dashboard = () => {
   const [userClubs, setUserClubs] = useState<IDropdownClub[]>([]);
   useEffect(() => {
     axios
-      .get(`/user/organisations`)
+      .get(`/api/user/organisations`)
       .then((response) => {
         if (response.status == 200) {
           setUserClubs(response.data);
@@ -60,9 +60,12 @@ const Dashboard = () => {
     const newCancelToken = axios.CancelToken.source();
     setCancelTokenSource(newCancelToken);
     axios
-      .get(`/dashboard/club-dashboard-endpoint/${dashboard.selectedClub?.id}`, {
-        cancelToken: newCancelToken.token,
-      })
+      .get(
+        `/api/dashboard/club-dashboard-endpoint/${dashboard.selectedClub?.id}`,
+        {
+          cancelToken: newCancelToken.token,
+        }
+      )
       .then((response) => {
         const data: IDashboardPage = response.data;
         setDashboard({

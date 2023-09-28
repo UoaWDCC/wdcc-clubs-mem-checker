@@ -13,7 +13,7 @@ const PublicCheckerPage = () => {
 
   useEffect(() => {
     axios
-      .get(`/pages/info/${weblinkId}`)
+      .get(`/api/pages/info/${weblinkId}`)
       .then((response) => {
         WebFont.load({
           google: {

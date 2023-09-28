@@ -8,8 +8,6 @@ import { IClubDetails } from './ClubDetailPage';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 
-const url = '/club/create'; //temp url
-
 interface ClubDetailFormProps {
   onNext: (clubDetails: IClubDetails) => void;
 }
@@ -39,7 +37,7 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
     ) {
       setIsLoading(true);
       axios
-        .post(url, {
+        .post('/api/club/create', {
           clubName: clubNameRef.current?.value,
           clubAcronym: clubAcronymRef.current?.value,
         })

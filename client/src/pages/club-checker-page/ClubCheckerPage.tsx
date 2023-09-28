@@ -83,7 +83,7 @@ const ClubCheckerPage = ({
   });
 
   useEffect(() => {
-    axios.get(`/pages/info/${webLinkID}`).catch((err) => {
+    axios.get(`/api/pages/info/${webLinkID}`).catch((err) => {
       if (err.response.status === 400) {
         navigate('/');
       }
@@ -111,7 +111,7 @@ const ClubCheckerPage = ({
     setLoading(true);
     try {
       const response = await axios.get(
-        `/pages/verify/${webLink}/${selectedIdentifier.displayName}/${input}`
+        `/api/pages/verify/${webLink}/${selectedIdentifier.displayName}/${input}`
       );
       if (response.data == 'value found in column') {
         setIsSuccess('You are part of this club!');
