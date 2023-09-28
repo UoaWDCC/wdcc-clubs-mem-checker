@@ -1,7 +1,7 @@
 import SignInDoor from '../../assets/sign-in-through-door.svg';
 import GoogleLogo from '../../assets/google-white-background.svg';
 import styles from './style.module.css';
-import Link from '../../components/Link';
+import { AnchorLink } from '../../components/Link';
 
 export function GoogleSignIn() {
   return (
@@ -20,13 +20,13 @@ export function GoogleSignIn() {
               please sign in with your Google account to proceed.
             </p>
           </div>
-          <Link
+          <AnchorLink
             linkText="sign in"
             icon={GoogleLogo}
             backgroundColor="#03045E"
             iconSize="40"
             fontSize="1.5rem"
-            href="http://localhost:3000/auth/google"
+            href="/api/auth/google"
           />
         </div>
       </div>

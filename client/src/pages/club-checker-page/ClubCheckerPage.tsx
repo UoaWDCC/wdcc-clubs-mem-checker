@@ -14,6 +14,7 @@ import Textfield from '../../components/Textfield';
 import styles from './ClubCheckerPage.module.css';
 import { createRef, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { getTextColor } from '../../utils/helpers';
+import { useParams, useNavigate } from 'react-router';
 import IColumn from '../../types/IColumn';
 import axios from 'axios';
 import { CircularProgress } from '@mui/material';
@@ -84,7 +85,7 @@ const ClubCheckerPage = ({
   useEffect(() => {
     axios.get(`/pages/info/${webLinkID}`).catch((err) => {
       if (err.response.status === 400) {
-        navigate("/");
+        navigate('/');
       }
     });
   }, []);
