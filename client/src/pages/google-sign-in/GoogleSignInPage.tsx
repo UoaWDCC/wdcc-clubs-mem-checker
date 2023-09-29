@@ -26,7 +26,11 @@ export function GoogleSignIn() {
             backgroundColor="#03045E"
             iconSize="40"
             fontSize="1.5rem"
-            href="/api/auth/google"
+            href={
+              import.meta.env.MODE == 'production'
+                ? '/api/auth/google'
+                : 'http://localhost:3000/api/auth/google'
+            }
           />
         </div>
       </div>

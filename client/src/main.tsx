@@ -70,7 +70,11 @@ if (token != undefined) {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
 
-axios.defaults.baseURL = '/api/';
+if (import.meta.env.MODE == 'production') {
+  axios.defaults.baseURL = '/api/';
+} else {
+  axios.defaults.baseURL = 'http://localhost:3000/api/';
+}
 
 function hasClubs(): boolean {
   axios
