@@ -37,7 +37,9 @@ console.log(
 export const supabase = createClient(supabaseProjectUrl, supabaseApiKey);
 
 // Publicly serve the static files
-app.use(express.static('./ui'));
+app.use(express.static(path.join(__dirname, '../../../client/dist')));
+
+app.set('trust proxy', true);
 
 app.use(
   cors({
@@ -67,7 +69,14 @@ app.get('/api/organisationid', auth, async (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../ui/index.html'));
+  if (process.env.NODE_ENV == 'PRODUCTION') {
+    return res.sendFile(path.join(__dirname, '../../../client/dist/index.html'));
+  } else {
+    return res.sendFile(path.join(__dirname, '../../../client/index.html'));
+  }
+});
+
+  }
 });
 
 const server = app.listen(port, () => {

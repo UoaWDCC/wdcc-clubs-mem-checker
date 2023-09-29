@@ -11,8 +11,12 @@ export const HomePage = () => {
   };
   return (
     <div className={styles.home}>
-      <title>Club Membership Checker</title>
-      <img className={styles.logo} src={WDCCLogo} alt="WDCC Logo" />
+      <title>Club Membership Checker - Checking Error</title>
+      <img
+        className={styles.logo}
+        src={WDCCLogo}
+        alt="WDCC Logo"
+      />
       <div className={styles.home_container}>
         <div className={styles.col1}>
           <h1 className={styles.title}>Club Membership Checker</h1>
