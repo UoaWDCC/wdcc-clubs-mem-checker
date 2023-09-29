@@ -20,11 +20,11 @@ const port = process.env.PORT || 3000;
 const cookieSecret = process.env.COOKIE_SECRET!;
 const sixMonths = 1000 * 60 * 60 * 24 * 182;
 
-const fifteenMinutes = 15 * 60 * 1000;
+const tenMinutes = 10 * 60 * 1000;
 // Limits client to 100 requests per 15 minutes
 const rateLimiter = rateLimit({
-  windowMs: fifteenMinutes,
-  max: 100,
+  windowMs: tenMinutes,
+  max: 150,
 });
 
 app.use(rateLimiter);
@@ -41,11 +41,16 @@ app.use(express.static(path.join(__dirname, '../../../client/dist')));
 
 app.set('trust proxy', true);
 
+const origin =
+  process.env.NODE_ENV == 'production'
+    ? `https://${process.env.VITE_DOMAIN}`
+    : 'http://localhost:5173';
+
 app.use(
   cors({
     optionsSuccessStatus: 200,
     credentials: true,
-    origin: 'http://localhost:5173',
+    origin,
   })
 );
 app.use(json());
@@ -69,16 +74,14 @@ app.get('/api/organisationid', auth, async (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  if (process.env.NODE_ENV == 'PRODUCTION') {
-    return res.sendFile(path.join(__dirname, '../../../client/dist/index.html'));
+  if (process.env.NODE_ENV == 'production') {
+    return res.sendFile(
+      path.join(__dirname, '../../../client/dist/index.html')
+    );
   } else {
     return res.sendFile(path.join(__dirname, '../../../client/index.html'));
   }
 });
-
-  }
-});
-
 const server = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });

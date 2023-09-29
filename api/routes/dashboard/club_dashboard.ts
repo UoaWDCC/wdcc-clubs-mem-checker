@@ -13,14 +13,10 @@ import IPageMetrics from '../types/IPageMetrics';
 import IDashboardPage from '../types/IDashboardPage';
 import { google } from 'googleapis';
 import { IMemberCountByPageId } from '../../../client/src/types/IMemberCountByPageId';
+import { serviceClient } from '../../service';
 
 const router = Router();
 const prisma = new PrismaClient();
-
-const serviceClient = new google.auth.GoogleAuth({
-  keyFile: 'membership-checker-e5457b93d746.json',
-  scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-});
 
 const sheets = google.sheets({
   version: 'v4',

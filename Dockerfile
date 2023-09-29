@@ -17,6 +17,7 @@ RUN yarn install
 
 # Second stage for building the client
 FROM node:${NODE_VERSION}-slim as client-build
+ENV NODE_ENV="production"
 
 COPY --from=install-dependencies /app/client/node_modules /app/client/node_modules
 COPY ./api /app/api

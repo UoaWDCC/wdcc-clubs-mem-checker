@@ -20,9 +20,15 @@ export default function GoogleCallback() {
       if (!token || !isInClub) {
         setLoadingText('Error: Could not sign in with Google.');
       }
+
+      const domain =
+        import.meta.env.MODE === 'production'
+          ? import.meta.env.VITE_DOMAIN // Use the production domain
+          : 'localhost'; // Use 'localhost' for other environments
       Cookies.set('token', token, {
-        domain: 'localhost',
+        domain,
         sameSite: 'strict',
+        secure: true,
       });
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
       if (isInClub) {
