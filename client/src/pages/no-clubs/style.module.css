@@ -30,8 +30,8 @@ p.no-clubs {
 }
 
 .subtext {
-  font-family: 'Montserrat';
   font-weight: 400;
+  font-family: 'Open Sans';
   font-style: italic;
   line-height: 1;
   margin-bottom: 2rem;
