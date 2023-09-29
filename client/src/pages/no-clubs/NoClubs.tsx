@@ -6,6 +6,8 @@ import Button from '../../components/Button';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import InfoToolTip from '../../components/Tooltip';
+import WDCCLogo from '../../assets/wdcc_blue_logo.svg';
+
 
 export default function NoClubs() {
   const navigate = useNavigate();
@@ -23,6 +25,7 @@ export default function NoClubs() {
 
   return (
     <div className={styles.container}>
+      <img className={styles.logo} src={WDCCLogo} alt="WDCC Logo" />
       <div className={styles['text-div']}>
         <p className={styles['no-clubs']}>
           hi {firstName}, there are currently no clubs linked to your account.

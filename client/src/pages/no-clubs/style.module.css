@@ -56,3 +56,11 @@ p.no-clubs {
   top: 50%;
   transform: translateY(-50%);
 }
+
+.logo {
+  position: absolute;
+  top: 3em;
+  right: 3em;
+  width: 9em;
+  height: auto;
+}

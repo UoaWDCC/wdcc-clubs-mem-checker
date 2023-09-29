@@ -122,6 +122,7 @@ const CheckerPageMetrics = () => {
         style={{
           background: "#E6E9F1",
           height: "40%",
+          padding: "20px"
         }}
       >
         <h1 className={styles.header}>duplicates found</h1>

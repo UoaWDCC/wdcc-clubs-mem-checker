@@ -15,13 +15,15 @@ const ClubAdminsList = () => {
   return (
     <>
       <div className={styles.classListContainer}>
-        <h1 className={styles.classListHeader}>club admins</h1>
-        <div className={styles.namesContainer}>
-          {admins.map((admin) => (
-            <p key={admin} className={styles.adminName}>
-              {admin}
-            </p>
-          ))}
+        <div>
+          <h1 className={styles.classListHeader}>club admins</h1>
+          <div className={styles.namesContainer}>
+            {admins.map((admin) => (
+              <p key={admin} className={styles.adminName}>
+                {admin}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
     </>

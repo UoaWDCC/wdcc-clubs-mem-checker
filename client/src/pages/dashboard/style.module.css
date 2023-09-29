@@ -72,5 +72,5 @@
 .adminShareContainer {
   display: flex;
   justify-content: center;
-  padding: 1em 2em;
+  /* padding: 1em 2em; */
 }
