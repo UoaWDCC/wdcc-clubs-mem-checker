@@ -16,8 +16,10 @@ import { createRef, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { getTextColor } from '../../utils/helpers';
 import IColumn from '../../types/IColumn';
 import axios from 'axios';
-import { Copy, TickCircle } from 'iconsax-react';
+import { TickCircle, CloseCircle, InfoCircle } from 'iconsax-react';
 import { useNavigate, useParams } from 'react-router';
+import SadFace from '../../assets/SadFace.svg';
+import DeadFace from '../../assets/DeadFace.svg';
 
 interface ClubCheckerPageProps {
   clubId?: number;
@@ -94,6 +96,12 @@ const ClubCheckerPage = ({
   const [isSuccess, setIsSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const[iconState, setIconState] = useState(0);
+
+  const iconStyle = {
+    color: textFieldTextColor,
+    size: 100,
+  }
+
   const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -128,6 +136,10 @@ const ClubCheckerPage = ({
     } finally {
       setLoading(false);
     }
+    
+  };
+  const handleFocus = () => {
+    setIconState(0);
   };
 
   return selectedIdentifier ? (
@@ -231,16 +243,31 @@ const ClubCheckerPage = ({
           ref={textFieldRef}
           width="330px"
           onKeyDown={handleEnterKey}
+          onFocus={handleFocus}
         />
       </div>
-      <Button
-        buttonText="check"
-        backgroundColor={buttonBackgroundColor}
-        onClick={() => !isOnboarding && onCheck()}
-        width="160px"
-        padding="12px 0px"
-        isLoading = {loading}
-      />
+      {iconState == 0 && (
+  <Button
+    buttonText="check"
+    backgroundColor={buttonBackgroundColor}
+    onClick={() => !isOnboarding && onCheck()}
+    width="160px"
+    padding="12px 0px"
+    isLoading={loading}
+  />
+)}
+<div>
+          {iconState == 1 && (
+            <TickCircle size = "75" style={iconStyle}/>
+          )}
+          {iconState == 2 && (
+            <CloseCircle size = "75" style = {iconStyle}/>
+          )}
+          {iconState == 3 && (
+            <InfoCircle style = {iconStyle}/>
+          )}   
+
+</div>
       <div>
           {isSuccess && (
             <p

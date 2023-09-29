@@ -20,6 +20,7 @@ export interface ButtonProps {
   onClick: () => void;
   disabled?: boolean;
   isLoading?: boolean;
+  display?: string;
 }
 
 const Button = ({
@@ -40,6 +41,7 @@ const Button = ({
   disabled,
   onClick,
   isLoading,
+  display,
 }: ButtonProps) => {
   if (hoverColor == "") hoverColor = lightenColor(backgroundColor, 20);
   if (disabled) hoverColor = backgroundColor;
@@ -58,6 +60,7 @@ const Button = ({
           fontWeight,
           borderRadius: borderRadius,
           padding: padding,
+          display: display,
           ["--hover-color" as any]: hoverColor,
           pointerEvents: disabled ? "none" : "auto",
         }}
