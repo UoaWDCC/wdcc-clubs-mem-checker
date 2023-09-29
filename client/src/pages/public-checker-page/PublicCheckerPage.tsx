@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
-import Page from '../../types/Page';
+import Page from '../../types/IPage';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import Column from '../../types/Column';
+import Column from '../../types/IColumn';
 import styles from './style.module.css';
 import WebFont from 'webfontloader';
 const PublicCheckerPage = () => {

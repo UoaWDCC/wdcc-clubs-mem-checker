@@ -16,7 +16,8 @@ import { createRef, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { getTextColor } from '../../utils/helpers';
 import IColumn from '../../types/IColumn';
 import axios from 'axios';
-import { CircularProgress } from '@mui/material';
+import { Copy, TickCircle } from 'iconsax-react';
+import { useNavigate, useParams } from 'react-router';
 
 interface ClubCheckerPageProps {
   clubId?: number;
@@ -92,6 +93,7 @@ const ClubCheckerPage = ({
   const [isError, setIsError] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const[iconState, setIconState] = useState(0);
   const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -113,13 +115,16 @@ const ClubCheckerPage = ({
         `/pages/verify/${webLink}/${selectedIdentifier.displayName}/${input}`
       );
       if (response.data == 'value found in column') {
-        setIsSuccess('You are part of this club!');
+        setIsSuccess('You are already a member of this club!');
+        setIconState(1);
       } else {
-        setIsSuccess('You are not part of this club!');
+        setIsSuccess('You are not currently a member of this club!');
+        setIconState(2);
       }
     } catch (error) {
       console.error(error);
-      setIsSuccess('An error occurred while making the request');
+      setIsSuccess('oops! there was an error - please refresh the page and try again.');
+      setIconState(3);
     } finally {
       setLoading(false);
     }
@@ -234,30 +239,19 @@ const ClubCheckerPage = ({
         onClick={() => !isOnboarding && onCheck()}
         width="160px"
         padding="12px 0px"
+        isLoading = {loading}
       />
       <div>
-        {loading ? (
-          <div className={styles.loadingContainer}>
-            <CircularProgress
-              className={styles.loadingContainer}
-              sx={{
-                color: '#000000',
-              }}
-              size={24}
-              thickness={3}
-            />
-          </div>
-        ) : (
-          isSuccess && (
+          {isSuccess && (
             <p
               style={{
                 fontFamily: 'montserrat',
+                color: textFieldTextColor,
               }}
             >
               {isSuccess}
             </p>
-          )
-        )}
+          )}
       </div>
     </div>
   ) : (
