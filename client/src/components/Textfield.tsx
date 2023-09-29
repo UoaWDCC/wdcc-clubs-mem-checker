@@ -22,6 +22,7 @@ interface TextfieldProps {
   onKeyUp?: () => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   onChange?: () => void;
+  onFocus?: () => void;
   readOnly?: boolean;
 }
 
@@ -45,6 +46,7 @@ const Textfield = forwardRef(
       onKeyUp,
       onKeyDown,
       onChange,
+      onFocus,
       textAlign = 'left',
       readOnly,
     }: TextfieldProps,
@@ -71,6 +73,7 @@ const Textfield = forwardRef(
             onKeyDown={onKeyDown}
             className={styles.input}
             onChange={onChange}
+            onFocus={onFocus}
             readOnly={readOnly}
             placeholder={placeholder}
             style={{

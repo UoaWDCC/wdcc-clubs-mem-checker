@@ -99,7 +99,6 @@ const ClubCheckerPage = ({
 
   const iconStyle = {
     color: textFieldTextColor,
-    size: 100,
   }
 
   const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -166,7 +165,7 @@ const ClubCheckerPage = ({
           font: `bold 36px "${font}"`,
           textAlign: 'center',
           minHeight: '45px',
-          maxWidth: '100%',
+          maxWidth: '95%',
           overflowWrap: 'break-word',
         }}
       >
@@ -177,7 +176,7 @@ const ClubCheckerPage = ({
           backgroundColor: dropDownBackgroundColor,
           borderRadius: '8px',
           height: '30px',
-          width: '180px',
+          width: '160px',
           color: getTextColor(dropDownBackgroundColor),
         }}
         value={''}
@@ -251,23 +250,25 @@ const ClubCheckerPage = ({
     buttonText="check"
     backgroundColor={buttonBackgroundColor}
     onClick={() => !isOnboarding && onCheck()}
-    width="160px"
-    padding="12px 0px"
+    width="9rem"
+    height="3.25rem"
+    fontSize="1rem"
     isLoading={loading}
   />
 )}
 <div>
           {iconState == 1 && (
-            <TickCircle size = "75" style={iconStyle}/>
+            <TickCircle size = "95" style={iconStyle}/>
           )}
           {iconState == 2 && (
-            <CloseCircle size = "75" style = {iconStyle}/>
+            <CloseCircle size = "95" style = {iconStyle}/>
           )}
           {iconState == 3 && (
-            <InfoCircle style = {iconStyle}/>
+            <InfoCircle size = "95" style = {iconStyle}/>
           )}   
 
 </div>
+{iconState !== 0 && (
       <div>
           {isSuccess && (
             <p
@@ -280,6 +281,7 @@ const ClubCheckerPage = ({
             </p>
           )}
       </div>
+)}
     </div>
   ) : (
     <>Loading Icon Here</>
