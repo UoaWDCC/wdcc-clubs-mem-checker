@@ -82,7 +82,7 @@ const ClubCheckerPage = ({
   const [isError, setIsError] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const[iconState, setIconState] = useState(0);
+  const [iconState, setIconState] = useState(0);
 
   const iconStyle = {
     color: textFieldTextColor,
@@ -122,7 +122,7 @@ const ClubCheckerPage = ({
     } finally {
       setLoading(false);
     }
-    
+
   };
   const handleFocus = () => {
     setIconState(0);
@@ -149,7 +149,7 @@ const ClubCheckerPage = ({
       <h1
         style={{
           color: titleTextColor,
-          font: `bold 36px "${font}"`,
+          font: `bold 56px "${font}"`,
           textAlign: 'center',
           minHeight: '45px',
           maxWidth: '95%',
@@ -181,7 +181,7 @@ const ClubCheckerPage = ({
           disabled
           hidden
         >
-          Select identifier
+          {optionsList[0].displayName}
         </option>
         {optionsList.map((option) => (
           <option
@@ -207,7 +207,7 @@ const ClubCheckerPage = ({
             display: 'flex',
             fontWeight: 'bold',
             left: '10px',
-            top: '9px',
+            top: '12px',
             position: 'absolute',
             zIndex: '1',
           }}
@@ -219,7 +219,8 @@ const ClubCheckerPage = ({
           backgroundColor={textFieldBackgroundColor}
           isError={isError}
           errorText={`Please enter a ${selectedIdentifier.displayName}`}
-          height="45px"
+          height="50px"
+          width="275px"
           padding={`0px 0px 0px ${textFieldWidth + 18}px`}
           placeholder={
             `please enter your ${selectedIdentifier.displayName}` ||
@@ -227,48 +228,48 @@ const ClubCheckerPage = ({
           }
           textColour={textFieldTextColor}
           ref={textFieldRef}
-          width="330px"
+
           onKeyDown={handleEnterKey}
           onFocus={handleFocus}
         />
       </div>
-      {iconState == 0 && (
-  <Button
-    buttonText="check"
-    backgroundColor={buttonBackgroundColor}
-    onClick={() => !isOnboarding && onCheck()}
-    width="9rem"
-    height="3.25rem"
-    fontSize="1rem"
-    isLoading={loading}
-  />
-)}
-<div>
-          {iconState == 1 && (
-            <TickCircle size = "95" style={iconStyle}/>
-          )}
-          {iconState == 2 && (
-            <CloseCircle size = "95" style = {iconStyle}/>
-          )}
-          {iconState == 3 && (
-            <InfoCircle size = "95" style = {iconStyle}/>
-          )}   
-
-</div>
-{iconState !== 0 && (
-      <div>
-          {isSuccess && (
-            <p
-              style={{
-                fontFamily: 'montserrat',
-                color: textFieldTextColor,
-              }}
-            >
-              {isSuccess}
-            </p>
-          )}
+      <div className={styles.subcontainer}>
+        {iconState == 0 && (
+          <Button
+            buttonText="check"
+            backgroundColor={buttonBackgroundColor}
+            onClick={() => !isOnboarding && onCheck()}
+            width="9rem"
+            height="3.25rem"
+            fontSize="1rem"
+            isLoading={loading}
+          />
+        )}
+        {iconState !== 0 && (
+          <div className={styles.result}>
+            {iconState == 1 && (
+              <TickCircle size="95" style={iconStyle} />
+            )}
+            {iconState == 2 && (
+              <CloseCircle size="95" style={iconStyle} />
+            )}
+            {iconState == 3 && (
+              <InfoCircle size="95" style={iconStyle} />
+            )}
+            {isSuccess && (
+              <p
+                style={{
+                  fontFamily: 'montserrat',
+                  fontSize: '1.25rem',
+                  color: textFieldTextColor,
+                }}
+              >
+                {isSuccess}
+              </p>
+            )}
+          </div>
+        )}
       </div>
-)}
     </div>
   ) : (
     <>Loading Icon Here</>
