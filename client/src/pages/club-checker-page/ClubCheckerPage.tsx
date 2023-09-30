@@ -233,7 +233,7 @@ const ClubCheckerPage = ({
           onFocus={handleFocus}
         />
       </div>
-      <div className={styles.subcontainer}>
+      <div /*className={styles.subcontainer}*/>
         {iconState == 0 && (
           <Button
             buttonText="check"
