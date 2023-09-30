@@ -39,7 +39,7 @@ export const supabase = createClient(supabaseProjectUrl, supabaseApiKey);
 // Publicly serve the static files
 app.use(express.static(path.join(__dirname, '../../../client/dist')));
 
-app.set('trust proxy', true);
+// app.set('trust proxy', true);
 
 const origin =
   process.env.NODE_ENV == 'production'

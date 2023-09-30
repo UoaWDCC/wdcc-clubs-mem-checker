@@ -1,4 +1,5 @@
 import { drive_v3, google } from 'googleapis';
+import serviceClient from '../../service';
 import { Router, Request, Response } from 'express';
 import auth from '../../middleware/auth';
 import { PrismaClient } from '@prisma/client';
@@ -6,20 +7,6 @@ import { JWT } from 'google-auth-library';
 
 export const router = Router();
 const prisma = new PrismaClient();
-
-const serviceAccountJsonBase64: any =
-  process.env.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64;
-const serviceAccount = JSON.parse(
-  Buffer.from(serviceAccountJsonBase64, 'base64').toString()
-);
-
-const serviceClient = new google.auth.GoogleAuth({
-  credentials: serviceAccount,
-  scopes: [
-    'https://www.googleapis.com/auth/spreadsheets',
-    'https://www.googleapis.com/auth/drive',
-  ],
-});
 
 // Get the columns from the spreadsheet
 router.get('/:spreadsheetId/:sheettabid', auth, async (req, res) => {

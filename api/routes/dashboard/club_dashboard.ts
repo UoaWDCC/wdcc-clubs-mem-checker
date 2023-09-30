@@ -13,7 +13,7 @@ import IPageMetrics from '../types/IPageMetrics';
 import IDashboardPage from '../types/IDashboardPage';
 import { google } from 'googleapis';
 import { IMemberCountByPageId } from '../../../client/src/types/IMemberCountByPageId';
-import { serviceClient } from '../../service';
+import serviceClient from '../../service';
 
 const router = Router();
 const prisma = new PrismaClient();

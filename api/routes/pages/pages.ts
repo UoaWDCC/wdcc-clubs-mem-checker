@@ -8,7 +8,7 @@ import multer, { memoryStorage } from 'multer';
 import { supabase } from '../..';
 import { v4 as uuidv4 } from 'uuid';
 import IPageCustomization from '../types/IPageCustomization';
-import { serviceClient } from '../../service';
+import serviceClient from '../../service';
 
 const prisma = new PrismaClient();
 export const router = express.Router();
