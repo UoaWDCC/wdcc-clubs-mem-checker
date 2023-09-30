@@ -64,4 +64,52 @@ const Link = ({
   );
 };
 
+export const AnchorLink = ({
+  height,
+  width,
+  linkText,
+  margin,
+  backgroundColor = '#087DF1',
+  border = backgroundColor,
+  fontSize = '1rem',
+  fontWeight = 'bold',
+  icon,
+  iconSize,
+  href,
+}: LinkProps) => {
+  return (
+    <>
+      <a
+        className={styles.link}
+        style={{
+          height,
+          width,
+          margin,
+          backgroundColor,
+          border,
+          color: getTextColor(backgroundColor),
+          fontSize,
+          fontWeight,
+          ['--background-color' as any]: lightenColor(backgroundColor, 30),
+        }}
+        href={href}
+      >
+        <div
+          className={icon ? styles.linkContent : ''}
+          style={{
+            width: '80%',
+            margin: 'auto',
+          }}
+        >
+          <img
+            src={icon}
+            height={iconSize}
+          />
+          {linkText}
+        </div>
+      </a>
+    </>
+  );
+};
+
 export default Link;

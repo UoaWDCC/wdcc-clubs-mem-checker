@@ -13,9 +13,9 @@ export default function NoClubs() {
   const [firstName, setFirstName] = useState('friend');
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios({
-        url: '/firstname',
-      });
+      const hasClubsRes = await axios.get('/user/organisations');
+      if (hasClubsRes.status == 204) navigate('/dashboard');
+      const res = await axios.get('/firstname');
       setFirstName(res.data.firstName);
     };
     fetchData();
@@ -48,7 +48,8 @@ export default function NoClubs() {
             hoverColor="#03045E0F"
             color="#03045E"
             border="#03045E 0.2rem solid"
-            onClick={() => navigate('/invite-code')}></Button>
+            onClick={() => navigate('/invite-code')}
+          ></Button>
           <div className={styles.tooltip_container}>
             <InfoToolTip
               backgroundColor="#03045E"
@@ -58,7 +59,8 @@ export default function NoClubs() {
               descColor="#087DF1"
               width="120px"
               descriptionLeft="1em"
-              triangleRight="90%"></InfoToolTip>
+              triangleRight="90%"
+            ></InfoToolTip>
           </div>
         </div>
       </div>

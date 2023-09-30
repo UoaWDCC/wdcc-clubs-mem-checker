@@ -8,12 +8,12 @@ import styles from './style.module.css';
 import WebFont from 'webfontloader';
 const PublicCheckerPage = () => {
   const [pageData, setPageData] = useState<Page>({});
-  const { weblinkId } = useParams();
+  const { webLinkId } = useParams();
   let columnArray: Column[] = [];
 
   useEffect(() => {
     axios
-      .get(`/pages/info/${weblinkId}`)
+      .get(`/pages/info/${webLinkId}`)
       .then((response) => {
         WebFont.load({
           google: {
@@ -29,7 +29,9 @@ const PublicCheckerPage = () => {
 
   if (pageData.identificationColumns) {
     columnArray = pageData.identificationColumns.map((obj) => ({
+      // @ts-ignore
       originalName: obj.sheetsName ?? '',
+      // @ts-ignore
       displayName: obj.mappedTo ?? '',
     }));
   }
@@ -49,7 +51,8 @@ const PublicCheckerPage = () => {
         backgroundImageUrl={pageData.backgroundImageLink}
         optionsList={columnArray}
         isOnboarding={false}
-        webLink={weblinkId}></ClubCheckerPage>
+        webLink={webLinkId}
+      ></ClubCheckerPage>
     </div>
   );
 };

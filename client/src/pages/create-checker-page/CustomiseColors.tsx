@@ -69,11 +69,13 @@ const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
             clubLogoUrl={
+              // @ts-ignore
               page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
             }
             backgroundImageUrl={
               page.backgroundImageLink
-                ? URL.createObjectURL(page.backgroundImageLink!)
+                ? // @ts-ignore
+                  URL.createObjectURL(page.backgroundImageLink!)
                 : undefined
             }
             optionsList={page.identificationColumns || []}

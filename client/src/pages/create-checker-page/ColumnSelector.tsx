@@ -1,21 +1,21 @@
-import styles from "./style.module.css";
-import GoogleSheetsLogo from "../../assets/GoogleSheetsLogo.svg";
-import BackButton from "../../components/BackButton";
-import Button from "../../components/Button";
+import styles from './style.module.css';
+import GoogleSheetsLogo from '../../assets/GoogleSheetsLogo.svg';
+import BackButton from '../../components/BackButton';
+import Button from '../../components/Button';
 import {
   useContext,
   Dispatch,
   SetStateAction,
   useState,
   useEffect,
-} from "react";
-import { PageContextProvider } from "./CreateCheckerPage";
-import IPage from "../../types/IPage";
-import { Warning2 } from "iconsax-react";
-import DropDown from "../../components/Dropdown";
-import ColumnSelectRow from "../../components/ColumnSelectRow";
-import { spreadsheetColumns } from "./GoogleSheetForm";
-import IColumn from "../../types/IColumn";
+} from 'react';
+import { PageContextProvider } from './CreateCheckerPage';
+import IPage from '../../types/IPage';
+import { Warning2 } from 'iconsax-react';
+import DropDown from '../../components/Dropdown';
+import ColumnSelectRow from '../../components/ColumnSelectRow';
+import { spreadsheetColumns } from './GoogleSheetForm';
+import IColumn from '../../types/IColumn';
 
 interface ColumnSelectorProps {
   onNext: () => void;
@@ -37,7 +37,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   const [googleSheetColumns, setgoogleSheetColumns] = useState<
     Array<[string, boolean]>
   >(
-    Object.entries(spreadsheetColumns).map(([key, value]) => [
+    Object.entries(spreadsheetColumns).map(([key, value]: [any, any]) => [
       value.name,
       value.unique,
     ])
@@ -45,25 +45,25 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
 
   // Setting default column and storing this using client local storage
   const [defaultColumn, setDefaultColumn] = useState(() => {
-    const storedColumn = localStorage.getItem("defaultColumn");
-    return storedColumn !== null ? storedColumn : "";
+    const storedColumn = localStorage.getItem('defaultColumn');
+    return storedColumn !== null ? storedColumn : '';
   });
 
   useEffect(() => {
-    localStorage.setItem("defaultColumn", defaultColumn);
+    localStorage.setItem('defaultColumn', defaultColumn);
   }, [defaultColumn]);
 
   // Storing the checked columns using client local storage
   const [selectedColumnsList, setSelectedColumnsList] = useState(() => {
-    const storedColumnsList = localStorage.getItem("selectedColumnsList");
+    const storedColumnsList = localStorage.getItem('selectedColumnsList');
     return storedColumnsList ? JSON.parse(storedColumnsList) : [];
   });
 
   // Updating checked columns each time checked columns change
   useEffect(() => {
-    console.log("updating selectedColumnsList");
+    console.log('updating selectedColumnsList');
     localStorage.setItem(
-      "selectedColumnsList",
+      'selectedColumnsList',
       JSON.stringify(selectedColumnsList)
     );
   }, [selectedColumnsList]);
@@ -72,7 +72,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   const addColumn = (newColumn: IColumn) => {
     setSelectedColumnsList((prevList: IColumn[]) => {
       const updatedList = [...prevList, newColumn];
-      localStorage.setItem("selectedColumnsList", JSON.stringify(updatedList));
+      localStorage.setItem('selectedColumnsList', JSON.stringify(updatedList));
       return updatedList;
     });
   };
@@ -83,7 +83,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
       const updatedList = prevList.filter(
         (item) => item.originalName !== columnToRemove.originalName
       );
-      localStorage.setItem("selectedColumnsList", JSON.stringify(updatedList));
+      localStorage.setItem('selectedColumnsList', JSON.stringify(updatedList));
       return updatedList;
     });
   };
@@ -105,7 +105,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   // Error handling if next button is clicked but default column hasn't been selected
   const [showError, setShowError] = useState(false);
   const handleOnNext = () => {
-    if (defaultColumn != "") {
+    if (defaultColumn != '') {
       setPage({
         ...page,
         identificationColumns: selectedColumnsList,
@@ -169,7 +169,10 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
 
           {showError && (
             <div className={styles.errorMessage}>
-              <Warning2 size="18" color="#FF0000" />
+              <Warning2
+                size="18"
+                color="#FF0000"
+              />
               <p className={styles.errorText}>select a default column</p>
             </div>
           )}
@@ -197,7 +200,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
               tempSelectedColumnsList[index].displayName = newCustName;
               setSelectedColumnsList(tempSelectedColumnsList);
               localStorage.setItem(
-                "selectedColumnsList",
+                'selectedColumnsList',
                 JSON.stringify(selectedColumnsList)
               );
               console.log(selectedColumnsList);
