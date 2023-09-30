@@ -5,7 +5,8 @@
   "license": "MIT",
   "type": "commonjs",
   "scripts": {
-    "start": "tsc && node ./dist/api/index.js",
+    "start": "yarn tsc && node ./dist/api/index.js",
+    "compile": "tsc",
     "watch": "nodemon ./index.ts"
   },
   "dependencies": {
@@ -26,13 +27,13 @@
     "jsonwebtoken": "^9.0.0",
     "multer": "^1.4.5-lts.1",
     "nanoid": "3.3.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2",
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/multer": "^1.4.7",
     "nodemon": "^2.0.22",
-    "prisma": "^5.2.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.0.3"
+    "prisma": "^5.2.0"
   }
 }

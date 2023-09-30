@@ -28,8 +28,7 @@ const CustomiseConfirm = ({
   ];
   const navigate = useNavigate();
   function handleNext(): void {
-    const url = '/club/get-organisationId/' + clubDetails.clubName;
-    axios.get(url).then((res) => {
+    axios(`/club/get-organisationId/${clubDetails.clubName}`).then((res) => {
       const id = res.data.organisationId;
       const formData = new FormData();
       if (page.backgroundImageLink)
@@ -133,11 +132,13 @@ const CustomiseConfirm = ({
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
             clubLogoUrl={
+              // @ts-ignore
               page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
             }
             backgroundImageUrl={
               page.backgroundImageLink
-                ? URL.createObjectURL(page.backgroundImageLink!)
+                ? // @ts-ignore
+                  URL.createObjectURL(page.backgroundImageLink!)
                 : undefined
             }
             optionsList={page.identificationColumns || []}

@@ -1,17 +1,17 @@
-import styles from "./GenerateInviteCode.module.css";
-import Button from "../../../components/Button";
-import axios from "axios";
+import styles from './GenerateInviteCode.module.css';
+import Button from '../../../components/Button';
+import axios from 'axios';
 import {
   Dispatch,
   SetStateAction,
   useContext,
   useEffect,
   useState,
-} from "react";
-import { Copy, TickCircle } from "iconsax-react";
-import { CircularProgress } from "@mui/material";
-import IDashboardContext from "../../../types/IDashboardContext";
-import { DashboardContextProvider } from "../Dashboard";
+} from 'react';
+import { Copy, TickCircle } from 'iconsax-react';
+import { CircularProgress } from '@mui/material';
+import IDashboardContext from '../../../types/IDashboardContext';
+import { DashboardContextProvider } from '../Dashboard';
 
 const GenerateInviteCode = () => {
   // retrieve context
@@ -23,12 +23,12 @@ const GenerateInviteCode = () => {
   const [copied, setIsCopied] = useState(false);
   const [generateDisabled, setGenerateDisabled] = useState(false);
   const [loadingState, setLoadingState] = useState(false);
-  const [generateButtonColor, setGenerateButtonColor] = useState("#087DF1");
-  const [generateButtonText, setGenerateButtonText] = useState("generate!");
-  const [fontsize, setFontsize] = useState("1.4vh");
-  const [text, setText] = useState("click generate");
+  const [generateButtonColor, setGenerateButtonColor] = useState('#087DF1');
+  const [generateButtonText, setGenerateButtonText] = useState('generate!');
+  const [fontsize, setFontsize] = useState('1.4vh');
+  const [text, setText] = useState('click generate');
   const [subheader, setSubheader] = useState(
-    "click to generate a new invite code"
+    'click to generate a new invite code'
   );
   const [cancelTokenSource, setCancelTokenSource] = useState(
     axios.CancelToken.source()
@@ -38,7 +38,7 @@ const GenerateInviteCode = () => {
     const newCancelToken = axios.CancelToken.source();
     setCancelTokenSource(newCancelToken);
     setGenerateDisabled(true);
-    setGenerateButtonText("");
+    setGenerateButtonText('');
     setLoadingState(true);
     axios
       .get(`/club/create-invite-code/${dashboard.selectedClub?.id}`, {
@@ -48,18 +48,18 @@ const GenerateInviteCode = () => {
         if (response.status === 200) {
           setText(response.data);
           setSubheader(
-            "copy this invite code - you won’t get to see it again!"
+            'copy this invite code - you won’t get to see it again!'
           );
           setLoadingState(false);
-          setGenerateButtonColor("#838383");
-          setGenerateButtonText("code expires in 2 hours");
-          setFontsize("1vh");
+          setGenerateButtonColor('#838383');
+          setGenerateButtonText('code expires in 2 hours');
+          setFontsize('1vh');
         }
       })
       .catch(function (error) {
         if (axios.isCancel(error)) {
           // Handle the cancellation here
-          console.log("Request canceled:", error.message);
+          console.log('Request canceled:', error.message);
         } else {
           console.error(error);
         }
@@ -67,14 +67,14 @@ const GenerateInviteCode = () => {
   };
 
   const resetLayout = () => {
-    setSubheader("click to generate a new invite code");
-    cancelTokenSource.cancel("Cancel generating code due to switching club");
+    setSubheader('click to generate a new invite code');
+    cancelTokenSource.cancel('Cancel generating code due to switching club');
     setLoadingState(false);
     setGenerateDisabled(false);
-    setGenerateButtonColor("#087DF1");
-    setGenerateButtonText("generate!");
-    setText("click generate");
-    setFontsize("1.4vh");
+    setGenerateButtonColor('#087DF1');
+    setGenerateButtonText('generate!');
+    setText('click generate');
+    setFontsize('1.4vh');
     setIsCopied(false);
   };
 
@@ -89,19 +89,19 @@ const GenerateInviteCode = () => {
   };
 
   const buttonStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "transparent",
-    border: "none",
-    outline: "none",
-    cursor: "pointer",
-    marginLeft: "16vw",
-    marginTop: "-3.2vh",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'transparent',
+    border: 'none',
+    outline: 'none',
+    cursor: 'pointer',
+    marginLeft: '16vw',
+    marginTop: '-3.2vh',
   };
 
   const iconStyle = {
-    color: "#03045E",
+    color: '#03045E',
     size: 20,
   };
 
@@ -115,8 +115,11 @@ const GenerateInviteCode = () => {
         <div className={styles.subcontainer}>
           <div className={styles.text}>
             {text}
-            {text !== "click generate" && (
-              <button onClick={handleCopy} style={buttonStyle}>
+            {text !== 'click generate' && (
+              <button
+                onClick={handleCopy}
+                style={buttonStyle}
+              >
                 {copied ? (
                   <TickCircle style={iconStyle} />
                 ) : (
@@ -129,22 +132,22 @@ const GenerateInviteCode = () => {
             {loadingState ? (
               <div
                 style={{
-                  height: "100%",
-                  width: "100%",
-                  transform: "translate(calc(50% - 1.5vh), 1vh)",
+                  height: '100%',
+                  width: '100%',
+                  transform: 'translate(calc(50% - 1.5vh), 1vh)',
                 }}
               >
                 <CircularProgress
                   className={styles.loadingSign}
                   sx={{
-                    position: "absolute",
-                    color: "#FFFFFF",
+                    position: 'absolute',
+                    color: '#FFFFFF',
                   }}
                   size="3vh"
                 />
               </div>
             ) : (
-              ""
+              ''
             )}
 
             <Button

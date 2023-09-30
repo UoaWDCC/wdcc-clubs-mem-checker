@@ -13,20 +13,22 @@ export default function GoogleCallback() {
     const fetchData = async () => {
       const code = searchParams.get('code');
       if (!code) setLoadingText('Error: Could not sign in with Google.');
-      const res = await axios({
-        url: '/auth/google/callback',
-        method: 'POST',
-        data: {
-          code,
-        },
+      const res = await axios.post('/auth/google/callback', {
+        code,
       });
       const { token, isInClub } = res.data;
       if (!token || !isInClub) {
         setLoadingText('Error: Could not sign in with Google.');
       }
+
+      const domain =
+        import.meta.env.MODE === 'production'
+          ? import.meta.env.VITE_DOMAIN // Use the production domain
+          : 'localhost'; // Use 'localhost' for other environments
       Cookies.set('token', token, {
-        domain: 'localhost',
+        domain,
         sameSite: 'strict',
+        secure: true,
       });
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
       if (isInClub) {

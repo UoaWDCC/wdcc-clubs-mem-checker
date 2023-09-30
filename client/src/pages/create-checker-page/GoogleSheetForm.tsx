@@ -1,5 +1,5 @@
-import styles from "./style.module.css";
-import GoogleSheetsLogo from "../../assets/GoogleSheetsLogo.svg";
+import styles from './style.module.css';
+import GoogleSheetsLogo from '../../assets/GoogleSheetsLogo.svg';
 import {
   Dispatch,
   SetStateAction,
@@ -7,30 +7,30 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
-import { PageContextProvider } from "./CreateCheckerPage";
-import IPage from "../../types/IPage";
-import Textfield from "../../components/Textfield";
-import Button from "../../components/Button";
-import LinkIcon from "../../assets/LinkIcon.svg";
-import axios from "axios";
+} from 'react';
+import { PageContextProvider } from './CreateCheckerPage';
+import IPage from '../../types/IPage';
+import Textfield from '../../components/Textfield';
+import Button from '../../components/Button';
+import LinkIcon from '../../assets/LinkIcon.svg';
+import axios from 'axios';
 
 interface GoogleSheetFormProps {
   onNext: () => void;
 }
 
 export const getSpreadsheetId = (link: string): string | null => {
-  const linkArray = link.split("/");
+  const linkArray = link.split('/');
   const idIndex =
-    linkArray.findIndex((value) => value.toLowerCase() == "d") + 1;
+    linkArray.findIndex((value) => value.toLowerCase() == 'd') + 1;
   return linkArray[idIndex];
 };
 
 export const getSheetTabId = (link: string): string | null => {
   const regex = /edit#gid=(\w+)/;
-  const linkArray = link.split("/");
+  const linkArray = link.split('/');
   const gidIndex = linkArray.findIndex((value) =>
-    value.toLowerCase().startsWith("edit#gid=", 0)
+    value.toLowerCase().startsWith('edit#gid=', 0)
   );
   if (gidIndex === -1) return null;
   const match = linkArray[gidIndex].match(regex);
@@ -47,15 +47,15 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
 
   const [isError, setIsError] = useState<boolean>(false);
   const linkRegex = new RegExp(
-    "^(?:https?://)?docs.google.com/spreadsheets/d/[a-zA-Z0-9-_]",
-    "i"
+    '^(?:https?://)?docs.google.com/spreadsheets/d/[a-zA-Z0-9-_]',
+    'i'
   );
 
   const inputRef = createRef();
   useEffect(() => {
     (inputRef.current as HTMLInputElement).setAttribute(
-      "value",
-      page.googleSheetLink || ""
+      'value',
+      page.googleSheetLink || ''
     );
   }, []);
 
@@ -117,20 +117,20 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
           membership data
         </i>
       </div>
-      <div style={{ width: "100%", marginBottom: "-10px" }}>
+      <div style={{ width: '100%', marginBottom: '-10px' }}>
         <Textfield
           errorText="enter valid link"
           fontSize="1rem"
           height="45px"
           icon={LinkIcon}
           isError={isError}
-          placeholder={"paste link here"}
+          placeholder={'paste link here'}
           ref={inputRef}
           width="100%"
         />
       </div>
       <div>
-        <p style={{ fontSize: "14px", color: "#707070" }}>
+        <p style={{ fontSize: '14px', color: '#707070' }}>
           If you have more than one google sheet (e.g. for different years), you
           can create more membership checker pages for your club later in the
           admin dashboard.
