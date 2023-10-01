@@ -28,6 +28,7 @@ const CustomiseConfirm = ({
   ];
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   function handleNext(): void {
     axios(`/club/get-organisationId/${clubDetails.clubName}`).then((res) => {
       const id = res.data.organisationId;
@@ -61,6 +62,7 @@ const CustomiseConfirm = ({
           });
         })
         .catch((err) => {
+          setIsLoading(false)
           setIsLoading(false)
           console.log(err); // handle error
         });
@@ -117,6 +119,7 @@ const CustomiseConfirm = ({
             width="6vw"
             height="5vh"
             fontWeight="500"
+            isLoading={isLoading}
             isLoading={isLoading}
           />
         </div>
