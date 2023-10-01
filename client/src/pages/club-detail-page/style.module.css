@@ -37,7 +37,7 @@ button {
   color: #087df1;
   font-family: 'Montserrat', sans-serif;
   font-size: 1.5rem;
-  width: 20rem;
+  width: 30rem;
 }
 
 #backButton {
@@ -50,4 +50,9 @@ button {
   left: 15px;
   position: absolute;
   top: 15px;
+}
+
+.actionDescription{
+  font-family: "Open Sans";
+  font-style: italic;
 }
