@@ -69,7 +69,7 @@ const CreateCheckerPage = () => {
             );
           })}
         </div>
-        <p style={{ marginLeft: "10px" }}>
+        <p style={{ marginLeft: "10px" }} className={ styles.progressText }>
           {progress} of {steps.size}
         </p>
       </div>

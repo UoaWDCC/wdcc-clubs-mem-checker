@@ -183,3 +183,9 @@
   color: #ff0000;
   padding: 0 5px;
 }
+
+.progressText{
+  font-family: "Montserrat";
+  font-weight: 500;
+  color: #087DF1;
+}
