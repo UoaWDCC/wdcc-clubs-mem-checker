@@ -22,6 +22,8 @@ const CreateCheckerPage = () => {
   const [progress, setProgress] = useState(1);
   const onNext = () => setProgress(progress + 1);
   const onBack = () => setProgress(progress - 1);
+  const [hasShowedInstructions, setShowedInstructions] = useState(true);
+  const showInstructions = () => setShowedInstructions(false);
 
   const clubDetails = useLocation().state as ClubDetails;
 
@@ -38,7 +40,7 @@ const CreateCheckerPage = () => {
   };
 
   const steps: Map<number, JSX.Element> = new Map([
-    [1, <GoogleSheetForm onNext={onNext} />],
+    [1, <GoogleSheetForm onNext={onNext} showInstructions={showInstructions} hasShowedInstructions={hasShowedInstructions} />],
     [2, <ColumnSelector onNext={onNext} onBack={onBack} />],
     [3, <CustomiseTitle onNext={onNext} onBack={onBack} />],
     [4, <CustomiseFont onNext={onNext} onBack={onBack} />],
