@@ -205,11 +205,12 @@ const ClubCheckerPage = ({
             alignSelf: 'center',
             color: textFieldTextColor,
             display: 'flex',
-            fontWeight: 'bold',
+            fontWeight: '900',
             left: '10px',
-            top: '12px',
+            top: '13px',
             position: 'absolute',
             zIndex: '1',
+            fontFamily: font,
           }}
           ref={textFieldLabelRef}
         >
@@ -228,14 +229,22 @@ const ClubCheckerPage = ({
           }
           textColour={textFieldTextColor}
           ref={textFieldRef}
+          fontFamily={font}
 
           onKeyDown={handleEnterKey}
           onFocus={handleFocus}
         />
       </div>
-      <div /*className={styles.subcontainer}*/>
-        {iconState == 0 && (
+      <div 
+      style = {{
+        display: 'flex',
+        justifyContent: 'center',
+        // alignItems: 'center',
+        height: '25vh',
+      }}>
+        {iconState === 0 && (
           <Button
+          
             buttonText="check"
             backgroundColor={buttonBackgroundColor}
             onClick={() => !isOnboarding && onCheck()}
@@ -243,24 +252,27 @@ const ClubCheckerPage = ({
             height="3.25rem"
             fontSize="1rem"
             isLoading={loading}
+            fontFamily={font}
+            color='#FFFFFF'
           />
         )}
         {iconState !== 0 && (
           <div className={styles.result}>
-            {iconState == 1 && (
+            {iconState === 1 && (
               <TickCircle size="95" style={iconStyle} />
             )}
-            {iconState == 2 && (
+            {iconState === 2 && (
               <CloseCircle size="95" style={iconStyle} />
             )}
-            {iconState == 3 && (
+            {iconState === 3 && (
               <InfoCircle size="95" style={iconStyle} />
             )}
             {isSuccess && (
               <p
                 style={{
-                  fontFamily: 'montserrat',
-                  fontSize: '1.25rem',
+                  fontFamily: font,
+                  fontSize: '1.5rem',
+                  width: '300px',
                   color: textFieldTextColor,
                 }}
               >

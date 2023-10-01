@@ -31,10 +31,3 @@
   padding: 20px;
   text-align: center;
 }
-
-.subcontainer {
-  position: fixed;
-  border: 1px solid #ccc;
-  justify-content: center;
-  align-items: center;
-}

@@ -11,6 +11,7 @@ export interface ButtonProps {
   color?: string;
   border?: string;
   fontSize?: string;
+  fontFamily?: string;
   fontWeight?: string;
   icon?: string;
   iconSize?: string;
@@ -32,6 +33,7 @@ const Button = ({
   backgroundColor = "#087DF1",
   border = backgroundColor,
   fontSize = "1rem",
+  fontFamily = "montserrat",
   fontWeight = "bold",
   icon,
   iconSize,
@@ -57,6 +59,7 @@ const Button = ({
           border,
           color: color || getTextColor(backgroundColor),
           fontSize,
+          fontFamily,
           fontWeight,
           borderRadius: borderRadius,
           padding: padding,

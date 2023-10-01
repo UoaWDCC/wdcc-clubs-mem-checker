@@ -11,6 +11,7 @@ interface TextfieldProps {
   backgroundColor?: string;
   textColour?: string;
   fontSize?: string;
+  fontFamily?: string;
   fontWeight?: string;
   placeholder?: string;
   label?: string;
@@ -36,6 +37,7 @@ const Textfield = forwardRef(
       backgroundColor = '#e0e0e0',
       textColour,
       fontSize,
+      fontFamily,
       fontWeight,
       placeholder,
       label,
@@ -83,6 +85,7 @@ const Textfield = forwardRef(
               backgroundColor,
               color: textColour,
               fontSize,
+              fontFamily,
               fontWeight,
               border: isError
                 ? '2.5px solid #f58693'
