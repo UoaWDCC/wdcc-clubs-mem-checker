@@ -14,6 +14,9 @@ import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
 import LinkIcon from "../../assets/LinkIcon.svg";
 import axios from "axios";
+import { useLocation } from "react-router";
+import { IClubDetails } from "../club-detail-page/ClubDetailPage";
+
 
 interface GoogleSheetFormProps {
   onNext: () => void;
@@ -44,6 +47,8 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
     IPage,
     Dispatch<SetStateAction<IPage>>
   ];
+
+  const clubDetails = useLocation().state as IClubDetails;
 
   const [isError, setIsError] = useState<boolean>(false);
   const linkRegex = new RegExp(
@@ -108,12 +113,12 @@ const GoogleSheetForm = ({ onNext }: GoogleSheetFormProps) => {
   return (
     <div className={styles.container}>
       <div>
-        <div className={styles.title}>
-          <h1>link your google sheet</h1>
+        <div className={styles.title} style={{justifyContent: "space-evenly", marginBottom: "1.5em"}}>
+          <h1 style={{width: "60%", fontSize: "2.3rem", lineHeight: "1.2"}}>link your google sheet</h1>
           <img src={GoogleSheetsLogo} />
         </div>
         <i className={styles.subtitle}>
-          paste the link to the google sheet with {`<club acronym>`}'s
+          paste the link to the google sheet with {clubDetails.clubAcronym}'s
           membership data
         </i>
       </div>
