@@ -1,5 +1,5 @@
-.container{
-  background: #E0E0E0;
+.container {
+  background: #e0e0e0;
   border-radius: 20px;
   padding: 2% 5% 2% 5%;
   display: flex;
@@ -11,19 +11,20 @@
   font-family: "montserrat";
 }
 
-.subcontainer{
+.subcontainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   column-gap: 1vw;
+  overflow: hidden;
 }
 
-.text{
+.text {
   height: 5vh;
   width: 30vw;
   border-radius: 10px;
-  background: #C1C1C2;
-  color: #03045E;
+  background: #c1c1c2;
+  color: #03045e;
   opacity: 48%;
   font-style: italic;
   text-align: center;
@@ -31,13 +32,13 @@
   padding-top: 0.5vh;
 }
 
-.header{
-  color: #03045E;
+.header {
+  color: #03045e;
   font-size: 1.5rem;
 }
 
-.subheader{
-  color: #03045E;
+.subheader {
+  color: #03045e;
   opacity: 48%;
   font-size: 1rem;
   font-style: italic;
