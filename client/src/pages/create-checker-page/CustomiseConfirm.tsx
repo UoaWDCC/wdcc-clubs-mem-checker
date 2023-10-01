@@ -1,15 +1,15 @@
-import styles from "./style.module.css";
-import Button from "../../components/Button";
-import BackButton from "../../components/BackButton";
-import { PageContextProvider } from "./CreateCheckerPage";
-import Page from "../../types/Page";
-import { useContext, useState, Dispatch, SetStateAction } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router";
-import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
-import { getSpreadsheetId } from "./GoogleSheetForm";
-import { ClubDetails } from "../club-detail-page/ClubDetailPage";
-import { getSheetTabId } from "./GoogleSheetForm";
+import styles from './style.module.css';
+import Button from '../../components/Button';
+import BackButton from '../../components/BackButton';
+import { PageContextProvider } from './CreateCheckerPage';
+import IPage from '../../types/IPage';
+import { useContext, useState, Dispatch, SetStateAction } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
+import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
+import { getSpreadsheetId } from './GoogleSheetForm';
+import { IClubDetails } from '../club-detail-page/ClubDetailPage';
+import { getSheetTabId } from './GoogleSheetForm';
 
 interface CustomiseConfirmProps {
   onNext: () => void;
