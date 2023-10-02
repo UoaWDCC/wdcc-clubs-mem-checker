@@ -2,6 +2,7 @@ import {
   Dispatch,
   SetStateAction,
   useContext,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -26,6 +27,27 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     IDashboardContext,
     Dispatch<SetStateAction<IDashboardContext>>
   ];
+
+  // Function to close the dropdown when clicking outside of it
+  const closeDropdownOnOutsideClick = (event: MouseEvent) => {
+    // Check if the clicked element is not inside the dropdown or the club card
+    if (
+      clubCardRef.current &&
+      !clubCardRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  // Attach the event listener when the component mounts
+  useEffect(() => {
+    document.addEventListener("mousedown", closeDropdownOnOutsideClick);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", closeDropdownOnOutsideClick);
+    };
+  }, []);
 
   const handleSelectClub = (club: IDropdownClub) => {
     setIsOpen(!isOpen);
