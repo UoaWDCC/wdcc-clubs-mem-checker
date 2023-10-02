@@ -11,6 +11,7 @@ interface TextfieldProps {
   backgroundColor?: string;
   textColour?: string;
   fontSize?: string;
+  fontFamily?: string;
   fontWeight?: string;
   placeholder?: string;
   label?: string;
@@ -22,6 +23,7 @@ interface TextfieldProps {
   onKeyUp?: () => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   onChange?: () => void;
+  onFocus?: () => void;
   readOnly?: boolean;
 }
 
@@ -35,6 +37,7 @@ const Textfield = forwardRef(
       backgroundColor = '#e0e0e0',
       textColour,
       fontSize,
+      fontFamily,
       fontWeight,
       placeholder,
       label,
@@ -45,6 +48,7 @@ const Textfield = forwardRef(
       onKeyUp,
       onKeyDown,
       onChange,
+      onFocus,
       textAlign = 'left',
       readOnly,
     }: TextfieldProps,
@@ -71,6 +75,7 @@ const Textfield = forwardRef(
             onKeyDown={onKeyDown}
             className={styles.input}
             onChange={onChange}
+            onFocus={onFocus}
             readOnly={readOnly}
             placeholder={placeholder}
             style={{
@@ -80,6 +85,7 @@ const Textfield = forwardRef(
               backgroundColor,
               color: textColour,
               fontSize,
+              fontFamily,
               fontWeight,
               border: isError
                 ? '2.5px solid #f58693'
