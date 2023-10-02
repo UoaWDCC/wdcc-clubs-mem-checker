@@ -13,7 +13,6 @@ import GoogleCallback from "./pages/google-callback/GoogleCallback";
 import axios from "axios";
 import Cookies from "js-cookie";
 import InviteCodePage from "./pages/invite-code/InviteCodePage";
-import DashboardPage from "./pages/dashboard/DashboardPage";
 import { ConfimationPage } from "./pages/onboarding-confirmation-page/ConfirmationPage";
 import ClubCheckerPage from "./pages/club-checker-page/ClubCheckerPage";
 import EmptyClubLogo from "./assets/EmptyClubLogo.svg";
@@ -57,10 +56,6 @@ const router = createBrowserRouter([
     element: <InviteCodePage />,
   },
   {
-    path: "/dashboard",
-    element: <DashboardPage />,
-  },
-  {
     path: "/confirmation",
     element: <ConfimationPage />,
   },
@@ -85,7 +80,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/:weblinkId",
-    element: <PublicCheckerPage/>,
+    element: <PublicCheckerPage />,
   },
 ]);
 
