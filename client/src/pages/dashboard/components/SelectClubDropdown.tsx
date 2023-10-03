@@ -2,16 +2,17 @@ import {
   Dispatch,
   SetStateAction,
   useContext,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
-} from 'react';
-import EmptyClubLogo from '../../../assets/EmptyClubLogo.svg';
-import styles from './SelectClubDropdown.module.css';
-import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
-import { DashboardContextProvider } from '../Dashboard';
-import IDashboardContext from '../../../types/IDashboardContext';
-import IDropdownClub from '../../../types/IDropdownClub';
+} from "react";
+import EmptyClubLogo from "../../../assets/EmptyClubLogo.svg";
+import styles from "./SelectClubDropdown.module.css";
+import { ArrowDown2, ArrowUp2 } from "iconsax-react";
+import { DashboardContextProvider } from "../Dashboard";
+import IDashboardContext from "../../../types/IDashboardContext";
+import IDropdownClub from "../../../types/IDropdownClub";
 
 interface SelectClubDropdownProps {
   clubs: IDropdownClub[];
@@ -27,13 +28,30 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     Dispatch<SetStateAction<IDashboardContext>>
   ];
 
-  if (!dashboard.selectedClub) {
-    dashboard.selectedClub = clubs[0];
-  }
+  // Function to close the dropdown when clicking outside of it
+  const closeDropdownOnOutsideClick = (event: MouseEvent) => {
+    // Check if the clicked element is not inside the dropdown or the club card
+    if (
+      clubCardRef.current &&
+      !clubCardRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  // Attach the event listener when the component mounts
+  useEffect(() => {
+    document.addEventListener("mousedown", closeDropdownOnOutsideClick);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", closeDropdownOnOutsideClick);
+    };
+  }, []);
 
   const handleSelectClub = (club: IDropdownClub) => {
     setIsOpen(!isOpen);
-    localStorage.setItem('selectedClub', JSON.stringify(club));
+    localStorage.setItem("selectedClub", JSON.stringify(club));
     setDashboard({ ...dashboard, selectedClub: club });
   };
 
@@ -50,74 +68,67 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     updateWidth();
 
     // Update width when the window is resized
-    window.addEventListener('resize', updateWidth);
+    window.addEventListener("resize", updateWidth);
 
     // Clean up the event listener on unmount
     return () => {
-      window.removeEventListener('resize', updateWidth);
+      window.removeEventListener("resize", updateWidth);
     };
   }, []);
-
-  // if no clubs attached to user
-  if (clubs.length == 0) {
-    return (
-      <div className={styles.outerContainer}>
-        <div
-          className={styles.clubCard}
-          style={{
-            backgroundColor: '#e8f7fb',
-            borderRadius: '8px',
-            justifyContent: 'center',
-          }}
-        >
-          <p className={styles.text}>No Clubs Registered</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div
       className={styles.outerContainer}
-      style={{ backgroundColor: `${isOpen ? '#d6ebf0' : 'transparent'}` }}
+      style={{ backgroundColor: `${isOpen ? "#d6ebf0" : "transparent"}` }}
     >
       <div
         ref={clubCardRef}
         className={styles.clubCard}
         style={{
-          backgroundColor: '#e8f7fb',
-          borderRadius: '8px',
+          backgroundColor: "#e8f7fb",
+          borderRadius: "8px",
         }}
       >
-        <img
-          className={styles.logo}
-          style={{ border: '3px solid #E0E0E0' }}
-          src={
-            dashboard.selectedClub.logo
-              ? dashboard.selectedClub.logo
-              : EmptyClubLogo
-          }
-        />
-        <p className={styles.text}>{dashboard.selectedClub.name}</p>
-        {isOpen ? (
-          <ArrowUp2
-            color="#000000"
-            size={28}
-            variant="Bold"
-            style={{ cursor: 'pointer', marginLeft: 'auto' }}
-            onClick={() => setIsOpen(!isOpen)}
-          />
+        {dashboard.selectedClub ? (
+          <>
+            <img
+              className={styles.logo}
+              style={{ border: "3px solid #E0E0E0" }}
+              src={dashboard.selectedClub.logo || EmptyClubLogo}
+            />
+            <p className={styles.text}>{dashboard.selectedClub.name}</p>
+          </>
         ) : (
-          <ArrowDown2
-            color="#000000"
-            size={28}
-            variant="Bold"
-            style={{ cursor: 'pointer', marginLeft: 'auto' }}
-            onClick={() => setIsOpen(!isOpen)}
-          />
+          <div
+            style={{
+              width: "100%",
+              textAlign: "center",
+            }}
+          >
+            <p className={styles.text}>No Clubs Registered</p>
+          </div>
         )}
+
+        {clubs.length > 1 &&
+          (isOpen ? (
+            <ArrowUp2
+              color="#000000"
+              size={28}
+              variant="Bold"
+              style={{ cursor: "pointer", marginLeft: "auto" }}
+              onClick={() => setIsOpen(!isOpen)}
+            />
+          ) : (
+            <ArrowDown2
+              color="#000000"
+              size={28}
+              variant="Bold"
+              style={{ cursor: "pointer", marginLeft: "auto" }}
+              onClick={() => setIsOpen(!isOpen)}
+            />
+          ))}
       </div>
-      {isOpen && (
+      {clubs.length > 1 && isOpen && (
         <div
           className={styles.dropdownContainer}
           style={{
@@ -128,14 +139,11 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
           {clubs.map((club) => (
             <div
               className={styles.clubCard}
-              style={{ height: clubCardHeight, cursor: 'pointer' }}
+              style={{ height: clubCardHeight, cursor: "pointer" }}
               onClick={() => handleSelectClub(club)}
               key={club.id}
             >
-              <img
-                className={styles.logo}
-                src={club.logo || EmptyClubLogo}
-              />
+              <img className={styles.logo} src={club.logo || EmptyClubLogo} />
               <p className={styles.text}>{club.name}</p>
             </div>
           ))}
