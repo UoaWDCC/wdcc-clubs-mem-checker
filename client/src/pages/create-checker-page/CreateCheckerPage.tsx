@@ -22,13 +22,19 @@ const CreateCheckerPage = () => {
   const onNext = () => setProgress(progress + 1);
   const onBack = () => setProgress(progress - 1);
 
-  const clubDetails = useLocation().state as IClubDetails;
+  const clubDetails: IClubDetails = useLocation().state?.clubDetails;
+  const pageDetails: IPage = useLocation().state?.pageDetails;
 
   useEffect(() => {
-    setPage({
-      ...page,
-      title: clubDetails.clubAcronym + " Membership Checker",
-    });
+    if (clubDetails) {
+      setPage({
+        ...page,
+        title: clubDetails.clubAcronym + " Membership Checker",
+      });
+    }
+    if (pageDetails) {
+      setPage(pageDetails);
+    }
   }, []);
 
   const [showConfirm, setShowConfirm] = useState(false);

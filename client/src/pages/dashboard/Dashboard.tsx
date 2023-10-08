@@ -13,6 +13,7 @@ import IDropdownClub from "../../types/IDropdownClub";
 import CircularProgress from "@mui/material/CircularProgress";
 import IDashboardPage from "../../../../api/routes/types/IDashboardPage";
 import { useNavigate } from "react-router";
+import Button from "../../components/Button";
 
 export const DashboardContextProvider = React.createContext([{}, () => {}]);
 
@@ -109,7 +110,20 @@ const Dashboard = () => {
         )}
         <div className={styles.dashboardHeadingContainer}>
           <h2 className={styles.dashboardHeading}>dashboard</h2>
-
+          <div>
+            <Button
+              onClick={() => {
+                navigate("/create-page");
+              }}
+              buttonText="Create Page"
+            />
+            <Button
+              onClick={() => {
+                navigate("/create-page");
+              }}
+              buttonText="Edit Page"
+            />
+          </div>
           <img className={styles.logo} src={WDCCLogoBlue} alt="WDCC Logo" />
         </div>
         <div className={styles.gridContainer}>
