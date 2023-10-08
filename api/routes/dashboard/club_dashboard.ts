@@ -151,6 +151,7 @@ router.get(
           } = {
             id: page.id,
             metrics: getMetrics(page.id, allCheckerUsages),
+            googleSheetLink: "https://docs.google.com/spreadsheets/d/" + page.sheetId + "/edit#gid=0",
             webLink: page.webLink,
             identificationColumns: convertedColumns, // Fill this with your actual Column[] data
             title: page.name,

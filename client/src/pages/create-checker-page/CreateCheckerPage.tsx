@@ -22,8 +22,9 @@ const CreateCheckerPage = () => {
   const onNext = () => setProgress(progress + 1);
   const onBack = () => setProgress(progress - 1);
 
-  const clubDetails: IClubDetails = useLocation().state?.clubDetails;
-  const pageDetails: IPage = useLocation().state?.pageDetails;
+  const location = useLocation();
+  const clubDetails: IClubDetails = location.state?.clubDetails;
+  const pageDetails: IPage = location.state?.pageDetails;
 
   useEffect(() => {
     if (clubDetails) {
