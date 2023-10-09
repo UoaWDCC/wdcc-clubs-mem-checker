@@ -3,7 +3,7 @@ import Button from '../../components/Button';
 import BackButton from '../../components/BackButton';
 import { PageContextProvider } from './CreateCheckerPage';
 import IPage from '../../types/IPage';
-import { useContext, Dispatch, SetStateAction } from 'react';
+import { useContext, useState, Dispatch, SetStateAction } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
@@ -27,7 +27,6 @@ const CustomiseConfirm = ({
     Dispatch<SetStateAction<IPage>>
   ];
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   function handleNext(): void {
     axios(`/club/get-organisationId/${clubDetails.clubName}`).then((res) => {
@@ -62,7 +61,6 @@ const CustomiseConfirm = ({
           });
         })
         .catch((err) => {
-          setIsLoading(false)
           setIsLoading(false)
           console.log(err); // handle error
         });
@@ -119,7 +117,6 @@ const CustomiseConfirm = ({
             width="6vw"
             height="5vh"
             fontWeight="500"
-            isLoading={isLoading}
             isLoading={isLoading}
           />
         </div>

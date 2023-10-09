@@ -44,8 +44,6 @@ export var spreadsheetColumns = {};
 
 const GoogleSheetForm = ({ onNext, showInstructions, hasShowedInstructions }: GoogleSheetFormProps) => {
   const [instructionPageBool, setInstructionPageBool] = useState(hasShowedInstructions);
-const GoogleSheetForm = ({ onNext, showInstructions, hasShowedInstructions }: GoogleSheetFormProps) => {
-  const [instructionPageBool, setInstructionPageBool] = useState(hasShowedInstructions);
   const [page, setPage] = useContext(PageContextProvider) as [
     IPage,
     Dispatch<SetStateAction<IPage>>
@@ -66,13 +64,6 @@ const GoogleSheetForm = ({ onNext, showInstructions, hasShowedInstructions }: Go
       );
     }
   }, [instructionPageBool]);
-    if (instructionPageBool === false){
-      (inputRef.current as HTMLInputElement).setAttribute(
-        "value",
-        page.googleSheetLink || ""
-      );
-    }
-  }, [instructionPageBool]);
 
   const isLinkValid = (link: string): boolean => {
     if (linkRegex.test(link)) {
@@ -84,7 +75,6 @@ const GoogleSheetForm = ({ onNext, showInstructions, hasShowedInstructions }: Go
   };
 
   const handleOnNext = () => {
-    setIsLoading(true)
     setIsLoading(true)
     const link = (inputRef.current as HTMLInputElement).value;
     if (isLinkValid(link)) {
@@ -117,16 +107,12 @@ const GoogleSheetForm = ({ onNext, showInstructions, hasShowedInstructions }: Go
           console.log(error);
           setIsError(true);
           setIsLoading(false);
-          setIsLoading(false);
         });
     } else {
-      setIsLoading(false);
       setIsLoading(false);
       (inputRef.current as HTMLInputElement).focus();
     }
   };
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
