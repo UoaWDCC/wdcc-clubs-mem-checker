@@ -235,7 +235,7 @@ const ClubCheckerPage = ({
             />
           </div>
         ) : (
-          isSuccess && -->}
+          isSuccess && (
             <p
               style={{
                 fontFamily: 'montserrat',
