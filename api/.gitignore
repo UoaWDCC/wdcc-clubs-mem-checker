@@ -2,9 +2,10 @@
 /dist
 /.env
 .idea/* 
-/pnpm-lock.yaml
-/package-lock.json
-/yarn-error.log
+pnpm-lock.yaml
+package-lock.json
+yarn-error.log
+package-lock.json
 membership-checker-e5457b93d746.json
 .service
 
