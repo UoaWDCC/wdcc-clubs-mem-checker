@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # First stage to install dependencies for both client and API
-ARG NODE_VERSION=19.6.0
+ARG NODE_VERSION=20.5.1
 FROM node:${NODE_VERSION}-slim as install-dependencies
 
 # Install dependencies for both client and API
