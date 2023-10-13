@@ -294,7 +294,13 @@ router.get(
       const column = values.slice(1).map((row) => row[columnIndex]);
       if (
         column
-          .map((element: string) => element.toLowerCase())
+          .map((element: string) => {
+            try {
+              return element.toLowerCase();
+            } catch (err) {
+              return '';
+            }
+          })
           .includes(value.toLowerCase())
       ) {
         await prisma.membershipCheckUsage.create({
