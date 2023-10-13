@@ -3,6 +3,8 @@
 /.env
 .idea/* 
 /pnpm-lock.yaml
+/package-lock.json
 /yarn-error.log
 membership-checker-e5457b93d746.json
 .service
+
