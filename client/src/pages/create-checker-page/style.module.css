@@ -8,6 +8,10 @@
   src: url('/Montserrat-SemiBold.ttf');
 }
 
+.bold{
+  font-family: "Montserrat SemiBold";
+}
+
 .container {
   align-items: center;
   background-color: #ffffff;
