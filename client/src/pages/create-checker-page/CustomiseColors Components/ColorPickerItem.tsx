@@ -87,8 +87,12 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
             display: "flex",
             paddingLeft: "2vw",
             paddingTop: "0.5vh",
+            justifyContent: "space-between"
           }}
         >
+          <div style={{display: "flex", 
+          alignItems: "center"
+            }}>
           <div
             style={{
               height: "1.5vh",
@@ -108,6 +112,7 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
             }}
           >
             {color ? color.substring(1, color.length - 2).toUpperCase() : ""}
+          </div>
           </div>
           <div
             style={{
