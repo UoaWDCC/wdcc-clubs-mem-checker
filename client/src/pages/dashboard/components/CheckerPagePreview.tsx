@@ -4,17 +4,20 @@ import React, {
   Dispatch,
   SetStateAction,
   useContext,
-} from 'react';
-import styles from './CheckerPagePreview.module.css';
-import ClubCheckerPage from '../../club-checker-page/ClubCheckerPage';
-import Textfield from '../../../components/Textfield';
-import copyIcon from '../../../assets/CopyIcon2.svg';
-import ClickNextArrow from '../../../assets/ClickNextArrow.svg';
-import ClickPrevArrow from '../../../assets/ClickPreviousArrow.svg';
-import { DashboardContextProvider } from '../Dashboard';
-import IDashboardContext from '../../../types/IDashboardContext';
+} from "react";
+import styles from "./CheckerPagePreview.module.css";
+import ClubCheckerPage from "../../club-checker-page/ClubCheckerPage";
+import Textfield from "../../../components/Textfield";
+import copyIcon from "../../../assets/CopyIcon2.svg";
+import ClickNextArrow from "../../../assets/ClickNextArrow.svg";
+import ClickPrevArrow from "../../../assets/ClickPreviousArrow.svg";
+import { DashboardContextProvider } from "../Dashboard";
+import IDashboardContext from "../../../types/IDashboardContext";
+import { useNavigate } from "react-router";
+import { IClubDetails } from "../../club-detail-page/ClubDetailPage";
 
 const CheckerPagePreview = () => {
+  const navigate = useNavigate();
   const [dashboard, setDashboard] = useContext(DashboardContextProvider) as [
     IDashboardContext,
     Dispatch<SetStateAction<IDashboardContext>>
@@ -51,11 +54,23 @@ const CheckerPagePreview = () => {
       const value = textFieldRef.current?.placeholder;
       try {
         await navigator.clipboard.writeText(value);
-        console.log('Copy succeeded');
+        console.log("Copy succeeded");
       } catch (error) {
-        console.log('Copy failed:  ', error);
+        console.log("Copy failed:  ", error);
       }
     }
+  };
+
+  const clubDetails: IClubDetails | undefined = dashboard.selectedClub
+    ? {
+        clubAcronym:
+          dashboard.dashboardPage?.club.acronym || dashboard.selectedClub.name,
+        clubName: dashboard.selectedClub?.name,
+      }
+    : undefined;
+
+  const onCreateNewCheckerPage = () => {
+    navigate("/create-page", { state: clubDetails });
   };
 
   return (
@@ -79,11 +94,7 @@ const CheckerPagePreview = () => {
               className={styles.copyButton}
               onClick={handleCopyButtonClick}
             >
-              <img
-                src={copyIcon}
-                alt="Copy"
-                className={styles.copyIcon}
-              />
+              <img src={copyIcon} alt="Copy" className={styles.copyIcon} />
             </button>
           </div>
 
@@ -107,6 +118,14 @@ const CheckerPagePreview = () => {
             <div className={styles.overlayButtons}>
               {/*div for links */}
               <div className={styles.pageLinksContainer}>
+                {/* Create button (edit functionality to be implemented) */}
+                <a
+                  style={{ cursor: "pointer" }}
+                  onClick={() => onCreateNewCheckerPage()}
+                >
+                  Create
+                </a>
+                <span> | </span>
                 {/* Edit button (edit functionality to be implemented) */}
                 <a href="#">Edit</a>
                 <span> | </span>
@@ -146,7 +165,7 @@ const CheckerPagePreview = () => {
                       key={index}
                       className={`${
                         index === currentPageIndex
-                          ? styles.activeDot + ' ' + styles.clicked
+                          ? styles.activeDot + " " + styles.clicked
                           : styles.dot
                       }`}
                       onClick={() =>

@@ -23,6 +23,7 @@ const CreateCheckerPage = () => {
   const onBack = () => setProgress(progress - 1);
 
   const clubDetails = useLocation().state as IClubDetails;
+  console.log(clubDetails);
 
   useEffect(() => {
     setPage({
