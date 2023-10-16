@@ -71,6 +71,12 @@
   color: #087df1;
 }
 
+.blueParagraphText{
+  font-size: 0.8rem;
+  font-family: 'Open Sans';
+  color: #087df1;
+}
+
 .optionalText {
   display: flex;
   padding-left: 12px;
@@ -182,4 +188,19 @@
 .errorText {
   color: #ff0000;
   padding: 0 5px;
+}
+
+.numberCircle {
+    border-radius: 50%;
+    width: 3.7rem;
+    height: 3.7rem;
+    padding: 1rem;
+
+    background: #fff;
+    border: 2px solid #087DF1;
+    color: #087DF1;
+    text-align: center;
+
+    font-family: 'Open Sans';
+    font-size: 1rem;
 }

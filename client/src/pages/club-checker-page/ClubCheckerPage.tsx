@@ -284,7 +284,16 @@ const ClubCheckerPage = ({
       </div>
     </div>
   ) : (
-    <>Loading Icon Here</>
+    <div className={styles.loading}>
+      <CircularProgress
+        className={styles.loadingContainer}
+        sx={{
+          color: '#183249',
+        }}
+        size={175}
+        thickness={3}
+      />
+    </div>
   );
 };
 

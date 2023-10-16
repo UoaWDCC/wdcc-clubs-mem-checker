@@ -11,6 +11,20 @@
   align-items: center;
 }
 
+.loading {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  padding: 110px 50px;
+  position: relative;
+  row-gap: 50px;
+  width: 100%;
+  min-height: 100%;
+  font-family: 'Montserrat';
+  color: '#087DF1';
+}
+
 .logo {
   float: right;
   max-height: 100px;
