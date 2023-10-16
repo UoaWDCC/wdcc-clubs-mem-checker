@@ -41,6 +41,7 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
         <button
           id={styles.CustomisePageNextButton}
           onClick={onNext}
+          
         >
           next
         </button>

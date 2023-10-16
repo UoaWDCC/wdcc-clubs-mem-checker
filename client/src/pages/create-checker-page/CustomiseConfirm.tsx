@@ -100,8 +100,8 @@ const CustomiseConfirm = ({
               color: '#707070',
               float: 'left',
               fontFamily: 'Montserrat',
-              fontWeight: '450',
-              fontSize: '1.5rem',
+              fontWeight: '500',
+              fontSize: '20px',
               lineHeight: '1.25',
             }}
           >
@@ -113,9 +113,9 @@ const CustomiseConfirm = ({
           <Button
             onClick={handleNext}
             buttonText="confirm"
-            width="6vw"
-            height="5vh"
-            fontWeight="500"
+            width="7vw"
+            height="4.5vh"
+            fontWeight="600"
           />
         </div>
       </div>

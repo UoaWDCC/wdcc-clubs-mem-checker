@@ -225,10 +225,10 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
 
       <Button
         buttonText="next"
-        height="40px"
         onClick={handleOnNext}
         fontSize="14px"
-        width="100px"
+        width="7vw"
+        height="4.5vh"
       />
     </div>
     

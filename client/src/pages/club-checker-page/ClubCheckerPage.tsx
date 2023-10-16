@@ -45,11 +45,11 @@ interface ClubCheckerPageProps {
 const ClubCheckerPage = ({
   title = "No title selected",
   // colors
-  backgroundColor = "#ECECEC",
+  backgroundColor = "#C7CEDF",
   titleTextColor = "#000000",
-  textFieldBackgroundColor = "#E0E0E0",
+  textFieldBackgroundColor = "#E7EBF5",
   textFieldTextColor = "#000000",
-  buttonBackgroundColor = "#C1C1C2",
+  buttonBackgroundColor = "#A1A8B9",
   dropDownBackgroundColor = "#4F4F4F",
   font = "Montserrat",
   clubLogoUrl,
