@@ -75,7 +75,17 @@ const CheckerPagePreview = () => {
 
   return (
     <div className={styles.previewContainer}>
-      <p className={styles.overlayText}>Checker Pages</p>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <p className={styles.overlayText}>Checker Pages</p>
+        <p>
+          <a
+            style={{ cursor: "pointer", color: "#03045e" }}
+            onClick={() => onCreateNewCheckerPage()}
+          >
+            Create Page
+          </a>
+        </p>
+      </div>
       {currentPageIndex === undefined || currentPageData === undefined ? (
         <div>No checker pages created for this club!</div>
       ) : (
@@ -118,14 +128,6 @@ const CheckerPagePreview = () => {
             <div className={styles.overlayButtons}>
               {/*div for links */}
               <div className={styles.pageLinksContainer}>
-                {/* Create button (edit functionality to be implemented) */}
-                <a
-                  style={{ cursor: "pointer" }}
-                  onClick={() => onCreateNewCheckerPage()}
-                >
-                  Create
-                </a>
-                <span> | </span>
                 {/* Edit button (edit functionality to be implemented) */}
                 <a href="#">Edit</a>
                 <span> | </span>
