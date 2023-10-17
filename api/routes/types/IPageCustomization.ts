@@ -5,6 +5,7 @@ export default interface IPageCustomization {
   sheetTabId: string;
   backgroundColor?: string;
   textFieldBackgroundColor?: string;
+  dropDownBackgroundColor: string;
   textColor?: string;
   buttonColor?: string;
   headingColor?: string;

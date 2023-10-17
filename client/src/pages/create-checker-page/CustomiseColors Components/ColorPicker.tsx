@@ -70,6 +70,13 @@ export const ColorPicker = () => {
         }}
         title="dropdown background colour"
       />
+      <ColorPickerItem
+        color={page.buttonColor ? page.buttonColor : "#4F4F4FEE"}
+        setColor={(color: string) => {
+          setPage({ ...page, buttonColor: color });
+        }}
+        title="button colour"
+      />
     </>
   );
 };
