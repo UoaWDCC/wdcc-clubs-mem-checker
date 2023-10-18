@@ -8,20 +8,13 @@ import multer, { memoryStorage } from 'multer';
 import { supabase } from '../..';
 import { v4 as uuidv4 } from 'uuid';
 import IPageCustomization from '../types/IPageCustomization';
+import serviceClient from '../../service';
 
 const prisma = new PrismaClient();
 export const router = express.Router();
 
 const storage = memoryStorage();
 const upload = multer({ storage });
-
-const serviceClient = new google.auth.GoogleAuth({
-  keyFile: 'membership-checker-e5457b93d746.json',
-  scopes: [
-    'https://www.googleapis.com/auth/spreadsheets.readonly',
-    'https://www.googleapis.com/auth/drive.readonly',
-  ],
-});
 
 interface PageCustomization {
   name: string;
@@ -301,7 +294,13 @@ router.get(
       const column = values.slice(1).map((row) => row[columnIndex]);
       if (
         column
-          .map((element: string) => element.toLowerCase())
+          .map((element: string) => {
+            try {
+              return element.toLowerCase();
+            } catch (err) {
+              return '';
+            }
+          })
           .includes(value.toLowerCase())
       ) {
         await prisma.membershipCheckUsage.create({

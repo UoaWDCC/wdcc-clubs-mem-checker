@@ -1,27 +1,23 @@
-import { Router, Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
-import auth from "../../middleware/auth";
-import { google } from "googleapis";
-import { IMemberCountByPageId } from "../../../client/src/types/IMemberCountByPageId";
+import { Router, Request, Response } from 'express';
+import { PrismaClient } from '@prisma/client';
+import auth from '../../middleware/auth';
+import { google } from 'googleapis';
+import { IMemberCountByPageId } from '../../../client/src/types/IMemberCountByPageId';
+import serviceClient from '../../service';
 
 const router = Router();
 const prisma = new PrismaClient();
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
-const serviceClient = new google.auth.GoogleAuth({
-  keyFile: "membership-checker-e5457b93d746.json",
-  scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
-});
-
 const sheets = google.sheets({
-  version: "v4",
+  version: 'v4',
   auth: serviceClient,
 });
 
-router.get("/:organisationId", auth, async (req: Request, res: Response) => {
+router.get('/:organisationId', auth, async (req: Request, res: Response) => {
   try {
-    const organisationId = Number.parseInt(req.params["organisationId"]);
+    const organisationId = Number.parseInt(req.params['organisationId']);
 
     const pages = await prisma.page.findMany({
       where: {
@@ -57,7 +53,7 @@ router.get("/:organisationId", auth, async (req: Request, res: Response) => {
       if (!metadataResponse.data.sheets) {
         return res
           .status(400)
-          .send(JSON.stringify("spreadsheet has no sheets"));
+          .send(JSON.stringify('spreadsheet has no sheets'));
       }
 
       const sheet = metadataResponse.data.sheets.find(
@@ -65,7 +61,7 @@ router.get("/:organisationId", auth, async (req: Request, res: Response) => {
       );
 
       if (!sheet) {
-        return res.status(400).send(JSON.stringify("sheet not found"));
+        return res.status(400).send(JSON.stringify('sheet not found'));
       }
 
       const sheetName = sheet.properties?.title;
@@ -92,7 +88,7 @@ router.get("/:organisationId", auth, async (req: Request, res: Response) => {
             const columnData = values.slice(1).map((row) => row[k]);
 
             const nonEmptyRowCount = columnData.filter(
-              (cellValue) => cellValue !== "" && cellValue !== undefined
+              (cellValue) => cellValue !== '' && cellValue !== undefined
             ).length;
 
             memberCountByPageId[page.id] = {
@@ -107,7 +103,7 @@ router.get("/:organisationId", auth, async (req: Request, res: Response) => {
     return res.status(200).send(memberCountByPageId);
   } catch (err) {
     console.error(err);
-    return res.status(500).send("failed to retrieve list of admins");
+    return res.status(500).send('failed to retrieve list of admins');
   }
 });
 

@@ -11,6 +11,7 @@ export interface ButtonProps {
   color?: string;
   border?: string;
   fontSize?: string;
+  fontFamily?: string;
   fontWeight?: string;
   icon?: string;
   iconSize?: string;
@@ -20,6 +21,7 @@ export interface ButtonProps {
   onClick: () => void;
   disabled?: boolean;
   isLoading?: boolean;
+  display?: string;
 }
 
 const Button = ({
@@ -31,6 +33,7 @@ const Button = ({
   backgroundColor = "#087DF1",
   border = backgroundColor,
   fontSize = "1rem",
+  fontFamily = "montserrat",
   fontWeight = "bold",
   icon,
   iconSize,
@@ -40,6 +43,7 @@ const Button = ({
   disabled,
   onClick,
   isLoading,
+  display,
 }: ButtonProps) => {
   if (hoverColor == "") hoverColor = lightenColor(backgroundColor, 20);
   if (disabled) hoverColor = backgroundColor;
@@ -55,9 +59,11 @@ const Button = ({
           border,
           color: color || getTextColor(backgroundColor),
           fontSize,
+          fontFamily,
           fontWeight,
           borderRadius: borderRadius,
           padding: padding,
+          display: display,
           ["--hover-color" as any]: hoverColor,
           pointerEvents: disabled ? "none" : "auto",
         }}

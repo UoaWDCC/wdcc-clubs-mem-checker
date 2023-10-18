@@ -1,14 +1,12 @@
-import styles from "./style.module.css";
-import { BackSquare } from "iconsax-react";
-import { useRef, useState } from "react";
-import Textfield from "../../components/Textfield";
-import Button from "../../components/Button";
-import BackButton from "../../components/BackButton";
-import { IClubDetails } from "./ClubDetailPage";
-import axios from "axios";
-import { useNavigate } from "react-router";
-
-const url = "/club/create"; //temp url
+import styles from './style.module.css';
+import { BackSquare } from 'iconsax-react';
+import { useRef, useState } from 'react';
+import Textfield from '../../components/Textfield';
+import Button from '../../components/Button';
+import BackButton from '../../components/BackButton';
+import { IClubDetails } from './ClubDetailPage';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 interface ClubDetailFormProps {
   onNext: (clubDetails: IClubDetails) => void;
@@ -23,23 +21,23 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [clubNameErrorMessage, setClubNameErrorMessage] =
-    useState("enter club name");
+    useState('enter club name');
 
   const handleOnClick = () => {
-    if (clubNameRef.current?.value === "") {
-      setClubNameErrorMessage("enter club name");
+    if (clubNameRef.current?.value === '') {
+      setClubNameErrorMessage('enter club name');
       setClubNameError(true);
     }
-    if (clubAcronymRef.current?.value === "") {
+    if (clubAcronymRef.current?.value === '') {
       setClubAcronymError(true);
     }
     if (
-      clubNameRef.current?.value !== "" &&
-      clubAcronymRef.current?.value !== ""
+      clubNameRef.current?.value !== '' &&
+      clubAcronymRef.current?.value !== ''
     ) {
       setIsLoading(true);
       axios
-        .post(url, {
+        .post('/club/create', {
           clubName: clubNameRef.current?.value,
           clubAcronym: clubAcronymRef.current?.value,
         })
@@ -54,14 +52,14 @@ const ClubDetailForm = ({ onNext }: ClubDetailFormProps) => {
           }
         })
         .catch(function (error) {
-          setClubNameErrorMessage("the club you want to create already exists");
+          setClubNameErrorMessage('the club you want to create already exists');
           setClubNameError(true);
           setIsLoading(false);
         });
     }
   };
   const handleOnBack = () => {
-    navigate("/no-clubs");
+    navigate('/no-clubs');
   };
 
   return (

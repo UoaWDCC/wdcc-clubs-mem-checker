@@ -4,7 +4,7 @@ import Button from '../../components/Button';
 import { useContext, Dispatch, SetStateAction } from 'react';
 import { PageContextProvider } from './CreateCheckerPage';
 import IPage from '../../types/IPage';
-import UploadButton from '../../components/UploadButton';
+import UploadButton from './CustomiseLogo Components/UploadButton';
 import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
 
 interface CustomiseLogoProps {
@@ -39,7 +39,9 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
           </p>
           <div>
             <UploadButton
+              // @ts-ignore
               onFileSelect={(file) => setPage({ ...page, logoLink: file })}
+              // @ts-ignore
               currentFile={page.logoLink} // Pass the current file from the page state
             />
           </div>
@@ -67,11 +69,13 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
             clubLogoUrl={
+              // @ts-ignore
               page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
             }
             backgroundImageUrl={
               page.backgroundImageLink
-                ? URL.createObjectURL(page.backgroundImageLink!)
+                ? // @ts-ignore
+                  URL.createObjectURL(page.backgroundImageLink!)
                 : undefined
             }
             optionsList={page.identificationColumns || []}

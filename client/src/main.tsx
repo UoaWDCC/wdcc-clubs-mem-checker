@@ -1,13 +1,7 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import {
-  Navigate,
-  RouterProvider,
-  createBrowserRouter,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { HomePage } from "./pages/home/home";
-import { ExamplePage } from "./pages/example/page";
 import CreateCheckerPage from "./pages/create-checker-page/CreateCheckerPage";
 import ClubDetailPage from "./pages/club-detail-page/ClubDetailPage";
 import { GoogleSignIn } from "./pages/google-sign-in/GoogleSignInPage";
@@ -17,21 +11,13 @@ import GoogleCallback from "./pages/google-callback/GoogleCallback";
 import axios from "axios";
 import Cookies from "js-cookie";
 import InviteCodePage from "./pages/invite-code/InviteCodePage";
-import DashboardPage from "./pages/dashboard/Dashboard";
 import { ConfimationPage } from "./pages/onboarding-confirmation-page/ConfirmationPage";
-import ClubCheckerPage from "./pages/club-checker-page/ClubCheckerPage";
-import EmptyClubLogo from "./assets/EmptyClubLogo.svg";
-import hasClubs from "./utils/navigationHelpers";
 import PublicCheckerPage from "./pages/public-checker-page/PublicCheckerPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
-  },
-  {
-    path: "/example",
-    element: <ExamplePage />,
   },
   {
     path: "/create-page",
@@ -43,11 +29,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/no-clubs",
-    element: hasClubs() ? <Navigate to="/dashboard" /> : <NoClubs />,
+    element: <NoClubs />,
   },
   {
     path: "/dashboard",
-    element: hasClubs() ? <Dashboard /> : <Navigate to="/no-clubs" />,
+    element: <Dashboard />,
   },
   {
     path: "/auth/google/callback",
@@ -62,44 +48,37 @@ const router = createBrowserRouter([
     element: <InviteCodePage />,
   },
   {
-    path: "/dashboard",
-    element: <DashboardPage />,
-  },
-  {
     path: "/confirmation",
     element: <ConfimationPage />,
   },
   {
-    path: "/checker-page/:webLinkID",
-    element: (
-      // example props
-      <div style={{ width: "100vw", height: "100%" }}>
-        <ClubCheckerPage
-          clubId={1}
-          clubName="UAWB"
-          title="UAWB membership checker"
-          optionsList={[
-            { originalName: "column1", displayName: "upi" },
-            { originalName: "column2", displayName: "first name" },
-            { originalName: "column3", displayName: "last name" },
-          ]}
-          isOnboarding={false}
-        />
-      </div>
-    ),
-  },
-  {
-    path: "/:weblinkId",
+    path: "/:webLinkId",
     element: <PublicCheckerPage />,
   },
 ]);
-
-axios.defaults.baseURL = "http://localhost:3000";
 
 // Find the auth token in local storage if it exists
 const token: string | undefined = Cookies.get("token");
 if (token != undefined) {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+}
+
+if (import.meta.env.MODE == "production") {
+  axios.defaults.baseURL = "/api/";
+} else {
+  axios.defaults.baseURL = "http://localhost:3000/api/";
+}
+
+function hasClubs(): boolean {
+  axios
+    .get("/user/organisations")
+    .then((res) => {
+      if (res.status === 204) {
+        return true;
+      }
+    })
+    .catch(() => false);
+  return false;
 }
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

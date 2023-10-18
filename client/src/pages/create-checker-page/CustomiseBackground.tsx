@@ -1,10 +1,10 @@
 import styles from './style.module.css';
-import { BackSquare } from 'iconsax-react';
-import Button from '../../components/Button';
 import BackButton from '../../components/BackButton';
+import Button from '../../components/Button';
 import { useContext, Dispatch, SetStateAction } from 'react';
 import { PageContextProvider } from './CreateCheckerPage';
 import IPage from '../../types/IPage';
+import UploadButton from './CustomiseLogo Components/UploadButton';
 import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
 
 interface CustomiseBackgroundProps {
@@ -32,11 +32,29 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
           />
         </div>
         <div>
-          <h2>customise page</h2>
+          <h2 className={styles.customisePageTitle}>customise page</h2>
           <i className={styles.subtitle}>customise page for your members</i>
+          <p className={styles.optionalText}>
+            upload a background image (optional)
+          </p>
+          <div>
+            <UploadButton
+              // @ts-ignore
+              onFileSelect={(file) =>
+                // @ts-ignore
+                setPage({ ...page, backgroundImageLink: file })
+              }
+              // @ts-ignore
+              currentFile={page.backgroundImageLink} // Pass the current file from the page state
+            />
+          </div>
         </div>
-        <div>
-          <p>upload a background image (optional)</p>
+        <div id={styles.CustomisePageNextButton}>
+          <Button
+            onClick={onNext}
+            buttonText="next"
+            width="5vw"
+          />
         </div>
         <button
           id={styles.CustomisePageNextButton}
@@ -60,11 +78,13 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
             clubLogoUrl={
+              // @ts-ignore
               page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
             }
             backgroundImageUrl={
               page.backgroundImageLink
-                ? URL.createObjectURL(page.backgroundImageLink!)
+                ? // @ts-ignore
+                  URL.createObjectURL(page.backgroundImageLink!)
                 : undefined
             }
             optionsList={page.identificationColumns || []}

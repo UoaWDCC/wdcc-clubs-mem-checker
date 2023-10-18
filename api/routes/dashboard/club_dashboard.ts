@@ -13,14 +13,10 @@ import IPageMetrics from '../types/IPageMetrics';
 import IDashboardPage from '../types/IDashboardPage';
 import { google } from 'googleapis';
 import { IMemberCountByPageId } from '../../../client/src/types/IMemberCountByPageId';
+import serviceClient from '../../service';
 
 const router = Router();
 const prisma = new PrismaClient();
-
-const serviceClient = new google.auth.GoogleAuth({
-  keyFile: 'membership-checker-e5457b93d746.json',
-  scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-});
 
 const sheets = google.sheets({
   version: 'v4',
@@ -138,8 +134,8 @@ router.get(
           .status(404)
           .send('you must be in the organisation to have checker pages');
 
-      const convertedPages: (IPage & { weblink: String; metrics: any })[] =
-        pagesInOrg.map((page: DBPage) => {
+      const convertedPages: (IPage & { metrics: any })[] = pagesInOrg.map(
+        (page: DBPage) => {
           const convertedColumns: IColumn[] = columns
             .filter((column: DBColumn) => page.id === column.pageId)
             .map((column: DBColumn) => {
@@ -151,12 +147,11 @@ router.get(
             });
 
           const convertedPage: IPage & {
-            weblink: String;
             metrics: IPageMetrics;
           } = {
             id: page.id,
             metrics: getMetrics(page.id, allCheckerUsages),
-            weblink: page.webLink,
+            webLink: page.webLink,
             identificationColumns: convertedColumns, // Fill this with your actual Column[] data
             title: page.name,
             font: page.fontFamily,
@@ -172,7 +167,8 @@ router.get(
               : undefined,
           };
           return convertedPage;
-        });
+        }
+      );
 
       const adminsInOrganisation = await prisma.usersInOrganisation.findMany({
         where: {

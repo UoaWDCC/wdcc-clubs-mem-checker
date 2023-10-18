@@ -1,4 +1,4 @@
-import IColumn from './IColumn';
+import IColumn from '../client/src/types/IColumn';
 
 export default interface IPage {
   id?: number;

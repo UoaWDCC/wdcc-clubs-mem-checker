@@ -14,21 +14,26 @@ const GenerateInviteCode = ({
   onClick,
   text,
   disabled,
+  onClick,
+  text,
+  disabled,
 }: GenerateInviteCodeProps) => {
   const [copied, setIsCopied] = useState(false);
   const [generateDisabled, setGenerateDisabled] = useState(false);
   const [loadingState, setLoadingState] = useState(false);
   const [generateButtonColor, setGenerateButtonColor] = useState("#087DF1");
   const [generateButtonText, setGenerateButtonText] = useState("generate!");
-  const [fontsize, setFontsize] = useState("1.4vh");
+  const [fontsize, setFontsize] = useState('1.4vh');
   const [subheader, setSubheader] = useState(
-    "click to generate a new invite code"
+    
+    'click to generate a new invite code'
+  
   );
 
   const handleClick = () => {
     if (!generateDisabled) {
       setGenerateDisabled(true);
-      setGenerateButtonText("");
+      setGenerateButtonText('');
       setLoadingState(true);
       onClick();
     }
@@ -38,37 +43,37 @@ const GenerateInviteCode = ({
     setLoadingState(false);
     setGenerateButtonColor("#838383");
     setGenerateButtonText("code expires in 2 hours");
-    setFontsize("1vh");
-    setSubheader("copy this invite code - you won’t get to see it again!");
-  };
+    setFontsize('1vh');
+    setSubheader('copy this invite code - you won’t get to see it again!');
+  };;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(text);
     setIsCopied(true);
   };
 
-  const buttonStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "transparent",
-    border: "none",
-    outline: "none",
-    cursor: "pointer",
-    marginLeft: "16vw",
-    marginTop: "-3.2vh",
-  };
+    const buttonStyle = {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "transparent",
+      border: "none",
+      outline: "none",
+      cursor: "pointer",
+      marginLeft: "16vw",
+      marginTop: "-3.2vh",
+    };
 
   const iconStyle = {
-    color: "#03045E",
+    color: '#03045E',
     size: 20,
   };
 
-  useEffect(() => {
-    if (text !== "click generate") {
-      handleLoading();
-    }
-  }, [text]);
+    useEffect(() => {
+      if  (text !== 'click generate') {
+        handleLoading();
+      }
+    }, [text]);
 
   setTimeout(() => setIsCopied(false), 7500);
   return (
@@ -79,10 +84,13 @@ const GenerateInviteCode = ({
           <h2 className={styles.subheader}>{subheader}</h2>
         </div>
         <div className={styles.subcontainer}>
-          <div className={styles.text} style={{ overflow: "hidden" }}>
+          <div className={styles.text}>
             {text}
-            {text !== "click generate" && (
-              <button onClick={handleCopy} style={buttonStyle}>
+            {text !== 'click generate' && (
+              <button
+                onClick={handleCopy}
+                style={buttonStyle}
+              >
                 {copied ? (
                   <TickCircle style={iconStyle} />
                 ) : (
@@ -95,9 +103,9 @@ const GenerateInviteCode = ({
             {loadingState ? (
               <div
                 style={{
-                  height: "100%",
-                  width: "100%",
-                  transform: "translate(calc(50% - 1.5vh), 1vh)",
+                  height: '100%',
+                  width: '100%',
+                  transform: 'translate(calc(50% - 1.5vh), 1vh)',
                 }}
               >
                 <CircularProgress
@@ -108,9 +116,10 @@ const GenerateInviteCode = ({
                   }}
                   size="3vh"
                 />
+                '
               </div>
             ) : (
-              ""
+              ''
             )}
 
             <Button

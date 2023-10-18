@@ -3,7 +3,7 @@ import Button from '../../components/Button';
 import BackButton from '../../components/BackButton';
 import { PageContextProvider } from './CreateCheckerPage';
 import IPage from '../../types/IPage';
-import { useContext, Dispatch, SetStateAction } from 'react';
+import { useContext, useState, Dispatch, SetStateAction } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
@@ -27,9 +27,9 @@ const CustomiseConfirm = ({
     Dispatch<SetStateAction<IPage>>
   ];
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   function handleNext(): void {
-    const url = '/club/get-organisationId/' + clubDetails.clubName;
-    axios.get(url).then((res) => {
+    axios(`/club/get-organisationId/${clubDetails.clubName}`).then((res) => {
       const id = res.data.organisationId;
       const formData = new FormData();
       if (page.backgroundImageLink)
@@ -61,6 +61,7 @@ const CustomiseConfirm = ({
           });
         })
         .catch((err) => {
+          setIsLoading(false)
           console.log(err); // handle error
         });
     });
@@ -113,9 +114,10 @@ const CustomiseConfirm = ({
           <Button
             onClick={handleNext}
             buttonText="confirm"
-            width="7vw"
-            height="4.5vh"
-            fontWeight="600"
+            width="6vw"
+            height="5vh"
+            fontWeight="500"
+            isLoading={isLoading}
           />
         </div>
       </div>
@@ -133,11 +135,13 @@ const CustomiseConfirm = ({
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
             clubLogoUrl={
+              // @ts-ignore
               page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
             }
             backgroundImageUrl={
               page.backgroundImageLink
-                ? URL.createObjectURL(page.backgroundImageLink!)
+                ? // @ts-ignore
+                  URL.createObjectURL(page.backgroundImageLink!)
                 : undefined
             }
             optionsList={page.identificationColumns || []}
