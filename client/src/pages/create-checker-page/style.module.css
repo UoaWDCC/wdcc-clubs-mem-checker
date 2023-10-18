@@ -14,12 +14,13 @@
 
 .container {
   align-items: center;
+  height: fit-content;
   background-color: #ffffff;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   font-family: 'Montserrat', sans-serif;
-  height: 75%;
+  /* min-height: 75%; */
   justify-content: space-between;
   margin: 100px auto;
   padding: 4% 6%;
@@ -59,7 +60,7 @@
   text-align: left;
   color: #087df1;
   font-family: 'Montserrat';
-  line-height: 20px;
+  line-height: 40px;
   padding-top: 2vh;
 }
 
