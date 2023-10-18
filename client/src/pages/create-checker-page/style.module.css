@@ -20,7 +20,7 @@
   display: flex;
   flex-direction: column;
   font-family: 'Montserrat', sans-serif;
-  /* min-height: 75%; */
+  min-height: 75%;
   justify-content: space-between;
   margin: 100px auto;
   padding: 4% 6%;

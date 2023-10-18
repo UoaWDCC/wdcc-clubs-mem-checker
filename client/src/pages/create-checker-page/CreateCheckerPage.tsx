@@ -39,7 +39,14 @@ const CreateCheckerPage = () => {
   };
 
   const steps: Map<number, JSX.Element> = new Map([
-    [1, <GoogleSheetForm onNext={onNext} showInstructions={showInstructions} hasShowedInstructions={hasShowedInstructions} />],
+    [
+      1,
+      <GoogleSheetForm
+        onNext={onNext}
+        showInstructions={showInstructions}
+        hasShowedInstructions={hasShowedInstructions}
+      />,
+    ],
     [2, <ColumnSelector onNext={onNext} onBack={onBack} />],
     [3, <CustomiseTitle onNext={onNext} onBack={onBack} />],
     [4, <CustomiseFont onNext={onNext} onBack={onBack} />],

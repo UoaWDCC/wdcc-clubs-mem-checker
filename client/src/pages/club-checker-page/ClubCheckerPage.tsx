@@ -9,18 +9,18 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
  Otherwise, users can click a check button to enter their info
  Users are presented with an error message if no info has been entered into the textfield/*/
 
-import { CircularProgress } from "@mui/material";
-import Button from '../../components/Button';
-import Textfield from '../../components/Textfield';
-import styles from './ClubCheckerPage.module.css';
-import { createRef, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { getTextColor } from '../../utils/helpers';
-import IColumn from '../../types/IColumn';
-import axios from 'axios';
-import { TickCircle, CloseCircle, InfoCircle } from 'iconsax-react';
-import { useNavigate, useParams } from 'react-router';
-import SadFace from '../../assets/SadFace.svg';
-import DeadFace from '../../assets/DeadFace.svg';
+import Button from "../../components/Button";
+import Textfield from "../../components/Textfield";
+import styles from "./ClubCheckerPage.module.css";
+import { createRef, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { getTextColor } from "../../utils/helpers";
+import IColumn from "../../types/IColumn";
+import axios from "axios";
+import { TickCircle, CloseCircle, InfoCircle } from "iconsax-react";
+import { useNavigate, useParams } from "react-router";
+import SadFace from "../../assets/SadFace.svg";
+import DeadFace from "../../assets/DeadFace.svg";
+import CircularProgress from "@mui/material/CircularProgress";
 
 interface ClubCheckerPageProps {
   clubId?: number;
@@ -48,11 +48,11 @@ interface ClubCheckerPageProps {
 const ClubCheckerPage = ({
   title = "No title selected",
   // colors
-  backgroundColor = "#C7CEDF",
+  backgroundColor = "#ECECEC",
   titleTextColor = "#000000",
-  textFieldBackgroundColor = "#E7EBF5",
+  textFieldBackgroundColor = "#E0E0E0",
   textFieldTextColor = "#000000",
-  buttonBackgroundColor = "#A1A8B9",
+  buttonBackgroundColor = "#C1C1C2",
   dropDownBackgroundColor = "#4F4F4F",
   font = "Montserrat",
   clubLogoUrl,
@@ -98,7 +98,7 @@ const ClubCheckerPage = ({
 
   const iconStyle = {
     color: textFieldTextColor,
-  }
+  };
 
   const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -120,21 +120,22 @@ const ClubCheckerPage = ({
       const response = await axios.get(
         `/pages/verify/${webLink}/${selectedIdentifier.displayName}/${input}`
       );
-      if (response.data == 'value found in column') {
-        setIsSuccess('You are already a member of this club!');
+      if (response.data == "value found in column") {
+        setIsSuccess("You are already a member of this club!");
         setIconState(1);
       } else {
-        setIsSuccess('You are not currently a member of this club!');
+        setIsSuccess("You are not currently a member of this club!");
         setIconState(2);
       }
     } catch (error) {
       console.error(error);
-      setIsSuccess('oops! there was an error - please refresh the page and try again.');
+      setIsSuccess(
+        "oops! there was an error - please refresh the page and try again."
+      );
       setIconState(3);
     } finally {
       setLoading(false);
     }
-
   };
   const handleFocus = () => {
     setIconState(0);
@@ -144,10 +145,10 @@ const ClubCheckerPage = ({
     <div
       className={styles.container}
       style={{
-        backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : '',
-        backgroundSize: 'contain',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
+        backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : "",
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
         backgroundColor: backgroundColor,
         borderRadius: isOnboarding ? "20px" : "0px",
       }}
@@ -157,10 +158,10 @@ const ClubCheckerPage = ({
         style={{
           color: titleTextColor,
           font: `bold 56px "${font}"`,
-          textAlign: 'center',
-          minHeight: '45px',
-          maxWidth: '95%',
-          overflowWrap: 'break-word',
+          textAlign: "center",
+          minHeight: "45px",
+          maxWidth: "95%",
+          overflowWrap: "break-word",
         }}
       >
         {title}
@@ -168,9 +169,9 @@ const ClubCheckerPage = ({
       <select
         style={{
           backgroundColor: dropDownBackgroundColor,
-          borderRadius: '8px',
-          height: '30px',
-          width: '160px',
+          borderRadius: "8px",
+          height: "30px",
+          width: "160px",
           color: getTextColor(dropDownBackgroundColor),
         }}
         value={""}
@@ -183,11 +184,7 @@ const ClubCheckerPage = ({
           setSelectedIdentifier(columnObject);
         }}
       >
-        <option
-          value=""
-          disabled
-          hidden
-        >
+        <option value="" disabled hidden>
           {optionsList[0].displayName}
         </option>
         {optionsList.map((option) => (
@@ -208,12 +205,12 @@ const ClubCheckerPage = ({
           style={{
             alignSelf: "center",
             color: textFieldTextColor,
-            display: 'flex',
-            fontWeight: '900',
-            left: '10px',
-            top: '13px',
-            position: 'absolute',
-            zIndex: '1',
+            display: "flex",
+            fontWeight: "900",
+            left: "10px",
+            top: "13px",
+            position: "absolute",
+            zIndex: "1",
             fontFamily: font,
           }}
           ref={textFieldLabelRef}
@@ -234,21 +231,20 @@ const ClubCheckerPage = ({
           textColour={textFieldTextColor}
           ref={textFieldRef}
           fontFamily={font}
-
           onKeyDown={handleEnterKey}
           onFocus={handleFocus}
         />
       </div>
-      <div 
-      style = {{
-        display: 'flex',
-        justifyContent: 'center',
-        // alignItems: 'center',
-        height: '25vh',
-      }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          // alignItems: 'center',
+          height: "25vh",
+        }}
+      >
         {iconState === 0 && (
           <Button
-          
             buttonText="check"
             backgroundColor={buttonBackgroundColor}
             onClick={() => !isOnboarding && onCheck()}
@@ -257,26 +253,20 @@ const ClubCheckerPage = ({
             fontSize="1rem"
             isLoading={loading}
             fontFamily={font}
-            color='#FFFFFF'
+            color="#FFFFFF"
           />
         )}
         {iconState !== 0 && (
           <div className={styles.result}>
-            {iconState === 1 && (
-              <TickCircle size="95" style={iconStyle} />
-            )}
-            {iconState === 2 && (
-              <CloseCircle size="95" style={iconStyle} />
-            )}
-            {iconState === 3 && (
-              <InfoCircle size="95" style={iconStyle} />
-            )}
+            {iconState === 1 && <TickCircle size="95" style={iconStyle} />}
+            {iconState === 2 && <CloseCircle size="95" style={iconStyle} />}
+            {iconState === 3 && <InfoCircle size="95" style={iconStyle} />}
             {isSuccess && (
               <p
                 style={{
                   fontFamily: font,
-                  fontSize: '1.5rem',
-                  width: '300px',
+                  fontSize: "1.5rem",
+                  width: "300px",
                   color: textFieldTextColor,
                 }}
               >
@@ -292,7 +282,7 @@ const ClubCheckerPage = ({
       <CircularProgress
         className={styles.loadingContainer}
         sx={{
-          color: '#183249',
+          color: "#183249",
         }}
         size={175}
         thickness={3}

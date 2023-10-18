@@ -1,15 +1,15 @@
-import styles from './style.module.css';
-import Button from '../../components/Button';
-import BackButton from '../../components/BackButton';
-import { PageContextProvider } from './CreateCheckerPage';
-import IPage from '../../types/IPage';
-import { useContext, useState, Dispatch, SetStateAction } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router';
-import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
-import { getSpreadsheetId } from './GoogleSheetForm';
-import { IClubDetails } from '../club-detail-page/ClubDetailPage';
-import { getSheetTabId } from './GoogleSheetForm';
+import styles from "./style.module.css";
+import Button from "../../components/Button";
+import BackButton from "../../components/BackButton";
+import { PageContextProvider } from "./CreateCheckerPage";
+import IPage from "../../types/IPage";
+import { useContext, useState, Dispatch, SetStateAction } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
+import { getSpreadsheetId } from "./GoogleSheetForm";
+import { IClubDetails } from "../club-detail-page/ClubDetailPage";
+import { getSheetTabId } from "./GoogleSheetForm";
 
 interface CustomiseConfirmProps {
   onNext: () => void;
@@ -33,35 +33,43 @@ const CustomiseConfirm = ({
       const id = res.data.organisationId;
       const formData = new FormData();
       if (page.backgroundImageLink)
-        formData.append('background', page.backgroundImageLink);
-      if (page.logoLink) formData.append('logo', page.logoLink);
-      if (page.title) formData.append('name', page.title);
-      formData.append('organisationId', id);
+        formData.append("background", page.backgroundImageLink);
+      if (page.logoLink) formData.append("logo", page.logoLink);
+      if (page.title) formData.append("name", page.title);
+      formData.append("organisationId", id);
       formData.append(
-        'identificationColumns',
+        "identificationColumns",
         JSON.stringify(page.identificationColumns)
       );
-      formData.append('sheetId', getSpreadsheetId(page.googleSheetLink!)!);
-      formData.append('sheetTabId', getSheetTabId(page.googleSheetLink!)!);
+      formData.append("sheetId", getSpreadsheetId(page.googleSheetLink!)!);
+      formData.append("sheetTabId", getSheetTabId(page.googleSheetLink!)!);
       formData.append(
-        'textFieldBackgroundColor',
+        "textFieldBackgroundColor",
         page.textFieldBackgroundColor!
       );
       if (page.textFieldtextColor)
-        formData.append('textColor', page.textFieldtextColor!);
-      if (page.buttonColor) formData.append('buttonColor', page.buttonColor!);
+        formData.append("textColor", page.textFieldtextColor!);
+      if (page.buttonColor) formData.append("buttonColor", page.buttonColor!);
       if (page.titleTextColor)
-        formData.append('headingColor', page.titleTextColor!);
-      if (page.font) formData.append('fontFamily', page.font!);
+        formData.append("headingColor", page.titleTextColor!);
+      if (page.font) formData.append("fontFamily", page.font!);
+      if (page.backgroundColor)
+        formData.append("backgroundColor", page.backgroundColor);
+      if (page.dropDownBackgroundColor)
+        formData.append(
+          "dropDownBackgroundColor",
+          page.dropDownBackgroundColor
+        );
+      console.log("confirm:" + page.dropDownBackgroundColor);
       axios
-        .post('/pages/create', formData)
+        .post("/pages/create", formData)
         .then((res) => {
-          navigate('/confirmation', {
+          navigate("/confirmation", {
             state: { pathId: res.data.pathId, clubDetails: clubDetails },
           });
         })
         .catch((err) => {
-          setIsLoading(false)
+          setIsLoading(false);
           console.log(err); // handle error
         });
     });
@@ -83,27 +91,24 @@ const CustomiseConfirm = ({
         <div className={styles.title}>
           <h1>customise page</h1>
         </div>
-        <i
-          className={styles.subtitle}
-          style={{ fontWeight: 500 }}
-        >
+        <i className={styles.subtitle} style={{ fontWeight: 500 }}>
           customise page for your members
         </i>
         <div
           style={{
-            marginTop: '7.5vh',
-            marginLeft: '4.75vw',
-            marginRight: '4.75vw',
+            marginTop: "7.5vh",
+            marginLeft: "4.75vw",
+            marginRight: "4.75vw",
           }}
         >
           <p
             style={{
-              color: '#707070',
-              float: 'left',
-              fontFamily: 'Montserrat',
-              fontWeight: '500',
-              fontSize: '20px',
-              lineHeight: '1.25',
+              color: "#707070",
+              float: "left",
+              fontFamily: "Montserrat",
+              fontWeight: "450",
+              fontSize: "1.5rem",
+              lineHeight: "1.25",
             }}
           >
             please ensure that you are happy with how your page preview looks
@@ -125,7 +130,7 @@ const CustomiseConfirm = ({
         <div className={styles.preview}>
           <ClubCheckerPage
             clubId={0}
-            clubName={''}
+            clubName={""}
             title={page.title}
             backgroundColor={page.backgroundColor}
             titleTextColor={page.titleTextColor}
