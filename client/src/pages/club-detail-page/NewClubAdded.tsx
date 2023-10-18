@@ -25,11 +25,10 @@ const NewClubAdded = ({ clubDetails }: NewClubAddedProps) => {
       </div>
       <div className={styles.body} style={{ alignItems: "center" }}></div>
       <div>
-        <div
-          style={{
-            width: "70%",
-            margin: "auto",
-          }}
+        <div className={styles.actionDescription} 
+        style={{
+          width: "70%",
+          margin: "auto",}}
         >
           please proceed to creating a membership checker page for{" "}
           {clubDetails.clubAcronym}

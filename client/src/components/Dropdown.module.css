@@ -10,6 +10,9 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  position: fixed;
+  z-index: 200;
+  /* position: relative; */
   
 }
 
@@ -20,22 +23,23 @@
 }
 
 .dropdownContainer{
-  z-index: 1;
+  border-radius: 0px 0px 20px 20px;
+  z-index: 100;
   display: flex;
-  width: 100%;
   justify-content: center;
-  
+  width: 100%;
 }
 
 .dropdownList{
-  position: absolute;
   list-style-type: none;
   background-color: #479ef4;
   width: 190px;
   padding: 10px 10px;
-  max-height: 100px;
+  max-height: 200px;
   overflow-y: scroll;
-  border-radius: 10px;
+  border-radius: 0px 0px 20px 20px;
+  position: absolute;
+  
 }
 
 .dropdownListItem{

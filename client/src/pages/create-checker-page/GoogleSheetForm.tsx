@@ -7,13 +7,15 @@ import {
   useContext,
   useEffect,
   useState,
-} from 'react';
-import { PageContextProvider } from './CreateCheckerPage';
-import IPage from '../../types/IPage';
-import Textfield from '../../components/Textfield';
-import Button from '../../components/Button';
-import LinkIcon from '../../assets/LinkIcon.svg';
-import axios from 'axios';
+} from "react";
+import { PageContextProvider } from "./CreateCheckerPage";
+import IPage from "../../types/IPage";
+import Textfield from "../../components/Textfield";
+import Button from "../../components/Button";
+import LinkIcon from "../../assets/LinkIcon.svg";
+import axios from "axios";
+import { useLocation } from "react-router";
+import { IClubDetails } from "../club-detail-page/ClubDetailPage";
 import BackButton from "../../components/BackButton";
 
 interface GoogleSheetFormProps {
@@ -48,6 +50,8 @@ const GoogleSheetForm = ({ onNext, showInstructions, hasShowedInstructions }: Go
     IPage,
     Dispatch<SetStateAction<IPage>>
   ];
+
+  const clubDetails = useLocation().state as IClubDetails;
 
   const [isError, setIsError] = useState<boolean>(false);
   const linkRegex = new RegExp(
@@ -118,6 +122,43 @@ const GoogleSheetForm = ({ onNext, showInstructions, hasShowedInstructions }: Go
 
   return (
     <div className={styles.container}>
+      <div>
+        <div className={styles.title} style={{justifyContent: "space-evenly", marginBottom: "1.5em"}}>
+          <h1 style={{width: "60%", fontSize: "2.3rem", lineHeight: "1.2"}}>link your google sheet</h1>
+          <img src={GoogleSheetsLogo} />
+        </div>
+        <i className={styles.subtitle}>
+          paste the link to the google sheet with {clubDetails.clubAcronym}'s
+          membership data
+        </i>
+      </div>
+      <div style={{ width: "100%", marginBottom: "-10px" }}>
+        <Textfield
+          errorText="enter valid link"
+          fontSize="1rem"
+          height="45px"
+          icon={LinkIcon}
+          isError={isError}
+          placeholder={"paste link here"}
+          ref={inputRef}
+          width="100%"
+        />
+      </div>
+      <div>
+        <p style={{ fontSize: "14px", color: "#707070" }}>
+          If you have more than one google sheet (e.g. for different years), you
+          can create more membership checker pages for your club later in the
+          admin dashboard.
+        </p>
+      </div>
+      <Button
+        buttonText="next"
+        // height="40px"
+        onClick={handleOnNext}
+        fontSize="14px"
+        width="7vw"
+        height="4.5vh"
+      />
       {instructionPageBool ?
       (<div style={{display: "flex", flexDirection: "column", rowGap: "5rem", alignItems: "center"}}>
         <div>

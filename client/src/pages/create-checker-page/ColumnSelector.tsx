@@ -119,6 +119,7 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   };
 
   return (
+    
     <div className={styles.container}>
       <div id={styles.backButton}>
         <BackButton
@@ -131,12 +132,12 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
         />
       </div>
       <div>
-        <div className={styles.title}>
-          <h1>select & edit columns</h1>
+        <div className={styles.title} style={{paddingBottom: "1.5em", display: "flex", justifyContent: "center"}}>
+          <h1 style={{width: "60%", fontSize: "2.3rem", lineHeight: "1.2"}}>select & edit columns</h1>
           <img src={GoogleSheetsLogo} />
         </div>
 
-        <div className={styles.dropdownButtonContainer}>
+        <div className={styles.dropdownButtonContainer} style={{paddingBottom: "2em"}}>
           <DropDown
             onColumnClick={(column) => {
               const index: number = selectedColumnsList.findIndex(
@@ -227,12 +228,13 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
 
       <Button
         buttonText="next"
-        height="57px"
         onClick={handleOnNext}
         fontSize="14px"
-        width="80px"
+        width="7vw"
+        height="4.5vh"
       />
     </div>
+    
   );
 };
 

@@ -32,8 +32,8 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
           />
         </div>
         <div>
-          <h2 className={styles.customisePageTitle}>customise page</h2>
-          <i className={styles.subtitle}>customise page for your members</i>
+          <h2 className={styles.customisePageTitle}>customise page</h2> 
+          <i className={styles.subtitle} style={{ fontWeight: 500 }}>customise page for your members</i>
           <p className={styles.optionalText}>
             please upload your club's logo (optional)
           </p>
@@ -50,7 +50,8 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
           <Button
             onClick={onNext}
             buttonText="next"
-            width="5vw"
+            width="7vw"
+            height="4.5vh"
           />
         </div>
       </div>
