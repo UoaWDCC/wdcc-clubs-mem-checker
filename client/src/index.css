@@ -32,7 +32,7 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  min-width: 100vw;
+  min-width: 100%;
   min-height: 100vh;
 }
 @media (prefers-color-scheme: light) {
@@ -42,11 +42,11 @@ body {
   }
 }
 @font-face {
-  font-family: 'Montserrat';
-  src: url('/Montserrat-VariableFont_wght.ttf');
+  font-family: "Montserrat";
+  src: url("/Montserrat-VariableFont_wght.ttf");
 }
 .montserrat {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
 
 .fontpicker {
@@ -63,7 +63,7 @@ body {
   margin-top: 0.5rem;
 }
 
-[class^='font-preview-'] {
+[class^="font-preview-"] {
   filter: invert(11%) sepia(5%) saturate(244%) hue-rotate(201deg)
     brightness(100%) contrast(82%) !important;
 }

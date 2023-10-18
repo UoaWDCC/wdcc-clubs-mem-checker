@@ -68,7 +68,8 @@ const CustomiseFont = ({ onNext, onBack }: CustomiseFontProps) => {
           <Button
             onClick={onNext}
             buttonText="next"
-            width="5vw"
+            width="7vw"
+            height="4.5vh"
           />
         </div>
       </div>

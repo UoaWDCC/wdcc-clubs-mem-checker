@@ -9,6 +9,7 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
  Otherwise, users can click a check button to enter their info
  Users are presented with an error message if no info has been entered into the textfield/*/
 
+import { CircularProgress } from "@mui/material";
 import Button from '../../components/Button';
 import Textfield from '../../components/Textfield';
 import styles from './ClubCheckerPage.module.css';
@@ -20,7 +21,6 @@ import { TickCircle, CloseCircle, InfoCircle } from 'iconsax-react';
 import { useNavigate, useParams } from 'react-router';
 import SadFace from '../../assets/SadFace.svg';
 import DeadFace from '../../assets/DeadFace.svg';
-import CircularProgress from '@mui/material/CircularProgress';
 
 interface ClubCheckerPageProps {
   clubId?: number;
@@ -46,23 +46,24 @@ interface ClubCheckerPageProps {
 }
 
 const ClubCheckerPage = ({
-  title = 'No title selected',
+  title = "No title selected",
   // colors
-  backgroundColor = '#ECECEC',
-  titleTextColor = '#000000',
-  textFieldBackgroundColor = '#E0E0E0',
-  textFieldTextColor = '#000000',
-  buttonBackgroundColor = '#C1C1C2',
-  dropDownBackgroundColor = '#4F4F4F',
-  font = 'Montserrat',
+  backgroundColor = "#C7CEDF",
+  titleTextColor = "#000000",
+  textFieldBackgroundColor = "#E7EBF5",
+  textFieldTextColor = "#000000",
+  buttonBackgroundColor = "#A1A8B9",
+  dropDownBackgroundColor = "#4F4F4F",
+  font = "Montserrat",
   clubLogoUrl,
   backgroundImageUrl,
-  optionsList = [{ originalName: 'column1', displayName: 'upi' }],
+  optionsList = [{ originalName: "column1", displayName: "upi" }],
   isOnboarding,
   webLink,
 }: ClubCheckerPageProps) => {
   // document.body.style.backgroundColor = backgroundColor || "white";
 
+  const navigate = useNavigate();
   const textFieldLabelRef = useRef<HTMLInputElement>(null);
 
   const [selectedIdentifier, setSelectedIdentifier] = useState<IColumn>(
@@ -80,6 +81,16 @@ const ClubCheckerPage = ({
   useLayoutEffect(() => {
     setTextFieldWidth(textFieldLabelRef.current?.offsetWidth || 0);
   });
+
+  useEffect(() => {
+    if (isOnboarding) return;
+    axios.get(`/pages/info/${webLink}`).catch((err) => {
+      if (err.response.status === 400) {
+        navigate("/");
+      }
+    });
+  }, []);
+
   const [isError, setIsError] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -90,7 +101,7 @@ const ClubCheckerPage = ({
   }
 
   const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       event.preventDefault();
       onCheck();
     }
@@ -138,15 +149,10 @@ const ClubCheckerPage = ({
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         backgroundColor: backgroundColor,
-        borderRadius: isOnboarding ? '20px' : '0px',
+        borderRadius: isOnboarding ? "20px" : "0px",
       }}
     >
-      {clubLogoUrl && (
-        <img
-          className={styles.logo}
-          src={clubLogoUrl}
-        />
-      )}
+      {clubLogoUrl && <img className={styles.logo} src={clubLogoUrl} />}
       <h1
         style={{
           color: titleTextColor,
@@ -167,7 +173,7 @@ const ClubCheckerPage = ({
           width: '160px',
           color: getTextColor(dropDownBackgroundColor),
         }}
-        value={''}
+        value={""}
         onChange={(event) => {
           const originalName = event.target.value;
           const columnObject = optionsList.find(
@@ -185,25 +191,22 @@ const ClubCheckerPage = ({
           {optionsList[0].displayName}
         </option>
         {optionsList.map((option) => (
-          <option
-            key={option.originalName}
-            value={option.originalName}
-          >
+          <option key={option.originalName} value={option.originalName}>
             {option.displayName}
           </option>
         ))}
       </select>
       <div
         style={{
-          display: 'flex',
-          height: '45px',
-          margin: '-30px 0px 0px 0px',
-          position: 'relative',
+          display: "flex",
+          height: "45px",
+          margin: "-30px 0px 0px 0px",
+          position: "relative",
         }}
       >
         <p
           style={{
-            alignSelf: 'center',
+            alignSelf: "center",
             color: textFieldTextColor,
             display: 'flex',
             fontWeight: '900',
@@ -226,7 +229,7 @@ const ClubCheckerPage = ({
           padding={`0px 0px 0px ${textFieldWidth + 18}px`}
           placeholder={
             `please enter your ${selectedIdentifier.displayName}` ||
-            'no identifier selected yet'
+            "no identifier selected yet"
           }
           textColour={textFieldTextColor}
           ref={textFieldRef}

@@ -101,8 +101,8 @@ const CustomiseConfirm = ({
               color: '#707070',
               float: 'left',
               fontFamily: 'Montserrat',
-              fontWeight: '450',
-              fontSize: '1.5rem',
+              fontWeight: '500',
+              fontSize: '20px',
               lineHeight: '1.25',
             }}
           >

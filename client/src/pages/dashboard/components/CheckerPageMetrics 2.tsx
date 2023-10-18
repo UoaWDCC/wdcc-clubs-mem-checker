@@ -5,7 +5,6 @@ import {
   Dispatch,
   SetStateAction,
   useContext,
-  useRef,
 } from "react";
 import { ArrowDown2, ArrowUp2 } from "iconsax-react";
 import { DashboardContextProvider } from "../Dashboard";
@@ -48,33 +47,6 @@ const CheckerPageMetrics = () => {
   const [timePeriod, setTimePeriod] = useState<undefined | string>();
   const [isOpen, setIsOpen] = useState(false);
 
-  // Ref for the dropdown title
-  const dropdownTitleRef = useRef<HTMLDivElement>(null);
-  // Ref for the dropdown list element
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Function to close the dropdown when clicking outside of it
-  const closeDropdownOnOutsideClick = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node) &&
-      dropdownTitleRef.current &&
-      !dropdownTitleRef.current.contains(event.target as Node)
-    ) {
-      setIsOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    // Attach the event listener when the component mounts
-    document.addEventListener("mousedown", closeDropdownOnOutsideClick);
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      document.removeEventListener("mousedown", closeDropdownOnOutsideClick);
-    };
-  }, []);
-
   useEffect(() => {
     setTimePeriod(possibleTimePeriodsDisplay[possibleTimePeriods[0]]);
   }, [dashboard.dashboardPage && dashboard.selectedPageIndex !== undefined]);
@@ -94,7 +66,6 @@ const CheckerPageMetrics = () => {
         }}
       >
         <div
-          ref={dropdownTitleRef}
           className={styles.dropdown}
           style={{
             background: "#087DF1",
@@ -114,7 +85,7 @@ const CheckerPageMetrics = () => {
           </div>
         </div>
         {isOpen && (
-          <div ref={dropdownRef} className={styles.dropdownList}>
+          <div className={styles.dropdownList}>
             {Object.values(possibleTimePeriodsDisplay).map((time) => (
               <div
                 key={time}
@@ -149,9 +120,8 @@ const CheckerPageMetrics = () => {
       <div
         className={styles.subcontainer}
         style={{
-          background: "#E6E9F1",
+          background: "white",
           height: "40%",
-          padding: "20px"
         }}
       >
         <h1 className={styles.header}>duplicates found</h1>

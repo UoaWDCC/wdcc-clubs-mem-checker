@@ -75,6 +75,7 @@ const Button = ({
           style={{
             width: "80%",
             margin: "auto",
+            overflow: "clip",
           }}
         >
           {isLoading ? (

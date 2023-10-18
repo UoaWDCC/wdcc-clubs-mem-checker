@@ -1,44 +1,54 @@
+@font-face {
+  font-family: "Montserrat-SemiBold-Italics";
+  src: url('/Montserrat-SemiBoldItalic.ttf');
+}
+
 .container{
-  background: #E0E0E0;
   border-radius: 20px;
   padding: 2% 5% 2% 5%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  row-gap: 0%;
+  /* justify-content: space-between; */
+  row-gap: 12%;
   width: 100%;
   height: 100%;
   font-family: "montserrat";
 }
 
-.subcontainer{
+.subcontainer {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   align-items: center;
+  justify-content: center;
   column-gap: 1vw;
+  overflow: hidden;
 }
 
-.text{
+.text {
   height: 5vh;
   width: 30vw;
   border-radius: 10px;
-  background: #C1C1C2;
-  color: #03045E;
+  background: #c1c1c2;
+  color: #03045e;
   opacity: 48%;
-  font-style: italic;
+  /* font-style: italic; */
+  font-family: 'Montserrat-SemiBold-Italics'	;
   text-align: center;
-  font-size: 2.5vh;
-  padding-top: 0.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.header{
-  color: #03045E;
+.header {
+  color: #03045e;
   font-size: 1.5rem;
 }
 
-.subheader{
-  color: #03045E;
+.subheader {
+  color: #03045e;
   opacity: 48%;
-  font-size: 1rem;
-  font-style: italic;
+  font-size: 14px;
+  /* font-style: italic; */
+  font-weight: 500;
+  font-family: 'Montserrat-SemiBold-Italics';
 }

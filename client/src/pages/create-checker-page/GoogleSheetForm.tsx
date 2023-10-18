@@ -7,13 +7,15 @@ import {
   useContext,
   useEffect,
   useState,
-} from 'react';
-import { PageContextProvider } from './CreateCheckerPage';
-import IPage from '../../types/IPage';
-import Textfield from '../../components/Textfield';
-import Button from '../../components/Button';
-import LinkIcon from '../../assets/LinkIcon.svg';
-import axios from 'axios';
+} from "react";
+import { PageContextProvider } from "./CreateCheckerPage";
+import IPage from "../../types/IPage";
+import Textfield from "../../components/Textfield";
+import Button from "../../components/Button";
+import LinkIcon from "../../assets/LinkIcon.svg";
+import axios from "axios";
+import { useLocation } from "react-router";
+import { IClubDetails } from "../club-detail-page/ClubDetailPage";
 import BackButton from "../../components/BackButton";
 
 interface GoogleSheetFormProps {
@@ -49,6 +51,8 @@ const GoogleSheetForm = ({ onNext, showInstructions, hasShowedInstructions }: Go
     Dispatch<SetStateAction<IPage>>
   ];
 
+  const clubDetails = useLocation().state as IClubDetails;
+
   const [isError, setIsError] = useState<boolean>(false);
   const linkRegex = new RegExp(
     '^(?:https?://)?docs.google.com/spreadsheets/d/[a-zA-Z0-9-_]',
@@ -66,12 +70,14 @@ const GoogleSheetForm = ({ onNext, showInstructions, hasShowedInstructions }: Go
   }, [instructionPageBool]);
 
   const isLinkValid = (link: string): boolean => {
-    if (linkRegex.test(link)) {
-      setIsError(false);
-      return true;
-    }
-    setIsError(true);
-    return false;
+    // if (linkRegex.test(link)) {
+      // setIsError(false);
+      // return true;
+    // }
+    // setIsError(true);
+    // return false;
+    setIsError(false);
+    return true; // All links are valid temporarily
   };
 
   const handleOnNext = () => {
@@ -118,6 +124,7 @@ const GoogleSheetForm = ({ onNext, showInstructions, hasShowedInstructions }: Go
 
   return (
     <div className={styles.container}>
+
       {instructionPageBool ?
       (<div style={{display: "flex", flexDirection: "column", rowGap: "5rem", alignItems: "center"}}>
         <div>
