@@ -33,7 +33,7 @@ model UsersInOrganisation {
   createdAt      DateTime     @default(now())
   organisationId Int
   organisation   Organisation @relation(fields: [organisationId], references: [id])
-  user           User         @relation(fields: [userId], references: [id])
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, organisationId])
 }
@@ -57,7 +57,7 @@ model Page {
   dropDownBackgroundColor  String                 @default("#4F4F4F")
   identificationColumns    Column[]
   membershipCheckUsage     MembershipCheckUsage[]
-  organisation             Organisation           @relation(fields: [organisationId], references: [id])
+  organisation             Organisation           @relation(fields: [organisationId], references: [id], onDelete: Cascade)
 }
 
 model Column {
@@ -65,7 +65,7 @@ model Column {
   sheetsName String
   mappedTo   String
   pageId     Int
-  page       Page   @relation(fields: [pageId], references: [id])
+  page       Page   @relation(fields: [pageId], references: [id], onDelete: Cascade)
 }
 
 model OrganisationInviteCode {
@@ -73,7 +73,7 @@ model OrganisationInviteCode {
   code           String       @unique
   organisationId Int
   createdAt      DateTime     @default(now())
-  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
 }
 
 model MembershipCheckUsage {
@@ -83,5 +83,5 @@ model MembershipCheckUsage {
   columnName  String
   createdAt   DateTime @default(now())
   pageId      Int
-  page        Page     @relation(fields: [pageId], references: [id])
+  page        Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
 }
