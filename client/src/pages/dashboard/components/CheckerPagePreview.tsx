@@ -95,7 +95,7 @@ const CheckerPagePreview = () => {
             <Textfield
               height="2rem"
               width="100%"
-              placeholder="www.checkerpage.com"
+              placeholder={`https://membership.wdcc.co.nz/${currentPageData.webLink}`}
               readOnly={true}
               backgroundColor="#C1C1C2"
               ref={textFieldRef}
