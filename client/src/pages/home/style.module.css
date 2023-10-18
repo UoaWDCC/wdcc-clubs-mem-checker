@@ -48,7 +48,11 @@ body {
 }
 
 .intro_button {
-  margin-top: 1.5em;
+  margin-top: 3em;
+  width: 30em;
+  display: flex;
+  justify-content: center;
+  
 }
 
 .logo {

@@ -31,8 +31,8 @@ export const HomePage = () => {
           <div className={styles.intro_button}>
             <Button
               buttonText="get started!"
-              width="8.5em"
-              height="3.1em"
+              width="8.8em"
+              height="3.5em"
               backgroundColor="transparent"
               hoverColor="#03045E0F"
               color="#03045E"

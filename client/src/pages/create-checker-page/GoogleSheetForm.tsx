@@ -14,6 +14,8 @@ import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
 import LinkIcon from "../../assets/LinkIcon.svg";
 import axios from "axios";
+import { useLocation } from "react-router";
+import { IClubDetails } from "../club-detail-page/ClubDetailPage";
 import BackButton from "../../components/BackButton";
 import { useLocation } from "react-router";
 import { IClubDetails } from "../club-detail-page/ClubDetailPage";
@@ -57,6 +59,8 @@ const GoogleSheetForm = ({
     Dispatch<SetStateAction<IPage>>
   ];
 
+  const clubDetails = useLocation().state as IClubDetails;
+
   const [isError, setIsError] = useState<boolean>(false);
   const linkRegex = new RegExp(
     "^(?:https?://)?docs.google.com/spreadsheets/d/[a-zA-Z0-9-_]",
@@ -74,12 +78,14 @@ const GoogleSheetForm = ({
   }, [instructionPageBool]);
 
   const isLinkValid = (link: string): boolean => {
-    if (linkRegex.test(link)) {
-      setIsError(false);
-      return true;
-    }
-    setIsError(true);
-    return false;
+    // if (linkRegex.test(link)) {
+      // setIsError(false);
+      // return true;
+    // }
+    // setIsError(true);
+    // return false;
+    setIsError(false);
+    return true; // All links are valid temporarily
   };
 
   const handleOnNext = () => {
@@ -127,26 +133,16 @@ const GoogleSheetForm = ({
 
   return (
     <div className={styles.container}>
-      {instructionPageBool ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            rowGap: "5rem",
-            alignItems: "center",
-          }}
-        >
-          <div>
-            <div className={styles.title}>
-              <h1>link your google sheet</h1>
-              <img src={GoogleSheetsLogo} />
-            </div>
-            <div className={styles.subtitle}>
-              <p style={{ color: "#087DF1" }}>
-                share your google sheet with our service email to enable our
-                system's access
-              </p>
-            </div>
+
+      {instructionPageBool ?
+      (<div style={{display: "flex", flexDirection: "column", rowGap: "5rem", alignItems: "center"}}>
+        <div>
+          <div className={styles.title}>
+            <h1>link your google sheet</h1>
+            <img src={GoogleSheetsLogo} />
+          </div>
+          <div className={styles.subtitle}>
+            <p style={{color: "#087DF1"}}>share your google sheet with our service email to enable our system's access</p>
           </div>
 
           <div style={{ display: "flex", width: "100%", flexDirection: "row" }}>

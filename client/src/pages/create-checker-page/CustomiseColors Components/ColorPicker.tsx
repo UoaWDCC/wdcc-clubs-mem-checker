@@ -15,14 +15,15 @@ export const ColorPicker = () => {
           display: "flex",
           background: "#E0E0E0",
           borderRadius: "10px",
-          color: "black",
+          color: "#707070",
           fontStyle: "italic",
           fontSize: "1.5vh",
-          width: "10vw",
+          width: "13vw",
           height: "3vh",
           alignItems: "center",
           justifyContent: "center",
-          marginLeft: "1vw",
+          fontWeight: "600",
+          margin: "1vh 0vh"
         }}
       >
         choose your theme colours

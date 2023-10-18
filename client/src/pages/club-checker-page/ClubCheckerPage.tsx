@@ -62,6 +62,8 @@ const ClubCheckerPage = ({
   webLink,
 }: ClubCheckerPageProps) => {
   // document.body.style.backgroundColor = backgroundColor || "white";
+
+  const navigate = useNavigate();
   const textFieldLabelRef = useRef<HTMLInputElement>(null);
 
   const [selectedIdentifier, setSelectedIdentifier] = useState<IColumn>(
@@ -79,6 +81,16 @@ const ClubCheckerPage = ({
   useLayoutEffect(() => {
     setTextFieldWidth(textFieldLabelRef.current?.offsetWidth || 0);
   });
+
+  useEffect(() => {
+    if (isOnboarding) return;
+    axios.get(`/pages/info/${webLink}`).catch((err) => {
+      if (err.response.status === 400) {
+        navigate("/");
+      }
+    });
+  }, []);
+
   const [isError, setIsError] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);

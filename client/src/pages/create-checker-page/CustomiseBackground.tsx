@@ -56,6 +56,13 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
             width="5vw"
           />
         </div>
+        <button
+          id={styles.CustomisePageNextButton}
+          onClick={onNext}
+          
+        >
+          next
+        </button>
       </div>
       <div className={styles.previewContainer}>
         <div className={styles.preview}>

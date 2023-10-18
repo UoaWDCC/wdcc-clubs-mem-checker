@@ -6,6 +6,7 @@ import BackButton from '../../components/BackButton';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { useRef, useState } from 'react';
+import { InfoCircle } from 'iconsax-react';
 
 const InviteCodePage = () => {
   const navigate = useNavigate();
@@ -65,7 +66,11 @@ const InviteCodePage = () => {
           {inviteCodeError && (
             <>
               <div className={styles['error-arrow']}></div>
-              <div className={styles['error-box']}>invalid code</div>
+              <div className={styles['error-box']}>
+                <div className={styles.errorTextAndIcon}>
+                  <InfoCircle size="15" color="#ffffff"/><p className={styles.errorText}>invalid code</p>
+                </div>
+              </div>
             </>
           )}
         </div>

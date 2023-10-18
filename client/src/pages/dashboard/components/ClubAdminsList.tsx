@@ -9,19 +9,21 @@ const ClubAdminsList = () => {
     Dispatch<SetStateAction<IDashboardContext>>
   ];
 
-  const admins = dashboard.dashboardPage?.clubAdmins || []; //Need to rename this when I find out what the name being saved to the context is
+  const admins = dashboard.dashboardPage?.clubAdmins || [];
   // const admins = ["Adam McKinsley", "Bob Arthur", "Cindy Wong", "Amanda Young"];
 
   return (
     <>
       <div className={styles.classListContainer}>
-        <h1 className={styles.classListHeader}>club admins</h1>
-        <div className={styles.namesContainer}>
-          {admins.map((admin) => (
-            <p key={admin} className={styles.adminName}>
-              {admin}
-            </p>
-          ))}
+        <div>
+          <h1 className={styles.classListHeader}>club admins</h1>
+          <div className={styles.namesContainer}>
+            {admins.map((admin) => (
+              <p key={admin} className={styles.adminName}>
+                {admin}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
     </>

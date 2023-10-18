@@ -54,13 +54,15 @@ router.post(
             "`name`, `organisationId`, `sheetId`, `sheetTabId`, and `identificationColumns` are required fields"
           );
 
-      const existingSheetID = await prisma.page.findUnique({
-        where: { sheetId: sheetId },
-      });
+      // Check if the sheet id is already in use
+      // *we are not using this now that it does not need to be unique
+      // const existingSheetID = await prisma.page.findUnique({
+      //   where: { sheetId: sheetId },
+      // });
 
-      if (existingSheetID) {
-        return res.status(400).json({ error: "Sheet ID already exists" });
-      }
+      // if (existingSheetID) {
+      //   return res.status(400).json({ error: 'Sheet ID already exists' });
+      // }
 
       const user = req.body.user;
       // intialise credentials
