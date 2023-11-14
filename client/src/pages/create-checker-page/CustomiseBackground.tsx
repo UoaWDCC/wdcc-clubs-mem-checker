@@ -74,9 +74,9 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
             dropDownBackgroundColor={context.page.dropDownBackgroundColor}
             font={context.page.font}
             clubLogoUrl={
-              // @ts-ignore
               context.page.logoLink
-                ? URL.createObjectURL(page.logoLink!)
+                ? // @ts-ignore
+                  URL.createObjectURL(context.page.logoLink!)
                 : undefined
             }
             backgroundImageUrl={
