@@ -1,6 +1,6 @@
 import IPage from "./IPage";
 
 export default interface ICreateCheckerPageContext {
-    page?: IPage,
+    page: IPage,
     isEdit?: boolean
 }

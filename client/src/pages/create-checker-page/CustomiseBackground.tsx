@@ -1,11 +1,12 @@
-import styles from './style.module.css';
-import BackButton from '../../components/BackButton';
-import Button from '../../components/Button';
-import { useContext, Dispatch, SetStateAction } from 'react';
-import { PageContextProvider } from './CreateCheckerPage';
-import IPage from '../../types/IPage';
-import UploadButton from './CustomiseLogo Components/UploadButton';
-import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
+import styles from "./style.module.css";
+import BackButton from "../../components/BackButton";
+import Button from "../../components/Button";
+import { useContext, Dispatch, SetStateAction } from "react";
+import { PageContextProvider } from "./CreateCheckerPage";
+import IPage from "../../types/IPage";
+import UploadButton from "./CustomiseLogo Components/UploadButton";
+import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
+import ICreateCheckerPageContext from "../../types/ICreateCheckerPageContext";
 
 interface CustomiseBackgroundProps {
   onNext: () => void;
@@ -13,9 +14,9 @@ interface CustomiseBackgroundProps {
 }
 
 const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
-  const [page, setPage] = useContext(PageContextProvider) as [
-    IPage,
-    Dispatch<SetStateAction<IPage>>
+  const [context, setContext] = useContext(PageContextProvider) as [
+    ICreateCheckerPageContext,
+    Dispatch<SetStateAction<ICreateCheckerPageContext>>
   ];
 
   return (
@@ -41,8 +42,11 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
             <UploadButton
               // @ts-ignore
               onFileSelect={(file) =>
-                // @ts-ignore
-                setPage({ ...page, backgroundImageLink: file })
+                setContext({
+                  ...context,
+                  // @ts-ignore can we fix this?
+                  page: { ...context.page, backgroundImageLink: file },
+                })
               }
               // @ts-ignore
               currentFile={page.backgroundImageLink} // Pass the current file from the page state
@@ -50,17 +54,9 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
           </div>
         </div>
         <div id={styles.CustomisePageNextButton}>
-          <Button
-            onClick={onNext}
-            buttonText="next"
-            width="5vw"
-          />
+          <Button onClick={onNext} buttonText="next" width="5vw" />
         </div>
-        <button
-          id={styles.CustomisePageNextButton}
-          onClick={onNext}
-          
-        >
+        <button id={styles.CustomisePageNextButton} onClick={onNext}>
           next
         </button>
       </div>
@@ -68,26 +64,28 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
         <div className={styles.preview}>
           <ClubCheckerPage
             clubId={0}
-            clubName={''}
-            title={page.title}
-            backgroundColor={page.backgroundColor}
-            titleTextColor={page.titleTextColor}
-            textFieldBackgroundColor={page.textFieldBackgroundColor}
-            textFieldTextColor={page.textFieldtextColor}
-            buttonBackgroundColor={page.buttonColor}
-            dropDownBackgroundColor={page.dropDownBackgroundColor}
-            font={page.font}
+            clubName={""}
+            title={context.page.title}
+            backgroundColor={context.page.backgroundColor}
+            titleTextColor={context.page.titleTextColor}
+            textFieldBackgroundColor={context.page.textFieldBackgroundColor}
+            textFieldTextColor={context.page.textFieldtextColor}
+            buttonBackgroundColor={context.page.buttonColor}
+            dropDownBackgroundColor={context.page.dropDownBackgroundColor}
+            font={context.page.font}
             clubLogoUrl={
               // @ts-ignore
-              page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
-            }
-            backgroundImageUrl={
-              page.backgroundImageLink
-                ? // @ts-ignore
-                  URL.createObjectURL(page.backgroundImageLink!)
+              context.page.logoLink
+                ? URL.createObjectURL(page.logoLink!)
                 : undefined
             }
-            optionsList={page.identificationColumns || []}
+            backgroundImageUrl={
+              context.page.backgroundImageLink
+                ? // @ts-ignore
+                  URL.createObjectURL(context.page.backgroundImageLink!)
+                : undefined
+            }
+            optionsList={context.page.identificationColumns || []}
             isOnboarding={true}
           />
         </div>

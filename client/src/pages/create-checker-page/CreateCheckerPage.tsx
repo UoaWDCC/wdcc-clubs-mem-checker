@@ -39,7 +39,7 @@ const CreateCheckerPage = () => {
     // });
     setContext({
       page: {
-        ...page,
+        ...context.page,
         title: clubDetails.clubAcronym + " Membership Checker",
       },
       isEdit: isEdit,
@@ -74,8 +74,10 @@ const CreateCheckerPage = () => {
     ],
   ]);
 
-  const [page, setPage] = useState<IPage>({}); // might need default values?
-  const [context, setContext] = useState<ICreateCheckerPageContext>({});
+  const [context, setContext] = useState<ICreateCheckerPageContext>({
+    page: {},
+    isEdit: false,
+  });
 
   return (
     <Background>
