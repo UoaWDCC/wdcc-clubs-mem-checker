@@ -2,11 +2,12 @@ import ColorPickerItem from "./ColorPickerItem";
 import { useContext, Dispatch, SetStateAction } from "react";
 import { PageContextProvider } from "../CreateCheckerPage";
 import IPage from "../../../types/IPage";
+import ICreateCheckerPageContext from "../../../types/ICreateCheckerPageContext";
 
 export const ColorPicker = () => {
-  const [page, setPage] = useContext(PageContextProvider) as [
-    IPage,
-    Dispatch<SetStateAction<IPage>>
+  const [context, setContext] = useContext(PageContextProvider) as [
+    ICreateCheckerPageContext,
+    Dispatch<SetStateAction<ICreateCheckerPageContext>>
   ];
   return (
     <>
@@ -23,58 +24,90 @@ export const ColorPicker = () => {
           alignItems: "center",
           justifyContent: "center",
           fontWeight: "600",
-          margin: "1vh 0vh"
+          margin: "1vh 0vh",
         }}
       >
         choose your theme colours
       </div>
       <ColorPickerItem
-        color={page.backgroundColor ? page.backgroundColor : "#ECECECEE"}
+        color={
+          context.page.backgroundColor
+            ? context.page.backgroundColor
+            : "#ECECECEE"
+        }
         setColor={(color: string) => {
-          setPage({ ...page, backgroundColor: color });
+          setContext({
+            ...context,
+            page: { ...context.page, backgroundColor: color },
+          });
         }}
         title="background color"
       />
       <ColorPickerItem
-        color={page.titleTextColor ? page.titleTextColor : "#000000EE"}
+        color={
+          context.page.titleTextColor
+            ? context.page.titleTextColor
+            : "#000000EE"
+        }
         setColor={(color: string) => {
-          setPage({ ...page, titleTextColor: color });
+          setContext({
+            ...context,
+            page: { ...context.page, titleTextColor: color },
+          });
         }}
         title="title text colour"
       />
       <ColorPickerItem
         color={
-          page.textFieldBackgroundColor
-            ? page.textFieldBackgroundColor
+          context.page.textFieldBackgroundColor
+            ? context.page.textFieldBackgroundColor
             : "#E0E0E0EE"
         }
         setColor={(color: string) => {
-          setPage({ ...page, textFieldBackgroundColor: color });
+          setContext({
+            ...context,
+            page: { ...context.page, textFieldBackgroundColor: color },
+          });
         }}
         title="text field background colour"
       />
       <ColorPickerItem
-        color={page.textFieldtextColor ? page.textFieldtextColor : "#000000EE"}
+        color={
+          context.page.textFieldtextColor
+            ? context.page.textFieldtextColor
+            : "#000000EE"
+        }
         setColor={(color: string) => {
-          setPage({ ...page, textFieldtextColor: color });
+          setContext({
+            ...context,
+            page: { ...context.page, textFieldBackgroundColor: color },
+          });
         }}
         title="text field text colour"
       />
       <ColorPickerItem
         color={
-          page.dropDownBackgroundColor
-            ? page.dropDownBackgroundColor
+          context.page.dropDownBackgroundColor
+            ? context.page.dropDownBackgroundColor
             : "#4F4F4FEE"
         }
         setColor={(color: string) => {
-          setPage({ ...page, dropDownBackgroundColor: color });
+          setContext({
+            ...context,
+            page: { ...context.page, dropDownBackgroundColor: color },
+          });
         }}
         title="dropdown background colour"
       />
       <ColorPickerItem
-        color={page.buttonColor ? page.buttonColor : "#4F4F4FEE"}
+        color={
+          context.page.buttonColor ? context.page.buttonColor : "#4F4F4FEE"
+        }
         setColor={(color: string) => {
-          setPage({ ...page, buttonColor: color });
+          setContext({
+            ...context,
+            page: { ...context.page, buttonColor: color },
+          });
         }}
         title="button colour"
       />
