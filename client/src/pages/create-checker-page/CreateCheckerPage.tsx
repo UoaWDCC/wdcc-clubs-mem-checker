@@ -14,6 +14,7 @@ import IColumn from "../../types/IColumn";
 import { useLocation } from "react-router";
 import { IClubDetails } from "../club-detail-page/ClubDetailPage";
 import IPage from "../../types/IPage";
+import ICreateCheckerPageContext from "../../types/ICreateCheckerPageContext";
 
 export const PageContextProvider = createContext([{}, () => {}]);
 
@@ -24,12 +25,24 @@ const CreateCheckerPage = () => {
   const [hasShowedInstructions, setShowedInstructions] = useState(true);
   const showInstructions = () => setShowedInstructions(false);
 
-  const clubDetails = useLocation().state as IClubDetails;
+  // should be passed in from the dashboard is editing the page
+  // should have clubDetaisl and isEdit boolean flag
+  const locationState = useLocation().state;
+
+  const clubDetails = locationState.clubDetails as IClubDetails;
+  const isEdit = locationState.isEdit as boolean;
 
   useEffect(() => {
-    setPage({
-      ...page,
-      title: clubDetails.clubAcronym + " Membership Checker",
+    // setPage({
+    //   ...page,
+    //   title: clubDetails.clubAcronym + " Membership Checker",
+    // });
+    setContext({
+      page: {
+        ...page,
+        title: clubDetails.clubAcronym + " Membership Checker",
+      },
+      isEdit: isEdit,
     });
   }, []);
 
@@ -62,6 +75,7 @@ const CreateCheckerPage = () => {
   ]);
 
   const [page, setPage] = useState<IPage>({}); // might need default values?
+  const [context, setContext] = useState<ICreateCheckerPageContext>({});
 
   return (
     <Background>
@@ -78,12 +92,12 @@ const CreateCheckerPage = () => {
             );
           })}
         </div>
-        <p style={{ marginLeft: "10px" }} className={ styles.progressText }>
+        <p style={{ marginLeft: "10px" }} className={styles.progressText}>
           {progress} of {steps.size}
         </p>
       </div>
 
-      <PageContextProvider.Provider value={[page, setPage]}>
+      <PageContextProvider.Provider value={[context, setContext]}>
         {showConfirm ? (
           <CustomiseConfirm
             clubDetails={clubDetails}
