@@ -107,13 +107,22 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   const [showError, setShowError] = useState(false);
   const handleOnNext = () => {
     if (defaultColumn != "") {
-      setPage({
-        ...page,
-        identificationColumns: selectedColumnsList,
+      setContext({
+        ...context,
+        page: {
+          ...context.page,
+          identificationColumns: selectedColumnsList,
+        },
       });
 
       onNext();
-      setPage({ ...page, identificationColumns: selectedColumnsList });
+      setContext({
+        ...context,
+        page: {
+          ...context.page,
+          identificationColumns: selectedColumnsList,
+        },
+      });
     } else {
       setShowError(true);
     }
