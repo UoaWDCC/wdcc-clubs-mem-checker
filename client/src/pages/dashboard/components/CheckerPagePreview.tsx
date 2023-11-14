@@ -73,11 +73,22 @@ const CheckerPagePreview = () => {
     navigate("/create-page", { state: clubDetails });
   };
 
+  const onEditCheckerPage = () => {
+    navigate("/create-page", { state: clubDetails });
+  };
+
   return (
     <div className={styles.previewContainer}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <p className={styles.overlayText}>Checker Pages</p>
         <p>
+          <a
+            style={{ cursor: "pointer", color: "#03045e" }}
+            onClick={() => onEditCheckerPage()}
+          >
+            Edit Page
+          </a>
+          <span> | </span>
           <a
             style={{ cursor: "pointer", color: "#03045e" }}
             onClick={() => onCreateNewCheckerPage()}

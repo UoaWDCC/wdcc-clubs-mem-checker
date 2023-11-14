@@ -43,7 +43,7 @@ model Page {
   createdAt                DateTime               @default(now())
   name                     String
   organisationId           Int
-  sheetId                  String                 
+  sheetId                  String
   webLink                  String                 @unique
   backgroundColor          String                 @default("#0582CA")
   backgroundImageLink      String?
