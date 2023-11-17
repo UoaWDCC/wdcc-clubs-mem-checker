@@ -70,7 +70,9 @@ const CheckerPagePreview = () => {
     : undefined;
 
   const onCreateNewCheckerPage = () => {
-    navigate("/create-page", { state: clubDetails });
+    navigate("/create-page", {
+      state: { clubDetails: clubDetails, isEdit: false },
+    });
   };
 
   const onEditCheckerPage = () => {
