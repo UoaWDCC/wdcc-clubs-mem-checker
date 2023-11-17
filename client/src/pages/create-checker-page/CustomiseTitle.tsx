@@ -1,5 +1,5 @@
-import styles from './style.module.css';
-import BackButton from '../../components/BackButton';
+import styles from "./style.module.css";
+import BackButton from "../../components/BackButton";
 import {
   useContext,
   Dispatch,
@@ -7,13 +7,14 @@ import {
   useState,
   createRef,
   useEffect,
-} from 'react';
+} from "react";
 
-import { PageContextProvider } from './CreateCheckerPage';
-import IPage from '../../types/IPage';
-import Textfield from '../../components/Textfield';
-import Button from '../../components/Button';
-import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
+import { PageContextProvider } from "./CreateCheckerPage";
+import IPage from "../../types/IPage";
+import Textfield from "../../components/Textfield";
+import Button from "../../components/Button";
+import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
+import ICreateCheckerPageContext from "../../types/ICreateCheckerPageContext";
 
 interface CustomiseTitleProps {
   onNext: () => void;
@@ -23,20 +24,20 @@ interface CustomiseTitleProps {
 const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
   const [error, setError] = useState<boolean>(false);
   const titleRef = createRef();
-  const [page, setPage] = useContext(PageContextProvider) as [
-    IPage,
-    Dispatch<SetStateAction<IPage>>
+  const [context, setContext] = useContext(PageContextProvider) as [
+    ICreateCheckerPageContext,
+    Dispatch<SetStateAction<ICreateCheckerPageContext>>
   ];
   useEffect(() => {
     (titleRef.current as HTMLInputElement).setAttribute(
-      'value',
-      page.title || ''
+      "value",
+      context.page.title || ""
     );
   }, []);
 
   const handleNext = () => {
     const title = (titleRef.current as HTMLInputElement).value;
-    if (title === '') {
+    if (title === "") {
       setError(true);
     } else {
       onNext();
@@ -59,14 +60,11 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
         <div className={styles.title}>
           <h1>customise page</h1>
         </div>
-        <i
-          className={styles.subtitle}
-          style={{ fontWeight: 500 }}
-        >
+        <i className={styles.subtitle} style={{ fontWeight: 500 }}>
           customise page for your members
         </i>
-        <div style={{ marginTop: '10vh' }}>
-          <p style={{ color: '#AAAAAA', fontStyle: 'italic', float: 'left' }}>
+        <div style={{ marginTop: "10vh" }}>
+          <p style={{ color: "#AAAAAA", fontStyle: "italic", float: "left" }}>
             please edit your title
           </p>
           <Textfield
@@ -78,9 +76,12 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
             isError={error}
             onChange={() => {
               setError(false);
-              setPage({
-                ...page,
-                title: (titleRef.current as HTMLInputElement).value,
+              setContext({
+                ...context,
+                page: {
+                  ...context.page,
+                  title: (titleRef.current as HTMLInputElement).value,
+                },
               });
             }}
           />
@@ -98,26 +99,28 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
         <div className={styles.preview}>
           <ClubCheckerPage
             clubId={0}
-            clubName={''}
-            title={page.title}
-            backgroundColor={page.backgroundColor}
-            titleTextColor={page.titleTextColor}
-            textFieldBackgroundColor={page.textFieldBackgroundColor}
-            textFieldTextColor={page.textFieldtextColor}
-            buttonBackgroundColor={page.buttonColor}
-            dropDownBackgroundColor={page.dropDownBackgroundColor}
-            font={page.font}
+            clubName={""}
+            title={context.page.title}
+            backgroundColor={context.page.backgroundColor}
+            titleTextColor={context.page.titleTextColor}
+            textFieldBackgroundColor={context.page.textFieldBackgroundColor}
+            textFieldTextColor={context.page.textFieldtextColor}
+            buttonBackgroundColor={context.page.buttonColor}
+            dropDownBackgroundColor={context.page.dropDownBackgroundColor}
+            font={context.page.font}
             clubLogoUrl={
-              // @ts-ignore
-              page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
-            }
-            backgroundImageUrl={
-              page.backgroundImageLink
+              context.page.logoLink
                 ? // @ts-ignore
-                  URL.createObjectURL(page.backgroundImageLink!)
+                  URL.createObjectURL(context.page.logoLink!)
                 : undefined
             }
-            optionsList={page.identificationColumns || []}
+            backgroundImageUrl={
+              context.page.backgroundImageLink
+                ? // @ts-ignore
+                  URL.createObjectURL(context.page.backgroundImageLink!)
+                : undefined
+            }
+            optionsList={context.page.identificationColumns || []}
             isOnboarding={true}
           />
         </div>
