@@ -67,18 +67,8 @@ const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
             buttonBackgroundColor={context.page.buttonColor}
             dropDownBackgroundColor={context.page.dropDownBackgroundColor}
             font={context.page.font}
-            clubLogoUrl={
-              context.page.logoLink
-                ? // @ts-ignore
-                  URL.createObjectURL(context.page.logoLink!)
-                : undefined
-            }
-            backgroundImageUrl={
-              context.page.backgroundImageLink
-                ? // @ts-ignore
-                  URL.createObjectURL(context.page.backgroundImageLink!)
-                : undefined
-            }
+            clubLogoUrl={context.page.logoLink}
+            backgroundImageUrl={context.page.backgroundImageLink}
             optionsList={context.page.identificationColumns || []}
             isOnboarding={true}
           />
