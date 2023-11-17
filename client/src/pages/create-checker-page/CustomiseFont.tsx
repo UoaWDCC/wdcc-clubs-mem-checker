@@ -1,14 +1,15 @@
-import { useState } from 'react';
-import styles from './style.module.css';
-import Button from '../../components/Button';
-import BackButton from '../../components/BackButton';
-import { Dispatch, SetStateAction, useContext } from 'react';
-import { PageContextProvider } from './CreateCheckerPage';
-import IPage from '../../types/IPage';
-import FontPicker from 'react-fontpicker-ts';
-import 'react-fontpicker-ts/dist/index.css';
-import { ArrowDown2 } from 'iconsax-react';
-import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
+import { useState } from "react";
+import styles from "./style.module.css";
+import Button from "../../components/Button";
+import BackButton from "../../components/BackButton";
+import { Dispatch, SetStateAction, useContext } from "react";
+import { PageContextProvider } from "./CreateCheckerPage";
+import IPage from "../../types/IPage";
+import FontPicker from "react-fontpicker-ts";
+import "react-fontpicker-ts/dist/index.css";
+import { ArrowDown2 } from "iconsax-react";
+import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
+import ICreateCheckerPageContext from "../../types/ICreateCheckerPageContext";
 
 interface CustomiseFontProps {
   onNext: () => void;
@@ -16,9 +17,9 @@ interface CustomiseFontProps {
 }
 
 const CustomiseFont = ({ onNext, onBack }: CustomiseFontProps) => {
-  const [page, setPage] = useContext(PageContextProvider) as [
-    IPage,
-    Dispatch<SetStateAction<IPage>>
+  const [context, setContext] = useContext(PageContextProvider) as [
+    ICreateCheckerPageContext,
+    Dispatch<SetStateAction<ICreateCheckerPageContext>>
   ];
 
   return (
@@ -37,30 +38,33 @@ const CustomiseFont = ({ onNext, onBack }: CustomiseFontProps) => {
         <div className={styles.title}>
           <h1>customise page</h1>
         </div>
-        <i
-          className={styles.subtitle}
-          style={{ fontWeight: 500 }}
-        >
+        <i className={styles.subtitle} style={{ fontWeight: 500 }}>
           customise page for your members
         </i>
         <div className={styles.styling_container}>
           <p className={styles.styling_subtext}>please choose a font</p>
           <ArrowDown2
             style={{
-              position: 'absolute',
-              zIndex: '2',
-              top: '30px',
-              left: 'calc(100% - 50px)',
+              position: "absolute",
+              zIndex: "2",
+              top: "30px",
+              left: "calc(100% - 50px)",
             }}
             size="32"
             color="#AAAAAA"
           />
           <FontPicker
             autoLoad
-            defaultValue={page.font || 'Montserrat'}
-            fontCategories={['serif', 'sans-serif']}
+            defaultValue={context.page.font || "Montserrat"}
+            fontCategories={["serif", "sans-serif"]}
             value={(font: string) => {
-              setPage({ ...page, font });
+              setContext({
+                ...context,
+                page: {
+                  ...context.page,
+                  font: font,
+                },
+              });
             }}
           />
         </div>
@@ -77,26 +81,28 @@ const CustomiseFont = ({ onNext, onBack }: CustomiseFontProps) => {
         <div className={styles.preview}>
           <ClubCheckerPage
             clubId={0}
-            clubName={''}
-            title={page.title}
-            backgroundColor={page.backgroundColor}
-            titleTextColor={page.titleTextColor}
-            textFieldBackgroundColor={page.textFieldBackgroundColor}
-            textFieldTextColor={page.textFieldtextColor}
-            buttonBackgroundColor={page.buttonColor}
-            dropDownBackgroundColor={page.dropDownBackgroundColor}
-            font={page.font}
+            clubName={""}
+            title={context.page.title}
+            backgroundColor={context.page.backgroundColor}
+            titleTextColor={context.page.titleTextColor}
+            textFieldBackgroundColor={context.page.textFieldBackgroundColor}
+            textFieldTextColor={context.page.textFieldtextColor}
+            buttonBackgroundColor={context.page.buttonColor}
+            dropDownBackgroundColor={context.page.dropDownBackgroundColor}
+            font={context.page.font}
             clubLogoUrl={
-              // @ts-ignore
-              page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
-            }
-            backgroundImageUrl={
-              page.backgroundImageLink
+              context.page.logoLink
                 ? // @ts-ignore
-                  URL.createObjectURL(page.backgroundImageLink!)
+                  URL.createObjectURL(context.page.logoLink!)
                 : undefined
             }
-            optionsList={page.identificationColumns || []}
+            backgroundImageUrl={
+              context.page.backgroundImageLink
+                ? // @ts-ignore
+                  URL.createObjectURL(context.page.backgroundImageLink!)
+                : undefined
+            }
+            optionsList={context.page.identificationColumns || []}
             isOnboarding={true}
           />
         </div>
