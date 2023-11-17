@@ -41,20 +41,18 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
             please upload your club's logo (optional)
           </p>
           <div>
-            <UploadButton
+            {/* <UploadButton
+              // @ts-ignore
               onFileSelect={(file) =>
                 setContext({
                   ...context,
-                  page: {
-                    ...context.page,
-                    // @ts-ignore
-                    logoLink: file,
-                  },
+                  // @ts-ignore can we fix this?
+                  page: { ...context.page, logoLink: file },
                 })
               }
               // @ts-ignore
               currentFile={context.page.logoLink} // Pass the current file from the page state
-            />
+            /> */}
           </div>
         </div>
         <div id={styles.CustomisePageNextButton}>
@@ -81,15 +79,15 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
             font={context.page.font}
             clubLogoUrl={
               context.page.logoLink
-                ? // @ts-ignore
-                  URL.createObjectURL(context.page.logoLink!)
-                : undefined
+              // ? // @ts-ignore
+              //   URL.createObjectURL(context.page.logoLink!)
+              // : undefined
             }
             backgroundImageUrl={
               context.page.backgroundImageLink
-                ? // @ts-ignore
-                  URL.createObjectURL(context.page.backgroundImageLink!)
-                : undefined
+              // ? // @ts-ignore
+              //   URL.createObjectURL(context.page.backgroundImageLink!)
+              // : undefined
             }
             optionsList={context.page.identificationColumns || []}
             isOnboarding={true}
