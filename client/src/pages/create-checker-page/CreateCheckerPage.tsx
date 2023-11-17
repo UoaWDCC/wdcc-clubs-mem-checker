@@ -19,31 +19,40 @@ import ICreateCheckerPageContext from "../../types/ICreateCheckerPageContext";
 export const PageContextProvider = createContext([{}, () => {}]);
 
 const CreateCheckerPage = () => {
-  const [progress, setProgress] = useState(1);
-  const onNext = () => setProgress(progress + 1);
-  const onBack = () => setProgress(progress - 1);
-  const [hasShowedInstructions, setShowedInstructions] = useState(true);
-  const showInstructions = () => setShowedInstructions(false);
-
   // should be passed in from the dashboard is editing the page
   // should have clubDetaisl and isEdit boolean flag
   const locationState = useLocation().state;
 
+  const initialPageData = locationState.pageData as IPage;
   const clubDetails = locationState.clubDetails as IClubDetails;
   const isEdit = locationState.isEdit as boolean;
 
+  const [progress, setProgress] = useState(1);
+  const onNext = () => setProgress(progress + 1);
+  const onBack = () => setProgress(progress - 1);
+  const [hasShowedInstructions, setShowedInstructions] = useState(!isEdit);
+  const showInstructions = () => setShowedInstructions(false);
+
+  const [context, setContext] = useState<ICreateCheckerPageContext>({
+    page: {},
+    isEdit: false,
+  });
+
   useEffect(() => {
-    // setPage({
-    //   ...page,
-    //   title: clubDetails.clubAcronym + " Membership Checker",
-    // });
-    setContext({
-      page: {
-        ...context.page,
-        title: clubDetails.clubAcronym + " Membership Checker",
-      },
-      isEdit: isEdit,
-    });
+    if (isEdit) {
+      setContext({
+        page: initialPageData,
+        isEdit: isEdit,
+      });
+    } else {
+      setContext({
+        page: {
+          ...context.page,
+          title: clubDetails.clubAcronym + " Membership Checker",
+        },
+        isEdit: isEdit,
+      });
+    }
   }, []);
 
   const [showConfirm, setShowConfirm] = useState(false);
@@ -73,11 +82,6 @@ const CreateCheckerPage = () => {
       />,
     ],
   ]);
-
-  const [context, setContext] = useState<ICreateCheckerPageContext>({
-    page: {},
-    isEdit: false,
-  });
 
   return (
     <Background>
