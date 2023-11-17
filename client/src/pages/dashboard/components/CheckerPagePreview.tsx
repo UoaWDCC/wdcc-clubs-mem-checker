@@ -15,6 +15,28 @@ import { DashboardContextProvider } from "../Dashboard";
 import IDashboardContext from "../../../types/IDashboardContext";
 import { useNavigate } from "react-router";
 import { IClubDetails } from "../../club-detail-page/ClubDetailPage";
+import IPageMetrics from "../../../../../api/routes/types/IPageMetrics";
+import IPage from "../../../types/IPage";
+
+const extractPageData = (
+  pageDataWithMetrics: IPage & { metrics: IPageMetrics }
+) => {
+  const pageData = {
+    title: pageDataWithMetrics.title,
+    backgroundColor: pageDataWithMetrics.backgroundColor,
+    titleTextColor: pageDataWithMetrics.titleTextColor,
+    textFieldBackgroundColor: pageDataWithMetrics.textFieldBackgroundColor,
+    textFieldTextColor: pageDataWithMetrics.textFieldtextColor,
+    buttonColor: pageDataWithMetrics.buttonColor,
+    dropDownBackgroundColor: pageDataWithMetrics.dropDownBackgroundColor,
+    font: pageDataWithMetrics.font,
+    identificationColumns: pageDataWithMetrics.identificationColumns,
+    logoLink: pageDataWithMetrics.logoLink,
+    backgroundImageLink: pageDataWithMetrics.backgroundImageLink,
+    webLink: pageDataWithMetrics.webLink,
+  };
+  return pageData;
+};
 
 const CheckerPagePreview = () => {
   const navigate = useNavigate();
@@ -44,7 +66,7 @@ const CheckerPagePreview = () => {
     }
   };
 
-  let currentPageData;
+  let currentPageData: (IPage & { metrics: IPageMetrics }) | undefined;
   if (currentPageIndex !== undefined) {
     currentPageData = pages[currentPageIndex]; // Get the data for the current page
   }
@@ -77,7 +99,11 @@ const CheckerPagePreview = () => {
 
   const onEditCheckerPage = () => {
     navigate("/create-page", {
-      state: { clubDetails: clubDetails, isEdit: true },
+      state: {
+        pageData: extractPageData(currentPageData!),
+        clubDetails: clubDetails,
+        isEdit: true,
+      },
     });
   };
 
@@ -86,13 +112,6 @@ const CheckerPagePreview = () => {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <p className={styles.overlayText}>Checker Pages</p>
         <p>
-          <a
-            style={{ cursor: "pointer", color: "#03045e" }}
-            onClick={() => onEditCheckerPage()}
-          >
-            Edit Page
-          </a>
-          <span> | </span>
           <a
             style={{ cursor: "pointer", color: "#03045e" }}
             onClick={() => onCreateNewCheckerPage()}
@@ -144,7 +163,12 @@ const CheckerPagePreview = () => {
               {/*div for links */}
               <div className={styles.pageLinksContainer}>
                 {/* Edit button (edit functionality to be implemented) */}
-                <a href="#">Edit</a>
+                <a
+                  style={{ cursor: "pointer", color: "#03045e" }}
+                  onClick={() => onEditCheckerPage()}
+                >
+                  Edit
+                </a>
                 <span> | </span>
                 {/* View API keys button (view API keys functionality to be implemented) */}
                 <a href="#">View API Keys</a>
