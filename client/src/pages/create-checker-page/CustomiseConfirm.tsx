@@ -23,7 +23,7 @@ const CustomiseConfirm = ({
   onBack,
   clubDetails,
 }: CustomiseConfirmProps) => {
-  const [context, setConetxt] = useContext(PageContextProvider) as [
+  const [context, setContext] = useContext(PageContextProvider) as [
     ICreateCheckerPageContext,
     Dispatch<SetStateAction<ICreateCheckerPageContext>>
   ];
