@@ -1,11 +1,16 @@
+import React, {
+  useContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import styles from "./style.module.css";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
-import { useContext, Dispatch, SetStateAction } from "react";
-import { PageContextProvider } from "./CreateCheckerPage";
-import IPage from "../../types/IPage";
 import UploadButton from "./CustomiseLogo Components/UploadButton";
 import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
+import { PageContextProvider } from "./CreateCheckerPage";
 import ICreateCheckerPageContext from "../../types/ICreateCheckerPageContext";
 
 interface CustomiseLogoProps {
@@ -13,11 +18,45 @@ interface CustomiseLogoProps {
   onBack: () => void;
 }
 
-const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
+const CustomiseLogo: React.FC<CustomiseLogoProps> = ({ onNext, onBack }) => {
   const [context, setContext] = useContext(PageContextProvider) as [
     ICreateCheckerPageContext,
     Dispatch<SetStateAction<ICreateCheckerPageContext>>
   ];
+
+  const [file, setFile] = useState<File | undefined>(undefined);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (context.page.logoLink) {
+          const response = await fetch(context.page.logoLink);
+          const blob = await response.blob();
+          const file = new File([blob], "logo.png", {
+            type: response.headers.get("content-type") || "image/jpeg",
+          });
+          setFile(file);
+        }
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    };
+
+    fetchData();
+  }, [context]);
+
+  const handleFileSelect = (selectedFile: File | null) => {
+    const fileUrl = selectedFile
+      ? URL.createObjectURL(selectedFile)
+      : undefined;
+    setContext({
+      ...context,
+      page: {
+        ...context.page,
+        logoLink: fileUrl,
+      },
+    });
+  };
 
   return (
     <div id={styles.customisePageContainer}>
@@ -41,18 +80,7 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
             please upload your club's logo (optional)
           </p>
           <div>
-            {/* <UploadButton
-              // @ts-ignore
-              onFileSelect={(file) =>
-                setContext({
-                  ...context,
-                  // @ts-ignore can we fix this?
-                  page: { ...context.page, logoLink: file },
-                })
-              }
-              // @ts-ignore
-              currentFile={context.page.logoLink} // Pass the current file from the page state
-            /> */}
+            <UploadButton onFileSelect={handleFileSelect} currentFile={file} />
           </div>
         </div>
         <div id={styles.CustomisePageNextButton}>
@@ -77,18 +105,8 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
             buttonBackgroundColor={context.page.buttonColor}
             dropDownBackgroundColor={context.page.dropDownBackgroundColor}
             font={context.page.font}
-            clubLogoUrl={
-              context.page.logoLink
-              // ? // @ts-ignore
-              //   URL.createObjectURL(context.page.logoLink!)
-              // : undefined
-            }
-            backgroundImageUrl={
-              context.page.backgroundImageLink
-              // ? // @ts-ignore
-              //   URL.createObjectURL(context.page.backgroundImageLink!)
-              // : undefined
-            }
+            clubLogoUrl={context.page.logoLink}
+            backgroundImageUrl={context.page.backgroundImageLink}
             optionsList={context.page.identificationColumns || []}
             isOnboarding={true}
           />
