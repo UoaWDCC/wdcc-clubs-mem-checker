@@ -1,12 +1,18 @@
 import styles from "./style.module.css";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
-import { useContext, Dispatch, SetStateAction } from "react";
+import {
+  useContext,
+  Dispatch,
+  SetStateAction,
+  useState,
+  useEffect,
+} from "react";
 import { PageContextProvider } from "./CreateCheckerPage";
-import IPage from "../../types/IPage";
 import UploadButton from "./CustomiseLogo Components/UploadButton";
 import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
 import ICreateCheckerPageContext from "../../types/ICreateCheckerPageContext";
+import { getImageFileFromUrl } from "../../utils/helpers";
 
 interface CustomiseBackgroundProps {
   onNext: () => void;
@@ -18,6 +24,33 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
     ICreateCheckerPageContext,
     Dispatch<SetStateAction<ICreateCheckerPageContext>>
   ];
+
+  const [file, setFile] = useState<File | undefined>(undefined);
+
+  useEffect(() => {
+    if (context.page.backgroundImageLink) {
+      getImageFileFromUrl(context.page.backgroundImageLink, "background.png")
+        .then((file) => {
+          setFile(file);
+        })
+        .catch((error) => {
+          console.error("Error fetching image:", error);
+        });
+    }
+  }, [context]);
+
+  const handleFileSelect = (selectedFile: File | null) => {
+    const fileUrl = selectedFile
+      ? URL.createObjectURL(selectedFile)
+      : undefined;
+    setContext({
+      ...context,
+      page: {
+        ...context.page,
+        backgroundImageLink: fileUrl,
+      },
+    });
+  };
 
   return (
     <div id={styles.customisePageContainer}>
@@ -39,18 +72,7 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
             upload a background image (optional)
           </p>
           <div>
-            <UploadButton
-              // @ts-ignore
-              onFileSelect={(file) =>
-                setContext({
-                  ...context,
-                  // @ts-ignore can we fix this?
-                  page: { ...context.page, backgroundImageLink: file },
-                })
-              }
-              // @ts-ignore
-              currentFile={context.page.backgroundImageLink} // Pass the current file from the page state
-            />
+            <UploadButton onFileSelect={handleFileSelect} />
           </div>
         </div>
         <div id={styles.CustomisePageNextButton}>
