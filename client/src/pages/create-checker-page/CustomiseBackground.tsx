@@ -1,6 +1,3 @@
-import styles from "./style.module.css";
-import BackButton from "../../components/BackButton";
-import Button from "../../components/Button";
 import {
   useContext,
   Dispatch,
@@ -8,9 +5,12 @@ import {
   useState,
   useEffect,
 } from "react";
-import { PageContextProvider } from "./CreateCheckerPage";
+import styles from "./style.module.css";
+import BackButton from "../../components/BackButton";
+import Button from "../../components/Button";
 import UploadButton from "./CustomiseLogo Components/UploadButton";
 import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
+import { PageContextProvider } from "./CreateCheckerPage";
 import ICreateCheckerPageContext from "../../types/ICreateCheckerPageContext";
 import { getImageFileFromUrl } from "../../utils/helpers";
 
@@ -72,15 +72,12 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
             upload a background image (optional)
           </p>
           <div>
-            <UploadButton onFileSelect={handleFileSelect} />
+            <UploadButton onFileSelect={handleFileSelect} currentFile={file} />
           </div>
         </div>
         <div id={styles.CustomisePageNextButton}>
           <Button onClick={onNext} buttonText="next" width="5vw" />
         </div>
-        <button id={styles.CustomisePageNextButton} onClick={onNext}>
-          next
-        </button>
       </div>
       <div className={styles.previewContainer}>
         <div className={styles.preview}>
