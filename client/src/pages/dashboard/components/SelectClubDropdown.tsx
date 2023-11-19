@@ -31,7 +31,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     dashboard.selectedClub = clubs[0];
   }
 
-  const handleSelectClub = (club: IDropdownClub) => { 
+  const handleSelectClub = (club: IDropdownClub) => {
     setIsOpen(!isOpen);
     localStorage.setItem('selectedClub', JSON.stringify(club));
     setDashboard({ ...dashboard, selectedClub: club });
@@ -76,6 +76,26 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     );
   }
 
+  const renderDropdownArrow = clubs.length > 1 && (
+      isOpen ? (
+          <ArrowUp2
+              color="#000000"
+              size={28}
+              variant="Bold"
+              style={{ cursor: 'pointer', marginLeft: 'auto' }}
+              onClick={() => setIsOpen(!isOpen)}
+          />
+      ) : (
+          <ArrowDown2
+              color="#000000"
+              size={28}
+              variant="Bold"
+              style={{ cursor: 'pointer', marginLeft: 'auto' }}
+              onClick={() => setIsOpen(!isOpen)}
+          />
+      )
+  );
+
   return (
     <div
       className={styles.outerContainer}
@@ -99,23 +119,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
           }
         />
         <p className={styles.text}>{dashboard.selectedClub.name}</p>
-        {isOpen ? (
-          <ArrowUp2
-            color="#000000"
-            size={28}
-            variant="Bold"
-            style={{ cursor: 'pointer', marginLeft: 'auto' }}
-            onClick={() => setIsOpen(!isOpen)}
-          />
-        ) : (
-          <ArrowDown2
-            color="#000000"
-            size={28}
-            variant="Bold"
-            style={{ cursor: 'pointer', marginLeft: 'auto' }}
-            onClick={() => setIsOpen(!isOpen)}
-          />
-        )}
+        {renderDropdownArrow}
       </div>
       {isOpen && (
         <div
