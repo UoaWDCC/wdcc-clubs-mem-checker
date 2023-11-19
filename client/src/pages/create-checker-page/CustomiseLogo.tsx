@@ -12,6 +12,7 @@ import UploadButton from "./CustomiseLogo Components/UploadButton";
 import ClubCheckerPage from "../club-checker-page/ClubCheckerPage";
 import { PageContextProvider } from "./CreateCheckerPage";
 import ICreateCheckerPageContext from "../../types/ICreateCheckerPageContext";
+import { getImageFileFromUrl } from "../../utils/helpers";
 
 interface CustomiseLogoProps {
   onNext: () => void;
@@ -27,22 +28,15 @@ const CustomiseLogo: React.FC<CustomiseLogoProps> = ({ onNext, onBack }) => {
   const [file, setFile] = useState<File | undefined>(undefined);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (context.page.logoLink) {
-          const response = await fetch(context.page.logoLink);
-          const blob = await response.blob();
-          const file = new File([blob], "logo.png", {
-            type: response.headers.get("content-type") || "image/jpeg",
-          });
+    if (context.page.logoLink) {
+      getImageFileFromUrl(context.page.logoLink, "logo.png")
+        .then((file) => {
           setFile(file);
-        }
-      } catch (error) {
-        console.error("Error fetching image:", error);
-      }
-    };
-
-    fetchData();
+        })
+        .catch((error) => {
+          console.error("Error fetching image:", error);
+        });
+    }
   }, [context]);
 
   const handleFileSelect = (selectedFile: File | null) => {

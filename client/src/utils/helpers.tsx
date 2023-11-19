@@ -15,3 +15,17 @@ export const lightenColor = (hex: string, amt: number): string => {
   const b = Math.min(255, (num & 0x0000ff) + amt);
   return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, "0")}`;
 };
+
+export const getImageFileFromUrl = async (
+  imageUrl: string,
+  fileName: string
+) => {
+  const response = await fetch(imageUrl);
+  const blob = await response.blob();
+
+  const file = new File([blob], fileName, {
+    type: response.headers.get("content-type") || "image/jpeg",
+  });
+
+  return file;
+};
