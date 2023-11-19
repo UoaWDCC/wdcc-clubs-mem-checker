@@ -21,10 +21,10 @@ const cookieSecret = process.env.COOKIE_SECRET!;
 const sixMonths = 1000 * 60 * 60 * 24 * 182;
 
 const tenMinutes = 10 * 60 * 1000;
-// Limits client to 100 requests per 15 minutes
+// Limits client to 300 requests per 15 minutes
 const rateLimiter = rateLimit({
   windowMs: tenMinutes,
-  max: 150,
+  max: 300,
 });
 
 app.use(rateLimiter);
