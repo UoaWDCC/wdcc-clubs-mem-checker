@@ -141,27 +141,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
           }
         />
         <p className={styles.text}>{dashboard.selectedClub.name}</p>
-<<<<<<< HEAD
-        {isOpen ? (
-          <ArrowUp2
-            color="#000000"
-            size={28}
-            variant="Bold"
-            style={{ cursor: "pointer", marginLeft: "auto" }}
-            onClick={() => setIsOpen(!isOpen)}
-          />
-        ) : (
-          <ArrowDown2
-            color="#000000"
-            size={28}
-            variant="Bold"
-            style={{ cursor: "pointer", marginLeft: "auto" }}
-            onClick={() => setIsOpen(!isOpen)}
-          />
-        )}
-=======
         {renderDropdownArrow}
->>>>>>> 0d6d1da585383acbad13eb45c4b75f7aaea703d2
       </div>
       {isOpen && (
         <div

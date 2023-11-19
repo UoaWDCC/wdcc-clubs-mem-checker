@@ -25,9 +25,10 @@ const Dashboard = () => {
       .get(`/user/organisations`)
       .then((response) => {
         if (response.status == 200) {
+          if (response.data.length == 0) navigate("/no-clubs");
           setUserClubs(response.data);
         } else {
-          navigate('/');
+          navigate('/no-clubs');
         }
       })
       .catch((error) => {

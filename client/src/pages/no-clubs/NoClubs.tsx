@@ -17,7 +17,8 @@ export default function NoClubs() {
   useEffect(() => {
     const fetchData = async () => {
       const hasClubsRes = await axios.get('/user/organisations');
-      if (hasClubsRes.status == 204) navigate('/dashboard');
+      const clubsList = await hasClubsRes.data;
+      if (clubsList.length > 0) navigate('/dashboard');
       const res = await axios.get('/firstname');
       setFirstName(res.data.firstName);
     };
