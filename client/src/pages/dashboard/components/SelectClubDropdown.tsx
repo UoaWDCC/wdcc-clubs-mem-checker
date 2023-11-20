@@ -38,12 +38,13 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     setDashboard({ ...dashboard, selectedClub: club });
   };
 
+  const outerContainerRef = useRef<HTMLInputElement>(null);
   // Function to close the dropdown when clicking outside of it
   const closeDropdownOnOutsideClick = (event: MouseEvent) => {
     // Check if the clicked element is not inside the dropdown or the club card
     if (
-      clubCardRef.current &&
-      !clubCardRef.current.contains(event.target as Node)
+      outerContainerRef.current &&
+      !outerContainerRef.current.contains(event.target as Node)
     ) {
       setIsOpen(false);
     }
@@ -61,11 +62,10 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
 
   const clubCardHeight = 100;
 
-  const clubCardRef = useRef<HTMLInputElement>(null);
   const [clubCardWidth, setClubCardWidth] = useState(0);
   useLayoutEffect(() => {
     const updateWidth = () => {
-      setClubCardWidth(clubCardRef.current?.offsetWidth || 0);
+      setClubCardWidth(outerContainerRef.current?.offsetWidth || 0);
     };
 
     // Initial width update
@@ -98,33 +98,33 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     );
   }
 
-  const renderDropdownArrow = clubs.length > 1 && (
-      isOpen ? (
-          <ArrowUp2
-              color="#000000"
-              size={28}
-              variant="Bold"
-              style={{ cursor: 'pointer', marginLeft: 'auto' }}
-              onClick={() => setIsOpen(!isOpen)}
-          />
-      ) : (
-          <ArrowDown2
-              color="#000000"
-              size={28}
-              variant="Bold"
-              style={{ cursor: 'pointer', marginLeft: 'auto' }}
-              onClick={() => setIsOpen(!isOpen)}
-          />
-      )
-  );
+  const renderDropdownArrow =
+    clubs.length > 1 &&
+    (isOpen ? (
+      <ArrowUp2
+        color="#000000"
+        size={28}
+        variant="Bold"
+        style={{ cursor: "pointer", marginLeft: "auto" }}
+        onClick={() => setIsOpen(!isOpen)}
+      />
+    ) : (
+      <ArrowDown2
+        color="#000000"
+        size={28}
+        variant="Bold"
+        style={{ cursor: "pointer", marginLeft: "auto" }}
+        onClick={() => setIsOpen(!isOpen)}
+      />
+    ));
 
   return (
     <div
+      ref={outerContainerRef}
       className={styles.outerContainer}
       style={{ backgroundColor: `${isOpen ? "#d6ebf0" : "transparent"}` }}
     >
       <div
-        ref={clubCardRef}
         className={styles.clubCard}
         style={{
           backgroundColor: "#DAF6FC",
