@@ -18,10 +18,16 @@ import ICreateCheckerPageContext from "../../types/ICreateCheckerPageContext";
 
 export const PageContextProvider = createContext([{}, () => {}]);
 
+export interface ICreateCheckerPageLocationState {
+  pageData: IPage;
+  clubDetails: IClubDetails;
+  isEdit: boolean;
+}
+
 const CreateCheckerPage = () => {
   // should be passed in from the dashboard is editing the page
   // should have clubDetaisl and isEdit boolean flag
-  const locationState = useLocation().state;
+  const locationState: ICreateCheckerPageLocationState = useLocation().state;
 
   const initialPageData = locationState.pageData as IPage;
   const clubDetails = locationState.clubDetails as IClubDetails;

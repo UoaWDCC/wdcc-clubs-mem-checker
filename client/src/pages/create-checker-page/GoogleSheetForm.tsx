@@ -8,7 +8,10 @@ import {
   useEffect,
   useState,
 } from "react";
-import { PageContextProvider } from "./CreateCheckerPage";
+import {
+  ICreateCheckerPageLocationState,
+  PageContextProvider,
+} from "./CreateCheckerPage";
 import IPage from "../../types/IPage";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
@@ -58,7 +61,7 @@ const GoogleSheetForm = ({
     Dispatch<SetStateAction<ICreateCheckerPageContext>>
   ];
 
-  const clubDetails = useLocation().state as IClubDetails;
+  const locationState: ICreateCheckerPageLocationState = useLocation().state;
 
   const [isError, setIsError] = useState<boolean>(false);
   const linkRegex = new RegExp(
@@ -74,7 +77,7 @@ const GoogleSheetForm = ({
         context.page.googleSheetLink || ""
       );
     }
-  }, [instructionPageBool]);
+  }, [instructionPageBool, context.page.googleSheetLink]);
 
   const isLinkValid = (link: string): boolean => {
     // if (linkRegex.test(link)) {
@@ -132,6 +135,16 @@ const GoogleSheetForm = ({
       (inputRef.current as HTMLInputElement).focus();
     }
   };
+
+  // useEffect(() => {
+  //   (inputRef.current as HTMLInputElement).setAttribute(
+  //     "value",
+  //     getSheetLinkFromSheetIdAndTabId(
+  //       context.page.googleSheetLink,
+  //       undefined
+  //     ) || ""
+  //   );
+  // }, []);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -267,8 +280,9 @@ const GoogleSheetForm = ({
               <img src={GoogleSheetsLogo} />
             </div>
             <i className={styles.subtitle}>
-              paste the link to the google sheet with {`<club acronym>`}'s
-              membership data
+              {`paste the link to the google sheet with
+              ${locationState.clubDetails.clubAcronym}
+              's membership data`}
             </i>
           </div>
           <div style={{ width: "100%", marginBottom: "-10px" }}>

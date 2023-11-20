@@ -22,6 +22,7 @@ const extractPageData = (
   pageDataWithMetrics: IPage & { metrics: IPageMetrics }
 ) => {
   const pageData = {
+    googleSheetLink: pageDataWithMetrics.googleSheetLink,
     title: pageDataWithMetrics.title,
     backgroundColor: pageDataWithMetrics.backgroundColor,
     titleTextColor: pageDataWithMetrics.titleTextColor,
