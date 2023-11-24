@@ -23,10 +23,14 @@ export const HomePage = () => {
 
           <p className={styles.paragraph}>
             we’re here to make membership status checking super easy for you and
-            your club members. <br />
+            your club members.
+            <br />
             <br />
             simply link your club’s Google Sheet to create and customise your
             club’s checker page, and manage your data in the admin dashboard.
+            <br />
+            <br />
+            <a href="/our-team">Developed by WDCC. Meet our Team!</a>
           </p>
           <div className={styles.intro_button}>
             <Button
