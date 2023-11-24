@@ -1,0 +1,61 @@
+@font-face {
+  font-family: 'Montserrat Italic';
+  src: url('/Montserrat-Italic-VariableFont_wght.ttf');
+}
+@font-face {
+  font-family: 'Montserrat Light';
+  src: url('/Montserrat-Light.ttf');
+}
+
+.container {
+  align-items: center;
+  color: #183249;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+  gap: 1.5rem;
+  width: 75%;
+}
+
+@media only screen and (max-width: 1000px) {
+  .container {
+    padding-top: 8rem;
+    width: 100%;
+  }
+}
+
+.user-avatar-grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: top;
+}
+
+.user-avatar-container {
+  display: flex;
+  width: min-content;
+  height: max-content;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  gap: 0.2rem;
+  width: 180px;
+}
+
+.user-avatar {
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.user-avatar-role {
+  font-weight: bold;
+}
+
+.user-avatar-bio {
+  text-wrap: wrap;
+  font-style: italic;
+  font-size: 0.8rem;
+}
