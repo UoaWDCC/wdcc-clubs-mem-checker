@@ -146,7 +146,7 @@ const ClubCheckerPage = ({
       className={styles.container}
       style={{
         backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : "",
-        backgroundSize: "contain",
+        backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundColor: backgroundColor,
