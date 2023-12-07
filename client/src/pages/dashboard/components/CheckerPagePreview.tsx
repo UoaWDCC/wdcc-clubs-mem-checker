@@ -25,7 +25,7 @@ const CheckerPagePreview = () => {
 
   const textFieldRef = useRef<HTMLInputElement | null>(null);
 
-  const pages = dashboard.dashboardPage?.pages;
+  const pages = dashboard.dashboardPage?.pages || [];
 
   const currentPageIndex = dashboard.selectedPageIndex;
 
