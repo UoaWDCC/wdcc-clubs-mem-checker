@@ -4,17 +4,17 @@ import React, {
   Dispatch,
   SetStateAction,
   useContext,
-} from "react";
-import styles from "./CheckerPagePreview.module.css";
-import ClubCheckerPage from "../../club-checker-page/ClubCheckerPage";
-import Textfield from "../../../components/Textfield";
-import copyIcon from "../../../assets/CopyIcon2.svg";
-import ClickNextArrow from "../../../assets/ClickNextArrow.svg";
-import ClickPrevArrow from "../../../assets/ClickPreviousArrow.svg";
-import { DashboardContextProvider } from "../Dashboard";
-import IDashboardContext from "../../../types/IDashboardContext";
-import { useNavigate } from "react-router";
-import { IClubDetails } from "../../club-detail-page/ClubDetailPage";
+} from 'react';
+import styles from './CheckerPagePreview.module.css';
+import ClubCheckerPage from '../../club-checker-page/ClubCheckerPage';
+import Textfield from '../../../components/Textfield';
+import copyIcon from '../../../assets/CopyIcon2.svg';
+import ClickNextArrow from '../../../assets/ClickNextArrow.svg';
+import ClickPrevArrow from '../../../assets/ClickPreviousArrow.svg';
+import { DashboardContextProvider } from '../Dashboard';
+import IDashboardContext from '../../../types/IDashboardContext';
+import { useNavigate } from 'react-router';
+import { IClubDetails } from '../../club-detail-page/ClubDetailPage';
 
 const CheckerPagePreview = () => {
   const navigate = useNavigate();
@@ -26,9 +26,6 @@ const CheckerPagePreview = () => {
   const textFieldRef = useRef<HTMLInputElement | null>(null);
 
   const pages = dashboard.dashboardPage?.pages;
-  if (pages === undefined) {
-    return <div></div>;
-  }
 
   const currentPageIndex = dashboard.selectedPageIndex;
 
@@ -54,9 +51,9 @@ const CheckerPagePreview = () => {
       const value = textFieldRef.current?.placeholder;
       try {
         await navigator.clipboard.writeText(value);
-        console.log("Copy succeeded");
+        console.log('Copy succeeded');
       } catch (error) {
-        console.log("Copy failed:  ", error);
+        console.log('Copy failed:  ', error);
       }
     }
   };
@@ -70,16 +67,16 @@ const CheckerPagePreview = () => {
     : undefined;
 
   const onCreateNewCheckerPage = () => {
-    navigate("/create-page", { state: clubDetails });
+    navigate('/create-page', { state: clubDetails });
   };
 
   return (
     <div className={styles.previewContainer}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <p className={styles.overlayText}>Checker Pages</p>
         <p>
           <a
-            style={{ cursor: "pointer", color: "#03045e" }}
+            style={{ cursor: 'pointer', color: '#03045e' }}
             onClick={() => onCreateNewCheckerPage()}
           >
             Create Page
@@ -104,7 +101,11 @@ const CheckerPagePreview = () => {
               className={styles.copyButton}
               onClick={handleCopyButtonClick}
             >
-              <img src={copyIcon} alt="Copy" className={styles.copyIcon} />
+              <img
+                src={copyIcon}
+                alt="Copy"
+                className={styles.copyIcon}
+              />
             </button>
           </div>
 
@@ -167,7 +168,7 @@ const CheckerPagePreview = () => {
                       key={index}
                       className={`${
                         index === currentPageIndex
-                          ? styles.activeDot + " " + styles.clicked
+                          ? styles.activeDot + ' ' + styles.clicked
                           : styles.dot
                       }`}
                       onClick={() =>
