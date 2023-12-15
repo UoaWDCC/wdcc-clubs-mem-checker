@@ -4,7 +4,7 @@ Project initiated by WDCC in 2023.
 
 ### Overview
 
-React app for students to check their membership for university clubs. Uses express backend with prisma.
+React app for students to check their membership for university clubs. Uses Express backend with Prisma.
 
 ### API Environment Variables:
 
@@ -18,10 +18,17 @@ React app for students to check their membership for university clubs. Uses expr
 ### Service Account
 You must have the service account to run the backend. Contact Alex for the credentials.
 
-## Team Leadership
+## 2023 Team 
 
 - Serena Lau (Project Manager)
 - Alex McLeod (Tech Lead)
+- Vanisha Rajan (Designer)
+- Sebastian Thomas (Developer)
+- Eric Zheng (Developer)
+- Jordan See (Developer)
+- Nimit Parekh (Developer)
+- Bethany Yates (Developer)
+- Andrew Lam (Developer)
 
 ## Project Management
 
