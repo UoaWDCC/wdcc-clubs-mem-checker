@@ -5,6 +5,7 @@ Project initiated by WDCC in 2023.
 ### Overview
 
 React app for students to check their membership for university clubs. Uses Express backend with Prisma.
+Project is currently deployed to Fly.io and uses Github Actions for CI/CD. Unfortunately, the frontend uses some dependencies from the backend and vice versa, which means they have to be built together and at the same time. The Dockerfile builds both and combines them for deployment.
 
 ### API Environment Variables:
 
