@@ -62,8 +62,8 @@ model Page {
 
 model Column {
   id         Int    @id @default(autoincrement())
-  sheetsName String
-  mappedTo   String
+  originalName String
+  displayName   String
   pageId     Int
   page       Page   @relation(fields: [pageId], references: [id], onDelete: Cascade)
 }

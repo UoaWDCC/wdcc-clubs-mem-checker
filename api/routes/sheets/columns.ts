@@ -176,7 +176,7 @@ router.get(
       const originalColumn = await prisma.column.findFirst({
         where: {
           pageId: page.id,
-          mappedTo: columnName,
+          displayName: columnName,
         },
       });
 
@@ -189,7 +189,7 @@ router.get(
 
       // Extract column headers. We assume the first row contains the column headers.
       const headers = values[0];
-      const originalColumnName = originalColumn.sheetsName;
+      const originalColumnName = originalColumn.originalName;
 
       if (!headers.includes(originalColumnName))
         return res

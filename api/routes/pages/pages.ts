@@ -1,14 +1,14 @@
-import express, { Request, Response } from "express";
-import { PrismaClient, User } from "@prisma/client";
-import { nanoid } from "nanoid";
-import auth from "../../middleware/auth";
-import { JWT } from "google-auth-library";
-import { drive_v3, google } from "googleapis";
-import multer, { memoryStorage } from "multer";
-import { supabase } from "../..";
-import { v4 as uuidv4 } from "uuid";
-import IPageCustomization from "../types/IPageCustomization";
-import serviceClient from "../../service";
+import express, { Request, Response } from 'express';
+import { PrismaClient, User } from '@prisma/client';
+import { nanoid } from 'nanoid';
+import auth from '../../middleware/auth';
+import { JWT } from 'google-auth-library';
+import { drive_v3, google } from 'googleapis';
+import multer, { memoryStorage } from 'multer';
+import { supabase } from '../..';
+import { v4 as uuidv4 } from 'uuid';
+import IPageCustomization from '../types/IPageCustomization';
+import serviceClient from '../../service';
 
 const prisma = new PrismaClient();
 export const router = express.Router();
@@ -17,13 +17,13 @@ const storage = memoryStorage();
 const upload = multer({ storage });
 
 router.post(
-  "/create",
+  '/create',
   upload.fields([
     {
-      name: "background",
+      name: 'background',
     },
     {
-      name: "logo",
+      name: 'logo',
     },
   ]),
   auth,
@@ -51,7 +51,7 @@ router.post(
         return res
           .status(400)
           .send(
-            "`name`, `organisationId`, `sheetId`, `sheetTabId`, and `identificationColumns` are required fields"
+            '`name`, `organisationId`, `sheetId`, `sheetTabId`, and `identificationColumns` are required fields'
           );
 
       // Check if the sheet id is already in use
@@ -70,13 +70,13 @@ router.post(
 
       try {
         const drive = google.drive({
-          version: "v3",
+          version: 'v3',
           auth: serviceClient,
         });
         console.log(await drive.files.list());
         const permissions = await drive.permissions.list({
           fileId: sheetId,
-          fields: "permissions(emailAddress)",
+          fields: 'permissions(emailAddress)',
         });
         const isSharedWithEmail = permissions.data.permissions!.some(
           (permission: drive_v3.Schema$Permission) =>
@@ -85,13 +85,13 @@ router.post(
         if (!isSharedWithEmail)
           return res
             .status(401)
-            .send("unauthorised to access this spreadsheet");
+            .send('unauthorised to access this spreadsheet');
       } catch (err) {
         console.error(err);
         return res
           .status(500)
           .send(
-            "failed to check if sheet is shared with user. make sure this spreadsheet is shared with the service account."
+            'failed to check if sheet is shared with user. make sure this spreadsheet is shared with the service account.'
           );
       }
 
@@ -106,15 +106,15 @@ router.post(
         const fileName = background[0].originalname;
         const buffer = background[0].buffer;
         const { data, error } = await supabase.storage
-          .from("image-bucket")
-          .upload(`${uuidv4()}.${fileName.split(".").pop()}`, buffer, {
-            contentType: "image/*",
+          .from('image-bucket')
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
+            contentType: 'image/*',
           });
         if (error) {
           console.error(`Error: ${JSON.stringify(error)}`);
           return res
             .status(500)
-            .send("failed to upload background to storage bucket");
+            .send('failed to upload background to storage bucket');
         }
         backgroundUrl = storageBucketUrlPrefix + data.path;
       }
@@ -123,15 +123,15 @@ router.post(
         const fileName = logo[0].originalname;
         const buffer = logo[0].buffer;
         const { data, error } = await supabase.storage
-          .from("image-bucket")
-          .upload(`${uuidv4()}.${fileName.split(".").pop()}`, buffer, {
-            contentType: "image/*",
+          .from('image-bucket')
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
+            contentType: 'image/*',
           });
         if (error) {
           console.error(`Error: ${JSON.stringify(error)}`);
           return res
             .status(500)
-            .send("failed to upload logo to storage bucket");
+            .send('failed to upload logo to storage bucket');
         }
         logoUrl = storageBucketUrlPrefix + data.path;
       }
@@ -155,7 +155,7 @@ router.post(
           dropDownBackgroundColor: rest.dropDownBackgroundColor,
           logoLink: logoUrl,
           backgroundImageLink: backgroundUrl,
-          fontFamily: fontFamily || "Montserrat",
+          fontFamily: fontFamily || 'Montserrat',
         },
       });
 
@@ -166,8 +166,8 @@ router.post(
         await prisma.column.create({
           data: {
             pageId: page.id,
-            sheetsName: originalName,
-            mappedTo: displayName || originalName,
+            originalName: originalName,
+            displayName: displayName || originalName,
           },
         });
       });
@@ -175,19 +175,19 @@ router.post(
       res.status(200).json({ pathId });
     } catch (error) {
       console.error(`Error creating page: ${error}`);
-      res.status(400).json({ error: "Error creating page" });
+      res.status(400).json({ error: 'Error creating page' });
     }
   }
 );
 
 router.get(
-  "/verify/:webLink/:columnName/:value",
+  '/verify/:webLink/:columnName/:value',
   async (req: Request, res: Response) => {
     const { webLink, columnName, value } = req.params;
     if (!webLink || !columnName || !value)
       return res
         .status(400)
-        .send("`pageId`, `columnName`, and `value` are required fields");
+        .send('`pageId`, `columnName`, and `value` are required fields');
 
     const page = await prisma.page.findFirst({
       where: {
@@ -199,7 +199,7 @@ router.get(
       return res.status(400).send(`could not find page with link ${webLink}`);
 
     // intialise credentials
-    const sheets = google.sheets({ version: "v4", auth: serviceClient });
+    const sheets = google.sheets({ version: 'v4', auth: serviceClient });
     const columnData: {
       [key: string]: { id: string; name: string; unique: boolean };
     } = {};
@@ -216,7 +216,7 @@ router.get(
       if (!metadataResponse.data.sheets) {
         return res
           .status(400)
-          .send(JSON.stringify("spreadsheet has no sheets"));
+          .send(JSON.stringify('spreadsheet has no sheets'));
       }
 
       // Find the sheet ID that matches the given gid
@@ -226,7 +226,7 @@ router.get(
 
       // If the sheet ID is not found, return an error
       if (!sheet) {
-        return res.status(404).send(JSON.stringify("sheet not found"));
+        return res.status(404).send(JSON.stringify('sheet not found'));
       }
 
       // Get the name of the sheet
@@ -246,12 +246,12 @@ router.get(
         range,
       });
 
-      if (!values) return res.status(500).send("club has no members");
+      if (!values) return res.status(500).send('club has no members');
 
       const originalColumn = await prisma.column.findFirst({
         where: {
           pageId: page.id,
-          mappedTo: columnName,
+          displayName: columnName,
         },
       });
 
@@ -264,7 +264,7 @@ router.get(
 
       // Extract column headers. We assume the first row contains the column headers.
       const headers = values[0];
-      const originalColumnName = originalColumn.sheetsName;
+      const originalColumnName = originalColumn.originalName;
 
       if (!headers.includes(originalColumnName))
         return res
@@ -283,7 +283,7 @@ router.get(
             try {
               return element.toLowerCase();
             } catch (err) {
-              return "";
+              return '';
             }
           })
           .includes(value.toLowerCase())
@@ -297,7 +297,7 @@ router.get(
           },
         });
 
-        return res.status(200).send("value found in column");
+        return res.status(200).send('value found in column');
       } else {
         await prisma.membershipCheckUsage.create({
           data: {
@@ -308,16 +308,16 @@ router.get(
           },
         });
 
-        return res.status(200).send("could not find user in column");
+        return res.status(200).send('could not find user in column');
       }
     } catch (err) {
       console.error(err);
-      return res.status(500).send("error retrieving data");
+      return res.status(500).send('error retrieving data');
     }
   }
 );
 
-router.get("/info/:webLink", async (req: Request, res: Response) => {
+router.get('/info/:webLink', async (req: Request, res: Response) => {
   const { webLink } = req.params;
 
   const pageData = await prisma.page.findFirst({
@@ -327,7 +327,7 @@ router.get("/info/:webLink", async (req: Request, res: Response) => {
   });
 
   if (!pageData)
-    return res.status(400).send("failed to get data with that link");
+    return res.status(400).send('failed to get data with that link');
 
   const columnData = await prisma.column.findMany({
     where: {
@@ -336,7 +336,7 @@ router.get("/info/:webLink", async (req: Request, res: Response) => {
   });
 
   if (!columnData)
-    return res.status(400).send("failed to get columns data with that link");
+    return res.status(400).send('failed to get columns data with that link');
 
   const dataToReturn: any = {
     title: pageData?.name,
