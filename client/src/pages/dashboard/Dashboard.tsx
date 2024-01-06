@@ -25,7 +25,7 @@ const Dashboard = () => {
       .get(`/user/organisations`)
       .then((response) => {
         if (response.status == 200) {
-          if (response.data.length == 0) navigate("/no-clubs");
+          if (response.data.length == 0) navigate('/no-clubs');
           setUserClubs(response.data);
         } else {
           navigate('/no-clubs');
@@ -65,7 +65,7 @@ const Dashboard = () => {
     const newCancelToken = axios.CancelToken.source();
     setCancelTokenSource(newCancelToken);
     axios
-      .get(`/dashboard/club-dashboard-endpoint/${dashboard.selectedClub?.id}`, {
+      .get(`/dashboard/${dashboard.selectedClub?.id}`, {
         cancelToken: newCancelToken.token,
       })
       .then((response) => {

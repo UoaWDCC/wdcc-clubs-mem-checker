@@ -4,10 +4,16 @@ import auth from '../../middleware/auth';
 import jwt from 'jsonwebtoken';
 import { oAuth2Client } from '../auth/google';
 import { google } from 'googleapis';
-import { sheets_v4 as sheets } from 'googleapis';
+import { IMemberCountByPageId } from '../types/IMemberCountByPageId';
+import serviceClient from '../../service';
 
 export const router = Router();
 const prisma = new PrismaClient();
+
+const sheets = google.sheets({
+  version: 'v4',
+  auth: serviceClient,
+});
 
 router.get(
   '/size/:organisationId',
@@ -85,7 +91,8 @@ router.get(
               const columnData = values.slice(1).map((row) => row[k]);
 
               const nonEmptyRowCount = columnData.filter(
-                (cellValue) => cellValue !== '' && cellValue !== undefined
+                (cellValue: string) =>
+                  cellValue !== '' && cellValue !== undefined
               ).length;
 
               memberCountByPageId[page.id] = {

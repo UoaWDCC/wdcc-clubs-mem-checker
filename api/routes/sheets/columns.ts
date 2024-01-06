@@ -9,8 +9,8 @@ export const router = Router();
 const prisma = new PrismaClient();
 
 // Get the columns from the spreadsheet
-router.get('/:spreadsheetId/:sheettabid', auth, async (req, res) => {
-  const { spreadsheetId, sheettabid } = req.params;
+router.get('/:spreadsheetId/:sheetTabId', auth, async (req, res) => {
+  const { spreadsheetId, sheetTabId } = req.params;
   // User must be the shared with the sheet
   const user = await prisma.user.findFirst({
     where: {
@@ -42,7 +42,7 @@ router.get('/:spreadsheetId/:sheettabid', auth, async (req, res) => {
 
     // Find the sheet ID that matches the given gid
     const sheet = metadataResponse.data.sheets.find(
-      (sheet) => sheet.properties?.sheetId === Number(sheettabid)
+      (sheet) => sheet.properties?.sheetId === Number(sheetTabId)
     );
 
     // If the sheet ID is not found, return an error

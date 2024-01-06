@@ -5,7 +5,7 @@ import { config } from 'dotenv';
 import authRoutes from './routes/auth/google';
 import sheetroutes from './routes/sheets/columns';
 import organisationRoutes from './routes/club/club';
-import dashboardRoutes from './routes/dashboard/club_dashboard';
+import dashboardRoutes from './routes/dashboard/dashboard';
 import auth, { maybeAuth } from './middleware/auth';
 import pages from './routes/pages/pages';
 import rateLimit from 'express-rate-limit';

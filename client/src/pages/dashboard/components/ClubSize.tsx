@@ -1,7 +1,7 @@
-import { DashboardContextProvider } from "../Dashboard";
-import IDashboardContext from "../../../types/IDashboardContext";
-import styles from "./ClubSize.module.css";
-import { useContext, Dispatch, SetStateAction } from "react";
+import { DashboardContextProvider } from '../Dashboard';
+import IDashboardContext from '../../../types/IDashboardContext';
+import styles from './ClubSize.module.css';
+import { useContext, Dispatch, SetStateAction } from 'react';
 
 const ClubSize = () => {
   // retrieve context
@@ -31,7 +31,7 @@ const ClubSize = () => {
           specific to the Google Sheet for this checker page
         </h2>
         <h1 className={styles.sizeText}>
-          {memberCount !== undefined ? memberCount : "N/A"}
+          {memberCount !== undefined ? memberCount : 'N/A'}
         </h1>
       </div>
     </div>
