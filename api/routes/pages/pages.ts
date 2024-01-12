@@ -64,7 +64,25 @@ router.post(
       //   return res.status(400).json({ error: 'Sheet ID already exists' });
       // }
 
-      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+      const numberOrganisationId: number = Number.parseInt(organisationId);
+
+      // Is user even in organisation
+      const isUserInOrg =
+        (await prisma.usersInOrganisation.count({
+          where: {
+            organisationId: numberOrganisationId,
+            userId: req.body.user.id,
+          },
+        })) == 1;
+
+      if (!isUserInOrg)
+        return res
+          .status(400)
+          .send('user must be in organisation to create page');
+
+      const files = req.files as {
+        [fieldname: string]: Express.Multer.File[];
+      };
       const { background, logo } = files;
 
       let backgroundUrl: string | undefined = undefined;
@@ -104,10 +122,8 @@ router.post(
         }
         logoUrl = storageBucketUrlPrefix + data.path;
       }
-      console.log(`logoUrl = ${logoUrl}, backgroundUrl = ${backgroundUrl}`);
 
       const pathId = nanoid(); // Generate random path ID
-      const numberOrganisationId: number = Number.parseInt(organisationId);
 
       const page = await prisma.page.create({
         data: {
@@ -148,6 +164,153 @@ router.post(
     }
   }
 );
+
+router.post(
+  '/edit',
+  upload.fields([
+    {
+      name: 'background',
+    },
+    {
+      name: 'logo',
+    },
+  ]),
+  auth,
+  async (req: Request, res: Response) => {
+    try {
+      const customization: IPageCustomization & { webLink: string } = req.body;
+
+      const {
+        name,
+        sheetId,
+        sheetTabId,
+        identificationColumns,
+        fontFamily,
+        webLink,
+        ...rest
+      } = customization;
+
+      if (!webLink)
+        return res.status(400).send('`webLink` is a required field');
+
+      const existingPage = await prisma.page.findUnique({
+        where: {
+          webLink,
+        },
+      });
+
+      if (!existingPage)
+        return res.status(404).send('cannot find page with that weblink');
+
+      const organisationId = existingPage.organisationId;
+      const userId = req.body.user.id;
+
+      // Is user even in organisation
+      const isUserInOrg =
+        (await prisma.usersInOrganisation.count({
+          where: {
+            organisationId,
+            userId,
+          },
+        })) == 1;
+
+      if (!isUserInOrg)
+        return res
+          .status(400)
+          .send('user must be in organisation to create page');
+
+      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+      let backgroundUrl: string | undefined = undefined;
+      let logoUrl: string | undefined = undefined;
+      const storageBucketUrlPrefix = process.env.SUPABASE_STORAGE_URL_PREFIX!;
+
+      if (files && files.background && files.background[0]) {
+        const { background } = files;
+        const fileName = background[0].originalname;
+        const buffer = background[0].buffer;
+        const { data, error } = await supabase.storage
+          .from('image-bucket')
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
+            contentType: 'image/*',
+          });
+        if (error) {
+          console.error(`Error: ${JSON.stringify(error)}`);
+          return res
+            .status(500)
+            .send('failed to upload background to storage bucket');
+        }
+        backgroundUrl = storageBucketUrlPrefix + data.path;
+      }
+
+      if (files && files.logo && files.logo[0]) {
+        const { logo } = files;
+        const fileName = logo[0].originalname;
+        const buffer = logo[0].buffer;
+        const { data, error } = await supabase.storage
+          .from('image-bucket')
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
+            contentType: 'image/*',
+          });
+        if (error) {
+          console.error(`Error: ${JSON.stringify(error)}`);
+          return res
+            .status(500)
+            .send('failed to upload logo to storage bucket');
+        }
+        logoUrl = storageBucketUrlPrefix + data.path;
+      }
+
+      console.log('uploaded files');
+
+      const page = await prisma.page.update({
+        where: {
+          webLink,
+        },
+        data: {
+          name: name ?? existingPage.name,
+          sheetId: sheetId ?? existingPage.sheetId,
+          sheetTabId: sheetTabId ?? existingPage.sheetTabId,
+          backgroundColor: rest.backgroundColor ?? existingPage.backgroundColor,
+          textFieldBackgroundColor:
+            rest.textFieldBackgroundColor ??
+            existingPage.textFieldBackgroundColor,
+          textColor: rest.textColor ?? existingPage.textColor,
+          buttonColor: rest.buttonColor ?? existingPage.buttonColor,
+          headingColor: rest.headingColor ?? existingPage.headingColor,
+          dropDownBackgroundColor:
+            rest.dropDownBackgroundColor ??
+            existingPage.dropDownBackgroundColor,
+          logoLink: logoUrl ?? existingPage.logoLink,
+          backgroundImageLink: backgroundUrl ?? existingPage.backgroundColor,
+          fontFamily: fontFamily ?? existingPage.fontFamily ?? 'Montserrat',
+        },
+      });
+
+      console.log('updated page');
+
+      const parsedColumns: {
+        originalName: string;
+        displayName?: string;
+      }[] = JSON.parse(identificationColumns || '[]');
+      parsedColumns!.forEach(async ({ originalName, displayName }) => {
+        await prisma.column.create({
+          data: {
+            pageId: page.id,
+            originalName: originalName,
+            displayName: displayName ?? originalName,
+          },
+        });
+      });
+
+      res.status(200).json({ webLink });
+    } catch (error) {
+      console.error(`Error editing page: ${error}`);
+      res.status(400).json({ error: 'Error editing page' });
+    }
+  }
+);
+
 router.get('/info/:webLink', async (req: Request, res: Response) => {
   const { webLink } = req.params;
 

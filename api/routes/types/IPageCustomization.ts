@@ -12,8 +12,5 @@ export default interface IPageCustomization {
   logoLink?: string;
   backgroundImageLink?: string;
   fontFamily?: string;
-  identificationColumns: {
-    originalName: string;
-    displayName?: string;
-  }[];
+  identificationColumns: string;
 }
