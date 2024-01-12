@@ -130,11 +130,11 @@ const CheckerPagePreview = () => {
               {/*div for links */}
               <div className={styles.pageLinksContainer}>
                 {/* Edit button (edit functionality to be implemented) */}
-                <a href="#">Edit</a>
+                <a href={`/edit/${currentPageData.webLink}`}>Edit</a>
                 <span> | </span>
                 {/* View API keys button (view API keys functionality to be implemented) */}
-                <a href="#">View API Keys</a>
-                <span> | </span>
+                {/* <a href="#">View API Keys</a> */}
+                {/* <span> | </span> */}
                 {/* Delete button (delete functionality to be implemented) */}
                 <a href="#">Delete</a>
               </div>

@@ -16,6 +16,12 @@ const UploadButton = ({ onFileSelect, currentFile }: UploadButtonProps) => {
     // Compare the previous value of currentFile with the current value
     // before updating the selectedFile state
     setSelectedFile((prevSelectedFile) => {
+      if (!currentFile) return prevSelectedFile;
+      try {
+        currentFile.name.lastIndexOf('.');
+      } catch {
+        return prevSelectedFile;
+      }
       // If the currentFile prop has changed, update selectedFile
       return currentFile !== prevSelectedFile
         ? currentFile || null
@@ -48,7 +54,7 @@ const UploadButton = ({ onFileSelect, currentFile }: UploadButtonProps) => {
   };
 
   const getFileNameDisplay = () => {
-    if (selectedFile) {
+    if (selectedFile != null) {
       const fileName = selectedFile.name;
       const extensionIndex = fileName.lastIndexOf('.');
       if (extensionIndex !== -1) {

@@ -12,7 +12,14 @@ Component takes as props: Club ID, Club name, theme colours, club logo URL, opti
 import Button from '../../components/Button';
 import Textfield from '../../components/Textfield';
 import styles from './ClubCheckerPage.module.css';
-import { createRef, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import {
+  createRef,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { getTextColor } from '../../utils/helpers';
 import IColumn from '../../types/IColumn';
 import axios from 'axios';
@@ -21,6 +28,7 @@ import { useNavigate, useParams } from 'react-router';
 import SadFace from '../../assets/SadFace.svg';
 import DeadFace from '../../assets/DeadFace.svg';
 import CircularProgress from '@mui/material/CircularProgress';
+import WebFont from 'webfontloader';
 
 interface ClubCheckerPageProps {
   clubId?: number;
@@ -62,7 +70,13 @@ const ClubCheckerPage = ({
   webLink,
 }: ClubCheckerPageProps) => {
   // document.body.style.backgroundColor = backgroundColor || "white";
-
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: [font],
+      },
+    });
+  }, [font]);
   const navigate = useNavigate();
   const textFieldLabelRef = useRef<HTMLInputElement>(null);
 
@@ -90,6 +104,29 @@ const ClubCheckerPage = ({
       }
     });
   }, []);
+
+  const backgroundImageBlob = useMemo(() => {
+    try {
+      return (
+        backgroundImageUrl &&
+        // @ts-ignore
+        URL.createObjectURL(page.backgroundImageUrl)
+      );
+    } catch {
+      return backgroundImageUrl;
+    }
+  }, [backgroundImageUrl]);
+  const logoImageBlob = useMemo(() => {
+    try {
+      return (
+        clubLogoUrl &&
+        // @ts-ignore
+        URL.createObjectURL(clubLogoUrl)
+      );
+    } catch {
+      return clubLogoUrl;
+    }
+  }, [clubLogoUrl]);
 
   const [isError, setIsError] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<string | null>(null);
@@ -145,7 +182,9 @@ const ClubCheckerPage = ({
     <div
       className={styles.container}
       style={{
-        backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : '',
+        backgroundImage: backgroundImageBlob
+          ? `url(${backgroundImageBlob})`
+          : '',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -153,10 +192,10 @@ const ClubCheckerPage = ({
         borderRadius: isOnboarding ? '20px' : '0px',
       }}
     >
-      {clubLogoUrl && (
+      {logoImageBlob && (
         <img
           className={styles.logo}
-          src={clubLogoUrl}
+          src={logoImageBlob}
         />
       )}
       <h1

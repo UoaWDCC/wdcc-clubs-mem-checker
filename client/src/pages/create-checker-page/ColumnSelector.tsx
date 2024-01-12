@@ -9,7 +9,7 @@ import {
   useState,
   useEffect,
 } from 'react';
-import { PageContextProvider } from './CreateCheckerPage';
+import { PageContextProvider } from './EditCheckerPage';
 import IPage from '../../types/IPage';
 import { Warning2 } from 'iconsax-react';
 import DropDown from '../../components/Dropdown';
@@ -119,7 +119,6 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   };
 
   return (
-    
     <div className={styles.container}>
       <div id={styles.backButton}>
         <BackButton
@@ -132,12 +131,24 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
         />
       </div>
       <div>
-        <div className={styles.title} style={{paddingBottom: "1.5em", display: "flex", justifyContent: "center"}}>
-          <h1 style={{width: "60%", fontSize: "2.3rem", lineHeight: "1.2"}}>select & edit columns</h1>
+        <div
+          className={styles.title}
+          style={{
+            paddingBottom: '1.5em',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <h1 style={{ width: '60%', fontSize: '2.3rem', lineHeight: '1.2' }}>
+            select & edit columns
+          </h1>
           <img src={GoogleSheetsLogo} />
         </div>
 
-        <div className={styles.dropdownButtonContainer} style={{paddingBottom: "2em"}}>
+        <div
+          className={styles.dropdownButtonContainer}
+          style={{ paddingBottom: '2em' }}
+        >
           <DropDown
             onColumnClick={(column) => {
               const index: number = selectedColumnsList.findIndex(
@@ -234,7 +245,6 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
         height="4.5vh"
       />
     </div>
-    
   );
 };
 

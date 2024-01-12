@@ -261,8 +261,6 @@ router.post(
         logoUrl = storageBucketUrlPrefix + data.path;
       }
 
-      console.log('uploaded files');
-
       const page = await prisma.page.update({
         where: {
           webLink,
@@ -287,8 +285,6 @@ router.post(
         },
       });
 
-      console.log('updated page');
-
       const parsedColumns: {
         originalName: string;
         displayName?: string;
@@ -308,6 +304,66 @@ router.post(
       console.error(`Error editing page: ${error}`);
       res.status(400).json({ error: 'Error editing page' });
     }
+  }
+);
+
+router.get(
+  '/protected-info/:webLink',
+  auth,
+  async (req: Request, res: Response) => {
+    const { webLink } = req.params;
+
+    const pageData = await prisma.page.findFirst({
+      where: {
+        webLink,
+      },
+    });
+
+    if (!pageData)
+      return res.status(400).send('failed to get data with that link');
+
+    const organisationId = pageData.organisationId;
+    const userId = req.body.user.id;
+
+    const isUserInOrg =
+      (await prisma.usersInOrganisation.count({
+        where: {
+          userId,
+          organisationId,
+        },
+      })) == 1;
+
+    if (!isUserInOrg)
+      return res
+        .status(401)
+        .send('you must be in the organisation to access this information');
+
+    const columnData = await prisma.column.findMany({
+      where: {
+        pageId: pageData.id,
+      },
+    });
+
+    if (!columnData)
+      return res.status(400).send('failed to get columns data with that link');
+
+    const dataToReturn: any = {
+      title: pageData?.name,
+      backgroundColor: pageData?.backgroundColor,
+      dropDownBackgroundColor: pageData.dropDownBackgroundColor,
+      textFieldBackgroundColor: pageData?.textFieldBackgroundColor,
+      textFieldtextColor: pageData?.textColor,
+      buttonColor: pageData?.buttonColor,
+      titleTextColor: pageData?.headingColor,
+      logoLink: pageData?.logoLink || undefined,
+      backgroundImageLink: pageData?.backgroundImageLink || undefined,
+      font: pageData?.fontFamily,
+      clubId: pageData?.organisationId,
+      identificationColumns: columnData,
+      googleSheetLink: `https://docs.google.com/spreadsheets/d/${pageData.sheetId}/edit#gid=${pageData.sheetTabId}`,
+    };
+
+    return res.status(200).send(dataToReturn);
   }
 );
 

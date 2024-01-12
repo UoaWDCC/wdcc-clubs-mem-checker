@@ -2,7 +2,7 @@ import styles from './style.module.css';
 import BackButton from '../../components/BackButton';
 import Button from '../../components/Button';
 import { useContext, Dispatch, SetStateAction } from 'react';
-import { PageContextProvider } from './CreateCheckerPage';
+import { PageContextProvider } from './EditCheckerPage';
 import IPage from '../../types/IPage';
 import UploadButton from './CustomiseLogo Components/UploadButton';
 import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
@@ -32,8 +32,13 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
           />
         </div>
         <div>
-          <h2 className={styles.customisePageTitle}>customise page</h2> 
-          <i className={styles.subtitle} style={{ fontWeight: 500 }}>customise page for your members</i>
+          <h2 className={styles.customisePageTitle}>customise page</h2>
+          <i
+            className={styles.subtitle}
+            style={{ fontWeight: 500 }}
+          >
+            customise page for your members
+          </i>
           <p className={styles.optionalText}>
             please upload your club's logo (optional)
           </p>
@@ -68,16 +73,8 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
             buttonBackgroundColor={page.buttonColor}
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
-            clubLogoUrl={
-              // @ts-ignore
-              page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
-            }
-            backgroundImageUrl={
-              page.backgroundImageLink
-                ? // @ts-ignore
-                  URL.createObjectURL(page.backgroundImageLink!)
-                : undefined
-            }
+            clubLogoUrl={page.logoLink}
+            backgroundImageUrl={page.backgroundImageLink}
             optionsList={page.identificationColumns || []}
             isOnboarding={true}
           />
