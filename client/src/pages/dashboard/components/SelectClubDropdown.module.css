@@ -11,6 +11,7 @@
   column-gap: 10px;
   display: flex;
   padding: 10px 20px;
+  cursor: pointer;
   /*disable highlighting of text*/
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -26,7 +27,7 @@
 
 .text {
   color: #03045e;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   max-height: 50px;
   overflow: hidden;
@@ -64,6 +65,49 @@
   background: #555;
 }
 
-.clubCard:hover {
-  background-color: #DAF6FC;
+.clubCard:hover,
+.createClubButton:hover,
+.joinClubButton:hover {
+  background-color: #daf6fc;
+}
+
+.createClubButton {
+  background-color: transparent;
+  grid-column: 1;
+  color: #03045e;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  margin: 0.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  font-size: 18px;
+  width: 100%;
+  border: none;
+}
+
+.createClubIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #d9d9d9;
+  color: black;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.joinClubButton {
+  background-color: transparent;
+  grid-column: 2;
+  color: #03045e;
+  margin: 0.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  width: 100%;
+  border: none;
 }

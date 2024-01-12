@@ -1,4 +1,4 @@
-import styles from "./CheckerPageMetrics.module.css";
+import styles from './CheckerPageMetrics.module.css';
 import {
   useState,
   useEffect,
@@ -6,10 +6,10 @@ import {
   SetStateAction,
   useContext,
   useRef,
-} from "react";
-import { ArrowDown2, ArrowUp2 } from "iconsax-react";
-import { DashboardContextProvider } from "../Dashboard";
-import IDashboardContext from "../../../types/IDashboardContext";
+} from 'react';
+import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
+import { DashboardContextProvider } from '../Dashboard';
+import IDashboardContext from '../../../types/IDashboardContext';
 
 const getKeyFromDisplayString = (
   displayString: string,
@@ -38,10 +38,10 @@ const CheckerPageMetrics = () => {
       : Object.create(null);
 
   const possibleTimePeriodsDisplay: { [key: string]: string } = {
-    allTime: "all time",
-    lastDay: "last day",
-    last7Days: "last 7 days",
-    last30Days: "last 30 days",
+    allTime: 'all time',
+    lastDay: 'last day',
+    last7Days: 'last 7 days',
+    last30Days: 'last 30 days',
   };
   const possibleTimePeriods = Object.keys(metrics);
 
@@ -67,11 +67,11 @@ const CheckerPageMetrics = () => {
 
   useEffect(() => {
     // Attach the event listener when the component mounts
-    document.addEventListener("mousedown", closeDropdownOnOutsideClick);
+    document.addEventListener('mousedown', closeDropdownOnOutsideClick);
 
     // Clean up the event listener when the component unmounts
     return () => {
-      document.removeEventListener("mousedown", closeDropdownOnOutsideClick);
+      document.removeEventListener('mousedown', closeDropdownOnOutsideClick);
     };
   }, []);
 
@@ -89,15 +89,15 @@ const CheckerPageMetrics = () => {
       <div
         className={styles.subcontainer}
         style={{
-          background: "transparent",
-          height: "20%",
+          background: 'transparent',
+          height: '20%',
         }}
       >
         <div
           ref={dropdownTitleRef}
           className={styles.dropdown}
           style={{
-            background: "#087DF1",
+            background: '#087DF1',
           }}
           onClick={
             Object.getPrototypeOf(metrics) === null
@@ -106,21 +106,34 @@ const CheckerPageMetrics = () => {
           }
         >
           <p className={styles.dropdownText}>
-            {Object.getPrototypeOf(metrics) === null ? "N/A" : timePeriod}{" "}
+            {Object.getPrototypeOf(metrics) === null ? 'N/A' : timePeriod}{' '}
           </p>
           <div className={styles.dropdownArrow}>
-            {!isOpen && <ArrowDown2 size="20" color="white" />}
-            {isOpen && <ArrowUp2 size="20" color="white" />}
+            {!isOpen && (
+              <ArrowDown2
+                size="20"
+                color="white"
+              />
+            )}
+            {isOpen && (
+              <ArrowUp2
+                size="20"
+                color="white"
+              />
+            )}
           </div>
         </div>
         {isOpen && (
-          <div ref={dropdownRef} className={styles.dropdownList}>
+          <div
+            ref={dropdownRef}
+            className={styles.dropdownList}
+          >
             {Object.values(possibleTimePeriodsDisplay).map((time) => (
               <div
                 key={time}
                 className={styles.dropdownCard}
                 onClick={() => handleSelectTimePeriod(time)}
-                style={{ transform: "translate(0%, 5.7vh)" }}
+                style={{ transform: 'translate(0%, 5.7vh)' }}
               >
                 <p>{time}</p>
               </div>
@@ -131,15 +144,15 @@ const CheckerPageMetrics = () => {
       <div
         className={styles.subcontainer}
         style={{
-          background: "transparent",
-          height: "40%",
+          background: 'transparent',
+          height: '40%',
         }}
       >
         <h1 className={styles.header}>number of users</h1>
         <h1 className={styles.subheader}>total number of checks performed</h1>
         <h1 className={styles.statisticText}>
           {Object.getPrototypeOf(metrics) === null
-            ? "N/A"
+            ? 'N/A'
             : timePeriod &&
               metrics[
                 getKeyFromDisplayString(timePeriod, possibleTimePeriodsDisplay)
@@ -149,9 +162,9 @@ const CheckerPageMetrics = () => {
       <div
         className={styles.subcontainer}
         style={{
-          background: "#E6E9F1",
-          height: "40%",
-          padding: "20px"
+          background: '#E6E9F1',
+          height: '40%',
+          padding: '20px',
         }}
       >
         <h1 className={styles.header}>duplicates found</h1>
@@ -160,7 +173,7 @@ const CheckerPageMetrics = () => {
         </h2>
         <h1 className={styles.statisticText}>
           {Object.getPrototypeOf(metrics) === null
-            ? "N/A"
+            ? 'N/A'
             : timePeriod &&
               metrics[
                 getKeyFromDisplayString(timePeriod, possibleTimePeriodsDisplay)

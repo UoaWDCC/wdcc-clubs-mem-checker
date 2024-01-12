@@ -30,9 +30,9 @@ const PublicCheckerPage = () => {
   if (pageData.identificationColumns) {
     columnArray = pageData.identificationColumns.map((obj) => ({
       // @ts-ignore
-      originalName: obj.sheetsName ?? '',
+      originalName: obj.originalName ?? '',
       // @ts-ignore
-      displayName: obj.mappedTo ?? '',
+      displayName: obj.displayName ?? '',
     }));
   }
 

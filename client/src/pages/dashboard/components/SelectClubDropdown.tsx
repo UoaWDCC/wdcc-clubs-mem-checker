@@ -6,13 +6,16 @@ import {
   useLayoutEffect,
   useRef,
   useState,
-} from "react";
-import EmptyClubLogo from "../../../assets/EmptyClubLogo.svg";
-import styles from "./SelectClubDropdown.module.css";
-import { ArrowDown2, ArrowUp2 } from "iconsax-react";
-import { DashboardContextProvider } from "../Dashboard";
-import IDashboardContext from "../../../types/IDashboardContext";
-import IDropdownClub from "../../../types/IDropdownClub";
+} from 'react';
+import { useNavigate } from 'react-router';
+import EmptyClubLogo from '../../../assets/EmptyClubLogo.svg';
+import styles from './SelectClubDropdown.module.css';
+import { ArrowDown2, ArrowUp2, Cloud, CloudPlus } from 'iconsax-react';
+import { DashboardContextProvider } from '../Dashboard';
+import IDashboardContext from '../../../types/IDashboardContext';
+import IDropdownClub from '../../../types/IDropdownClub';
+import CreateClub from '../../../assets/create-icon.svg';
+import JoinClub from '../../../assets/join-group.svg';
 
 interface SelectClubDropdownProps {
   clubs: IDropdownClub[];
@@ -20,6 +23,8 @@ interface SelectClubDropdownProps {
 
 // NEED TO ADD HOVER COLOUR
 const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
+  const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // retrieve context
@@ -34,7 +39,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
 
   const handleSelectClub = (club: IDropdownClub) => {
     setIsOpen(!isOpen);
-    localStorage.setItem("selectedClub", JSON.stringify(club));
+    localStorage.setItem('selectedClub', JSON.stringify(club));
     setDashboard({ ...dashboard, selectedClub: club });
   };
 
@@ -52,11 +57,11 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
 
   // Attach the event listener when the component mounts
   useEffect(() => {
-    document.addEventListener("mousedown", closeDropdownOnOutsideClick);
+    document.addEventListener('mousedown', closeDropdownOnOutsideClick);
 
     // Clean up the event listener when the component unmounts
     return () => {
-      document.removeEventListener("mousedown", closeDropdownOnOutsideClick);
+      document.removeEventListener('mousedown', closeDropdownOnOutsideClick);
     };
   }, []);
 
@@ -72,68 +77,48 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     updateWidth();
 
     // Update width when the window is resized
-    window.addEventListener("resize", updateWidth);
+    window.addEventListener('resize', updateWidth);
 
     // Clean up the event listener on unmount
     return () => {
-      window.removeEventListener("resize", updateWidth);
+      window.removeEventListener('resize', updateWidth);
     };
   }, []);
 
-  // if no clubs attached to user
-  if (clubs.length == 0) {
-    return (
-      <div className={styles.outerContainer}>
-        <div
-          className={styles.clubCard}
-          style={{
-            backgroundColor: "#e8f7fb",
-            borderRadius: "20px",
-            justifyContent: "center",
-          }}
-        >
-          <p className={styles.text}>No Clubs Registered</p>
-        </div>
-      </div>
-    );
-  }
-
-  const renderDropdownArrow =
-    clubs.length > 1 &&
-    (isOpen ? (
-      <ArrowUp2
-        color="#000000"
-        size={28}
-        variant="Bold"
-        style={{ cursor: "pointer", marginLeft: "auto" }}
-        onClick={() => setIsOpen(!isOpen)}
-      />
-    ) : (
-      <ArrowDown2
-        color="#000000"
-        size={28}
-        variant="Bold"
-        style={{ cursor: "pointer", marginLeft: "auto" }}
-        onClick={() => setIsOpen(!isOpen)}
-      />
-    ));
+  const renderDropdownArrow = isOpen ? (
+    <ArrowUp2
+      color="#000000"
+      size={28}
+      variant="Bold"
+      style={{ cursor: 'pointer', marginLeft: 'auto' }}
+      onClick={() => setIsOpen(!isOpen)}
+    />
+  ) : (
+    <ArrowDown2
+      color="#000000"
+      size={28}
+      variant="Bold"
+      style={{ cursor: 'pointer', marginLeft: 'auto' }}
+      onClick={() => setIsOpen(!isOpen)}
+    />
+  );
 
   return (
     <div
       ref={outerContainerRef}
       className={styles.outerContainer}
-      style={{ backgroundColor: `${isOpen ? "#d6ebf0" : "transparent"}` }}
+      style={{ backgroundColor: `${isOpen ? '#d6ebf0' : 'transparent'}` }}
     >
       <div
         className={styles.clubCard}
         style={{
-          backgroundColor: "#DAF6FC",
-          borderRadius: "20px",
+          backgroundColor: '#DAF6FC',
+          borderRadius: '20px',
         }}
       >
         <img
           className={styles.logo}
-          style={{ border: "3px solid #E0E0E0" }}
+          style={{ border: '3px solid #E0E0E0' }}
           src={
             dashboard.selectedClub.logo
               ? dashboard.selectedClub.logo
@@ -151,14 +136,53 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
             width: `${clubCardWidth}px`,
           }}
         >
+          <div
+            className={styles.clubCard}
+            style={{ height: clubCardHeight }}
+            onClick={() => navigate('/club-details')}
+          >
+            <div className={styles.createClubIcon}>
+              <img
+                style={{ width: '30px' }}
+                src={CreateClub}
+              />
+            </div>
+            <p className={styles.text}>Create New Club</p>
+          </div>
+          <div
+            className={styles.clubCard}
+            style={{ height: clubCardHeight }}
+            onClick={() => navigate('/invite-code')}
+          >
+            <div className={styles.createClubIcon}>
+              <img
+                style={{ width: '30px' }}
+                src={JoinClub}
+              />
+            </div>
+            <p className={styles.text}>Join Club</p>
+          </div>
+          <hr
+            style={{
+              height: '0.25rem',
+              border: 'none',
+              backgroundColor: '#D9D9D9',
+              margin: '0.2rem',
+              borderRadius: '0.4rem',
+            }}
+          />
+
           {clubs.map((club) => (
             <div
               className={styles.clubCard}
-              style={{ height: clubCardHeight, cursor: "pointer" }}
+              style={{ height: clubCardHeight, cursor: 'pointer' }}
               onClick={() => handleSelectClub(club)}
               key={club.id}
             >
-              <img className={styles.logo} src={club.logo || EmptyClubLogo} />
+              <img
+                className={styles.logo}
+                src={club.logo || EmptyClubLogo}
+              />
               <p className={styles.text}>{club.name}</p>
             </div>
           ))}

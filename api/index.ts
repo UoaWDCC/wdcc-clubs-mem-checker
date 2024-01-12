@@ -5,8 +5,7 @@ import { config } from 'dotenv';
 import authRoutes from './routes/auth/google';
 import sheetroutes from './routes/sheets/columns';
 import organisationRoutes from './routes/club/club';
-import dashboardRoutes from './routes/dashboard/club_dashboard';
-import club_admin_size_routes from './routes/club_size/club_size';
+import dashboardRoutes from './routes/dashboard/dashboard';
 import auth, { maybeAuth } from './middleware/auth';
 import pages from './routes/pages/pages';
 import rateLimit from 'express-rate-limit';
@@ -60,7 +59,6 @@ app.use('/api/sheet/columns', sheetroutes);
 app.use('/api/club', organisationRoutes);
 app.use('/api/pages', pages);
 app.use('/api/dashboard', dashboardRoutes);
-app.use('/api/club-size', club_admin_size_routes);
 app.use('/api/user', userRoutes);
 
 app.get('/api/firstname', auth, async (req, res) => {
