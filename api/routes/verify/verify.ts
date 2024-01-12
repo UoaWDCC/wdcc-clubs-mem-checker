@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 export const router = express.Router();
 
 router.get(
-  '/verify/:webLink/:columnName/:value',
+  '/:webLink/:columnName/:value',
   async (req: Request, res: Response) => {
     const { webLink, columnName, value } = req.params;
     if (!webLink || !columnName || !value)
