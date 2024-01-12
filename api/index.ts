@@ -56,7 +56,7 @@ app.use('/api/auth/google', authRoutes);
 app.use('/api/sheet/columns', sheetroutes);
 app.use('/api/club', organisationRoutes);
 app.use('/api/pages', pagesRoutes);
-app.use('api/verify', verifyRoutes);
+app.use('/api/verify', verifyRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/user', userRoutes);
 
