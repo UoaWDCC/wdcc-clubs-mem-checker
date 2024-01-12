@@ -178,13 +178,19 @@ router.post(
   auth,
   async (req: Request, res: Response) => {
     try {
-      const customization: IPageCustomization & { webLink: string } = req.body;
+      const customization: IPageCustomization & {
+        webLink: string;
+        removeLogo: boolean;
+        removeBackground: boolean;
+      } = req.body;
 
       const {
         name,
         sheetId,
         sheetTabId,
         identificationColumns,
+        removeBackground,
+        removeLogo,
         fontFamily,
         webLink,
         ...rest
@@ -279,8 +285,10 @@ router.post(
           dropDownBackgroundColor:
             rest.dropDownBackgroundColor ??
             existingPage.dropDownBackgroundColor,
-          logoLink: logoUrl ?? existingPage.logoLink,
-          backgroundImageLink: backgroundUrl ?? existingPage.backgroundColor,
+          logoLink: removeLogo ? undefined : logoUrl ?? existingPage.logoLink,
+          backgroundImageLink: removeBackground
+            ? undefined
+            : backgroundUrl ?? existingPage.backgroundColor,
           fontFamily: fontFamily ?? existingPage.fontFamily ?? 'Montserrat',
         },
       });
@@ -290,9 +298,12 @@ router.post(
         displayName?: string;
       }[] = JSON.parse(identificationColumns || '[]');
       parsedColumns!.forEach(async ({ originalName, displayName }) => {
-        await prisma.column.create({
-          data: {
+        await prisma.column.updateMany({
+          where: {
+            originalName,
             pageId: page.id,
+          },
+          data: {
             originalName: originalName,
             displayName: displayName ?? originalName,
           },
