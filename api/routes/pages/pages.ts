@@ -64,39 +64,25 @@ router.post(
       //   return res.status(400).json({ error: 'Sheet ID already exists' });
       // }
 
-      const user = req.body.user;
-      // intialise credentials
-      const userEmailAddress = user.email;
+      const numberOrganisationId: number = Number.parseInt(organisationId);
 
-      try {
-        const drive = google.drive({
-          version: 'v3',
-          auth: serviceClient,
-        });
-        console.log((await drive.files.list()).data.files);
-        const permissions = await drive.permissions.list({
-          fileId: sheetId,
-          fields: 'permissions(emailAddress)',
-        });
-        console.log(permissions);
-        const isSharedWithEmail = permissions.data.permissions!.some(
-          (permission: drive_v3.Schema$Permission) =>
-            permission.emailAddress === userEmailAddress
-        );
-        if (!isSharedWithEmail)
-          return res
-            .status(401)
-            .send('unauthorised to access this spreadsheet');
-      } catch (err) {
-        console.error(err);
+      // Is user even in organisation
+      const isUserInOrg =
+        (await prisma.usersInOrganisation.count({
+          where: {
+            organisationId: numberOrganisationId,
+            userId: req.body.user.id,
+          },
+        })) == 1;
+
+      if (!isUserInOrg)
         return res
-          .status(500)
-          .send(
-            'failed to check if sheet is shared with user. make sure this spreadsheet is shared with the service account.'
-          );
-      }
+          .status(400)
+          .send('user must be in organisation to create page');
 
-      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+      const files = req.files as {
+        [fieldname: string]: Express.Multer.File[];
+      };
       const { background, logo } = files;
 
       let backgroundUrl: string | undefined = undefined;
@@ -136,10 +122,8 @@ router.post(
         }
         logoUrl = storageBucketUrlPrefix + data.path;
       }
-      console.log(`logoUrl = ${logoUrl}, backgroundUrl = ${backgroundUrl}`);
 
       const pathId = nanoid(); // Generate random path ID
-      const numberOrganisationId: number = Number.parseInt(organisationId);
 
       const page = await prisma.page.create({
         data: {
@@ -181,140 +165,251 @@ router.post(
   }
 );
 
-router.get(
-  '/verify/:webLink/:columnName/:value',
+router.post(
+  '/edit',
+  upload.fields([
+    {
+      name: 'background',
+    },
+    {
+      name: 'logo',
+    },
+  ]),
+  auth,
   async (req: Request, res: Response) => {
-    const { webLink, columnName, value } = req.params;
-    if (!webLink || !columnName || !value)
-      return res
-        .status(400)
-        .send('`pageId`, `columnName`, and `value` are required fields');
+    try {
+      const customization: IPageCustomization & { webLink: string } = req.body;
 
-    const page = await prisma.page.findFirst({
+      const {
+        name,
+        sheetId,
+        sheetTabId,
+        identificationColumns,
+        fontFamily,
+        webLink,
+        ...rest
+      } = customization;
+
+      if (!webLink)
+        return res.status(400).send('`webLink` is a required field');
+
+      const existingPage = await prisma.page.findUnique({
+        where: {
+          webLink,
+        },
+      });
+
+      if (!existingPage)
+        return res.status(404).send('cannot find page with that weblink');
+
+      const organisationId = existingPage.organisationId;
+      const userId = req.body.user.id;
+
+      // Is user even in organisation
+      const isUserInOrg =
+        (await prisma.usersInOrganisation.count({
+          where: {
+            organisationId,
+            userId,
+          },
+        })) == 1;
+
+      if (!isUserInOrg)
+        return res
+          .status(400)
+          .send('user must be in organisation to create page');
+
+      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+      let backgroundUrl: string | undefined = undefined;
+      let logoUrl: string | undefined = undefined;
+      const storageBucketUrlPrefix = process.env.SUPABASE_STORAGE_URL_PREFIX!;
+
+      if (files && files.background && files.background[0]) {
+        const { background } = files;
+        const fileName = background[0].originalname;
+        const buffer = background[0].buffer;
+        const { data, error } = await supabase.storage
+          .from('image-bucket')
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
+            contentType: 'image/*',
+          });
+        if (error) {
+          console.error(`Error: ${JSON.stringify(error)}`);
+          return res
+            .status(500)
+            .send('failed to upload background to storage bucket');
+        }
+        backgroundUrl = storageBucketUrlPrefix + data.path;
+      }
+
+      if (files && files.logo && files.logo[0]) {
+        const { logo } = files;
+        const fileName = logo[0].originalname;
+        const buffer = logo[0].buffer;
+        const { data, error } = await supabase.storage
+          .from('image-bucket')
+          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
+            contentType: 'image/*',
+          });
+        if (error) {
+          console.error(`Error: ${JSON.stringify(error)}`);
+          return res
+            .status(500)
+            .send('failed to upload logo to storage bucket');
+        }
+        logoUrl = storageBucketUrlPrefix + data.path;
+      }
+
+      const page = await prisma.page.update({
+        where: {
+          webLink,
+        },
+        data: {
+          name: name ?? existingPage.name,
+          sheetId: sheetId ?? existingPage.sheetId,
+          sheetTabId: sheetTabId ?? existingPage.sheetTabId,
+          backgroundColor: rest.backgroundColor ?? existingPage.backgroundColor,
+          textFieldBackgroundColor:
+            rest.textFieldBackgroundColor ??
+            existingPage.textFieldBackgroundColor,
+          textColor: rest.textColor ?? existingPage.textColor,
+          buttonColor: rest.buttonColor ?? existingPage.buttonColor,
+          headingColor: rest.headingColor ?? existingPage.headingColor,
+          dropDownBackgroundColor:
+            rest.dropDownBackgroundColor ??
+            existingPage.dropDownBackgroundColor,
+          logoLink: logoUrl ?? existingPage.logoLink,
+          backgroundImageLink: backgroundUrl ?? existingPage.backgroundColor,
+          fontFamily: fontFamily ?? existingPage.fontFamily ?? 'Montserrat',
+        },
+      });
+
+      const parsedColumns: {
+        originalName: string;
+        displayName?: string;
+      }[] = JSON.parse(identificationColumns || '[]');
+      parsedColumns!.forEach(async ({ originalName, displayName }) => {
+        await prisma.column.create({
+          data: {
+            pageId: page.id,
+            originalName: originalName,
+            displayName: displayName ?? originalName,
+          },
+        });
+      });
+
+      res.status(200).json({ webLink });
+    } catch (error) {
+      console.error(`Error editing page: ${error}`);
+      res.status(400).json({ error: 'Error editing page' });
+    }
+  }
+);
+
+router.delete('/delete/:webLink', auth, async (req: Request, res: Response) => {
+  const { webLink } = req.params;
+
+  const pageData = await prisma.page.findFirst({
+    where: {
+      webLink,
+    },
+  });
+
+  if (!pageData)
+    return res.status(400).send('failed to get data with that link');
+
+  const organisationId = pageData.organisationId;
+  const userId = req.body.user.id;
+
+  const isUserInOrg =
+    (await prisma.usersInOrganisation.count({
+      where: {
+        userId,
+        organisationId,
+      },
+    })) == 1;
+
+  if (!isUserInOrg)
+    return res
+      .status(401)
+      .send('you must be in the organisation to delete this page');
+
+  const columnData = await prisma.column.findMany({
+    where: {
+      pageId: pageData.id,
+    },
+  });
+
+  if (!columnData)
+    return res.status(400).send('failed to get columns data with that link');
+
+  await prisma.page.delete({
+    where: {
+      webLink,
+    },
+  });
+
+  return res.status(200).send(`deleted page`);
+});
+
+router.get(
+  '/protected-info/:webLink',
+  auth,
+  async (req: Request, res: Response) => {
+    const { webLink } = req.params;
+
+    const pageData = await prisma.page.findFirst({
       where: {
         webLink,
       },
     });
 
-    if (!page)
-      return res.status(400).send(`could not find page with link ${webLink}`);
+    if (!pageData)
+      return res.status(400).send('failed to get data with that link');
 
-    // intialise credentials
-    const sheets = google.sheets({ version: 'v4', auth: serviceClient });
-    const columnData: {
-      [key: string]: { id: string; name: string; unique: boolean };
-    } = {};
+    const organisationId = pageData.organisationId;
+    const userId = req.body.user.id;
 
-    try {
-      // Retrieve the metadata for the spreadsheet to get the names and IDs of all sheet
-      const spreadsheetId = page.sheetId;
-      const spreadsheetTabId = page.sheetTabId;
-      const metadataResponse = await sheets.spreadsheets.get({
-        spreadsheetId,
-      });
-
-      // If there are no sheets in the spreadsheet, return an empty object
-      if (!metadataResponse.data.sheets) {
-        return res
-          .status(400)
-          .send(JSON.stringify('spreadsheet has no sheets'));
-      }
-
-      // Find the sheet ID that matches the given gid
-      const sheet = metadataResponse.data.sheets.find(
-        (sheet) => sheet.properties?.sheetId === Number(spreadsheetTabId)
-      );
-
-      // If the sheet ID is not found, return an error
-      if (!sheet) {
-        return res.status(404).send(JSON.stringify('sheet not found'));
-      }
-
-      // Get the name of the sheet
-      const sheetName = sheet.properties?.title;
-
-      // Create an object to store the column data for each sheet
-      const columnData: {
-        [key: string]: { id: string; name: string; unique: boolean };
-      } = {};
-
-      // Retrieve the data from the sheet
-      const range = `${sheetName}!A1:Z`;
-      const {
-        data: { values },
-      } = await sheets.spreadsheets.values.get({
-        spreadsheetId,
-        range,
-      });
-
-      if (!values) return res.status(500).send('club has no members');
-
-      const originalColumn = await prisma.column.findFirst({
+    const isUserInOrg =
+      (await prisma.usersInOrganisation.count({
         where: {
-          pageId: page.id,
-          displayName: columnName,
+          userId,
+          organisationId,
         },
-      });
+      })) == 1;
 
-      if (!originalColumn)
-        return res
-          .status(400)
-          .send(
-            `could not find column mapped to ${columnName} in page with id ${page.id}`
-          );
+    if (!isUserInOrg)
+      return res
+        .status(401)
+        .send('you must be in the organisation to access this information');
 
-      // Extract column headers. We assume the first row contains the column headers.
-      const headers = values[0];
-      const originalColumnName = originalColumn.originalName;
+    const columnData = await prisma.column.findMany({
+      where: {
+        pageId: pageData.id,
+      },
+    });
 
-      if (!headers.includes(originalColumnName))
-        return res
-          .status(500)
-          .send(
-            `could not find that column ${originalColumnName} mapped to ${columnName} in spreadsheet`
-          );
+    if (!columnData)
+      return res.status(400).send('failed to get columns data with that link');
 
-      const columnIndex: number = headers.indexOf(originalColumnName);
+    const dataToReturn: any = {
+      title: pageData?.name,
+      backgroundColor: pageData?.backgroundColor,
+      dropDownBackgroundColor: pageData.dropDownBackgroundColor,
+      textFieldBackgroundColor: pageData?.textFieldBackgroundColor,
+      textFieldtextColor: pageData?.textColor,
+      buttonColor: pageData?.buttonColor,
+      titleTextColor: pageData?.headingColor,
+      logoLink: pageData?.logoLink || undefined,
+      backgroundImageLink: pageData?.backgroundImageLink || undefined,
+      font: pageData?.fontFamily,
+      clubId: pageData?.organisationId,
+      identificationColumns: columnData,
+      googleSheetLink: `https://docs.google.com/spreadsheets/d/${pageData.sheetId}/edit#gid=${pageData.sheetTabId}`,
+    };
 
-      // Iterate through each column
-      const column = values.slice(1).map((row) => row[columnIndex]);
-      if (
-        column
-          .map((element: string) => {
-            try {
-              return element.toLowerCase();
-            } catch (err) {
-              return '';
-            }
-          })
-          .includes(value.toLowerCase())
-      ) {
-        await prisma.membershipCheckUsage.create({
-          data: {
-            pageId: page.id,
-            isDuplicate: true,
-            userInput: value,
-            columnName,
-          },
-        });
-
-        return res.status(200).send('value found in column');
-      } else {
-        await prisma.membershipCheckUsage.create({
-          data: {
-            pageId: page.id,
-            isDuplicate: false,
-            userInput: value,
-            columnName,
-          },
-        });
-
-        return res.status(200).send('could not find user in column');
-      }
-    } catch (err) {
-      console.error(err);
-      return res.status(500).send('error retrieving data');
-    }
+    return res.status(200).send(dataToReturn);
   }
 );
 

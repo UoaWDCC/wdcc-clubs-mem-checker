@@ -15,6 +15,7 @@ const getServiceClient = () => {
           scopes: [
             'https://www.googleapis.com/auth/spreadsheets',
             'https://www.googleapis.com/auth/drive',
+            'https://www.googleapis.com/auth/documents',
           ],
         }
       : {
@@ -22,6 +23,7 @@ const getServiceClient = () => {
           scopes: [
             'https://www.googleapis.com/auth/spreadsheets',
             'https://www.googleapis.com/auth/drive',
+            'https://www.googleapis.com/auth/documents',
           ],
         };
   return new google.auth.GoogleAuth(bodyInfo);

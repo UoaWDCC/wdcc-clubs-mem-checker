@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { HomePage } from './pages/home/home';
-import CreateCheckerPage from './pages/create-checker-page/CreateCheckerPage';
 import ClubDetailPage from './pages/club-detail-page/ClubDetailPage';
 import { GoogleSignIn } from './pages/google-sign-in/GoogleSignInPage';
 import NoClubs from './pages/no-clubs/NoClubs';
@@ -14,6 +13,7 @@ import InviteCodePage from './pages/invite-code/InviteCodePage';
 import { ConfimationPage } from './pages/onboarding-confirmation-page/ConfirmationPage';
 import PublicCheckerPage from './pages/public-checker-page/PublicCheckerPage';
 import OurTeam from './pages/our-team/OurTeam';
+import EditCheckerPage from './pages/create-checker-page/EditCheckerPage';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +26,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/create-page',
-    element: <CreateCheckerPage />,
+    element: <EditCheckerPage isEdit={false} />,
+  },
+  {
+    path: '/edit/:webLinkId',
+    element: <EditCheckerPage isEdit={true} />,
   },
   {
     path: '/sign-in',

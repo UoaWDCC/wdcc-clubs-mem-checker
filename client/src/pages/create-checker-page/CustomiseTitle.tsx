@@ -7,9 +7,10 @@ import {
   useState,
   createRef,
   useEffect,
+  useMemo,
 } from 'react';
 
-import { PageContextProvider } from './CreateCheckerPage';
+import { PageContextProvider } from './EditCheckerPage';
 import IPage from '../../types/IPage';
 import Textfield from '../../components/Textfield';
 import Button from '../../components/Button';
@@ -42,7 +43,6 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
       onNext();
     }
   };
-
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
@@ -107,16 +107,8 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
             buttonBackgroundColor={page.buttonColor}
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
-            clubLogoUrl={
-              // @ts-ignore
-              page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
-            }
-            backgroundImageUrl={
-              page.backgroundImageLink
-                ? // @ts-ignore
-                  URL.createObjectURL(page.backgroundImageLink!)
-                : undefined
-            }
+            clubLogoUrl={page.logoLink}
+            backgroundImageUrl={page.backgroundImageLink}
             optionsList={page.identificationColumns || []}
             isOnboarding={true}
           />

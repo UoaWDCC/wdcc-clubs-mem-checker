@@ -2,7 +2,7 @@ import styles from './style.module.css';
 import BackButton from '../../components/BackButton';
 import Button from '../../components/Button';
 import { useContext, Dispatch, SetStateAction } from 'react';
-import { PageContextProvider } from './CreateCheckerPage';
+import { PageContextProvider } from './EditCheckerPage';
 import IPage from '../../types/IPage';
 import UploadButton from './CustomiseLogo Components/UploadButton';
 import ClubCheckerPage from '../club-checker-page/ClubCheckerPage';
@@ -59,7 +59,6 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
         <button
           id={styles.CustomisePageNextButton}
           onClick={onNext}
-          
         >
           next
         </button>
@@ -77,16 +76,8 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
             buttonBackgroundColor={page.buttonColor}
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
-            clubLogoUrl={
-              // @ts-ignore
-              page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
-            }
-            backgroundImageUrl={
-              page.backgroundImageLink
-                ? // @ts-ignore
-                  URL.createObjectURL(page.backgroundImageLink!)
-                : undefined
-            }
+            clubLogoUrl={page.logoLink}
+            backgroundImageUrl={page.backgroundImageLink}
             optionsList={page.identificationColumns || []}
             isOnboarding={true}
           />

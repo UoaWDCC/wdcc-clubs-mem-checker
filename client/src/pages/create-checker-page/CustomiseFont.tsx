@@ -3,7 +3,7 @@ import styles from './style.module.css';
 import Button from '../../components/Button';
 import BackButton from '../../components/BackButton';
 import { Dispatch, SetStateAction, useContext } from 'react';
-import { PageContextProvider } from './CreateCheckerPage';
+import { PageContextProvider } from './EditCheckerPage';
 import IPage from '../../types/IPage';
 import FontPicker from 'react-fontpicker-ts';
 import 'react-fontpicker-ts/dist/index.css';
@@ -86,16 +86,8 @@ const CustomiseFont = ({ onNext, onBack }: CustomiseFontProps) => {
             buttonBackgroundColor={page.buttonColor}
             dropDownBackgroundColor={page.dropDownBackgroundColor}
             font={page.font}
-            clubLogoUrl={
-              // @ts-ignore
-              page.logoLink ? URL.createObjectURL(page.logoLink!) : undefined
-            }
-            backgroundImageUrl={
-              page.backgroundImageLink
-                ? // @ts-ignore
-                  URL.createObjectURL(page.backgroundImageLink!)
-                : undefined
-            }
+            clubLogoUrl={page.logoLink}
+            backgroundImageUrl={page.backgroundImageLink}
             optionsList={page.identificationColumns || []}
             isOnboarding={true}
           />

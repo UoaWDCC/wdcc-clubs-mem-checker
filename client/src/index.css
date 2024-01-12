@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -42,11 +46,11 @@ body {
   }
 }
 @font-face {
-  font-family: "Montserrat";
-  src: url("/Montserrat-VariableFont_wght.ttf");
+  font-family: 'Montserrat';
+  src: url('/Montserrat-VariableFont_wght.ttf');
 }
 .montserrat {
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
 }
 
 .fontpicker {
@@ -63,7 +67,7 @@ body {
   margin-top: 0.5rem;
 }
 
-[class^="font-preview-"] {
+[class^='font-preview-'] {
   filter: invert(11%) sepia(5%) saturate(244%) hue-rotate(201deg)
     brightness(100%) contrast(82%) !important;
 }
