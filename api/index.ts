@@ -7,7 +7,8 @@ import sheetroutes from './routes/sheets/columns';
 import organisationRoutes from './routes/club/club';
 import dashboardRoutes from './routes/dashboard/dashboard';
 import auth, { maybeAuth } from './middleware/auth';
-import pages from './routes/pages/pages';
+import pagesRoutes from './routes/pages/pages';
+import verifyRoutes from './routes/verify/verify';
 import rateLimit from 'express-rate-limit';
 import { createClient } from '@supabase/supabase-js';
 import userRoutes from './routes/user/user';
@@ -30,9 +31,6 @@ app.use(rateLimiter);
 
 const supabaseProjectUrl = process.env.SUPABASE_PROJECT_URL!;
 const supabaseApiKey = process.env.SUPABASE_API_KEY!;
-console.log(
-  `SUPABASE_PROJECT_URL = ${supabaseProjectUrl}, SUPABASE_API_KEY = ${supabaseApiKey}`
-);
 export const supabase = createClient(supabaseProjectUrl, supabaseApiKey);
 
 // Publicly serve the static files
@@ -57,7 +55,8 @@ app.use(json());
 app.use('/api/auth/google', authRoutes);
 app.use('/api/sheet/columns', sheetroutes);
 app.use('/api/club', organisationRoutes);
-app.use('/api/pages', pages);
+app.use('/api/pages', pagesRoutes);
+app.use('api/verify', verifyRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/user', userRoutes);
 
