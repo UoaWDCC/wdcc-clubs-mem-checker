@@ -85,43 +85,23 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
     };
   }, []);
 
-  // if no clubs attached to user
-  if (clubs.length == 0) {
-    return (
-      <div className={styles.outerContainer}>
-        <div
-          className={styles.clubCard}
-          style={{
-            backgroundColor: '#e8f7fb',
-            borderRadius: '20px',
-            justifyContent: 'center',
-          }}
-        >
-          <p className={styles.text}>No Clubs Registered</p>
-        </div>
-      </div>
-    );
-  }
-
-  const renderDropdownArrow =
-    clubs.length > 1 &&
-    (isOpen ? (
-      <ArrowUp2
-        color="#000000"
-        size={28}
-        variant="Bold"
-        style={{ cursor: 'pointer', marginLeft: 'auto' }}
-        onClick={() => setIsOpen(!isOpen)}
-      />
-    ) : (
-      <ArrowDown2
-        color="#000000"
-        size={28}
-        variant="Bold"
-        style={{ cursor: 'pointer', marginLeft: 'auto' }}
-        onClick={() => setIsOpen(!isOpen)}
-      />
-    ));
+  const renderDropdownArrow = isOpen ? (
+    <ArrowUp2
+      color="#000000"
+      size={28}
+      variant="Bold"
+      style={{ cursor: 'pointer', marginLeft: 'auto' }}
+      onClick={() => setIsOpen(!isOpen)}
+    />
+  ) : (
+    <ArrowDown2
+      color="#000000"
+      size={28}
+      variant="Bold"
+      style={{ cursor: 'pointer', marginLeft: 'auto' }}
+      onClick={() => setIsOpen(!isOpen)}
+    />
+  );
 
   return (
     <div

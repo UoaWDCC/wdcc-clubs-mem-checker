@@ -32,9 +32,8 @@ model UsersInOrganisation {
   userId         Int
   createdAt      DateTime     @default(now())
   organisationId Int
-  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   @@id([userId, organisationId])
 }
 

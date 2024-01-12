@@ -23,11 +23,11 @@ const GenerateInviteCode = () => {
   const [copied, setIsCopied] = useState(false);
   const [generateDisabled, setGenerateDisabled] = useState(false);
   const [loadingState, setLoadingState] = useState(false);
-  const [generateButtonColor, setGenerateButtonColor] = useState("#087DF1");
-  const [generateButtonText, setGenerateButtonText] = useState("generate!");
-  const [fontsize, setFontsize] = useState("1.4vh");
-  const [text, setText] = useState("click generate");
-  const [textStyle, setTextStyle] = useState(["1.8vh", "500", "48%"]);
+  const [generateButtonColor, setGenerateButtonColor] = useState('#087DF1');
+  const [generateButtonText, setGenerateButtonText] = useState('generate!');
+  const [fontsize, setFontsize] = useState('1.4vh');
+  const [text, setText] = useState('click generate');
+  const [textStyle, setTextStyle] = useState(['1.8vh', '500', '48%']);
   const [subheader, setSubheader] = useState(
     'click to generate a new invite code'
   );
@@ -52,10 +52,10 @@ const GenerateInviteCode = () => {
             'copy this invite code - you won’t get to see it again!'
           );
           setLoadingState(false);
-          setGenerateButtonColor("#838383");
-          setGenerateButtonText("code expires in 2 hours");
-          setFontsize("1.2vh");
-          setTextStyle(["2.7vh", "800", "100%"]);
+          setGenerateButtonColor('#838383');
+          setGenerateButtonText('code expires in 2 hours');
+          setFontsize('1.2vh');
+          setTextStyle(['2.7vh', '800', '100%']);
         }
       })
       .catch(function (error) {
@@ -73,13 +73,12 @@ const GenerateInviteCode = () => {
     cancelTokenSource.cancel('Cancel generating code due to switching club');
     setLoadingState(false);
     setGenerateDisabled(false);
-    setGenerateButtonColor("#087DF1");
-    setGenerateButtonText("generate!");
-    setText("click generate");
-    setFontsize("1.6vh");
-    setTextStyle(["1.8vh", "500", "48%"]);
+    setGenerateButtonColor('#087DF1');
+    setGenerateButtonText('generate!');
+    setText('click generate');
+    setFontsize('1.6vh');
+    setTextStyle(['1.8vh', '500', '48%']);
     setIsCopied(false);
-    
   };
 
   useEffect(() => {
@@ -93,15 +92,15 @@ const GenerateInviteCode = () => {
   };
 
   const buttonStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "transparent",
-    border: "none",
-    outline: "none",
-    cursor: "pointer",
-    marginLeft: "8vw",
-    marginTop: "-3.7vh",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'transparent',
+    border: 'none',
+    outline: 'none',
+    cursor: 'pointer',
+    marginLeft: '8vw',
+    marginTop: '-3.7vh',
   };
 
   const iconStyle = {
@@ -117,23 +116,29 @@ const GenerateInviteCode = () => {
           <h2 className={styles.subheader}>{subheader}</h2>
         </div>
         <div className={styles.subcontainer}>
-          <div className={styles.text} style={{fontSize: textStyle[0], fontWeight: textStyle[1], opacity: textStyle[2]}}>
+          <div
+            className={styles.text}
+            style={{
+              fontSize: textStyle[0],
+              fontWeight: textStyle[1],
+              opacity: textStyle[2],
+            }}
+          >
             <div>
-            {text}
-            {text !== 'click generate' && (
-              <button
-                onClick={handleCopy}
-                style={buttonStyle}
-              >
-                {copied ? (
-                  <TickCircle style={iconStyle} />
-                ) : (
-                  <Copy style={iconStyle} />
-                )}
-              </button>
-            )}
+              {text}
+              {text !== 'click generate' && (
+                <button
+                  onClick={handleCopy}
+                  style={buttonStyle}
+                >
+                  {copied ? (
+                    <TickCircle style={iconStyle} />
+                  ) : (
+                    <Copy style={iconStyle} />
+                  )}
+                </button>
+              )}
             </div>
-          
           </div>
           <div>
             {loadingState ? (

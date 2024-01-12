@@ -73,11 +73,12 @@ router.post(
           version: 'v3',
           auth: serviceClient,
         });
-        console.log(await drive.files.list());
+        console.log((await drive.files.list()).data.files);
         const permissions = await drive.permissions.list({
           fileId: sheetId,
           fields: 'permissions(emailAddress)',
         });
+        console.log(permissions);
         const isSharedWithEmail = permissions.data.permissions!.some(
           (permission: drive_v3.Schema$Permission) =>
             permission.emailAddress === userEmailAddress
