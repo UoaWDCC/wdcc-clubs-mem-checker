@@ -136,7 +136,7 @@ const CheckerPagePreview = () => {
                 {/* <a href="#">View API Keys</a> */}
                 {/* <span> | </span> */}
                 {/* Delete button (delete functionality to be implemented) */}
-                <a href="#">Delete</a>
+                {/* <a href="#">Delete</a> */}
               </div>
               {/* Navigation buttons */}
               <div className={styles.prevArrowContainer}>

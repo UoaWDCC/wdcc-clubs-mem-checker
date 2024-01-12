@@ -307,6 +307,52 @@ router.post(
   }
 );
 
+router.delete('/delete/:webLink', auth, async (req: Request, res: Response) => {
+  const { webLink } = req.params;
+
+  const pageData = await prisma.page.findFirst({
+    where: {
+      webLink,
+    },
+  });
+
+  if (!pageData)
+    return res.status(400).send('failed to get data with that link');
+
+  const organisationId = pageData.organisationId;
+  const userId = req.body.user.id;
+
+  const isUserInOrg =
+    (await prisma.usersInOrganisation.count({
+      where: {
+        userId,
+        organisationId,
+      },
+    })) == 1;
+
+  if (!isUserInOrg)
+    return res
+      .status(401)
+      .send('you must be in the organisation to delete this page');
+
+  const columnData = await prisma.column.findMany({
+    where: {
+      pageId: pageData.id,
+    },
+  });
+
+  if (!columnData)
+    return res.status(400).send('failed to get columns data with that link');
+
+  await prisma.page.delete({
+    where: {
+      webLink,
+    },
+  });
+
+  return res.status(200).send(`deleted page`);
+});
+
 router.get(
   '/protected-info/:webLink',
   auth,
