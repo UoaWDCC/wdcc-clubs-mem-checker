@@ -64,38 +64,6 @@ router.post(
       //   return res.status(400).json({ error: 'Sheet ID already exists' });
       // }
 
-      const user = req.body.user;
-      // intialise credentials
-      const userEmailAddress = user.email;
-
-      try {
-        const drive = google.drive({
-          version: 'v3',
-          auth: serviceClient,
-        });
-        console.log((await drive.files.list()).data.files);
-        const permissions = await drive.permissions.list({
-          fileId: sheetId,
-          fields: 'permissions(emailAddress)',
-        });
-        console.log(permissions);
-        const isSharedWithEmail = permissions.data.permissions!.some(
-          (permission: drive_v3.Schema$Permission) =>
-            permission.emailAddress === userEmailAddress
-        );
-        if (!isSharedWithEmail)
-          return res
-            .status(401)
-            .send('unauthorised to access this spreadsheet');
-      } catch (err) {
-        console.error(err);
-        return res
-          .status(500)
-          .send(
-            'failed to check if sheet is shared with user. make sure this spreadsheet is shared with the service account.'
-          );
-      }
-
       const files = req.files as { [fieldname: string]: Express.Multer.File[] };
       const { background, logo } = files;
 
