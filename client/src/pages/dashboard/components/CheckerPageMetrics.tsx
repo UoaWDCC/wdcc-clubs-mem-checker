@@ -1,4 +1,3 @@
-import styles from './CheckerPageMetrics.module.css';
 import {
   useState,
   useEffect,
@@ -85,30 +84,21 @@ const CheckerPageMetrics = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div
-        className={styles.subcontainer}
-        style={{
-          background: 'transparent',
-          height: '20%',
-        }}
-      >
+    <div className="p-4 flex flex-col">
+      <div className="p-4 flex flex-col bg-transparent h-1/5">
         <div
           ref={dropdownTitleRef}
-          className={styles.dropdown}
-          style={{
-            background: '#087DF1',
-          }}
+          className="bg-[#087DF1] h-12 relative rounded-lg flex flex-row items-center justify-between border-none z-2 cursor-pointer w-full"
           onClick={
             Object.getPrototypeOf(metrics) === null
               ? () => {}
               : () => setIsOpen(!isOpen)
           }
         >
-          <p className={styles.dropdownText}>
+          <p className="p-2 text-[white] text-lg font-sans font-semibold">
             {Object.getPrototypeOf(metrics) === null ? 'N/A' : timePeriod}{' '}
           </p>
-          <div className={styles.dropdownArrow}>
+          <div className="pr-5 py-10 flex items-center">
             {!isOpen && (
               <ArrowDown2
                 size="20"
@@ -126,12 +116,12 @@ const CheckerPageMetrics = () => {
         {isOpen && (
           <div
             ref={dropdownRef}
-            className={styles.dropdownList}
+            className="absolute z-4 rounded-lg bg-[#489ef4] overflow-x-hidden w-48"
           >
             {Object.values(possibleTimePeriodsDisplay).map((time) => (
               <div
                 key={time}
-                className={styles.dropdownCard}
+                className="items-center gap-10 cursor-pointer flex py-6 px-3 opacity-50 z-3 text-lg font-bold font-sans h-5 hover:bg-[#0c81d4]"
                 onClick={() => handleSelectTimePeriod(time)}
                 style={{ transform: 'translate(0%, 5.7vh)' }}
               >
@@ -141,16 +131,14 @@ const CheckerPageMetrics = () => {
           </div>
         )}
       </div>
-      <div
-        className={styles.subcontainer}
-        style={{
-          background: 'transparent',
-          height: '40%',
-        }}
-      >
-        <h1 className={styles.header}>number of users</h1>
-        <h1 className={styles.subheader}>total number of checks performed</h1>
-        <h1 className={styles.statisticText}>
+      <div className="p-4 flex flex-col h-1/5">
+        <h1 className="font-sans font-bold text-[#03045e] text-xl">
+          number of users
+        </h1>
+        <h1 className="font-sans text-[#03045e]">
+          total number of checks performed
+        </h1>
+        <h1 className="font-sans font-black text-[#03045e] text-3xl">
           {Object.getPrototypeOf(metrics) === null
             ? 'N/A'
             : timePeriod &&
@@ -159,19 +147,14 @@ const CheckerPageMetrics = () => {
               ].numberOfChecks}
         </h1>
       </div>
-      <div
-        className={styles.subcontainer}
-        style={{
-          background: '#E6E9F1',
-          height: '40%',
-          padding: '20px',
-        }}
-      >
-        <h1 className={styles.header}>duplicates found</h1>
-        <h2 className={styles.subheader}>
+      <div className="p-4 flex flex-col bg-[#E6E9F1] h-2/5">
+        <h1 className="font-sans font-bold text-[#03045e] text-xl">
+          duplicates found
+        </h1>
+        <h2 className="font-sans text-[#03045e]">
           total number of existing memberships found
         </h2>
-        <h1 className={styles.statisticText}>
+        <h1 className="font-sans font-black text-[#03045e] text-3xl">
           {Object.getPrototypeOf(metrics) === null
             ? 'N/A'
             : timePeriod &&

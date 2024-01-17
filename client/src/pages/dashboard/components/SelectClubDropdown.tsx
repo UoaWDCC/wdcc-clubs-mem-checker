@@ -9,7 +9,6 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router';
 import EmptyClubLogo from '../../../assets/EmptyClubLogo.svg';
-import styles from './SelectClubDropdown.module.css';
 import { ArrowDown2, ArrowUp2, Cloud, CloudPlus } from 'iconsax-react';
 import { DashboardContextProvider } from '../Dashboard';
 import IDashboardContext from '../../../types/IDashboardContext';
@@ -106,84 +105,75 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
   return (
     <div
       ref={outerContainerRef}
-      className={styles.outerContainer}
+      className="rounded-2xl w-full h-full font-sans"
       style={{ backgroundColor: `${isOpen ? '#d6ebf0' : 'transparent'}` }}
     >
-      <div
-        className={styles.clubCard}
-        style={{
-          backgroundColor: '#DAF6FC',
-          borderRadius: '20px',
-        }}
-      >
+      <div className="bg-[#DAF6FC] rounded-2xl h-full w-full items-center gap-2 flex p-4 cursor-pointer">
         <img
-          className={styles.logo}
-          style={{ border: '3px solid #E0E0E0' }}
+          className="rounded-full h-[72px] w-[72px] border-4 border-solid border-[#E0E0E0]"
           src={
             dashboard.selectedClub.logo
               ? dashboard.selectedClub.logo
               : EmptyClubLogo
           }
         />
-        <p className={styles.text}>{dashboard.selectedClub.name}</p>
+        <p className="text-[#03045e] font-sans font-bold">
+          {dashboard.selectedClub.name}
+        </p>
         {renderDropdownArrow}
       </div>
       {isOpen && (
         <div
-          className={styles.dropdownContainer}
+          className="bg-[#d6ebf0] rounded-2xl overflow-x-hidden absolute z-50 w-inherit"
           style={{
             maxHeight: `${3 * clubCardHeight}px`,
             width: `${clubCardWidth}px`,
           }}
         >
           <div
-            className={styles.clubCard}
+            className="h-full w-full items-center gap-4 flex p-4 cursor-pointer bg-[#DAF6FC]"
             style={{ height: clubCardHeight }}
             onClick={() => navigate('/club-details')}
           >
-            <div className={styles.createClubIcon}>
+            <div className="flex flex-col justify-center items-center bg-[#d9d9d9] text-[black] w-[72px] h-[72px] rounded-full">
               <img
                 style={{ width: '30px' }}
                 src={CreateClub}
               />
             </div>
-            <p className={styles.text}>Create New Club</p>
+            <p className="text-[#03045e] font-sans font-bold text-xl">
+              Create New Club
+            </p>
           </div>
           <div
-            className={styles.clubCard}
+            className="h-full w-full items-center gap-4 flex p-4 cursor-pointer bg-[#DAF6FC]"
             style={{ height: clubCardHeight }}
             onClick={() => navigate('/invite-code')}
           >
-            <div className={styles.createClubIcon}>
+            <div className="flex flex-col justify-center items-center bg-[#d9d9d9] text-[black] w-[72px] h-[72px] rounded-full">
               <img
                 style={{ width: '30px' }}
                 src={JoinClub}
               />
             </div>
-            <p className={styles.text}>Join Club</p>
+            <p className="text-[#03045e] font-sans font-bold text-xl">
+              Join Club
+            </p>
           </div>
-          <hr
-            style={{
-              height: '0.25rem',
-              border: 'none',
-              backgroundColor: '#D9D9D9',
-              margin: '0.2rem',
-              borderRadius: '0.4rem',
-            }}
-          />
-
           {clubs.map((club) => (
             <div
-              className={styles.clubCard}
+              className="h-full w-full items-center gap-4 flex p-4 cursor-pointer bg-[#DAF6FC]"
               style={{ height: clubCardHeight, cursor: 'pointer' }}
               onClick={() => handleSelectClub(club)}
               key={club.id}
             >
               <img
-                className={styles.logo}
+                className="rounded-full h-[72px] w-[72px]"
                 src={club.logo || EmptyClubLogo}
               />
-              <p className={styles.text}>{club.name}</p>
+              <p className="text-[#03045e] font-sans font-bold text-xl overflow-hidden">
+                {club.name}
+              </p>
             </div>
           ))}
         </div>

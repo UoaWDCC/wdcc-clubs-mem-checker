@@ -1,7 +1,6 @@
 import React, { createRef, useEffect, useLayoutEffect, useState } from 'react';
 import CheckerPageMetrics from './components/CheckerPageMetrics';
 import ClubAdminsList from './components/ClubAdminsList';
-import styles from './style.module.css';
 import GenerateInviteCode from './components/GenerateInviteCode';
 import axios from 'axios';
 import CheckerPagePreview from './components/CheckerPagePreview';
@@ -89,16 +88,15 @@ const Dashboard = () => {
   return (
     <DashboardContextProvider.Provider value={[dashboard, setDashboard]}>
       <div
-        className={styles.dashboardContainer}
+        className="w-full p-10 flex flex-col bg-[#E6E9F1]"
         ref={containerRef}
       >
         {isLoading && (
           <div
             style={{ height: `${loadingHeight}` }}
-            className={styles.loadingContainer}
+            className="items-center bg-[#00000044] flex justify-center left-0 min-h-full absolute top-0 w-full z-3"
           >
             <CircularProgress
-              className={styles.loadingSign}
               sx={{
                 position: 'absolute',
                 color: '#FFFFFF',
@@ -107,49 +105,39 @@ const Dashboard = () => {
             />
           </div>
         )}
-        <div className={styles.dashboardHeadingContainer}>
-          <h2 className={styles.dashboardHeading}>dashboard</h2>
+        <div className="flex justify-between">
+          <h2 className="text-[#087df1] text-5xl font-sans font-semibold">
+            dashboard
+          </h2>
 
           <img
-            className={styles.logo}
+            className="justify-self-end"
             src={WDCCLogoBlue}
             alt="WDCC Logo"
           />
         </div>
-        <div className={styles.gridContainer}>
-          <div className={styles.rowOne}>
-            <div
-              className={`${styles.clubsContainer} ${styles.dashboardItemContainer}`}
-            >
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col lg:flex-row gap-4">
+            <div className="bg-[white] rounded-2xl w-full">
               {userClubs.length > 0 && <SelectClubDropdown clubs={userClubs} />}
             </div>
-            <div
-              className={`${styles.adminShareContainer} ${styles.dashboardItemContainer}`}
-            >
+            <div className="flex justify-center bg-[white] rounded-2xl w-full">
               <ClubAdminsList />
             </div>
-            <div
-              className={`${styles.clubAdminContainer} ${styles.dashboardItemContainer}`}
-            >
+            <div className="flex justify-center bg-[white] rounded-2xl w-full">
               <GenerateInviteCode />
             </div>
           </div>
 
-          <div className={styles.rowTwo}>
-            <div
-              className={`${styles.pagePreviewContainer} ${styles.dashboardItemContainer}`}
-            >
+          <div className="flex flex-col lg:flex-row gap-4 h-full">
+            <div className="bg-[white] rounded-2xl">
               <CheckerPagePreview />
             </div>
-            <div className={styles.colTwoRowTwo}>
-              <div
-                className={`${styles.clubMembersContainer} ${styles.dashboardItemContainer}`}
-              >
+            <div className="flex flex-col gap-4">
+              <div className="bg-[white] rounded-2xl p-8 pb-16">
                 <ClubSize />
               </div>
-              <div
-                className={`${styles.usersContainer} ${styles.dashboardItemContainer}`}
-              >
+              <div className="bg-[white] rounded-2xl h-full">
                 <CheckerPageMetrics />
               </div>
             </div>

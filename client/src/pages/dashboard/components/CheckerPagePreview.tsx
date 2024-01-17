@@ -71,12 +71,14 @@ const CheckerPagePreview = () => {
   };
 
   return (
-    <div className={styles.previewContainer}>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <p className={styles.overlayText}>Checker Pages</p>
+    <div className="relative p-2">
+      <div className="flex justify-between flex-col gap-2">
+        <p className="font-sans font-bold text-[#03045e] cursor-none">
+          Checker Pages
+        </p>
         <p>
           <a
-            style={{ cursor: 'pointer', color: '#03045e' }}
+            className="cursor-pointer text-[#03045e]"
             onClick={() => onCreateNewCheckerPage()}
           >
             Create Page
@@ -86,9 +88,9 @@ const CheckerPagePreview = () => {
       {currentPageIndex === undefined || currentPageData === undefined ? (
         <div>No checker pages created for this club!</div>
       ) : (
-        <div className={styles.preview}>
+        <div className="relative w-full h-full flex flex-col gap-2">
           {/* Read-only textbox and copy button */}
-          <div className={styles.urlContainer}>
+          <div className="relative flex items-center placeholder:text-[#03045e] placeholder:italic placeholder:font-bold">
             <Textfield
               height="2rem"
               width="100%"
@@ -98,18 +100,18 @@ const CheckerPagePreview = () => {
               ref={textFieldRef}
             />
             <button
-              className={styles.copyButton}
+              className="absolute right-2 cursor-pointer w-4 "
               onClick={handleCopyButtonClick}
             >
               <img
                 src={copyIcon}
                 alt="Copy"
-                className={styles.copyIcon}
+                className="hover:fill-[#1e40af] transition-all"
               />
             </button>
           </div>
 
-          <div className={styles.checkerPageWrapper}>
+          <div className="relative flex flex-col justify-center items-center">
             <ClubCheckerPage
               title={currentPageData.title}
               backgroundColor={currentPageData.backgroundColor}
@@ -126,9 +128,9 @@ const CheckerPagePreview = () => {
               clubLogoUrl={currentPageData.logoLink}
               backgroundImageUrl={currentPageData.backgroundImageLink}
             />
-            <div className={styles.overlayButtons}>
+            <div className="absolute h-full w-full">
               {/*div for links */}
-              <div className={styles.pageLinksContainer}>
+              <div className="left-[10px] top-[10px] absolute w-fit">
                 {/* Edit button (edit functionality to be implemented) */}
                 <a href={`/edit/${currentPageData.webLink}`}>Edit</a>
                 {/* <span> | </span> */}
@@ -139,12 +141,12 @@ const CheckerPagePreview = () => {
                 {/* <a href="#">Delete</a> */}
               </div>
               {/* Navigation buttons */}
-              <div className={styles.prevArrowContainer}>
+              <div className="absolute top-[45%] left-[15px] w-fit">
                 {currentPageIndex > 0 && (
                   <img
                     src={ClickPrevArrow}
                     alt="Click Previous"
-                    className={styles.prevArrow}
+                    className="w-[3rem] h-[3rem] hover:bg-transparent hover:opacity-60"
                     onClick={handlePrevPage}
                   />
                 )}
@@ -154,14 +156,14 @@ const CheckerPagePreview = () => {
                   <img
                     src={ClickNextArrow}
                     alt="Click Next"
-                    className={styles.nextArrow}
+                    className="w-[3rem] h-[3rem] hover:bg-transparent hover:opacity-60"
                     onClick={handleNextPage}
                   />
                 )}
               </div>
 
               {pages.length > 1 && (
-                <div className={styles.pagination}>
+                <div className="flex justify-center items-center absolute bottom-[10px] left-[50%] -translate-x-[50%]">
                   {/* Show the navigation dots */}
                   {pages.map((page, index) => (
                     <span

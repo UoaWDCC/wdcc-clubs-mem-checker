@@ -1,4 +1,3 @@
-import styles from './GenerateInviteCode.module.css';
 import Button from '../../../components/Button';
 import axios from 'axios';
 import {
@@ -110,14 +109,14 @@ const GenerateInviteCode = () => {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className="rounded-2xl p-4 flex flex-col gap-4 w-full h-full justify-between font-sans">
         <div>
-          <h1 className={styles.header}>invite new admin</h1>
-          <h2 className={styles.subheader}>{subheader}</h2>
+          <h1 className="text-[#03045e] text-lg font-bold">invite new admin</h1>
+          <h2 className="text-[#03045e] opacity-50 text-md">{subheader}</h2>
         </div>
-        <div className={styles.subcontainer}>
+        <div className="flex items-center justify-center gap-1 overflow-hidden">
           <div
-            className={styles.text}
+            className="w-full bg-[#c1c1c2] p-2 rounded-lg text-[#03045e]"
             style={{
               fontSize: textStyle[0],
               fontWeight: textStyle[1],
@@ -150,7 +149,6 @@ const GenerateInviteCode = () => {
                 }}
               >
                 <CircularProgress
-                  className={styles.loadingSign}
                   sx={{
                     position: 'absolute',
                     color: '#FFFFFF',
