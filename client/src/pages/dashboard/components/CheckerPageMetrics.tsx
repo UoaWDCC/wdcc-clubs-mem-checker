@@ -85,7 +85,7 @@ const CheckerPageMetrics = () => {
 
   return (
     <div className="p-4 flex flex-col">
-      <div className="p-4 flex flex-col bg-transparent h-1/5">
+      <div className="p-4 flex flex-col bg-transparent h-1/5 items-center">
         <div
           ref={dropdownTitleRef}
           className="bg-[#087DF1] h-12 relative rounded-lg flex flex-row items-center justify-between border-none z-2 cursor-pointer w-full"

@@ -100,7 +100,7 @@ const CheckerPagePreview = () => {
               ref={textFieldRef}
             />
             <button
-              className="absolute right-2 cursor-pointer w-4 "
+              className="absolute right-[1rem] cursor-pointer w-4"
               onClick={handleCopyButtonClick}
             >
               <img
@@ -124,7 +124,8 @@ const CheckerPagePreview = () => {
               dropDownBackgroundColor={currentPageData.dropDownBackgroundColor}
               font={currentPageData.font}
               optionsList={currentPageData.identificationColumns!}
-              isOnboarding={true}
+              isOnboarding={false}
+              webLink={currentPageData.webLink}
               clubLogoUrl={currentPageData.logoLink}
               backgroundImageUrl={currentPageData.backgroundImageLink}
             />
