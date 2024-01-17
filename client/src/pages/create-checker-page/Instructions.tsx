@@ -15,7 +15,7 @@ export default function Instructions({ onNext, isLoading }: InstructionsProps) {
   };
 
   return (
-    <div className={styles.container}>
+    <div className="lg:bg-[white]">
       <div
         style={{
           display: 'flex',
@@ -25,39 +25,25 @@ export default function Instructions({ onNext, isLoading }: InstructionsProps) {
         }}
       >
         <div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              rowGap: '5rem',
-              alignItems: 'center',
-            }}
-          >
-            <div>
-              <div className={styles.title}>
-                <h1>link your google sheet</h1>
-                <img src={GoogleSheetsLogo} />
+          <div className="flex flex-col gap-12 items-center">
+            <div className="flex flex-col gap-2">
+              <div className="flex text-xl flex-row justify-center items-center gap-4">
+                <h1 className="font-sans text-[#087DF1] font-bold">
+                  link your google sheet
+                </h1>
+                <img
+                  className="w-12 h-auto"
+                  src={GoogleSheetsLogo}
+                />
               </div>
-              <div className={styles.subtitle}>
-                <p style={{ color: '#087DF1' }}>
-                  share your google sheet with our service email to enable our
-                  system's access
-                </p>
-              </div>
+              <p className="text-lg text-[#087DF1]">
+                share your google sheet with our service email to enable our
+                system's access
+              </p>
             </div>
 
-            <div
-              style={{ display: 'flex', width: '100%', flexDirection: 'row' }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  width: '30%',
-                  justifyContent: 'center',
-                  alignItems: 'flex-end',
-                }}
-              >
+            <div className="flex w-full flex-row">
+              <div className="flex flex-col ">
                 <div className={styles.numberCircle}>1</div>
                 <svg
                   width="4rem"

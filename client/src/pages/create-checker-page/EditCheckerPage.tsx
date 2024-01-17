@@ -98,22 +98,19 @@ const EditCheckerPage = ({ isEdit }: EditCheckerPageProps) => {
 
   return (
     <Background>
-      <div id={styles.progressBarContainer}>
-        <div id={styles.progressBar}>
+      <div className="text-[white] flex flex-col p-12 hidden lg:flex">
+        <div className="gap-2 flex flex-row">
           {steps.map((keyValue, index) => {
             return (
               <div
-                className={styles.bar}
+                className="bg-[#087df1] border-none rounded-lg h-[8px] w-[65px] opacity-75"
                 key={index}
                 style={index + 1 === progress ? { opacity: 1 } : {}}
               />
             );
           })}
         </div>
-        <p
-          style={{ marginLeft: '10px' }}
-          className={styles.progressText}
-        >
+        <p className="text-[#087df1]">
           {progress} of {steps.length}
         </p>
       </div>
