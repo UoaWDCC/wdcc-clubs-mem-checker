@@ -188,7 +188,7 @@ const ClubCheckerPage = ({
 
   return selectedIdentifier ? (
     <div
-      className="flex flex-col items-center w-full justify-center py-16 gap-6 h-full"
+      className="flex flex-col items-center w-full justify-center py-16 gap-6 h-full rounded-xl"
       style={{
         backgroundImage: backgroundImageBlob
           ? `url(${backgroundImageBlob})`
