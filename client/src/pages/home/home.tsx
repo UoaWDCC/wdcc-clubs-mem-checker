@@ -31,11 +31,12 @@ export const HomePage = () => {
             <br />
             <br />
             <a href="/our-team">Developed by WDCC. Meet our Team!</a>
+            <br />
             <a
               className="text-sm "
               href="/privacy-policy"
             >
-              Read our Privacy Policy
+              Our Privacy Policy
             </a>
           </p>
           <div className={styles.intro_button}>
