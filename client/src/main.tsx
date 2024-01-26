@@ -14,6 +14,7 @@ import { ConfimationPage } from './pages/onboarding-confirmation-page/Confirmati
 import PublicCheckerPage from './pages/public-checker-page/PublicCheckerPage';
 import OurTeam from './pages/our-team/OurTeam';
 import EditCheckerPage from './pages/create-checker-page/EditCheckerPage';
+import PrivacyPolicy from './pages/privacy-policy/PrivacyPolicy';
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
   {
     path: '/confirmation',
     element: <ConfimationPage />,
+  },
+  {
+    path: '/privacy-policy',
+    element: <PrivacyPolicy />,
   },
   {
     path: '/:webLinkId',
