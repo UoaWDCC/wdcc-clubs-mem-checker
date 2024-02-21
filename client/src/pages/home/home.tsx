@@ -40,7 +40,7 @@ export const HomePage = () => {
               Our Privacy Policy
             </a>
           </p>
-          <div className={styles.intro_button}>
+          <div>
             <Button
               buttonText="get started!"
               width="8.8em"
