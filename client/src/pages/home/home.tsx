@@ -10,18 +10,20 @@ export const HomePage = () => {
     navigate('/sign-in');
   };
   return (
-    <div className={styles.home}>
+    <div className="w-screen h-screen flex flex-col items-center justify-center">
       <title>Club Membership Checker</title>
       <img
-        className={styles.logo}
+        className="absolute top-[3em] right-[3em] w-[9em] h-auto"
         src={WDCCLogo}
         alt="WDCC Logo"
       />
-      <div className={styles.home_container}>
-        <div className={styles.col1}>
-          <h1 className={styles.title}>Club Membership Checker</h1>
+      <div className="flex flex-row gap-10 items-start px-8">
+        <div>
+          <h1 className="text-[#183249] text-3xl font-display font-bold">
+            Club Membership Checker
+          </h1>
 
-          <p className={styles.paragraph}>
+          <p className="text-[#183249] text-lg font-sans font-normal">
             we’re here to make membership status checking super easy for you and
             your club members.
             <br />
@@ -33,7 +35,7 @@ export const HomePage = () => {
             <a href="/our-team">Developed by WDCC. Meet our Team!</a>
             <br />
             <a
-              className="text-sm "
+              className="text-sm"
               href="/privacy-policy"
             >
               Our Privacy Policy
@@ -56,7 +58,7 @@ export const HomePage = () => {
         </div>
 
         <img
-          className={`${styles.femaleProgrammer} ${styles.hide_for_mobile}`}
+          className="top-[7em] w-auto h-[30em] hidden md:flex"
           src={femaleProgrammer}
           alt=""
         />

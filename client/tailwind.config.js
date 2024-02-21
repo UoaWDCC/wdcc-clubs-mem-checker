@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
-      sans: ['Montserrat', 'ui-sans-serif', 'system-ui'],
+      display: ['Montserrat', 'ui-sans-serif', 'system-ui'],
+      sans: ['Open Sans', 'ui-sans-serif', 'system-ui'],
     },
   },
   plugins: [],
