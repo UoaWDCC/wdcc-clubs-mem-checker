@@ -95,7 +95,7 @@ const CheckerPageMetrics = () => {
               : () => setIsOpen(!isOpen)
           }
         >
-          <p className="p-2 text-[white] text-lg font-sans font-semibold">
+          <p className="p-2 text-[white] text-lg font-display font-semibold">
             {Object.getPrototypeOf(metrics) === null ? 'N/A' : timePeriod}{' '}
           </p>
           <div className="pr-5 py-10 flex items-center">
@@ -121,7 +121,7 @@ const CheckerPageMetrics = () => {
             {Object.values(possibleTimePeriodsDisplay).map((time) => (
               <div
                 key={time}
-                className="items-center gap-10 cursor-pointer flex py-6 px-3 opacity-50 z-3 text-lg font-bold font-sans h-5 hover:bg-[#0c81d4]"
+                className="items-center gap-10 cursor-pointer flex py-6 px-3 opacity-50 z-3 text-lg font-bold font-display h-5 hover:bg-[#0c81d4]"
                 onClick={() => handleSelectTimePeriod(time)}
                 style={{ transform: 'translate(0%, 5.7vh)' }}
               >
@@ -132,13 +132,13 @@ const CheckerPageMetrics = () => {
         )}
       </div>
       <div className="p-4 flex flex-col h-1/5">
-        <h1 className="font-sans font-bold text-[#03045e] text-xl">
+        <h1 className="font-display font-bold text-[#03045e] text-xl">
           number of users
         </h1>
-        <h1 className="font-sans text-[#03045e]">
+        <h1 className="font-display text-[#03045e]">
           total number of checks performed
         </h1>
-        <h1 className="font-sans font-black text-[#03045e] text-3xl">
+        <h1 className="font-display font-black text-[#03045e] text-3xl">
           {Object.getPrototypeOf(metrics) === null
             ? 'N/A'
             : timePeriod &&
@@ -148,13 +148,13 @@ const CheckerPageMetrics = () => {
         </h1>
       </div>
       <div className="p-4 flex flex-col bg-[#E6E9F1] h-2/5">
-        <h1 className="font-sans font-bold text-[#03045e] text-xl">
+        <h1 className="font-display font-bold text-[#03045e] text-xl">
           duplicates found
         </h1>
-        <h2 className="font-sans text-[#03045e]">
+        <h2 className="font-display text-[#03045e]">
           total number of existing memberships found
         </h2>
-        <h1 className="font-sans font-black text-[#03045e] text-3xl">
+        <h1 className="font-display font-black text-[#03045e] text-3xl">
           {Object.getPrototypeOf(metrics) === null
             ? 'N/A'
             : timePeriod &&

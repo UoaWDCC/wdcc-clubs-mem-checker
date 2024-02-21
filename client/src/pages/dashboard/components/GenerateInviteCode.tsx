@@ -109,7 +109,7 @@ const GenerateInviteCode = () => {
 
   return (
     <>
-      <div className="rounded-2xl p-4 flex flex-col gap-4 w-full h-full justify-between font-sans">
+      <div className="rounded-2xl p-4 flex flex-col gap-4 w-full h-full justify-between font-display">
         <div>
           <h1 className="text-[#03045e] text-lg font-bold">invite new admin</h1>
           <h2 className="text-[#03045e] opacity-50 text-md">{subheader}</h2>

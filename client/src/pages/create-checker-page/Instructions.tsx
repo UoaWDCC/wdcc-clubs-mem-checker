@@ -25,7 +25,7 @@ export default function Instructions({ onNext, isLoading }: InstructionsProps) {
 
   return (
     <div className="flex justify-center  h-full">
-      <div className="flex flex-col items-center md:bg-[#fff] font-sans pt-8 justify-top md:justify-between gap-8 p-0 bg-[transparent] md:px-10 md:py-16 rounded-xl">
+      <div className="flex flex-col items-center md:bg-[#fff] font-display pt-8 justify-top md:justify-between gap-8 p-0 bg-[transparent] md:px-10 md:py-16 rounded-xl">
         <div className="flex flex-col md:flex-row w-full justify-center">
           <span className="float-left">
             <BackButton
@@ -37,7 +37,7 @@ export default function Instructions({ onNext, isLoading }: InstructionsProps) {
             />
           </span>
           <div className="w-full flex text-2xl text-[#087df1] md:pt-[2vh] justify-center items-center gap-1 md:gap-4 flex-row">
-            <h1 className="font-sans font-bold">link your google sheet</h1>
+            <h1 className="font-display font-bold">link your google sheet</h1>
             <img
               className="w-14"
               src={GoogleSheetsLogo}

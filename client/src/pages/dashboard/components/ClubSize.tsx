@@ -23,15 +23,15 @@ const ClubSize = () => {
   }
 
   return (
-    <div className="flex flex-col justify-between gap-4 font-sans min-h-0 h-fit">
+    <div className="flex flex-col justify-between gap-4 font-display min-h-0 h-fit">
       <div>
         <h1 className="text-[#03045e] text-xl font-semibold leading-5">
           number of club users
         </h1>
-        <h2 className="text-[#03045e7a] text-lg font-sans font-semibold">
+        <h2 className="text-[#03045e7a] text-lg font-display font-semibold">
           specific to the Google Sheet for this checker page
         </h2>
-        <h1 className="text-[#03045e] text-5xl font-sans font-extrabold">
+        <h1 className="text-[#03045e] text-5xl font-display font-extrabold">
           {memberCount !== undefined ? memberCount : 'N/A'}
         </h1>
       </div>

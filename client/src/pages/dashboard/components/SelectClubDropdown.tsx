@@ -105,7 +105,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
   return (
     <div
       ref={outerContainerRef}
-      className="rounded-2xl w-full h-full font-sans"
+      className="rounded-2xl w-full h-full font-display"
       style={{ backgroundColor: `${isOpen ? '#d6ebf0' : 'transparent'}` }}
     >
       <div className="bg-[#DAF6FC] rounded-2xl h-full w-full items-center gap-2 flex p-4 cursor-pointer">
@@ -117,7 +117,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
               : EmptyClubLogo
           }
         />
-        <p className="text-[#03045e] font-sans font-bold">
+        <p className="text-[#03045e] font-display font-bold">
           {dashboard.selectedClub.name}
         </p>
         {renderDropdownArrow}
@@ -141,7 +141,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
                 src={CreateClub}
               />
             </div>
-            <p className="text-[#03045e] font-sans font-bold text-xl">
+            <p className="text-[#03045e] font-display font-bold text-xl">
               Create New Club
             </p>
           </div>
@@ -156,7 +156,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
                 src={JoinClub}
               />
             </div>
-            <p className="text-[#03045e] font-sans font-bold text-xl">
+            <p className="text-[#03045e] font-display font-bold text-xl">
               Join Club
             </p>
           </div>
@@ -171,7 +171,7 @@ const SelectClubDropdown = ({ clubs }: SelectClubDropdownProps) => {
                 className="rounded-full h-[72px] w-[72px]"
                 src={club.logo || EmptyClubLogo}
               />
-              <p className="text-[#03045e] font-sans font-bold text-xl overflow-hidden">
+              <p className="text-[#03045e] font-display font-bold text-xl overflow-hidden">
                 {club.name}
               </p>
             </div>

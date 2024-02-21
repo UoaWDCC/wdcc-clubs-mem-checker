@@ -1,4 +1,10 @@
-import React, { createRef, useEffect, useLayoutEffect, useState } from 'react';
+import React, {
+  createRef,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from 'react';
 import CheckerPageMetrics from './components/CheckerPageMetrics';
 import ClubAdminsList from './components/ClubAdminsList';
 import GenerateInviteCode from './components/GenerateInviteCode';
@@ -36,7 +42,14 @@ const Dashboard = () => {
   }, []);
 
   // load cached selected club
-  const storedSelectedClub = localStorage.getItem('selectedClub');
+  const storedSelectedClub = useMemo(() => {
+    const selectedClub = localStorage.getItem('selectedClub');
+    if (!selectedClub) return;
+    if (!userClubs.map((element) => element.name).includes(selectedClub)) {
+      return undefined;
+    }
+    return selectedClub;
+  }, [userClubs]);
 
   const [dashboard, setDashboard] = useState<IDashboardContext>({
     selectedClub: storedSelectedClub
@@ -106,7 +119,7 @@ const Dashboard = () => {
           </div>
         )}
         <div className="flex justify-between">
-          <h2 className="text-[#087df1] text-5xl font-sans font-semibold">
+          <h2 className="text-[#087df1] text-5xl font-display font-semibold">
             dashboard
           </h2>
 

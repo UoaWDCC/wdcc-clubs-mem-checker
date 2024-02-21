@@ -13,14 +13,14 @@ const ClubAdminsList = () => {
 
   return (
     <div className="w-full p-4 flex flex-col gap-2">
-      <h1 className="text-[#03045e] text-lg font-bold font-sans">
+      <h1 className="text-[#03045e] text-lg font-bold font-display">
         club admins
       </h1>
       <div className="w-full min-h-24 bg-[#E0E0E0] rounded-lg overflow-y-scroll p-2">
         {admins.map((admin) => (
           <p
             key={admin}
-            className="text-[#03045e] font-sans text-md"
+            className="text-[#03045e] font-display text-md"
           >
             {admin}
           </p>

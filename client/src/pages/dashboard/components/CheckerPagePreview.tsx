@@ -74,7 +74,7 @@ const CheckerPagePreview = () => {
   return (
     <div className="relative p-2">
       <div className="flex justify-between flex-col gap-2">
-        <p className="font-sans font-bold text-[#03045e] cursor-none">
+        <p className="font-display font-bold text-[#03045e] cursor-none">
           Checker Pages
         </p>
         <p>
@@ -122,7 +122,7 @@ const CheckerPagePreview = () => {
         </div>
 
         <div className="relative flex flex-col justify-center items-center">
-          {pages.length && currentPageData ? (
+          {!!pages.length && currentPageData ? (
             <ClubCheckerPage
               title={currentPageData.title}
               backgroundColor={currentPageData.backgroundColor}
@@ -178,7 +178,7 @@ const CheckerPagePreview = () => {
             </div>
             {/* Navigation buttons */}
             <div className="absolute top-[45%] left-[15px] w-fit">
-              {currentPageIndex && currentPageIndex > 0 && (
+              {!!currentPageIndex && currentPageIndex > 0 && (
                 <img
                   src={ClickPrevArrow}
                   alt="Click Previous"
@@ -188,7 +188,7 @@ const CheckerPagePreview = () => {
               )}
             </div>
             <div className={styles.nextArrowContainer}>
-              {currentPageIndex && currentPageIndex < pages.length - 1 && (
+              {!!currentPageIndex && currentPageIndex < pages.length - 1 && (
                 <img
                   src={ClickNextArrow}
                   alt="Click Next"
