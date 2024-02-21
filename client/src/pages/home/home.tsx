@@ -1,4 +1,3 @@
-import styles from './style.module.css';
 import WDCCLogo from '../../assets/wdcc_blue_logo.svg';
 import femaleProgrammer from '../../assets/femaleProgrammer.svg';
 import { useNavigate } from 'react-router';
