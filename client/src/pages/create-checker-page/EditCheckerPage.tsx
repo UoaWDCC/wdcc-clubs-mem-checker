@@ -120,11 +120,19 @@ const EditCheckerPage = ({ isEdit }: EditCheckerPageProps) => {
 
         <PageContextProvider.Provider value={[page, setPage]}>
           {showConfirm ? (
-            <CustomiseConfirm
-              clubDetails={clubDetails}
-              onNext={onConfirm}
-              onBack={() => setShowConfirm(false)}
-            />
+            isEdit ? (
+              <CustomiseConfirmEdit
+                clubDetails={clubDetails}
+                onNext={onConfirm}
+                onBack={() => setShowConfirm(false)}
+              />
+            ) : (
+              <CustomiseConfirmCreate
+                clubDetails={clubDetails}
+                onNext={onConfirm}
+                onBack={() => setShowConfirm}
+              />
+            )
           ) : (
             steps[progress]
           )}
