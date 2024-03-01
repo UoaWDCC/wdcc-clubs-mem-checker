@@ -8,6 +8,15 @@ interface InstructionsProps {
   isLoading: boolean;
 }
 
+const Direction = ({ index, text }: { index: number; text: JSX.Element }) => (
+  <span className="flex flex-row gap-4 items-center">
+    <span className="min-w-12 min-h-12 flex justify-center items-center rounded-full bg-[#087df1]">
+      {index}
+    </span>
+    <p className="text-[#087DF1] md:text-xl">{text}</p>
+  </span>
+);
+
 export default function Instructions({ onNext, isLoading }: InstructionsProps) {
   const handleOnNext = () => {
     if (isLoading) return;
@@ -15,119 +24,53 @@ export default function Instructions({ onNext, isLoading }: InstructionsProps) {
   };
 
   return (
-    <div className={styles.container}>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          rowGap: '10vh',
-          alignItems: 'center',
-        }}
-      >
-        <div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              rowGap: '5rem',
-              alignItems: 'center',
-            }}
-          >
-            <div>
-              <div className={styles.title}>
-                <h1>link your google sheet</h1>
-                <img src={GoogleSheetsLogo} />
-              </div>
-              <div className={styles.subtitle}>
-                <p style={{ color: '#087DF1' }}>
-                  share your google sheet with our service email to enable our
-                  system's access
-                </p>
-              </div>
-            </div>
-
-            <div
-              style={{ display: 'flex', width: '100%', flexDirection: 'row' }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  width: '30%',
-                  justifyContent: 'center',
-                  alignItems: 'flex-end',
-                }}
-              >
-                <div className={styles.numberCircle}>1</div>
-                <svg
-                  width="4rem"
-                  height="2rem"
-                  viewBox="-1.5 0 1 10"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <line
-                    x1="0"
-                    y1="10%"
-                    x2="0"
-                    y2="90%"
-                    strokeWidth={0.5}
-                    stroke="#087DF1"
-                  />
-                </svg>
-                <div className={styles.numberCircle}>2</div>
-                <svg
-                  width="4rem"
-                  height="2rem"
-                  viewBox="-1.5 0 1 10"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <line
-                    x1="0"
-                    y1="10%"
-                    x2="0"
-                    y2="90%"
-                    strokeWidth={0.5}
-                    stroke="#087DF1"
-                  />
-                </svg>
-                <div className={styles.numberCircle}>3</div>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  width: '50%',
-                  flexDirection: 'column',
-                  rowGap: '20%',
-                  textAlign: 'left',
-                  marginLeft: '5%',
-                }}
-              >
-                <p className={styles.blueParagraphText}>
-                  <br />
-                  click the share button on your google
-                </p>
-                <p className={styles.blueParagraphText}>
-                  share with this email:{' '}
-                  <span className={styles.bold}>
-                    wdcc-membership-checker@membership-checker.iam.gserviceaccount.com
-                  </span>
-                </p>
-                <p className={styles.blueParagraphText}>
-                  click next to paste your google sheet link in the next step
-                </p>
-              </div>
-            </div>
-
-            <Button
-              buttonText="next"
-              height="40px"
-              onClick={handleOnNext}
-              fontSize="14px"
-              isLoading={isLoading}
-              width="80px"
+    <div className="flex justify-center  h-full">
+      <div className="flex flex-col items-center md:bg-[#fff] font-display pt-8 justify-top md:justify-between gap-8 p-0 bg-[transparent] md:px-10 md:py-16 rounded-xl">
+        <div className="flex flex-col md:flex-row w-full justify-center">
+          <span className="float-left">
+            <BackButton
+              onClick={() => {}}
+              color="transparent"
+              size="40px"
+              hoverColor="transparent"
+              backgroundColor="transparent"
+            />
+          </span>
+          <div className="w-full flex text-2xl text-[#087df1] md:pt-[2vh] justify-center items-center gap-1 md:gap-4 flex-row">
+            <h1 className="font-display font-bold">link your google sheet</h1>
+            <img
+              className="w-14"
+              src={GoogleSheetsLogo}
             />
           </div>
         </div>
+
+        <div className="flex flex-col justify-left gap-4">
+          {[
+            <>click the share button on your google sheet</>,
+            <>
+              share with this email:
+              <br />
+              <em className="font-bold">
+                wdcc-membership-checker@membership-checker.iam.gserviceaccount.com
+              </em>
+            </>,
+            <>click next to paste your google sheet link in the next step</>,
+          ].map((element, index) => (
+            <Direction
+              index={index + 1}
+              text={element}
+            />
+          ))}
+        </div>
+        <Button
+          buttonText="next"
+          height="40px"
+          onClick={handleOnNext}
+          fontSize="14px"
+          isLoading={isLoading}
+          width="80px"
+        />
       </div>
     </div>
   );

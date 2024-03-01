@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import { DashboardContextProvider } from '../Dashboard';
-import styles from './ClubAdminsList.module.css';
 import IDashboardContext from '../../../types/IDashboardContext';
 
 const ClubAdminsList = () => {
@@ -13,23 +12,21 @@ const ClubAdminsList = () => {
   // const admins = ["Adam McKinsley", "Bob Arthur", "Cindy Wong", "Amanda Young"];
 
   return (
-    <>
-      <div className={styles.classListContainer}>
-        <div>
-          <h1 className={styles.classListHeader}>club admins</h1>
-          <div className={styles.namesContainer}>
-            {admins.map((admin) => (
-              <p
-                key={admin}
-                className={styles.adminName}
-              >
-                {admin}
-              </p>
-            ))}
-          </div>
-        </div>
+    <div className="w-full p-4 flex flex-col gap-2">
+      <h1 className="text-[#03045e] text-lg font-bold font-display">
+        club admins
+      </h1>
+      <div className="w-full min-h-24 bg-[#E0E0E0] rounded-lg overflow-y-scroll p-2">
+        {admins.map((admin) => (
+          <p
+            key={admin}
+            className="text-[#03045e] font-display text-md"
+          >
+            {admin}
+          </p>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

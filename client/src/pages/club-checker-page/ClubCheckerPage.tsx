@@ -13,6 +13,8 @@ import Button from '../../components/Button';
 import Textfield from '../../components/Textfield';
 import styles from './ClubCheckerPage.module.css';
 import {
+  InputHTMLAttributes,
+  ReactElement,
   createRef,
   useEffect,
   useLayoutEffect,
@@ -29,6 +31,7 @@ import SadFace from '../../assets/SadFace.svg';
 import DeadFace from '../../assets/DeadFace.svg';
 import CircularProgress from '@mui/material/CircularProgress';
 import WebFont from 'webfontloader';
+import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 
 interface ClubCheckerPageProps {
   clubId?: number;
@@ -90,7 +93,7 @@ const ClubCheckerPage = ({
   }, [optionsList]); // This dependency array specifies that the effect should run whenever optionsList changes
 
   const [textFieldWidth, setTextFieldWidth] = useState(0);
-  const textFieldRef = createRef();
+  const textFieldRef = createRef<any>();
 
   useLayoutEffect(() => {
     setTextFieldWidth(textFieldLabelRef.current?.offsetWidth || 0);
@@ -104,6 +107,11 @@ const ClubCheckerPage = ({
       }
     });
   }, []);
+  useEffect(() => {
+    try {
+      textFieldRef.current.value = '';
+    } catch {}
+  }, [selectedIdentifier]);
 
   const backgroundImageBlob = useMemo(() => {
     try {
@@ -180,7 +188,7 @@ const ClubCheckerPage = ({
 
   return selectedIdentifier ? (
     <div
-      className={styles.container}
+      className="flex flex-col items-center w-full justify-center py-16 gap-6 h-full rounded-xl"
       style={{
         backgroundImage: backgroundImageBlob
           ? `url(${backgroundImageBlob})`
@@ -194,31 +202,27 @@ const ClubCheckerPage = ({
     >
       {logoImageBlob && (
         <img
-          className={styles.logo}
+          className="float-right absolute top-[15px] right-[15px]"
+          width={96}
           src={logoImageBlob}
         />
       )}
       <h1
+        className="font-bold text-5xl text-ellipsis text-center p-8"
         style={{
           color: titleTextColor,
-          font: `bold 56px "${font}"`,
-          textAlign: 'center',
-          minHeight: '45px',
-          maxWidth: '95%',
-          overflowWrap: 'break-word',
+          fontFamily: font,
         }}
       >
         {title}
       </h1>
       <select
+        className="h-[30px] w-[160px] rounded-xl"
         style={{
           backgroundColor: dropDownBackgroundColor,
-          borderRadius: '8px',
-          height: '30px',
-          width: '160px',
           color: getTextColor(dropDownBackgroundColor),
         }}
-        value={''}
+        value={selectedIdentifier.displayName}
         onChange={(event) => {
           const originalName = event.target.value;
           const columnObject = optionsList.find(
@@ -244,30 +248,7 @@ const ClubCheckerPage = ({
           </option>
         ))}
       </select>
-      <div
-        style={{
-          display: 'flex',
-          height: '45px',
-          margin: '-30px 0px 0px 0px',
-          position: 'relative',
-        }}
-      >
-        <p
-          style={{
-            alignSelf: 'center',
-            color: textFieldTextColor,
-            display: 'flex',
-            fontWeight: '900',
-            left: '10px',
-            top: '13px',
-            position: 'absolute',
-            zIndex: '1',
-            fontFamily: font,
-          }}
-          ref={textFieldLabelRef}
-        >
-          {selectedIdentifier.displayName}
-        </p>
+      <div className="flex">
         <Textfield
           backgroundColor={textFieldBackgroundColor}
           isError={isError}
@@ -286,14 +267,7 @@ const ClubCheckerPage = ({
           onFocus={handleFocus}
         />
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          // alignItems: 'center',
-          height: '25vh',
-        }}
-      >
+      <div className="flex justify-center h-[10rem]">
         {iconState === 0 && (
           <Button
             buttonText="check"
@@ -329,10 +303,9 @@ const ClubCheckerPage = ({
             )}
             {isSuccess && (
               <p
+                className="text-xl"
                 style={{
                   fontFamily: font,
-                  fontSize: '1.5rem',
-                  width: '300px',
                   color: textFieldTextColor,
                 }}
               >

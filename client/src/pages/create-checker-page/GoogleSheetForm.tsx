@@ -120,36 +120,30 @@ const GoogleSheetForm = ({ onNext, onBack }: GoogleSheetFormProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
-    <div className={styles.container}>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          rowGap: '10vh',
-          alignItems: 'center',
-        }}
-      >
-        <div>
-          <div id={styles.CustomisePageBackButton}>
+    <div className="flex justify-center h-full">
+      <div className="flex flex-col items-center md:bg-[#fff] font-display pt-8 justify-top md:justify-between gap-8 p-0 bg-[transparent] md:px-10 md:py-16 rounded-xl w-fit">
+        <div className="flex flex-col md:flex-row w-full justify-center">
+          <span className="float-left">
             <BackButton
               onClick={onBack}
               color="#087DF1"
-              size="45px"
+              size="40px"
               hoverColor="#cceeff"
               backgroundColor="transparent"
-              margin="0 500px 0 0"
+            />
+          </span>
+          <div className="w-full flex text-2xl text-[#087df1] md:pt-[2vh] justify-center items-center gap-1 md:gap-4 flex-row">
+            <h1 className="font-display font-bold">link your google sheet</h1>
+            <img
+              className="w-14"
+              src={GoogleSheetsLogo}
             />
           </div>
-          <div className={styles.title}>
-            <h1>link your google sheet</h1>
-            <img src={GoogleSheetsLogo} />
-          </div>
-          <i className={styles.subtitle}>
-            paste the link to the google sheet with {`<club acronym>`}'s
-            membership data
-          </i>
         </div>
-        <div style={{ width: '100%', marginBottom: '-10px' }}>
+        <i className="text-xl text-[#087DF1]">
+          paste the link to the google sheet with membership data
+        </i>
+        <div className="">
           <Textfield
             errorText="enter valid link"
             fontSize="1rem"
@@ -161,8 +155,8 @@ const GoogleSheetForm = ({ onNext, onBack }: GoogleSheetFormProps) => {
             width="100%"
           />
         </div>
-        <div>
-          <p style={{ fontSize: '14px', color: '#707070' }}>
+        <div className="flex flex-col justify-center items-center w-full">
+          <p className="text-lg text-[#707070] mt-1 max-w-[60%]">
             If you have more than one google sheet (e.g. for different years),
             you can create more membership checker pages for your club later in
             the admin dashboard.
