@@ -21,11 +21,11 @@ export default function GoogleCallback() {
         setLoadingText('Error: Could not sign in with Google.');
       }
 
-      // if (isInClub) {
-      //   navigate('/dashboard');
-      // } else {
-      //   navigate('/no-clubs');
-      // }
+      if (isInClub) {
+        navigate('/dashboard');
+      } else {
+        navigate('/no-clubs');
+      }
     };
     fetchData();
   }, []);
