@@ -1,9 +1,9 @@
-import { Router } from "express";
-import { google } from "googleapis";
-import { sign } from "jsonwebtoken";
-import { config } from "dotenv";
-import { PrismaClient, User } from "@prisma/client";
-import auth from "../../middleware/auth";
+import { Router } from 'express';
+import { google } from 'googleapis';
+import { sign } from 'jsonwebtoken';
+import { config } from 'dotenv';
+import { PrismaClient, User } from '@prisma/client';
+import auth from '../../middleware/auth';
 
 export const router = Router();
 const prisma = new PrismaClient();
@@ -14,10 +14,7 @@ const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI;
 const JWT_SECRET = process.env.JWT_SECRET;
 
-const SCOPES = [
-  "profile",
-  "email",
-];
+const SCOPES = ['profile', 'email'];
 
 export const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
@@ -25,22 +22,22 @@ export const oAuth2Client = new google.auth.OAuth2(
   REDIRECT_URI
 );
 
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   const authUrl = oAuth2Client.generateAuthUrl({
-    access_type: "online",
+    access_type: 'online',
     scope: SCOPES,
   });
   res.redirect(authUrl);
 });
 
-router.post("/callback", async (req, res) => {
+router.post('/callback', async (req, res) => {
   const code = req.body.code || req.query.code;
-  if (!code) return res.status(400).send("missing code field");
+  if (!code) return res.status(400).send('missing code field');
 
   try {
     const { tokens } = await oAuth2Client.getToken(code as string);
     oAuth2Client.setCredentials(tokens);
-    const oauth2 = google.oauth2({ version: "v2", auth: oAuth2Client });
+    const oauth2 = google.oauth2({ version: 'v2', auth: oAuth2Client });
     const { data } = await oauth2.userinfo.get();
 
     if (!data.email) {
@@ -49,7 +46,7 @@ router.post("/callback", async (req, res) => {
 
     const user: User = await prisma.user.upsert({
       where: { email: data.email! },
-      update: {googleToken: tokens.access_token},
+      update: { googleToken: tokens.access_token },
       create: {
         firstName: data.given_name!,
         lastName: data.family_name!,
@@ -77,20 +74,32 @@ router.post("/callback", async (req, res) => {
       },
     });
 
+    const oneSecond = 1000;
+    const oneMinute = 60 * oneSecond;
+    const oneHour = 60 * oneMinute;
+    const oneDay = 24 * oneHour;
+    const thirtyDays = 30 * oneDay;
+
     return res
+      .cookie('auth-token', token, {
+        maxAge: thirtyDays,
+        secure: process.env.NODE_ENV == 'production',
+        httpOnly: process.env.NODE_ENV == 'production',
+        sameSite: process.env.NODE_ENV == 'production',
+        signed: false,
+      })
       .status(200)
       .json({
         isInClub: firstOrganisation != null,
-        token,
       })
       .send();
   } catch (error) {
-    console.error("Error retrieving access token", error);
-    res.status(500).send("Error retrieving access token");
+    console.error('Error retrieving access token', error);
+    res.status(500).send('Error retrieving access token');
   }
 });
 
-router.get("/user-info", auth, async (req, res) => {
+router.get('/user-info', auth, async (req, res) => {
   return res.status(200).json(req.body.user);
 });
 

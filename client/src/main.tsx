@@ -15,6 +15,8 @@ import PublicCheckerPage from './pages/public-checker-page/PublicCheckerPage';
 import OurTeam from './pages/our-team/OurTeam';
 import EditCheckerPage from './pages/create-checker-page/EditCheckerPage';
 
+axios.defaults.withCredentials = true;
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -67,10 +69,6 @@ const router = createBrowserRouter([
 ]);
 
 // Find the auth token in local storage if it exists
-const token: string | undefined = Cookies.get('token');
-if (token != undefined) {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-}
 
 if (import.meta.env.MODE == 'production') {
   axios.defaults.baseURL = '/api/';

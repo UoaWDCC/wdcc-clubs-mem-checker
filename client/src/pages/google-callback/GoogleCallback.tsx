@@ -16,26 +16,16 @@ export default function GoogleCallback() {
       const res = await axios.post('/auth/google/callback', {
         code,
       });
-      const { token, isInClub } = res.data;
-      if (!token || !isInClub) {
+      const { isInClub } = res.data;
+      if (!isInClub) {
         setLoadingText('Error: Could not sign in with Google.');
       }
 
-      const domain =
-        import.meta.env.MODE === 'production'
-          ? import.meta.env.VITE_DOMAIN // Use the production domain
-          : 'localhost'; // Use 'localhost' for other environments
-      Cookies.set('token', token, {
-        domain,
-        sameSite: 'strict',
-        secure: true,
-      });
-      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-      if (isInClub) {
-        navigate('/dashboard');
-      } else {
-        navigate('/no-clubs');
-      }
+      // if (isInClub) {
+      //   navigate('/dashboard');
+      // } else {
+      //   navigate('/no-clubs');
+      // }
     };
     fetchData();
   }, []);

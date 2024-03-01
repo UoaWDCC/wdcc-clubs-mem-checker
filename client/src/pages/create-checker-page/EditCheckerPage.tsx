@@ -18,6 +18,8 @@ import axios from 'axios';
 import WebFont from 'webfontloader';
 import { CircularProgress } from '@mui/material';
 import Instructions from './Instructions';
+import CustomiseConfirmCreate from './CustomiseConfirmCreate';
+import CustomiseConfirmEdit from './CustomiseConfirmEdit';
 
 export const PageContextProvider = createContext([{}, () => {}]);
 
@@ -120,11 +122,19 @@ const EditCheckerPage = ({ isEdit }: EditCheckerPageProps) => {
 
       <PageContextProvider.Provider value={[page, setPage]}>
         {showConfirm ? (
-          <CustomiseConfirm
-            clubDetails={clubDetails}
-            onNext={onConfirm}
-            onBack={() => setShowConfirm(false)}
-          />
+          isEdit ? (
+            <CustomiseConfirmEdit
+              clubDetails={clubDetails}
+              onNext={onConfirm}
+              onBack={() => setShowConfirm(false)}
+            />
+          ) : (
+            <CustomiseConfirmCreate
+              onNext={onConfirm}
+              clubDetails={clubDetails}
+              onBack={() => setShowConfirm(false)}
+            />
+          )
         ) : (
           steps[progress]
         )}

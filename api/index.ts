@@ -1,4 +1,4 @@
-import express, { json, Router } from 'express';
+import express, { json } from 'express';
 import cors from 'cors';
 import path from 'path';
 import { config } from 'dotenv';
@@ -12,13 +12,21 @@ import verifyRoutes from './routes/verify/verify';
 import rateLimit from 'express-rate-limit';
 import { createClient } from '@supabase/supabase-js';
 import userRoutes from './routes/user/user';
+import cookieParser from 'cookie-parser';
 
 const app = express();
+
+app.use(
+  cors({
+    optionsSuccessStatus: 200,
+    credentials: true,
+    origin: true,
+    exposedHeaders: ['Set-Cookie'],
+  })
+);
 config(); // Dotenv init
 
 const port = process.env.PORT || 3000;
-const cookieSecret = process.env.COOKIE_SECRET!;
-const sixMonths = 1000 * 60 * 60 * 24 * 182;
 
 const tenMinutes = 10 * 60 * 1000;
 // Limits client to 300 requests per 15 minutes
@@ -29,6 +37,8 @@ const rateLimiter = rateLimit({
 
 app.use(rateLimiter);
 
+app.use(cookieParser());
+
 const supabaseProjectUrl = process.env.SUPABASE_PROJECT_URL!;
 const supabaseApiKey = process.env.SUPABASE_API_KEY!;
 export const supabase = createClient(supabaseProjectUrl, supabaseApiKey);
@@ -38,18 +48,6 @@ app.use(express.static(path.join(__dirname, '../../../client/dist')));
 
 // app.set('trust proxy', true);
 
-const origin =
-  process.env.NODE_ENV == 'production'
-    ? `https://${process.env.VITE_DOMAIN}`
-    : 'http://localhost:5173';
-
-app.use(
-  cors({
-    optionsSuccessStatus: 200,
-    credentials: true,
-    origin,
-  })
-);
 app.use(json());
 
 app.use('/api/auth/google', authRoutes);
