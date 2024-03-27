@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #fff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/Montserrat-VariableFont_wght.ttf');
+}
+.montserrat {
+  font-family: 'Montserrat';
+}
+
+.fontpicker {
+  background: #e0e0e0 !important;
+  border-color: #2e2e2f !important;
+  border-radius: 4px;
+  outline: none;
+  height: 3rem;
+}
+
+.fontpicker__preview {
+  filter: invert(11%) sepia(5%) saturate(244%) hue-rotate(201deg)
+    brightness(100%) contrast(82%) !important;
+  margin-top: 0.5rem;
+}
+
+[class^='font-preview-'] {
+  filter: invert(11%) sepia(5%) saturate(244%) hue-rotate(201deg)
+    brightness(100%) contrast(82%) !important;
+}
+
+.fontpicker__option,
+.fontpicker__search {
+  background: #e0e0e0 !important;
+  color: #2e2e2f !important;
+}
+
+.fontpicker__option.selected {
+  background: #c0c0c0 !important;
+  border-width: 1px !important;
+  border-color: #2e2e2f !important;
+}

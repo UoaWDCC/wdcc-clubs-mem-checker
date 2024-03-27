@@ -1,0 +1,21 @@
+.input {
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: var(--text-align);
+}
+
+.input:focus {
+  outline: solid 1px var(--focus-border-color);
+}
+
+.input::placeholder {
+  color: var(--placeholder-color);
+  font-family: 'Montserrat';
+  opacity: 0.5;
+}
+
+.errorText {
+  color: #f58693;
+}

@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+.sign_in_page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  /* border: 1px solid red; */
+}
+
+.door-image {
+  width: min(45em, 50%);
+}
+
+.hide_for_mobile {
+  @media (max-width: 63.9375em) {
+    display: none;
+  }
+}
+
+.sign-in-container {
+  /* border: 1px solid green; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  width: 25em;
+  min-width: 25em;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  color: #183249;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  font-family: 'Montserrat';
+  color: #183249;
+}
+
+.subtitle {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #183249;
+}
+
+.sign-in-with-google-button {
+  padding: 1rem;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 2rem;
+}
+
+.logo {
+  position: absolute;
+  top: 3em;
+  right: 3em;
+  width: 9em;
+  height: auto;
+}

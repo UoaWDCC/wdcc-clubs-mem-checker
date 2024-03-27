@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+.title {
+  color: #183249;
+  position: absolute;
+  font-size: 3.3vw;
+  letter-spacing: 0.08vw;
+
+  width: 50vw;
+
+  top: 10vh;
+  left: 10.3vw;
+
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.paragraph {
+  color: #183249;
+  position: absolute;
+
+  font-size: 1.8vw;
+  line-height: 4.3vh;
+  letter-spacing: 0.05vw;
+
+  height: auto;
+  width: 45vw;
+
+  top: 40vh;
+  left: 10.4vw;
+
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+}
+
+body {
+  background-color: #fff;
+}
+
+.intro_button {
+  position: absolute;
+  left: 10.4vw;
+  top: 69vh;
+}
+
+.logo {
+  position: absolute;
+
+  top: 7vh;
+  right: 3vw;
+
+  width: 10vw;
+  height: auto;
+}
+
+.femaleProgrammer {
+  position: absolute;
+
+  top: 15vh;
+  right: 7vw;
+
+  width: auto;
+  height: 70vh;
+}

@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.button {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.buttonContent {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  place-items: center;
+}
+
+.button:hover {
+  cursor: pointer;
+  background: var(--hover-color) !important;
+}
+
+.circular_progress {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
