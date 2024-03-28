@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,7 +12,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #e6e9f1;
+  background-color: #fff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -50,11 +50,11 @@ body {
   }
 }
 @font-face {
-  font-family: 'Montserrat';
-  src: url('/Montserrat-VariableFont_wght.ttf');
+  font-family: "Montserrat";
+  src: url("/Montserrat-VariableFont_wght.ttf");
 }
 .montserrat {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
 
 .fontpicker {
@@ -71,7 +71,7 @@ body {
   margin-top: 0.5rem;
 }
 
-[class^='font-preview-'] {
+[class^="font-preview-"] {
   filter: invert(11%) sepia(5%) saturate(244%) hue-rotate(201deg)
     brightness(100%) contrast(82%) !important;
 }
