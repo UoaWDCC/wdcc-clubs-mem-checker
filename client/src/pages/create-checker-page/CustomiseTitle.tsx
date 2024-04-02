@@ -46,33 +46,25 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
-        <div id={styles.CustomisePageBackButton}>
-          <BackButton
+        <BackButton
             onClick={onBack}
             color="#087DF1"
             size="27px"
             hoverColor="#cceeff"
             backgroundColor="transparent"
-            margin="0 500px 0 0"
-          />
-        </div>
+            margin='-12px 0 0 -24px'
+        />
         <div className={styles.title}>
-          <h1>customise page</h1>
+          <h1>customise page for your members</h1>
         </div>
-        <i
-          className={styles.subtitle}
-          style={{ fontWeight: 500 }}
-        >
-          customise page for your members
-        </i>
-        <div style={{ marginTop: '10vh' }}>
+        <div className='my-6'>
           <p style={{ color: '#AAAAAA', fontStyle: 'italic', float: 'left' }}>
             please edit your title
           </p>
           <Textfield
-            width="20vw"
-            height="5vh"
-            fontSize="2.5vh"
+            width="300px"
+            height="45px"
+            fontSize="20px"
             ref={titleRef}
             errorText="please enter a title to continue"
             isError={error}
@@ -85,12 +77,12 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
             }}
           />
         </div>
-        <div id={styles.CustomisePageNextButton}>
+        <div>
           <Button
             onClick={handleNext}
             buttonText="next"
-            width="7vw"
-            height="4.5vh"
+            width="90px"
+            height="50px"
           />
         </div>
       </div>
@@ -113,7 +105,6 @@ const CustomiseTitle = ({ onNext, onBack }: CustomiseTitleProps) => {
             isOnboarding={true}
           />
         </div>
-        <i>page preview</i>
       </div>
     </div>
   );

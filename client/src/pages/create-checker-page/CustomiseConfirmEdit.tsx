@@ -69,31 +69,20 @@ const CustomiseConfirmEdit = ({
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
-        <div id={styles.CustomisePageBackButton}>
-          <BackButton
+        <BackButton
             onClick={onBack}
             color="#087DF1"
             size="27px"
             hoverColor="#cceeff"
             backgroundColor="transparent"
-            margin="0 500px 0 0"
+            margin="0 0 0 -24px"
           />
-        </div>
+        
         <div className={styles.title}>
-          <h1>customise page</h1>
+          <h1>customise page for your members</h1>
         </div>
-        <i
-          className={styles.subtitle}
-          style={{ fontWeight: 500 }}
-        >
-          customise page for your members
-        </i>
         <div
-          style={{
-            marginTop: '7.5vh',
-            marginLeft: '4.75vw',
-            marginRight: '4.75vw',
-          }}
+
         >
           <p
             style={{
@@ -101,20 +90,22 @@ const CustomiseConfirmEdit = ({
               float: 'left',
               fontFamily: 'Montserrat',
               fontWeight: '450',
-              fontSize: '1.5rem',
+              fontSize: '1rem',
               lineHeight: '1.25',
+              marginTop: '20px',
+              marginBottom: '20px',
             }}
           >
             please ensure that you are happy with how your page preview looks
             and click confirm to edit the page
           </p>
         </div>
-        <div id={styles.CustomisePageNextButton}>
+        <div>
           <Button
             onClick={handleNext}
             buttonText="confirm"
-            width="6vw"
-            height="5vh"
+            width="110px"
+            height="50px"
             fontWeight="500"
             isLoading={isLoading}
           />

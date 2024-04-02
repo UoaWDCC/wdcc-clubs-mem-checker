@@ -20,14 +20,13 @@
   display: flex;
   flex-direction: column;
   font-family: 'Montserrat', sans-serif;
-  min-height: 75%;
-  justify-content: space-between;
   margin: 100px auto;
   padding: 4% 6%;
   position: relative;
   row-gap: 6%;
   text-align: center;
-  width: 45%;
+  width: fit-content;
+  height: fit-content;
 }
 
 #progressBarContainer {
@@ -55,13 +54,9 @@
 }
 
 .title {
-  display: flex;
-  font-size: 1rem;
-  text-align: left;
   color: #087df1;
-  font-family: 'Montserrat';
-  line-height: 40px;
-  padding-top: 2vh;
+  font-weight: 600;
+  font-size: 18px;
 }
 
 .subtitle {
@@ -74,11 +69,9 @@
 }
 
 .customisePageTitle {
-  display: flex;
-  font-size: 33px;
-  text-align: center;
-  font-family: 'Montserrat SemiBold';
   color: #087df1;
+  font-weight: 600;
+  font-size: 18px;
 }
 
 .blueParagraphText{
@@ -122,25 +115,22 @@
 }
 
 #customisePageContainer {
-  align-items: center;
-  column-gap: 50px;
   display: flex;
-  width: 100%;
-  padding-top: 30px;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 64px;
+  
 }
 
 #customiseContainer {
-  align-items: center;
-  background-color: white;
-  border-radius: 0px 20px 20px 0px;
-  display: flex;
-  flex-direction: column;
-  height: 65%;
-  padding: 40px 20px;
-  position: relative;
-  row-gap: 10px;
-  text-align: center;
-  width: 25%;
+  background: white;
+  width: fit-content;
+  height: fit-content;
+  padding: 48px 64px;
+  border-radius: 15px;
+ 
 }
 
 #CustomisePageBackButton {
@@ -173,8 +163,8 @@
   /* position: relative; */
   background-color: #e0e0e0;
   border-radius: 10px;
-  min-height: 100px;
-  padding: 10px 120px;
+  padding: 20px 120px;
+  margin: 30px 0;
   overflow-y: scroll;
 }
 
@@ -184,7 +174,7 @@
 } */
 
 .dropdownButtonContainer {
-  padding: 20px;
+  padding: 40px;
 }
 
 .errorMessage {
@@ -218,4 +208,14 @@
   font-family: "Montserrat";
   font-weight: 500;
   color: #087DF1;
+}
+
+@media (min-width: 924px) {
+  #customisePageContainer {
+    flex-direction: row;
+  }
+  
+  .title {
+    font-size: 20px;
+  }
 }

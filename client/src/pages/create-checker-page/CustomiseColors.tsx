@@ -25,36 +25,33 @@ const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
-        <div id={styles.CustomisePageBackButton}>
-          <BackButton
+        <BackButton
             onClick={onBack}
             color="#087DF1"
             size="27px"
             hoverColor="#cceeff"
             backgroundColor="transparent"
-            margin="0 500px 0 0"
-          />
-        </div>
+            margin='-12px 0 0 -36px'
+        />
+
         <div className={styles.title}>
-          <h1>customise page</h1>
+          <h1>customise page for your members</h1>
         </div>
-        <i
-          className={styles.subtitle}
-          style={{ fontWeight: 500 }}
-        >
-          customise page for your members
-        </i>
-        <div style={{ float: 'left', width: '100%' }}>
+
+        <div className='overflow-auto' style={{ float: 'left', width: '100%', marginBottom: '18px' }}>
           <ColorPicker />
         </div>
-        <div id={styles.CustomisePageNextButton}>
+   
+        <div className='mt-4'>
           <Button
-            onClick={onNext}
-            buttonText="next"
-            width="7vw"
-            height="4.5vh"
-          />
+              onClick={onNext}
+              buttonText="next"
+              width="90px"
+              height="50px"
+            />
         </div>
+       
+  
       </div>
       <div className={styles.previewContainer}>
         <div className={styles.preview}>
@@ -75,7 +72,6 @@ const CustomiseColors = ({ onNext, onBack }: CustomiseColorsProps) => {
             isOnboarding={true}
           />
         </div>
-        <i>page preview</i>
       </div>
     </div>
   );

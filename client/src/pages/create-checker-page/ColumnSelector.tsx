@@ -241,8 +241,8 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
         buttonText="next"
         onClick={handleOnNext}
         fontSize="14px"
-        width="7vw"
-        height="4.5vh"
+        width="80px"
+        height="50px"
       />
     </div>
   );

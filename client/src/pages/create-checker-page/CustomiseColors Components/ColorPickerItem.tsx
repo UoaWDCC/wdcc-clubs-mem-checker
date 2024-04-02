@@ -52,7 +52,6 @@ const ColorPickerItem = ({ color, setColor, title }: ColorPickerItemProps) => {
           borderBottom: "solid #4f4f4f55 2px",
           paddingBottom: "1vh",
           paddingTop: "0.5vh",
-          width: "14vw",
         }}
       >
         <div

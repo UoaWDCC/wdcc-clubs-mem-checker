@@ -120,8 +120,8 @@ const GoogleSheetForm = ({ onNext, onBack }: GoogleSheetFormProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
-    <div className="flex justify-center h-full">
-      <div className="flex flex-col items-center md:bg-[#fff] font-display pt-8 justify-top md:justify-between gap-8 p-0 bg-[transparent] md:px-10 md:py-16 rounded-xl w-fit">
+    <div className="flex justify-center">
+      <div className="flex flex-col items-center md:bg-[#fff] font-display pt-8 justify-top md:justify-between gap-10 md:gap-16 p-0 bg-[transparent] md:px-10 md:py-16 rounded-xl w-fit shadow-lg">
         <div className="flex flex-col md:flex-row w-full justify-center">
           <span className="float-left">
             <BackButton
@@ -141,7 +141,7 @@ const GoogleSheetForm = ({ onNext, onBack }: GoogleSheetFormProps) => {
           </div>
         </div>
         <i className="text-xl text-[#087DF1]">
-          paste the link to the google sheet with membership data
+          (paste the link to the google sheet with membership data)
         </i>
         <div className="">
           <Textfield
@@ -156,7 +156,7 @@ const GoogleSheetForm = ({ onNext, onBack }: GoogleSheetFormProps) => {
           />
         </div>
         <div className="flex flex-col justify-center items-center w-full">
-          <p className="text-lg text-[#707070] mt-1 max-w-[60%]">
+          <p className="text-lg text-[#707070] mt-1 max-w-[60%] text-center">
             If you have more than one google sheet (e.g. for different years),
             you can create more membership checker pages for your club later in
             the admin dashboard.

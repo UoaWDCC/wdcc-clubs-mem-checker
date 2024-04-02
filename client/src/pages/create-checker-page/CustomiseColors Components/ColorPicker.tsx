@@ -10,23 +10,8 @@ export const ColorPicker = () => {
   ];
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          background: '#E0E0E0',
-          borderRadius: '10px',
-          color: '#707070',
-          fontStyle: 'italic',
-          fontSize: '1.5vh',
-          width: '13vw',
-          height: '3vh',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontWeight: '600',
-          margin: '1vh 0vh',
-        }}
-      >
-        choose your theme colours
+      <div className='text-black py-2 opacity-75 px-3 my-4 border-b-2 border-gray-300'>
+        choose your theme colours*
       </div>
       <ColorPickerItem
         color={page.backgroundColor ? page.backgroundColor : '#ECECECEE'}

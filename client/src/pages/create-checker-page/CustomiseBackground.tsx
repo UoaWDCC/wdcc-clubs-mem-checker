@@ -21,16 +21,16 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
-        <div id={styles.CustomisePageBackButton}>
+ 
           <BackButton
             onClick={onBack}
             color="#087DF1"
             size="27px"
             hoverColor="#cceeff"
             backgroundColor="transparent"
-            margin="0 500px 0 0"
+            margin="0 0 0 -24px"
           />
-        </div>
+
         <div>
           <h2 className={styles.customisePageTitle}>customise page</h2>
           <i className={styles.subtitle}>customise page for your members</i>
@@ -49,19 +49,14 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
             />
           </div>
         </div>
-        <div id={styles.CustomisePageNextButton}>
+        <div className='mt-6'>
           <Button
             onClick={onNext}
             buttonText="next"
-            width="5vw"
+            width="90px"
+            height="50px"
           />
         </div>
-        <button
-          id={styles.CustomisePageNextButton}
-          onClick={onNext}
-        >
-          next
-        </button>
       </div>
       <div className={styles.previewContainer}>
         <div className={styles.preview}>
@@ -82,7 +77,6 @@ const CustomiseBackground = ({ onNext, onBack }: CustomiseBackgroundProps) => {
             isOnboarding={true}
           />
         </div>
-        <i>page preview</i>
       </div>
     </div>
   );

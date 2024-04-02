@@ -21,24 +21,17 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
   return (
     <div id={styles.customisePageContainer}>
       <div id={styles.customiseContainer}>
-        <div id={styles.CustomisePageBackButton}>
           <BackButton
             onClick={onBack}
             color="#087DF1"
             size="27px"
             hoverColor="#cceeff"
             backgroundColor="transparent"
-            margin="0 500px 0 0"
+            margin="0 0 0 -24px"
           />
-        </div>
         <div>
-          <h2 className={styles.customisePageTitle}>customise page</h2>
-          <i
-            className={styles.subtitle}
-            style={{ fontWeight: 500 }}
-          >
-            customise page for your members
-          </i>
+          <h2 className={styles.title}>customise page for your members</h2>
+          
           <p className={styles.optionalText}>
             please upload your club's logo (optional)
           </p>
@@ -51,12 +44,12 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
             />
           </div>
         </div>
-        <div id={styles.CustomisePageNextButton}>
+        <div className='mt-8'>
           <Button
             onClick={onNext}
             buttonText="next"
-            width="7vw"
-            height="4.5vh"
+            width="90px"
+            height="50px"
           />
         </div>
       </div>
@@ -79,7 +72,6 @@ const CustomiseLogo = ({ onNext, onBack }: CustomiseLogoProps) => {
             isOnboarding={true}
           />
         </div>
-        <i>page preview</i>
       </div>
     </div>
   );
