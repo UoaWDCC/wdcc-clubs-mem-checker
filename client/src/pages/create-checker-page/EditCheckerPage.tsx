@@ -101,12 +101,12 @@ const EditCheckerPage = ({ isEdit }: EditCheckerPageProps) => {
   return (
     <Background>
       <div className="text-[white] flex flex-col p-12  w-full justify-center">
-        <div>
+        <div className='absolute top-12'>
           <div className="gap-2 flex-row hidden lg:flex">
             {steps.map((keyValue, index) => {
               return (
                 <div
-                  className="bg-[#087df1] border-none rounded-lg h-[8px] w-[65px] opacity-75"
+                  className="bg-[#087df1] border-none rounded-lg h-[8px] w-[65px] opacity-50"
                   key={index}
                   style={index + 1 === progress ? { opacity: 1 } : {}}
                 />
