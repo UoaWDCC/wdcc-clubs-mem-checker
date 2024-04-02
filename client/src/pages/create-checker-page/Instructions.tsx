@@ -24,8 +24,8 @@ export default function Instructions({ onNext, isLoading }: InstructionsProps) {
   };
 
   return (
-    <div className="flex justify-center  h-full">
-      <div className="flex flex-col items-center md:bg-[#fff] font-display pt-8 justify-top md:justify-between gap-8 p-0 bg-[transparent] md:px-10 md:py-16 rounded-xl">
+    <div className="flex justify-center">
+      <div className="flex flex-col items-center md:bg-[#fff] font-display pt-8 justify-top gap-16 md:gap-28 p-0 bg-[transparent] md:px-10 md:py-16 rounded-xl shadow-lg">
         <div className="flex flex-col md:flex-row w-full justify-center">
           <span className="float-left">
             <BackButton
