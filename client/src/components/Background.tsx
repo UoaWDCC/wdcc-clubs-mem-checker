@@ -5,9 +5,9 @@ interface BackgroundProps {
 }
 const Background = ({ children }: BackgroundProps) => {
   return (
-    <div className="bg-[#e6e9f1] flex relative h-screen w-screen">
+    <div className="bg-[#f3f2f4] flex relative h-screen w-screen">
       <img
-        className="fixed top-4 right-4 w-[9em]"
+        className="fixed top-4 right-4 w-[7em] md:w-[9em]"
         src={WdccLogo}
       />
       {children}
