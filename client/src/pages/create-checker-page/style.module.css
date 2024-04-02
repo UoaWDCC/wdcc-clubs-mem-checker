@@ -152,6 +152,7 @@
   flex-direction: column;
   height: 80%;
   width: 55%;
+  padding: 0 10px;
 }
 
 .preview {
@@ -210,7 +211,7 @@
   color: #087DF1;
 }
 
-@media (min-width: 924px) {
+@media (min-width: 1024px) {
   #customisePageContainer {
     flex-direction: row;
   }
