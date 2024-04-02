@@ -187,8 +187,10 @@ const ClubCheckerPage = ({
   };
 
   return selectedIdentifier ? (
-    <div
-      className="flex flex-col items-center w-full justify-center py-16 gap-6 h-full rounded-xl"
+    <div className='flex flex-col justify-center items-center'>
+      <p className='mb-2 font-bold md:text-lg md:mb-4'>preview:</p>
+      <div
+      className="flex flex-col items-center px-24 lg:px-56 justify-center py-16 gap-6 h-fit rounded-xl"
       style={{
         backgroundImage: backgroundImageBlob
           ? `url(${backgroundImageBlob})`
@@ -316,6 +318,8 @@ const ClubCheckerPage = ({
         )}
       </div>
     </div>
+    </div>
+   
   ) : (
     <div className={styles.loading}>
       <CircularProgress

@@ -164,7 +164,7 @@ function SelectColumns({
 
       <i className={styles.pickColumnsDescription}>
         please select the google sheet columns you want to use as identification
-        options
+        option
       </i>
 
       <div className={styles.columnContainer}>

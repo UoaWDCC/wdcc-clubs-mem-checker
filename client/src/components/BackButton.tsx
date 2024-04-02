@@ -18,7 +18,7 @@ export interface ButtonProps {
 }
 
 const BackButton = ({
-  size = "50px",
+  size = "40px",
   margin,
   backgroundColor = "#087DF1",
   border = backgroundColor,
