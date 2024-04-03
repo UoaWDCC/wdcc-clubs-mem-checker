@@ -187,10 +187,9 @@ const ClubCheckerPage = ({
   };
 
   return selectedIdentifier ? (
-    <div className='flex flex-col justify-center items-center'>
-      <p className='mb-2 font-bold md:text-lg md:mb-4'>preview:</p>
+    <div className=' flex flex-col justify-center items-center h-full'>
       <div
-      className="flex flex-col items-center px-24 lg:px-56 justify-center py-16 gap-6 h-fit rounded-xl"
+      className="flex h-full w-full rounded-[25px] flex-col items-center px-24 lg:px-56 justify-center py-16 gap-6"
       style={{
         backgroundImage: backgroundImageBlob
           ? `url(${backgroundImageBlob})`
@@ -210,7 +209,7 @@ const ClubCheckerPage = ({
         />
       )}
       <h1
-        className="font-bold text-5xl text-ellipsis text-center p-8"
+        className="font-bold text-3xl md:text-4xl lg:text-5xl text-ellipsis text-center p-8"
         style={{
           color: titleTextColor,
           fontFamily: font,
@@ -219,7 +218,7 @@ const ClubCheckerPage = ({
         {title}
       </h1>
       <select
-        className="h-[30px] w-[160px] rounded-xl"
+        className="h-[45px] pl-1 w-[160px] rounded-xl"
         style={{
           backgroundColor: dropDownBackgroundColor,
           color: getTextColor(dropDownBackgroundColor),
@@ -319,7 +318,7 @@ const ClubCheckerPage = ({
       </div>
     </div>
     </div>
-   
+  
   ) : (
     <div className={styles.loading}>
       <CircularProgress
