@@ -32,7 +32,7 @@ const DropDown = ({
             className={styles.dropdownButton}
             onClick={() => setIsExpanded(!isExpanded)}
           >
-            <i className={styles.dropdownButtonText}>select default column</i>
+            <i className={styles.dropdownButtonText}>select a default column*</i>
             {isExpanded && (
               <ArrowUp2
                 size="18"

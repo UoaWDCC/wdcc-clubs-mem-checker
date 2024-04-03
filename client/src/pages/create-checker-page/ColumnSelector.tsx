@@ -119,8 +119,8 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
   };
 
   return (
-    <div className={styles.container}>
-      <div id={styles.backButton}>
+    <div id={styles.customisePageContainer}>
+      <div id={styles.customiseContainer}>
         <BackButton
           onClick={onBack}
           color="#087DF1"
@@ -129,8 +129,8 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
           backgroundColor="transparent"
           margin="0 500px 0 0"
         />
-      </div>
-      <div>
+
+<div>
         <div
           className={styles.title}
           style={{
@@ -237,13 +237,18 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
         ))}
       </div>
 
-      <Button
-        buttonText="next"
-        onClick={handleOnNext}
-        fontSize="14px"
-        width="80px"
-        height="50px"
-      />
+      <div className='text-center'>
+        <Button
+          buttonText="next"
+          onClick={handleOnNext}
+          fontSize="14px"
+          width="80px"
+          height="50px"
+        />
+      </div>
+      
+      </div>
+      
     </div>
   );
 };

@@ -36,10 +36,10 @@
   width: 190px;
   padding: 10px 10px;
   max-height: 200px;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-radius: 0px 0px 20px 20px;
   position: absolute;
-  
+  margin-top: 20px;
 }
 
 .dropdownListItem{

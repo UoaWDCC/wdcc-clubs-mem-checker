@@ -166,7 +166,10 @@
   border-radius: 10px;
   padding: 20px 120px;
   margin: 30px 0;
-  overflow-y: scroll;
+  overflow-y: auto;
+  max-height: 200px;
+  max-width: 450px;
+  margin: 30px auto;
 }
 
 /* .pickColumnsDescription{
@@ -219,4 +222,20 @@
   .title {
     font-size: 20px;
   }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
