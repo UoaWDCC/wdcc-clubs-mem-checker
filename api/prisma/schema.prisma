@@ -44,14 +44,14 @@ model Page {
   organisationId           Int
   sheetId                  String                 
   webLink                  String                 @unique
-  backgroundColor          String                 @default("#0582CA")
+  backgroundColor          String                 @default("#ECECEC")
   backgroundImageLink      String?
-  buttonColor              String                 @default("#53B2E3")
+  buttonColor              String                 @default("#4F4F4F")
   fontFamily               String                 @default("Montserrat")
-  headingColor             String                 @default("#FFFFFF")
+  headingColor             String                 @default("#000000")
   logoLink                 String?
-  textColor                String                 @default("#FFFFFF")
-  textFieldBackgroundColor String                 @default("#0676B6")
+  textColor                String                 @default("#000000")
+  textFieldBackgroundColor String                 @default("#E0E0E0")
   sheetTabId               String                 @default("0")
   dropDownBackgroundColor  String                 @default("#4F4F4F")
   identificationColumns    Column[]
