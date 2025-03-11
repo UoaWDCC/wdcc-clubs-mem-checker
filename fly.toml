@@ -3,7 +3,7 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "wdcc-mem"
+app = "wdcc-mem-checker"
 primary_region = "syd"
 
 [http_service]
