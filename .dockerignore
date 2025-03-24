@@ -1,6 +1,4 @@
-client/.env
-api/.env
-client/node_modules
-client/dist
-api/node_modules
-api/dist
+**/.env
+**/.env
+**/node_modules/
+**/dist/
