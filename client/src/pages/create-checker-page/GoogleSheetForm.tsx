@@ -88,6 +88,9 @@ const GoogleSheetForm = ({ onNext, onBack }: GoogleSheetFormProps) => {
       // --------------get spreadsheetId and sheetTabId
       const spreadsheetId = getSpreadsheetId(link);
       const sheetTabId = getSheetTabId(link);
+      console.log(link);
+      console.log(spreadsheetId);
+      console.log(sheetTabId);
       if (!spreadsheetId || !sheetTabId) {
         setIsError(true);
         (inputRef.current as HTMLInputElement).focus();
