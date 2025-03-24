@@ -31,10 +31,10 @@ export const getSpreadsheetId = (link: string): string | null => {
 };
 
 export const getSheetTabId = (link: string): string | null => {
-  const regex = /edit#gid=(\w+)/;
+  const regex = /#gid=(\w+)/;
   const linkArray = link.split('/');
   const gidIndex = linkArray.findIndex((value) =>
-    value.toLowerCase().startsWith('edit#gid=', 0)
+    value.toLowerCase().startsWith('#gid=', 0)
   );
   if (gidIndex === -1) return null;
   const match = linkArray[gidIndex].match(regex);
