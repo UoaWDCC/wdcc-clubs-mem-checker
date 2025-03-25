@@ -31,6 +31,7 @@ export const getSpreadsheetId = (link: string): string | null => {
 };
 
 export const getSheetTabId = (link: string): string | null => {
+  console.log("link: ", link);
   const regex = /#gid=(\w+)/;
   const linkArray = link.split('/');
   const gidIndex = linkArray.findIndex((value) =>
