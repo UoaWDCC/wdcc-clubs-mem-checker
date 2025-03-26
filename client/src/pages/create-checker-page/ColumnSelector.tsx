@@ -178,9 +178,9 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
             setDefaultColumn={setDefaultColumn}
             defaultColumn={defaultColumn}
           />
-
+          <br />
           {showError && (
-            <div className={styles.errorMessage}>
+            <div className={`${styles.errorMessage} `}>
               <Warning2
                 size="18"
                 color="#FF0000"
@@ -246,9 +246,9 @@ const ColumnSelector = ({ onNext, onBack }: ColumnSelectorProps) => {
           height="50px"
         />
       </div>
-      
+
       </div>
-      
+
     </div>
   );
 };
