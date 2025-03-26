@@ -1,5 +1,4 @@
-import styles from './style.module.css';
-import GoogleSheetsLogo from '../../assets/GoogleSheetsLogo.svg';
+import axios from 'axios';
 import {
   Dispatch,
   SetStateAction,
@@ -8,15 +7,15 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { PageContextProvider } from './EditCheckerPage';
-import IPage from '../../types/IPage';
-import Textfield from '../../components/Textfield';
-import Button from '../../components/Button';
-import LinkIcon from '../../assets/LinkIcon.svg';
-import axios from 'axios';
 import { useLocation } from 'react-router';
-import { IClubDetails } from '../club-detail-page/ClubDetailPage';
+import GoogleSheetsLogo from '../../assets/GoogleSheetsLogo.svg';
+import LinkIcon from '../../assets/LinkIcon.svg';
 import BackButton from '../../components/BackButton';
+import Button from '../../components/Button';
+import Textfield from '../../components/Textfield';
+import IPage from '../../types/IPage';
+import { IClubDetails } from '../club-detail-page/ClubDetailPage';
+import { PageContextProvider } from './EditCheckerPage';
 
 interface GoogleSheetFormProps {
   onNext: () => void;
@@ -34,8 +33,9 @@ export const getSheetTabId = (link: string): string | null => {
   console.log("link: ", link);
   const regex = /#gid=(\w+)/;
   const linkArray = link.split('/');
-  const gidIndex = linkArray.findIndex((value) =>
-    value.toLowerCase().startsWith('#gid=', 0)
+  console.log(linkArray);
+  const gidIndex = linkArray.findIndex((part) =>
+    part.toLowerCase().includes('#gid=')
   );
   if (gidIndex === -1) return null;
   const match = linkArray[gidIndex].match(regex);
@@ -60,7 +60,7 @@ const GoogleSheetForm = ({ onNext, onBack }: GoogleSheetFormProps) => {
 
   const inputRef = createRef();
   useEffect(() => {
-    console.log(page);
+    console.log("page", page);
     (inputRef.current as HTMLInputElement).setAttribute(
       'value',
       page.googleSheetLink || ''
@@ -89,9 +89,9 @@ const GoogleSheetForm = ({ onNext, onBack }: GoogleSheetFormProps) => {
       // --------------get spreadsheetId and sheetTabId
       const spreadsheetId = getSpreadsheetId(link);
       const sheetTabId = getSheetTabId(link);
-      console.log(link);
-      console.log(spreadsheetId);
-      console.log(sheetTabId);
+      console.log("link2", link);
+      console.log("sheet id", spreadsheetId);
+      console.log("tab id", sheetTabId);
       if (!spreadsheetId || !sheetTabId) {
         setIsError(true);
         (inputRef.current as HTMLInputElement).focus();
@@ -102,7 +102,7 @@ const GoogleSheetForm = ({ onNext, onBack }: GoogleSheetFormProps) => {
         .get(`/sheet/columns/${spreadsheetId}/${sheetTabId}`)
         .then((response) => {
           spreadsheetColumns = response.data;
-          console.log(response.data);
+          console.log("res.data", response.data);
           setPage({
             ...page,
             googleSheetLink: link,
@@ -111,7 +111,7 @@ const GoogleSheetForm = ({ onNext, onBack }: GoogleSheetFormProps) => {
           onNext();
         })
         .catch((error) => {
-          console.log(error);
+          console.log("Error fetching spreadsheet columns:", error);
           setIsError(true);
           setIsLoading(false);
         });
@@ -144,8 +144,10 @@ const GoogleSheetForm = ({ onNext, onBack }: GoogleSheetFormProps) => {
             />
           </div>
         </div>
-        <i className="text-xl text-[#087DF1]">
-          (paste the link to the google sheet with membership data)
+        <i className="text-xl text-[#087DF1] text-center">
+          Copy the URL in the address bar, e.g.
+          <br />
+          https://docs.google.com/spreadsheets/d/1MiVgLAC-NtHL_rARZeR1uPx04gEY-QRJzSu76xI8UvI/edit?gid=0#gid=0
         </i>
         <div className="">
           <Textfield
