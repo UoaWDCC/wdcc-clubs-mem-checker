@@ -223,7 +223,7 @@ const ClubCheckerPage = ({
           backgroundColor: dropDownBackgroundColor,
           color: getTextColor(dropDownBackgroundColor),
         }}
-        value={selectedIdentifier.displayName}
+        value={selectedIdentifier.originalName}
         onChange={(event) => {
           const originalName = event.target.value;
           const columnObject = optionsList.find(
@@ -318,7 +318,7 @@ const ClubCheckerPage = ({
       </div>
     </div>
     </div>
-  
+
   ) : (
     <div className={styles.loading}>
       <CircularProgress

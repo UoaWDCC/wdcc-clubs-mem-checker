@@ -48,7 +48,7 @@ RUN apt-get update -qq && \
 RUN yarn prisma generate
 
 # Compile TypeScript code
-RUN yarn tsc 
+RUN yarn tsc
 
 # Final stage for the app image
 FROM node:${NODE_VERSION}-slim as api-final
@@ -64,7 +64,7 @@ COPY --from=api-build /app/api/dist /app/api/dist
 COPY --from=api-build /app/api/node_modules /app/api/node_modules
 
 # Expose the required ports
-EXPOSE 443 
+EXPOSE 443
 
 # Set the default command to start the API
 CMD [ "node", "./app/api/dist/api/index.js" ]
