@@ -10,7 +10,6 @@ import auth, { maybeAuth } from './middleware/auth';
 import pagesRoutes from './routes/pages/pages';
 import verifyRoutes from './routes/verify/verify';
 import rateLimit from 'express-rate-limit';
-import { createClient } from '@supabase/supabase-js';
 import userRoutes from './routes/user/user';
 import cookieParser from 'cookie-parser';
 
@@ -36,12 +35,10 @@ const rateLimiter = rateLimit({
 });
 
 app.use(rateLimiter);
-
 app.use(cookieParser());
 
 const supabaseProjectUrl = process.env.SUPABASE_PROJECT_URL!;
 const supabaseApiKey = process.env.SUPABASE_API_KEY!;
-export const supabase = createClient(supabaseProjectUrl, supabaseApiKey);
 
 // Publicly serve the static files
 app.use(express.static(path.join(__dirname, '../../../client/dist')));

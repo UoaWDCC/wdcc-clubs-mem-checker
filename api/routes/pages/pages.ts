@@ -2,13 +2,8 @@ import express, { Request, Response } from 'express';
 import { PrismaClient, User } from '@prisma/client';
 import { nanoid } from 'nanoid';
 import auth from '../../middleware/auth';
-import { JWT } from 'google-auth-library';
-import { drive_v3, google } from 'googleapis';
 import multer, { memoryStorage } from 'multer';
-import { supabase } from '../..';
-import { v4 as uuidv4 } from 'uuid';
 import IPageCustomization from '../types/IPageCustomization';
-import serviceClient from '../../service';
 import { uploadImageToS3 } from '../../lib/s3';
 
 const prisma = new PrismaClient();
