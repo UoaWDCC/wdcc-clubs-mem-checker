@@ -9,6 +9,7 @@ import { supabase } from '../..';
 import { v4 as uuidv4 } from 'uuid';
 import IPageCustomization from '../types/IPageCustomization';
 import serviceClient from '../../service';
+import { uploadImageToS3 } from '../../lib/s3';
 
 const prisma = new PrismaClient();
 export const router = express.Router();
@@ -92,35 +93,27 @@ router.post(
       if (background && background[0]) {
         const fileName = background[0].originalname;
         const buffer = background[0].buffer;
-        const { data, error } = await supabase.storage
-          .from('image-bucket')
-          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
-            contentType: 'image/*',
-          });
-        if (error) {
-          console.error(`Error: ${JSON.stringify(error)}`);
+        try {
+          backgroundUrl = await uploadImageToS3(buffer, 'image/*', fileName);
+        } catch (error) {
+          console.error("Error uploading to S3:", error);
           return res
             .status(500)
             .send('failed to upload background to storage bucket');
         }
-        backgroundUrl = storageBucketUrlPrefix + data.path;
       }
 
       if (logo && logo[0]) {
         const fileName = logo[0].originalname;
         const buffer = logo[0].buffer;
-        const { data, error } = await supabase.storage
-          .from('image-bucket')
-          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
-            contentType: 'image/*',
-          });
-        if (error) {
-          console.error(`Error: ${JSON.stringify(error)}`);
+        try {
+          logoUrl = await uploadImageToS3(buffer, 'image/*', fileName);
+        } catch (error) {
+          console.error("Error uploading to S3:", error);
           return res
             .status(500)
             .send('failed to upload logo to storage bucket');
         }
-        logoUrl = storageBucketUrlPrefix + data.path;
       }
 
       const pathId = nanoid(); // Generate random path ID
@@ -235,36 +228,29 @@ router.post(
         const { background } = files;
         const fileName = background[0].originalname;
         const buffer = background[0].buffer;
-        const { data, error } = await supabase.storage
-          .from('image-bucket')
-          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
-            contentType: 'image/*',
-          });
-        if (error) {
-          console.error(`Error: ${JSON.stringify(error)}`);
+        try {
+          backgroundUrl = await uploadImageToS3(buffer, 'image/*', fileName);
+        } catch (error) {
+          console.error("Error uploading to S3:", error);
           return res
             .status(500)
             .send('failed to upload background to storage bucket');
         }
-        backgroundUrl = storageBucketUrlPrefix + data.path;
       }
 
       if (files && files.logo && files.logo[0]) {
         const { logo } = files;
         const fileName = logo[0].originalname;
         const buffer = logo[0].buffer;
-        const { data, error } = await supabase.storage
-          .from('image-bucket')
-          .upload(`${uuidv4()}.${fileName.split('.').pop()}`, buffer, {
-            contentType: 'image/*',
-          });
-        if (error) {
-          console.error(`Error: ${JSON.stringify(error)}`);
+
+        try {
+          logoUrl = await uploadImageToS3(buffer, 'image/*', fileName);
+        } catch (error) {
+          console.error("Error uploading to S3:", error);
           return res
             .status(500)
             .send('failed to upload logo to storage bucket');
         }
-        logoUrl = storageBucketUrlPrefix + data.path;
       }
 
       const page = await prisma.page.update({
